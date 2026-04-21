@@ -1,0 +1,41 @@
+# Secrets
+.env
+.env.local
+*.pem
+
+# Claude Code lokaler Zustand — pro Entwickler, nicht teilen
+.claude/settings.local.json
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm/
+.yarn/
+
+# Bun (wir verwenden npm im CI, package-lock.json ist massgeblich)
+bun.lockb
+bun.lock
+
+# Build / tmp
+dist/
+*.tsbuildinfo
+.cache/
+
+# Transient pipeline artefacts (der State selbst wird committet, die
+# ephemeren raw/filtered/patches-Dateien nicht).
+.automation/state/raw-items.json
+.automation/state/filtered-items.json
+.automation/state/patches.json
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Obsidian workspace-spezifisch (die Vault-Inhalte bleiben, nur User-State raus)
+MS_AI_Wiki/.obsidian/workspace*.json
+MS_AI_Wiki/.obsidian/appearance.json
+MS_AI_Wiki/.obsidian/graph.json

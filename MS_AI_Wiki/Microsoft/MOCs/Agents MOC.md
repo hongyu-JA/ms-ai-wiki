@@ -1,0 +1,44 @@
+---
+type: moc
+moc_role: primary-home
+moc_slug: agents
+tags: [MOC, agents]
+created: 2026-04-21
+updated: 2026-04-21
+---
+
+# Agents MOC
+
+Primary-Home für alle Produkte, deren Kern es ist, **Agenten zu bauen, zu hosten oder zu orchestrieren**.
+
+## Decision-Logik (in Kundengesprächen)
+
+> Wenn ein Kunde sagt… → starte bei…
+
+- „Wir wollen einen Assistenten ohne Code bauen" → **Copilot Studio** (Agent Builder / Declarative Agents)
+- „Wir wollen Multi-Agent-Orchestrierung mit Code" → **Microsoft Agent Framework (MAF)**
+- „Wir wollen den Agent in Teams deployen" → **M365 Agents SDK** (+ Teams SDK für UI)
+- „Wir müssen Agenten governance-compliant hosten" → **Agent 365** + **Entra Agent ID**
+- „Wir wollen Long-Running Multi-Step-Aufgaben" → **Copilot Cowork** (Wave 3)
+
+## Produkte in dieser MOC
+
+| Produkt | Tier | Watch | Status | Kurzbeschreibung |
+| ------- | ---- | ----- | ------ | ---------------- |
+| [[Microsoft Agent Framework]] | 1 | close | GA (2026-04-07) | Pro-Code-Framework für Agents, ersetzt SK + AutoGen |
+| Copilot Studio *(geplant)* | 1 | close | GA | Low-Code-Agent-Builder |
+| Agent 365 *(geplant)* | 1 | close | GA (2026-05-01) | Governance-Control-Plane für Agents |
+| M365 Agents SDK *(geplant)* | 2 | standard | GA | Hosting-Layer, ersetzt Bot Framework |
+
+## Deprecated-Vorgänger
+
+| Produkt | Ersetzt durch | EOS |
+| ------- | ------------- | --- |
+| [[deprecated/Bot Framework]] | M365 Agents SDK | 2025-12-31 |
+| [[deprecated/Semantic Kernel]] *(geplant)* | MAF | TBD |
+| [[deprecated/AutoGen]] *(geplant)* | MAF | TBD |
+
+## Querverweise
+
+- [[Microsoft MOC]]
+- [[Deprecation Radar]]

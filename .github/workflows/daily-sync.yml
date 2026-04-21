@@ -1,0 +1,84 @@
+name: Daily MS AI KB Sync
+
+on:
+  schedule:
+    # Täglich 06:00 UTC (≈ 08:00 CEST / 07:00 CET)
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "DRY_RUN (no Anthropic API calls, stub patches)"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: .automation
+        # `npm install` statt `npm ci` — wir committen keine package-lock.json
+        # in v0.1. Bei Bedarf später auf ci + lockfile umstellen.
+        run: npm install --no-audit --no-fund
+
+      - name: Fetch feeds
+        working-directory: .automation
+        run: npx tsx scripts/fetch.ts
+
+      - name: Stage-1 filter
+        working-directory: .automation
+        run: npx tsx scripts/filter.ts
+
+      - name: Stage-2 Claude patches
+        working-directory: .automation
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DRY_RUN: ${{ github.event.inputs.dry_run == 'true' && '1' || '' }}
+        run: npx tsx scripts/patch.ts
+
+      - name: Apply patches to Vault
+        working-directory: .automation
+        run: npx tsx scripts/apply.ts
+
+      - name: Clean transient artefacts
+        run: |
+          rm -f .automation/state/raw-items.json
+          rm -f .automation/state/filtered-items.json
+          rm -f .automation/state/patches.json
+
+      - name: Compute sync date
+        id: meta
+        run: echo "today=$(date -u +%F)" >> "$GITHUB_OUTPUT"
+
+      - name: Open pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(kb): daily sync ${{ steps.meta.outputs.today }}"
+          title: "Daily KB Sync — ${{ steps.meta.outputs.today }}"
+          body: |
+            Automatisierter Daily-Sync der Microsoft-AI-Wissensbasis.
+
+            **Bitte review die Diff-Bloecke pro Note einzeln.** Claude-generierte
+            Inhalte sind plausibel, aber nicht garantiert korrekt (siehe Arbeitsauftrag §1.5).
+
+            - [ ] Primary-Quelle pro geaenderter Note verifiziert
+            - [ ] Changelog-Eintrag faktisch korrekt
+            - [ ] `Zuletzt gesichtet` aktualisiert
+            - [ ] MOC-Tabelle konsistent
+          branch: auto/kb-sync-${{ github.run_id }}
+          labels: |
+            kb-sync
+            needs-review
+          delete-branch: true

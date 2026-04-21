@@ -1,0 +1,37 @@
+# Produkte-Matrix für Stage-1-Filter.
+# Walking-Skeleton: 1 Produkt aktiv. Weitere Tier-1-Produkte werden
+# nach und nach zugefügt (siehe PLAN §2.5).
+
+products:
+  - slug: microsoft-agent-framework
+    note: "Microsoft Agent Framework.md"
+    primary_home_moc: "Agents MOC"
+    tier: 1
+    watch: close                 # close | standard | passive
+    keywords:
+      - "Microsoft Agent Framework"
+      - "Agent Framework 1.0"
+      - "MAF"
+      - "microsoft/agent-framework"
+    regex_exclude:
+      - "Meta Agents Framework"  # falsche Positives vermeiden
+    sources:
+      - maf-github-releases
+      - devblogs-semantic-kernel
+      - azure-updates
+    changelog_trigger_sections:
+      - "Status & Pricing"
+      - "Kernkonzept"
+      - "Limitierungen & Fallstricke"
+      - "Offizielle Referenzen & Monitoring"
+    last_seen: 2026-04-21
+
+# Zukünftige Produkte als deaktivierte Stubs – wenn du sie pflegen willst,
+# enabled: true setzen und `note:` + `keywords:` füllen.
+#
+#  - slug: microsoft-365-copilot
+#    note: "Microsoft 365 Copilot.md"
+#    primary_home_moc: "Copilot MOC"
+#    tier: 1
+#    watch: close
+#    enabled: false
