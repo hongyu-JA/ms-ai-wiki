@@ -1,37 +1,438 @@
 # Produkte-Matrix für Stage-1-Filter.
-# Walking-Skeleton: 1 Produkt aktiv. Weitere Tier-1-Produkte werden
-# nach und nach zugefügt (siehe PLAN §2.5).
+# Tier-1 Notes sind `enabled: true` — Auto-Sync scannt sie täglich.
+# Tier-2 und Tier-3 Stubs sind `enabled: false` bis die Note wirklich gefüllt ist
+# und Monitoring sinnvoll wird.
 
 products:
+  # ==================================================================
+  # Tier 1 — Must-Know
+  # ==================================================================
+
+  - slug: microsoft-365-copilot
+    note: "Microsoft 365 Copilot.md"
+    primary_home_moc: "Copilot MOC"
+    tier: 1
+    watch: close
+    keywords:
+      - "Microsoft 365 Copilot"
+      - "M365 Copilot"
+      - "Copilot Wave 3"
+      - "Copilot Cowork"
+    sources: [m365-roadmap, devblogs-semantic-kernel]
+    changelog_trigger_sections: ["Status & Pricing", "Kernkonzept", "Integrationen"]
+    enabled: true
+
   - slug: microsoft-agent-framework
     note: "Microsoft Agent Framework.md"
     primary_home_moc: "Agents MOC"
     tier: 1
-    watch: close                 # close | standard | passive
+    watch: close
     keywords:
       - "Microsoft Agent Framework"
       - "Agent Framework 1.0"
       - "MAF"
       - "microsoft/agent-framework"
-    regex_exclude:
-      - "Meta Agents Framework"  # falsche Positives vermeiden
-    sources:
-      - maf-github-releases
-      - devblogs-semantic-kernel
-      - azure-updates
-    changelog_trigger_sections:
-      - "Status & Pricing"
-      - "Kernkonzept"
-      - "Limitierungen & Fallstricke"
-      - "Offizielle Referenzen & Monitoring"
-    last_seen: 2026-04-21
+    regex_exclude: ["Meta Agents Framework"]
+    sources: [maf-github-releases, devblogs-semantic-kernel]
+    changelog_trigger_sections: ["Status & Pricing", "Kernkonzept", "Limitierungen & Fallstricke"]
+    enabled: true
 
-# Zukünftige Produkte als deaktivierte Stubs – wenn du sie pflegen willst,
-# enabled: true setzen und `note:` + `keywords:` füllen.
-#
-#  - slug: microsoft-365-copilot
-#    note: "Microsoft 365 Copilot.md"
-#    primary_home_moc: "Copilot MOC"
-#    tier: 1
-#    watch: close
-#    enabled: false
+  - slug: copilot-studio
+    note: "Copilot Studio.md"
+    primary_home_moc: "Agents MOC"
+    tier: 1
+    watch: close
+    keywords:
+      - "Copilot Studio"
+      - "Power Virtual Agents"
+      - "Declarative Agent"
+      - "Agent Builder"
+      - "Agent Flows"
+    sources: [m365-roadmap, devblogs-semantic-kernel]
+    changelog_trigger_sections: ["Status & Pricing", "Kernkonzept"]
+    enabled: true
+
+  - slug: microsoft-foundry
+    note: "Microsoft Foundry.md"
+    primary_home_moc: "Azure AI MOC"
+    tier: 1
+    watch: close
+    keywords:
+      - "Microsoft Foundry"
+      - "Azure AI Foundry"
+      - "AI Foundry"
+    sources: [devblogs-foundry, azure-updates]
+    changelog_trigger_sections: ["Status & Pricing", "Kernkonzept"]
+    enabled: true
+
+  - slug: azure-ai-search
+    note: "Azure AI Search.md"
+    primary_home_moc: "Azure AI MOC"
+    tier: 1
+    watch: close
+    keywords:
+      - "Azure AI Search"
+      - "Azure Cognitive Search"
+    sources: [azure-updates]
+    changelog_trigger_sections: ["Status & Pricing", "Kernkonzept"]
+    enabled: true
+
+  - slug: agent-365
+    note: "Agent 365.md"
+    primary_home_moc: "Agents MOC"
+    tier: 1
+    watch: close
+    keywords:
+      - "Agent 365"
+    sources: [m365-roadmap]
+    changelog_trigger_sections: ["Status & Pricing", "Kernkonzept", "Limitierungen & Fallstricke"]
+    enabled: true
+
+  - slug: entra-agent-id
+    note: "Entra Agent ID.md"
+    primary_home_moc: "Security & Identity MOC"
+    tier: 1
+    watch: close
+    keywords:
+      - "Entra Agent ID"
+      - "Microsoft Entra Agent"
+    sources: [m365-roadmap, azure-updates]
+    changelog_trigger_sections: ["Status & Pricing", "Kernkonzept"]
+    enabled: true
+
+  - slug: azure-functions
+    note: "Azure Functions.md"
+    primary_home_moc: "Integration & Compute MOC"
+    tier: 1
+    watch: close
+    keywords:
+      - "Azure Functions"
+      - "Flex Consumption"
+      - "MCP Binding"
+      - "Durable Task"
+    sources: [azure-updates]
+    changelog_trigger_sections: ["Status & Pricing", "Kernkonzept"]
+    enabled: true
+
+  - slug: azure-container-apps
+    note: "Azure Container Apps.md"
+    primary_home_moc: "Integration & Compute MOC"
+    tier: 1
+    watch: close
+    keywords:
+      - "Azure Container Apps"
+    regex_exclude: ["Azure Container Registry"]
+    sources: [azure-updates]
+    changelog_trigger_sections: ["Status & Pricing", "Kernkonzept"]
+    enabled: true
+
+  - slug: apim-ai-gateway
+    note: "APIM AI Gateway.md"
+    primary_home_moc: "Integration & Compute MOC"
+    tier: 1
+    watch: close
+    keywords:
+      - "API Management AI Gateway"
+      - "APIM AI"
+      - "GenAI Gateway"
+      - "azure-openai-token-limit"
+    sources: [azure-updates]
+    changelog_trigger_sections: ["Status & Pricing", "Kernkonzept"]
+    enabled: true
+
+  - slug: model-context-protocol
+    note: "Model Context Protocol.md"
+    primary_home_moc: "Agents MOC"
+    tier: 1
+    watch: close
+    keywords:
+      - "Model Context Protocol"
+      - "MCP"
+    sources: [devblogs-semantic-kernel, azure-updates]
+    changelog_trigger_sections: ["Status & Pricing", "Kernkonzept"]
+    enabled: true
+
+  # ------------------------------------------------------------------
+  # Tier 1 — Foundry Sub-Komponenten
+  # ------------------------------------------------------------------
+
+  - slug: foundry-models
+    note: "Foundry Models.md"
+    primary_home_moc: "Azure AI MOC"
+    tier: 1
+    watch: close
+    keywords: ["Foundry Models", "Model Catalog", "Foundry Model Catalog"]
+    sources: [devblogs-foundry, azure-updates]
+    changelog_trigger_sections: ["Status & Pricing", "Kernkonzept"]
+    enabled: true
+
+  - slug: foundry-agent-service
+    note: "Foundry Agent Service.md"
+    primary_home_moc: "Azure AI MOC"
+    tier: 1
+    watch: close
+    keywords: ["Foundry Agent Service", "Azure AI Agent Service"]
+    sources: [devblogs-foundry, azure-updates]
+    changelog_trigger_sections: ["Status & Pricing", "Kernkonzept", "Limitierungen"]
+    enabled: true
+
+  - slug: foundry-control-plane
+    note: "Foundry Control Plane.md"
+    primary_home_moc: "Azure AI MOC"
+    tier: 1
+    watch: close
+    keywords: ["Foundry Control Plane", "Foundry Tracing", "Foundry Evaluation", "Responsible AI"]
+    sources: [devblogs-foundry]
+    changelog_trigger_sections: ["Status & Pricing", "Kernkonzept"]
+    enabled: true
+
+  - slug: foundry-iq
+    note: "Foundry IQ.md"
+    primary_home_moc: "Azure AI MOC"
+    tier: 1
+    watch: close
+    keywords: ["Foundry IQ"]
+    sources: [devblogs-foundry]
+    changelog_trigger_sections: ["Status & Pricing", "Kernkonzept"]
+    enabled: true
+
+  - slug: foundry-tools
+    note: "Foundry Tools.md"
+    primary_home_moc: "Azure AI MOC"
+    tier: 1
+    watch: close
+    keywords:
+      - "Foundry Tools"
+      - "Document Intelligence"
+      - "Content Understanding"
+      - "Azure AI Services"
+    sources: [azure-updates, devblogs-foundry]
+    changelog_trigger_sections: ["Status & Pricing", "Kernkonzept"]
+    enabled: true
+
+  - slug: azure-machine-learning
+    note: "Azure Machine Learning.md"
+    primary_home_moc: "Azure AI MOC"
+    tier: 1
+    watch: passive
+    keywords: ["Azure Machine Learning", "Azure ML"]
+    sources: [azure-updates]
+    changelog_trigger_sections: ["Status & Pricing"]
+    enabled: true
+
+  - slug: foundry-local
+    note: "Foundry Local.md"
+    primary_home_moc: "Azure AI MOC"
+    tier: 1
+    watch: close
+    keywords:
+      - "Foundry Local"
+      - "Windows AI Foundry"
+    sources: [devblogs-foundry]
+    changelog_trigger_sections: ["Status & Pricing", "Kernkonzept"]
+    enabled: true
+
+  - slug: foundry-sdks
+    note: "Foundry SDKs.md"
+    primary_home_moc: "Azure AI MOC"
+    tier: 1
+    watch: close
+    keywords: ["AIProjectClient", "azure-ai-projects", "Azure.AI.Projects", "Foundry SDK"]
+    sources: [devblogs-foundry, azure-updates]
+    changelog_trigger_sections: ["Status & Pricing", "Kernkonzept"]
+    enabled: true
+
+  # ==================================================================
+  # Tier 2 — Important (deaktiviert bis Notes gefüllt sind)
+  # ==================================================================
+
+  - slug: m365-agents-sdk
+    note: "M365 Agents SDK.md"
+    primary_home_moc: "Agents MOC"
+    tier: 2
+    watch: standard
+    keywords: ["M365 Agents SDK", "Microsoft 365 Agents SDK", "Agents Toolkit"]
+    sources: [devblogs-semantic-kernel]
+    changelog_trigger_sections: []
+    enabled: false
+
+  - slug: teams-sdk
+    note: "Teams SDK.md"
+    primary_home_moc: "Agents MOC"
+    tier: 2
+    watch: standard
+    keywords: ["Teams SDK", "Teams AI Library"]
+    sources: []
+    changelog_trigger_sections: []
+    enabled: false
+
+  - slug: microsoft-graph
+    note: "Microsoft Graph.md"
+    primary_home_moc: "Data & Knowledge MOC"
+    tier: 2
+    watch: standard
+    keywords: ["Microsoft Graph", "Graph API"]
+    sources: []
+    changelog_trigger_sections: []
+    enabled: false
+
+  - slug: copilot-connectors
+    note: "Microsoft 365 Copilot Connectors.md"
+    primary_home_moc: "Copilot MOC"
+    tier: 2
+    watch: standard
+    keywords: ["Copilot Connectors", "Graph Connectors"]
+    sources: []
+    changelog_trigger_sections: []
+    enabled: false
+
+  - slug: dataverse
+    note: "Dataverse.md"
+    primary_home_moc: "Data & Knowledge MOC"
+    tier: 2
+    watch: standard
+    keywords: ["Dataverse", "Common Data Service"]
+    sources: []
+    changelog_trigger_sections: []
+    enabled: false
+
+  - slug: logic-apps
+    note: "Logic Apps.md"
+    primary_home_moc: "Integration & Compute MOC"
+    tier: 2
+    watch: standard
+    keywords: ["Azure Logic Apps"]
+    sources: []
+    changelog_trigger_sections: []
+    enabled: false
+
+  - slug: power-automate
+    note: "Power Automate.md"
+    primary_home_moc: "Integration & Compute MOC"
+    tier: 2
+    watch: standard
+    keywords: ["Power Automate", "Agent Flows"]
+    sources: []
+    changelog_trigger_sections: []
+    enabled: false
+
+  - slug: microsoft-purview
+    note: "Microsoft Purview.md"
+    primary_home_moc: "Security & Identity MOC"
+    tier: 2
+    watch: standard
+    keywords: ["Microsoft Purview", "Purview DSPM"]
+    sources: []
+    changelog_trigger_sections: []
+    enabled: false
+
+  - slug: defender-for-ai
+    note: "Defender for AI.md"
+    primary_home_moc: "Security & Identity MOC"
+    tier: 2
+    watch: standard
+    keywords: ["Defender for AI"]
+    sources: []
+    changelog_trigger_sections: []
+    enabled: false
+
+  - slug: azure-ai-content-safety
+    note: "Azure AI Content Safety.md"
+    primary_home_moc: "Security & Identity MOC"
+    tier: 2
+    watch: standard
+    keywords: ["Azure AI Content Safety", "Prompt Shields"]
+    sources: []
+    changelog_trigger_sections: []
+    enabled: false
+
+  - slug: microsoft-entra-suite
+    note: "Microsoft Entra Suite.md"
+    primary_home_moc: "Security & Identity MOC"
+    tier: 2
+    watch: standard
+    keywords: ["Microsoft Entra Suite"]
+    sources: []
+    changelog_trigger_sections: []
+    enabled: false
+
+  - slug: microsoft-365-e7
+    note: "Microsoft 365 E7.md"
+    primary_home_moc: "Licensing & SKUs MOC"
+    tier: 2
+    watch: close
+    keywords: ["Microsoft 365 E7", "M365 E7", "Frontier Program"]
+    sources: [m365-roadmap]
+    changelog_trigger_sections: []
+    enabled: false
+
+  # ==================================================================
+  # Tier 3 — Awareness (deaktiviert)
+  # ==================================================================
+
+  - slug: ms-ai-dev-tooling
+    note: "Microsoft AI Developer Tooling.md"
+    primary_home_moc: "Integration & Compute MOC"
+    tier: 3
+    watch: passive
+    keywords: ["VS Code AI Toolkit", "GitHub Copilot Cloud Agents", "azd AI"]
+    sources: []
+    enabled: false
+
+  - slug: azure-openai-pricing
+    note: "Azure OpenAI Service Pricing.md"
+    primary_home_moc: "Azure AI MOC"
+    tier: 3
+    watch: passive
+    keywords: ["Azure OpenAI PAYG", "Azure OpenAI PTU", "Azure OpenAI Batch"]
+    sources: []
+    enabled: false
+
+  - slug: cosmos-db-for-ai
+    note: "Azure Cosmos DB for AI.md"
+    primary_home_moc: "Data & Knowledge MOC"
+    tier: 3
+    watch: passive
+    keywords: ["Cosmos DB Vector"]
+    sources: []
+    enabled: false
+
+  - slug: fabric-data-agents
+    note: "Microsoft Fabric.md"
+    primary_home_moc: "Data & Knowledge MOC"
+    tier: 3
+    watch: passive
+    keywords: ["Microsoft Fabric", "OneLake", "Fabric Data Agents"]
+    sources: []
+    enabled: false
+
+  # ==================================================================
+  # Deprecated
+  # ==================================================================
+
+  - slug: bot-framework
+    note: "deprecated/Bot Framework.md"
+    primary_home_moc: "Agents MOC"
+    tier: 2
+    watch: passive
+    keywords: ["Bot Framework", "BF v4", "Microsoft Bot Builder"]
+    sources: [devblogs-semantic-kernel]
+    enabled: true
+
+  - slug: semantic-kernel
+    note: "deprecated/Semantic Kernel.md"
+    primary_home_moc: "Agents MOC"
+    tier: 2
+    watch: passive
+    keywords: ["Semantic Kernel", "SK"]
+    sources: [devblogs-semantic-kernel]
+    enabled: false
+
+  - slug: autogen
+    note: "deprecated/AutoGen.md"
+    primary_home_moc: "Agents MOC"
+    tier: 2
+    watch: passive
+    keywords: ["AutoGen", "MS AutoGen"]
+    sources: [devblogs-semantic-kernel]
+    enabled: false
