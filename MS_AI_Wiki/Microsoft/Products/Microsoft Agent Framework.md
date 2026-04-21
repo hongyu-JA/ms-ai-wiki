@@ -91,6 +91,35 @@ Die Konsolidierung ist **inhaltlich**, nicht nur kosmetisch: die Kernabstraktion
 - Kontext: Pflicht für Produktiv-Einsatz.
 - Grenzen: Eval-Scores hängen stark vom Judge-Modell ab — nicht blind trauen.
 
+**Fähigkeit 5 — Agent Skills (.NET)**
+- Mechanik: Skills können auf drei Arten erstellt werden — als **Dateien auf Disk**, als **Inline-C#-Code** oder als **gekapselte Klassen** — und werden über einen einzigen gemeinsamen `SkillProvider` ausgeführt.
+- Kontext: Der Provider kombiniert alle drei Authoring-Varianten beliebig, sodass Teams ihre bevorzugte Abstraktion wählen können, ohne die Laufzeitumgebung zu wechseln.
+- Besonderheiten: Built-in Script Execution ist integriert; für Script-Calls steht ein **Human-Approval-Mechanismus** zur Verfügung, der eine manuelle Freigabe vor Ausführung erzwingen kann.
+- Grenzen: Feature aktuell nur für **.NET** dokumentiert; Python-Parität noch offen (vgl. bekannte .NET-First-Asymmetrie).
+
+**Fähigkeit 5 — Checkpoint Storage (Python)**
+- Mechanik: Persistente Workflow-Zustände via `FileCheckpointStorage` (lokal) oder dem neuen `agent-framework-azure-cosmos` Cosmos DB NoSQL Storage.
+- Kontext: Cosmos DB-Variante ermöglicht skalierbares, serverless Checkpoint-Management für Python-Workflows.
+- Grenzen: `FileCheckpointStorage` erfordert ab 1.0.1 explizite Whitelisting-Konfiguration für eigene Typen (`allowed_checkpoint_types`) — sonst `WorkflowCheckpointException` bei Load.
+
+**Fähigkeit 5 — Gemini-Integration (neu in 1.1.0)**
+- Mechanik: `GeminiChatClient` im neuen Package `agent-framework-gemini` ermöglicht die direkte Nutzung von Google-Gemini-Modellen als Chat-Backend.
+- Kontext: Erster offizieller Non-Azure/Non-OpenAI Client im Framework — erweitert Multi-Modell-Strategie.
+- Grenzen: Initiales Release; Feature-Parität zu OpenAI/Foundry-Client noch nicht vollständig dokumentiert.
+
+**Fähigkeit 6 — Hyperlight CodeAct (neu in 1.1.0)**
+- Mechanik: Package `agent-framework-hyperlight` bringt Hyperlight-basierte CodeAct-Ausführung (isolierte Micro-VM-Sandbox für Code-Execution durch Agenten).
+- Kontext: Erhöht Sicherheit bei Code-ausführenden Agenten erheblich — relevant für Pro-Code-Szenarien mit untrusted Tool-Output.
+- Grenzen: Eigenes Package, erfordert Hyperlight-Runtime-Infrastruktur.
+
+**Fähigkeit 7 — Foundry Toolboxes & Hosted Agent V2 (neu in 1.1.0)**
+- Mechanik: `agent-framework-foundry` unterstützt jetzt Foundry Toolboxes (gebündelte Tool-Sammlungen aus dem Foundry-Katalog) sowie die Hosted Agent V2 API.
+- Kontext: Vereinfacht die Anbindung von verwalteten Foundry-Tools ohne manuelle Tool-Definitionen.
+- Grenzen: Foundry Agent Service aktuell nur North Central US (DSGVO-Flag bleibt bestehen).
+
+
+
+
 ### Typischer Workflow
 
 1. **Setup** — `dotnet add package Microsoft.AgentFramework` / `pip install microsoft-agent-framework`, Foundry-Project + Modell-Deployment, Entra-App-Registration für Tools.
@@ -119,6 +148,15 @@ Die Konsolidierung ist **inhaltlich**, nicht nur kosmetisch: die Kernabstraktion
 - **Fallstrick:** Teams sehen MAF als Drop-in-Ersatz für Semantic Kernel — **Warum:** APIs sind _nah_, aber Thread-Semantik und Plugin-System sind neu — **Gegenmittel:** Migrations-Runbook + kleiner Pilot, nicht Big-Bang.
 - **Fallstrick:** Multi-Agent wird als "mehr Agenten = besser" verkauft — **Warum:** Jeder zusätzliche Agent ist Latenz + Kosten + Failure-Mode — **Gegenmittel:** Standard-Antwort "Single-Agent zuerst, Multi nur wenn Verantwortung klar trennbar".
 - **Fallstrick:** DSGVO wird übersehen, weil MAF lokal läuft — **Warum:** Modell-Endpunkt zieht Daten in die Modell-Region — **Gegenmittel:** Foundry-Region prüfen, ggf. Foundry Local.
+
+### Security-Hinweise (Python SDK ≥ 1.0.1)
+
+- **`FileCheckpointStorage` – restricted unpickler (Breaking Change):** Ab 1.0.1 läuft Checkpoint-Deserialisierung standardmäßig durch einen eingeschränkten Unpickler, der nur sichere Python-Built-in-Typen sowie alle `agent_framework`-Framework-Typen zulässt. Eigene Klassen in Checkpoints müssen über den neuen Konstruktorparameter `allowed_checkpoint_types` (Format: `"module:qualname"`) explizit freigegeben werden — sonst wirft der Load eine `WorkflowCheckpointException`. → [Security Considerations](https://learn.microsoft.com/en-us/agent-framework/workflows/checkpoints?pivots=programming-language-python#security-considerations)
+- **Cosmos DB NoSQL Checkpoint Storage:** Neues Package `agent-framework-azure-cosmos` bietet skalierbaren, verwalteten Checkpoint-Store als Alternative zu `FileCheckpointStorage`.
+
+**Breaking Change (python-1.1.0):** `CosmosCheckpointStorage` (package `agent-framework-azure-cosmos`) verwendet ab 1.1.0 **restriktive Pickle-Deserialisierung per Default**. Bestehende Checkpoints mit nicht erlaubten Typen können nicht mehr geladen werden — Migration erforderlich, bevor ein Upgrade auf 1.1.0 eingespielt wird.
+
+
 
 ## 6. Offizielle Referenzen & Monitoring
 
@@ -149,8 +187,14 @@ Die Konsolidierung ist **inhaltlich**, nicht nur kosmetisch: die Kernabstraktion
 
 ## 7. Changelog
 
+
+
+
 | Datum | Autor | Änderung | Quelle |
 | ----- | ----- | -------- | ------ |
+| 2026-04-21 | auto-sync | Python SDK 1.1.0: GeminiChatClient (Gemini-Integration), Hyperlight CodeAct-Package, Foundry Toolboxes & Hosted Agent V2, A2A-Metadaten-Propagation, AG-UI forwardedProps via Session-Metadata, finish_reason in AgentResponse, experimenteller File-History-Provider, AgentExecutorResponse.with_text(). BREAKING: CosmosCheckpointStorage nutzt jetzt restriktive Pickle-Deserialisierung per Default. | https://github.com/microsoft/agent-framework/releases/tag/python-1.1.0 |
+| 2026-04-10 | auto-sync | Python SDK 1.0.1: Security-Hardening für FileCheckpointStorage (restricted unpickler, Breaking Change), neuer Cosmos DB NoSQL Checkpoint Storage (`agent-framework-azure-cosmos`), Breaking Change im Handoff-Workflow-Context-Management. | https://github.com/microsoft/agent-framework/releases/tag/python-1.0.1 |
+| 2026-04-13 | auto-sync | Agent Skills in .NET: Drei Authoring-Varianten (Datei-basiert, Inline-C#-Code, gekapselte Klassen) können frei kombiniert und über einen einzigen Provider ausgeführt werden. Hinzu kommen Built-in Script Execution sowie ein Human-Approval-Mechanismus für Script-Calls. | https://devblogs.microsoft.com/agent-framework/agent-skills-in-net-three-ways-to-author-one-provider-to-run-them/ |
 | 2026-04-21 | Hongyu | Note angelegt als Walking-Skeleton-Referenz | — |
 
 ## 8. Integrationen *(close)*
