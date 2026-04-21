@@ -3,7 +3,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { PROMPT_SYSTEM } from "./paths.js";
 
 const MODEL = process.env.ANTHROPIC_MODEL || "claude-sonnet-4-6";
-const MAX_TOKENS = Number(process.env.ANTHROPIC_MAX_TOKENS ?? 1200);
+const MAX_TOKENS = Number(process.env.ANTHROPIC_MAX_TOKENS ?? 1500);
 
 export interface PatchDecision {
   decision: "update" | "new_product" | "deprecate" | "skip";
@@ -35,20 +35,128 @@ export function loadSystemPrompt(): string {
   return fs.readFileSync(PROMPT_SYSTEM, "utf8");
 }
 
-function extractJson(text: string): string {
-  // Strip accidental code fences / prose.
-  const fence = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
-  if (fence) return fence[1]!.trim();
-  const first = text.indexOf("{");
-  const last = text.lastIndexOf("}");
-  if (first >= 0 && last > first) return text.slice(first, last + 1);
-  return text.trim();
-}
+/**
+ * Input-Schema für das `emit_patch`-Tool. Anthropic validiert die vom Modell
+ * erzeugte Struktur gegen dieses Schema — damit können wir kein JSON.parse
+ * mehr auf rohen Markdown-behafteten Text machen (der Grund für den v0.1-Bug).
+ */
+const EMIT_PATCH_TOOL = {
+  name: "emit_patch",
+  description:
+    "Gibt den berechneten Patch für die Produkt-Note zurück. Rufe dieses Tool genau einmal auf. Alle Text-Felder sind UTF-8-Strings; JSON-Escapes sind unnötig, da der Server das Escaping übernimmt.",
+  input_schema: {
+    type: "object" as const,
+    properties: {
+      decision: {
+        type: "string",
+        enum: ["update", "new_product", "deprecate", "skip"],
+      },
+      reason: { type: "string", description: "Ein Satz, warum diese Entscheidung." },
+      confidence: { type: "string", enum: ["high", "medium", "low"] },
+      changelog_entry: {
+        anyOf: [
+          { type: "null" },
+          {
+            type: "object",
+            properties: {
+              date: { type: "string", description: "YYYY-MM-DD" },
+              change: { type: "string" },
+              source: { type: "string" },
+            },
+            required: ["date", "change", "source"],
+          },
+        ],
+      },
+      section_patches: {
+        type: "array",
+        items: {
+          type: "object",
+          properties: {
+            section: {
+              type: "string",
+              description:
+                "Exakter Sektions-Titel aus dem Template, z. B. 'Status & Pricing'.",
+            },
+            mode: { type: "string", enum: ["append", "replace"] },
+            new_content: {
+              type: "string",
+              description:
+                "Markdown-Fragment. Mehrzeilige Tabellen/Listen sind erlaubt — der Server escape't Newlines selbst.",
+            },
+          },
+          required: ["section", "mode", "new_content"],
+        },
+      },
+      moc_updates: {
+        type: "array",
+        items: {
+          type: "object",
+          properties: {
+            moc: {
+              type: "string",
+              description: "MOC-Dateiname ohne .md, z. B. 'Agents MOC'.",
+            },
+            action: {
+              type: "string",
+              enum: ["add_row", "update_row", "mark_deprecated"],
+            },
+            payload: {
+              type: "object",
+              description:
+                "Frei geformtes Objekt mit mindestens 'product' und 'columns'.",
+            },
+          },
+          required: ["moc", "action", "payload"],
+        },
+      },
+      deprecation_radar_update: {
+        anyOf: [
+          { type: "null" },
+          {
+            type: "object",
+            properties: {
+              product: { type: "string" },
+              severity: {
+                type: "string",
+                description: "'🔴 akut' | '🟡 mittel' | '🟢 entspannt'",
+              },
+              replaced_by: { anyOf: [{ type: "null" }, { type: "string" }] },
+              eos_date: {
+                anyOf: [{ type: "null" }, { type: "string" }],
+                description: "YYYY-MM-DD oder null",
+              },
+              migration_path: { type: "string" },
+            },
+            required: [
+              "product",
+              "severity",
+              "replaced_by",
+              "eos_date",
+              "migration_path",
+            ],
+          },
+        ],
+      },
+    },
+    required: [
+      "decision",
+      "reason",
+      "confidence",
+      "changelog_entry",
+      "section_patches",
+      "moc_updates",
+      "deprecation_radar_update",
+    ],
+  },
+} as const;
 
 /**
- * Call Claude with prompt-caching on the system prompt.
- * In DRY_RUN mode (no API key, or DRY_RUN=1), synthesize a deterministic
- * stub patch so the pipeline is runnable end-to-end without an API key.
+ * Ruft Claude mit erzwungener Tool-Verwendung auf. System-Prompt bleibt
+ * prompt-cached (ephemeral). Antwort kommt als `tool_use`-Block mit bereits
+ * geparstem `input` — keine Risiken durch Markdown-in-JSON.
+ *
+ * Dry-Run (DRY_RUN=1 oder fehlender API-Key) gibt einen deterministischen
+ * Stub zurück, damit die Pipeline auch ohne API lauffähig bleibt.
  */
 export async function askClaudeForPatch(
   systemPrompt: string,
@@ -69,14 +177,25 @@ export async function askClaudeForPatch(
         cache_control: { type: "ephemeral" },
       },
     ],
+    tools: [EMIT_PATCH_TOOL],
+    tool_choice: { type: "tool", name: EMIT_PATCH_TOOL.name },
     messages: [{ role: "user", content: userPrompt }],
   });
-  const out = resp.content
-    .filter((b) => b.type === "text")
-    .map((b) => (b as { type: "text"; text: string }).text)
-    .join("\n");
-  const jsonText = extractJson(out);
-  return JSON.parse(jsonText) as PatchDecision;
+
+  const toolUse = resp.content.find(
+    (b): b is Extract<typeof b, { type: "tool_use" }> => b.type === "tool_use",
+  );
+  if (!toolUse) {
+    const textDump = resp.content
+      .filter((b) => b.type === "text")
+      .map((b) => (b as { type: "text"; text: string }).text)
+      .join("\n")
+      .slice(0, 500);
+    throw new Error(
+      `Claude returned no tool_use block (stop_reason=${resp.stop_reason}). Text was: ${textDump}`,
+    );
+  }
+  return toolUse.input as PatchDecision;
 }
 
 function dryRunStub(ctx: {
