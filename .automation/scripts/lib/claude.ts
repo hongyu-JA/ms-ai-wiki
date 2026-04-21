@@ -4,6 +4,7 @@ import { PROMPT_SYSTEM } from "./paths.js";
 
 const MODEL = process.env.ANTHROPIC_MODEL || "claude-sonnet-4-6";
 const MAX_TOKENS = Number(process.env.ANTHROPIC_MAX_TOKENS ?? 1500);
+const REQUEST_TIMEOUT_MS = Number(process.env.ANTHROPIC_TIMEOUT_MS ?? 45_000);
 
 export interface PatchDecision {
   decision: "update" | "new_product" | "deprecate" | "skip";
@@ -166,7 +167,7 @@ export async function askClaudeForPatch(
   const dryRun = process.env.DRY_RUN === "1" || !process.env.ANTHROPIC_API_KEY;
   if (dryRun) return dryRunStub(ctx);
 
-  const client = new Anthropic();
+  const client = new Anthropic({ timeout: REQUEST_TIMEOUT_MS, maxRetries: 2 });
   const resp = await client.messages.create({
     model: MODEL,
     max_tokens: MAX_TOKENS,

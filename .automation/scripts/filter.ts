@@ -28,6 +28,11 @@ export interface FilteredItem {
   variant: "update" | "new_product_candidate" | "deprecation_candidate";
 }
 
+// Obergrenze pro Produkt pro Lauf. Verhindert, dass der erste Run 30+ historische
+// Release-Notes in ein einziges Note-Changelog kippt. Env-var `MAX_ITEMS_PER_PRODUCT`
+// überschreibt den Default.
+const MAX_PER_PRODUCT = Number(process.env.MAX_ITEMS_PER_PRODUCT ?? 5);
+
 function readJson<T>(p: string, fallback: T): T {
   if (!fs.existsSync(p)) return fallback;
   return JSON.parse(fs.readFileSync(p, "utf8")) as T;
@@ -142,12 +147,31 @@ function main() {
     }
   }
 
-  fs.writeFileSync(STATE_FILTERED, JSON.stringify(filtered, null, 2));
+  // Pro Produkt auf MAX_PER_PRODUCT kappen — neueste zuerst.
+  const capped: FilteredItem[] = [];
+  const byProduct = new Map<string, FilteredItem[]>();
+  for (const fi of filtered) {
+    const bucket = byProduct.get(fi.product_slug) ?? [];
+    bucket.push(fi);
+    byProduct.set(fi.product_slug, bucket);
+  }
+  let capDropped = 0;
+  for (const [, bucket] of byProduct) {
+    bucket.sort((a, b) => {
+      const da = a.item.published ? Date.parse(a.item.published) : 0;
+      const db = b.item.published ? Date.parse(b.item.published) : 0;
+      return db - da;
+    });
+    capped.push(...bucket.slice(0, MAX_PER_PRODUCT));
+    if (bucket.length > MAX_PER_PRODUCT) capDropped += bucket.length - MAX_PER_PRODUCT;
+  }
+
+  fs.writeFileSync(STATE_FILTERED, JSON.stringify(capped, null, 2));
   fs.writeFileSync(STATE_SEEN, JSON.stringify(nextSeen, null, 2));
   fs.writeFileSync(STATE_HASHES, JSON.stringify(nextHashes, null, 2));
 
   console.log(
-    `[filter] raw=${raw.length}, filtered=${filtered.length}, seen-dup=${skippedSeen}, no-match=${skippedNoMatch}, freq-skipped=${skippedFrequency}`,
+    `[filter] raw=${raw.length}, filtered=${capped.length} (${capDropped} gekappt auf max ${MAX_PER_PRODUCT}/Produkt), seen-dup=${skippedSeen}, no-match=${skippedNoMatch}, freq-skipped=${skippedFrequency}`,
   );
 }
 
