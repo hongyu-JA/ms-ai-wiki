@@ -1,247 +1,294 @@
 ---
-type: product-note
-slug: microsoft-agent-framework
-aliases:
-  - MAF
-  - Agent Framework
-tier: 1
 watch: close
 status: ga
-lifecycle: active
-vendor: Microsoft
+last_verified: 2026-04-22
+aliases: [MAF, Agent Framework]
 moc:
-  - '[[Microsoft MOC]]'
-  - '[[Agents MOC]]'
-tags:
-  - agents
-  - framework
-  - pro-code
-created: 2026-04-21
-updated: 2026-04-21
-zuletzt_gesichtet: 2026-04-21
+  - "[[Microsoft MOC]]"
+  - "[[Agents MOC]]"
 ---
 
 # Microsoft Agent Framework
 
-## 1. Elevator Pitch + Analogie
+*Microsoft's Pro-Code-Framework für Agents und Multi-Agent-Systeme in .NET und Python — GA seit 07.04.2026. Ersetzt Semantic Kernel und AutoGen als konsolidiertes, Enterprise-orientiertes Orchestration-SDK mit Tool-Use, Multi-Agent-Pattern und Observability-Hooks.*
 
-Microsoft Agent Framework (MAF) ist das **Pro-Code-Framework von Microsoft, um produktive Agenten und Multi-Agent-Systeme zu bauen** — .NET und Python, Tool-Use, Orchestrierung, Observability-Hooks inklusive. **Analogie:** Wie LangGraph oder CrewAI, aber mit direktem Anschluss an Foundry, M365 Agents SDK und Entra.
+> **Analogie:** Wie LangGraph oder CrewAI für Python-Teams, aber mit direktem Anschluss an Foundry, M365 Agents SDK und Entra — das ist der „Enterprise-LangGraph" im Microsoft-Stack.
 
-## 2. Einsatz
+---
 
-**Job-to-be-done:** Ein zuverlässiger, wartbarer Agent, der mehrere Tools orchestriert und in eine Produktiv-Infrastruktur passt — nicht ein Notebook-Prototyp.
+## Einsatz
 
-**Trigger-Signale beim Kunden:**
-- "Unser Copilot-Studio-Bot reicht nicht mehr, wir brauchen Code-Kontrolle."
-- "Wir hatten Semantic Kernel im Einsatz, was jetzt?"
-- "Wir wollen Multi-Agent-Workflows mit klarer Verantwortungstrennung."
+### Job-to-be-done
 
-**Einsatz-Szenarien:**
-1. **Multi-Step-Research-Agent** — ein Planner-Agent koordiniert mehrere Worker, die AI Search + Graph anfragen.
-2. **Ticket-Triage** — Eingangs-Agent klassifiziert, Fach-Agent antwortet, Review-Agent verifiziert vor dem Senden.
-3. **Migration Semantic Kernel → MAF** für Bestandskunden.
+When I einen zuverlässigen, wartbaren, unter Governance stehenden Agent bauen will (nicht ein Notebook-Prototyp), I want to eine klar typisierte Framework-API nutzen, die Multi-Agent-Orchestrierung, Tool-Use und Tracing als First-Class-Konstrukte liefert, so I can von Anfang an in die Produktiv-Infrastruktur deployen, statt einen Prototyp umbauen zu müssen.
 
-**Voraussetzungen:** .NET 8+ oder Python 3.11+, Azure-OpenAI- oder Foundry-Project, Entra-App-Registration (für Graph/Tools).
+### Trigger-Signale
 
-**Empfehlung:** 🟢 — als Standard-Framework für alle Pro-Code-Agents ab 2026-04. Für reine No-Code-Szenarien weiter Copilot Studio.
+- „Unser Copilot-Studio-Bot reicht nicht mehr, wir brauchen Code-Kontrolle und unsere eigenen Tools."
+- „Wir hatten Semantic Kernel im Einsatz — was jetzt nach der Konsolidierung? Was ist der Migrationspfad?"
+- „Wir wollen Multi-Agent-Workflows, bei denen verschiedene Agents verschiedene Verantwortungen haben (Researcher + Reviewer + Schreiber), aber sauber entkoppelt."
+- „Unser Azure-OpenAI-Client-Code wird ein Spaghetti aus Retry-Logik, Tool-Calls und State. Wir brauchen Struktur."
 
-**Nächster Schritt für Journai:** Referenz-Agent in Foundry deployen (siehe §2.6 Hands-on des Arbeitsauftrags).
+### Einsatz-Szenarien
 
-## 3. Status & Pricing
+1. **Multi-Step-Research-Agent** — Planner-Agent zerlegt eine Kundenanfrage, delegiert an Worker-Agents, die Azure AI Search + Microsoft Graph abfragen; ein Review-Agent verifiziert Antwort vor dem Senden. *Journai-Fit: typisches SMB-Kundenservice-Szenario mit geprüfter Antwortqualität.*
+2. **Ticket-Triage** — Eingangs-Agent klassifiziert Ticket (Kategorie + Priorität), Fach-Agent formuliert Entwurf-Antwort, Review-Agent prüft Tonalität + Compliance. *Journai-Fit: konkret bei Kunden aus dem regulierten Umfeld relevant.*
+3. **Migration Semantic Kernel → MAF** — Bestandskunden-Agents auf MAF umstellen, ohne die umliegende Azure-Infrastruktur anzufassen. *Journai-Fit: Bestandskunden-Pflege nach der SK-Konsolidierung.*
 
-- **Reifegrad:** **GA**
-- **GA-Datum:** 2026-04-07
-- **Pricing:** Framework ist **OSS/kostenlos** (MIT-License). Kosten entstehen durch die dahinterliegenden Modelle (Foundry/Azure OpenAI PAYG/PTU) und optional durch **Foundry Agent Service** (managed hosting).
-- **Bundle-Zugehörigkeit:** keine — läuft Standalone, integriert sich aber tief in Foundry.
-- **Region-Verfügbarkeit:** SDK global, **Foundry Agent Service aktuell nur North Central US** (DSGVO-Flag!).
-- **Hidden Costs:** Tracing/Evaluation verursacht Log-Ingestion in Application Insights → prüfen.
-- **Upgrade-Pfade:** Semantic Kernel → MAF (API-nah), AutoGen → MAF (Research-Teile bleiben experimentell).
+### Voraussetzungen beim Kunden
 
-## 4. Kernkonzept
+| Voraussetzung | Details |
+|---------------|---------|
+| **Lizenz-Baseline** | Keine — Framework ist OSS (MIT). Kosten nur bei den Backend-Services (Azure OpenAI / Foundry Models) |
+| **Tenant / Infrastruktur** | Azure Subscription mit Foundry-Project oder Azure OpenAI; Entra-App-Registration für Tool-Aufrufe; Region-Wahl EU-konform |
+| **Skills / Rollen** | Pro-Code-Entwickler (.NET 8+ oder Python 3.11+), DevOps für Container Apps / Functions Deployment, Solution Architect für Stack-Einordnung |
+| **Compliance-Rahmen** | Modell-Region entscheidet Daten-Region; bei EU-Kunden Foundry-Region explizit prüfen (Foundry Agent Service aktuell nur NC-US) |
 
-### Architektur-Einordnung
+### Aufwand & Kosten (Journai-Schätzung)
 
-MAF ist die **Agent-Logik-Schicht**. Darunter liegen Modell-APIs (Azure OpenAI, Foundry Models), darüber liegen Hosting-Schichten (M365 Agents SDK für Teams/Copilot, Foundry Agent Service für Cloud-Hosting) und Governance (Agent 365 + Entra Agent ID). MAF selbst ist **runtime-agnostisch** — du kannst es in Azure Functions, Container Apps, on-prem oder im Notebook laufen lassen.
+| Dimension | Größenordnung |
+|-----------|---------------|
+| **Setup / Einführung** | 3–5 Beratertage für ersten produktiven Single-Agent; 10–15 Tage für Multi-Agent-System mit Tracing + Evaluation |
+| **Laufende Lizenzkosten** | Framework kostenlos; Modell-Kosten variabel — typischer SMB-Agent 50–300 EUR/Monat PAYG, bei hohem Volumen PTU ab ~800 EUR/Monat |
+| **Laufender Betrieb** | 1–2 Tage/Monat für Monitoring-Review + Eval-Ergebnisse sichten *(eigene Einschätzung)* |
 
-MAF ist das **konsolidierte Nachfolge-Framework** von zwei Vorgängern:
-- **Semantic Kernel** (Enterprise-orientiert, .NET-first, Planner + Plugins)
-- **AutoGen** (Microsoft Research, Multi-Agent, Python-first)
+### Empfehlung
 
-Die Konsolidierung ist **inhaltlich**, nicht nur kosmetisch: die Kernabstraktionen (Agent, Thread, Tool, Orchestration) sind neu gedacht und nicht 1:1 übernommen.
+**Status:** 🟢 **Empfehlen** — als Standard-Framework für alle Pro-Code-Agents ab 2026-04. GA-Reife, Enterprise-Features, klarer Migrationspfad von SK/AutoGen, gut dokumentiert.
+
+**Nächster Schritt für Journai:** Referenz-Agent in Foundry aufsetzen (siehe Arbeitsauftrag §2.6 Hands-on), internen Migration-Runbook SK→MAF dokumentieren, Workshop-Angebot „MAF-Pilot in 2 Wochen" entwickeln.
+
+---
+
+## Status & Pricing
+
+| Detail | Wert |
+|--------|------|
+| **Aktueller Status** | GA · Python SDK aktuell 1.1.0 |
+| **GA-Datum** | 2026-04-07 |
+| **Standalone-Preis (USD)** | Framework selbst kostenlos (MIT); Backend-Kosten via Azure OpenAI PAYG oder Foundry PTU (Mindestabnahme ~$2500/Monat) |
+| **Standalone-Preis (EUR)** | n/a — EUR-Preise ergeben sich aus dem gewählten Backend |
+| **Lizenz-Bundle** | Kein Bundle — eigenständiges OSS-Paket. Azure-OpenAI-Credits können über E7 / Azure-EA kommen |
+| **Voraussetzung** | .NET 8+ oder Python 3.11+ · Azure OpenAI Resource oder Foundry Project · Entra App Registration für Tool-Aufrufe |
+| **Region-Verfügbarkeit** | SDK global einsetzbar — **Foundry Agent Service (managed hosting) aktuell nur North Central US** (DSGVO-Flag für EU-Kunden!) |
+| **CSP-Promo / Discounts** | Nicht anwendbar auf das Framework selbst |
+| **Hidden Costs** | Tracing + Evaluation erzeugt Log-Ingestion in Application Insights — bei hohem Volumen nicht trivial. Multi-Agent-Orchestrierung multipliziert Modell-Calls — Kostenschätzung vor Produktion Pflicht. |
+| **Upgrade-Pfad** | Semantic Kernel → MAF (API-nah, einige Plugins wandern nicht 1:1 — Migration-Runbook notwendig). AutoGen → MAF (Research-Features teilweise in MAF experimental, teilweise entfallen) |
+
+---
+
+## Kernkonzept
+
+### Was es im Kern ist
+
+MAF ist die **Agent-Logik-Schicht** im Microsoft-Stack. Darunter liegen Modell-APIs (Azure OpenAI, Foundry Models); darüber liegen optionale Hosting-Schichten (M365 Agents SDK für Teams/Copilot, Foundry Agent Service für managed Cloud-Hosting) und Governance (Agent 365 + Entra Agent ID). MAF selbst ist bewusst **runtime-agnostisch** — du kannst es in Azure Functions, Container Apps, on-prem oder im Notebook laufen lassen. Diese Entkopplung ist die zentrale Architektur-Wette: Agent-Logik und Hosting dürfen sich nicht vermischen.
+
+MAF ist das **konsolidierte Nachfolge-Framework** von zwei Vorgängern mit unterschiedlicher DNA: **Semantic Kernel** (Enterprise-orientiert, .NET-first, Planner + Plugins) und **AutoGen** (Microsoft Research, Multi-Agent-Research, Python-first). Die Konsolidierung ist **inhaltlich, nicht nur kosmetisch**: die Kernabstraktionen (Agent, Thread, Tool, Orchestration-Pattern) wurden neu gedacht, nicht 1:1 aus SK oder AutoGen übernommen. Das ist für Bestandskunden beider Vorgänger relevant — wer mit einem Drop-in-Ersatz plant, wird enttäuscht.
+
+Die Design-Philosophie: **Multi-Agent ist First-Class**, aber nicht Default. Du fängst mit einem Single-Agent an und nimmst Multi-Agent-Patterns (Sequential, Handoff, GroupChat) nur hinzu, wenn Verantwortlichkeiten klar trennbar sind. Das ist eine bewusste Gegenposition zur „mehr Agents = besser"-Erzählung in der Community — jeder zusätzliche Agent ist Latenz + Kosten + Failure-Mode.
+
+### Wo es im Stack sitzt
+
+| Layer | Rolle | Wer liefert das? |
+|-------|-------|------------------|
+| Governance / Identity | Agent-Identität, Conditional Access, Audit | Agent 365 + Entra Agent ID |
+| Hosting / Runtime | Container, HTTP-Endpunkt, Teams-Kanal | Foundry Agent Service · M365 Agents SDK · Azure Functions · Container Apps |
+| **Agent Logic (Orchestration)** | **System Prompts, Tool-Use, Multi-Agent-Patterns, Threads** | **Microsoft Agent Framework** (diese Note) |
+| Model APIs | Chat-Completion, Embeddings, Tool-Call-Spec | Azure OpenAI · Foundry Models · direkte OpenAI/Anthropic |
+| Data / Knowledge | Retrieval, Memory, Vector Search | Azure AI Search · Foundry IQ · Cosmos DB · Microsoft Graph |
 
 ### Kern-Fähigkeiten
 
-**Fähigkeit 1 — Agent + Thread + Tool**
-- Mechanik: Ein Agent besitzt ein System Prompt, eine Modell-Referenz und eine Tool-Liste; jeder Konversationsfaden ist ein Thread mit Nachrichten-History.
-- Kontext: Tools sind annotierte Funktionen (`[KernelFunction]` / `@tool`), die der Agent via Tool-Call aufruft.
-- Grenzen: Ohne externes State-Store kein persistentes Thread-Memory über Prozessgrenzen hinweg.
+#### Agent + Thread + Tool-Use
 
-**Fähigkeit 2 — Multi-Agent-Orchestrierung**
-- Mechanik: Orchestrator-Pattern (Sequential, Handoff, GroupChat) als First-Class-Konstrukte.
-- Kontext: Deterministisch (Sequential) bis dynamisch (GroupChat mit Moderator).
-- Grenzen: Keine eingebaute Retry/Timeout-Strategie pro Agent — musst du selbst wrappen.
+Ein Agent besitzt ein System Prompt, eine Modell-Referenz und eine Tool-Liste. Jeder Konversationsfaden ist ein Thread mit Nachrichten-History. Tools sind annotierte Funktionen (`[KernelFunction]` in .NET / `@tool` in Python), die der Agent via Function-Calling auswählt und aufruft. Grenze: ohne externes State-Store kein persistentes Thread-Memory über Prozessgrenzen hinweg.
 
-**Fähigkeit 3 — MCP-Support**
-- Mechanik: MCP-Server können als Tool-Provider eingebunden werden.
-- Kontext: Damit sind Copilot-Studio-MCP-Tools und Dataverse-MCP direkt nutzbar.
-- Grenzen: MCP-Streaming ist noch experimentell.
+#### Multi-Agent-Orchestrierung (Sequential / Handoff / GroupChat)
 
-**Fähigkeit 4 — Tracing + Evaluation**
-- Mechanik: OTel-Tracing, das Foundry Control Plane und Application Insights beliefert; Evaluation-SDK für Offline-Regression.
-- Kontext: Pflicht für Produktiv-Einsatz.
-- Grenzen: Eval-Scores hängen stark vom Judge-Modell ab — nicht blind trauen.
+Drei orthogonale Patterns als First-Class-Konstrukte. **Sequential**: deterministische Kette. **Handoff**: Agent A entscheidet zur Laufzeit, ob Agent B übernimmt. **GroupChat**: mehrere Agents antworten auf dieselbe Konversation, ein Moderator entscheidet wer als nächstes spricht. Grenze: keine eingebaute Retry/Timeout-Strategie pro Agent.
 
-**Fähigkeit 5 — Agent Skills (.NET)**
-- Mechanik: Skills können auf drei Arten erstellt werden — als **Dateien auf Disk**, als **Inline-C#-Code** oder als **gekapselte Klassen** — und werden über einen einzigen gemeinsamen `SkillProvider` ausgeführt.
-- Kontext: Der Provider kombiniert alle drei Authoring-Varianten beliebig, sodass Teams ihre bevorzugte Abstraktion wählen können, ohne die Laufzeitumgebung zu wechseln.
-- Besonderheiten: Built-in Script Execution ist integriert; für Script-Calls steht ein **Human-Approval-Mechanismus** zur Verfügung, der eine manuelle Freigabe vor Ausführung erzwingen kann.
-- Grenzen: Feature aktuell nur für **.NET** dokumentiert; Python-Parität noch offen (vgl. bekannte .NET-First-Asymmetrie).
+#### MCP-Tool-Integration
 
-**Fähigkeit 5 — Checkpoint Storage (Python)**
-- Mechanik: Persistente Workflow-Zustände via `FileCheckpointStorage` (lokal) oder dem neuen `agent-framework-azure-cosmos` Cosmos DB NoSQL Storage.
-- Kontext: Cosmos DB-Variante ermöglicht skalierbares, serverless Checkpoint-Management für Python-Workflows.
-- Grenzen: `FileCheckpointStorage` erfordert ab 1.0.1 explizite Whitelisting-Konfiguration für eigene Typen (`allowed_checkpoint_types`) — sonst `WorkflowCheckpointException` bei Load.
+MCP-Server als Tool-Provider einbindbar — Copilot-Studio-MCP-Tools und Dataverse-MCP direkt wiederverwendbar. MCP-Streaming-Bug in v1.0.5 behoben.
 
-**Fähigkeit 5 — Gemini-Integration (neu in 1.1.0)**
-- Mechanik: `GeminiChatClient` im neuen Package `agent-framework-gemini` ermöglicht die direkte Nutzung von Google-Gemini-Modellen als Chat-Backend.
-- Kontext: Erster offizieller Non-Azure/Non-OpenAI Client im Framework — erweitert Multi-Modell-Strategie.
-- Grenzen: Initiales Release; Feature-Parität zu OpenAI/Foundry-Client noch nicht vollständig dokumentiert.
+#### Tracing + Evaluation
 
-**Fähigkeit 6 — Hyperlight CodeAct (neu in 1.1.0)**
-- Mechanik: Package `agent-framework-hyperlight` bringt Hyperlight-basierte CodeAct-Ausführung (isolierte Micro-VM-Sandbox für Code-Execution durch Agenten).
-- Kontext: Erhöht Sicherheit bei Code-ausführenden Agenten erheblich — relevant für Pro-Code-Szenarien mit untrusted Tool-Output.
-- Grenzen: Eigenes Package, erfordert Hyperlight-Runtime-Infrastruktur.
+OTel-Tracing, der Foundry Control Plane und Application Insights gleichzeitig beliefert. Evaluation-SDK für Offline-Regression-Tests mit Judge-Modell. Pflicht für Produktiv-Einsatz.
 
-**Fähigkeit 7 — Foundry Toolboxes & Hosted Agent V2 (neu in 1.1.0)**
-- Mechanik: `agent-framework-foundry` unterstützt jetzt Foundry Toolboxes (gebündelte Tool-Sammlungen aus dem Foundry-Katalog) sowie die Hosted Agent V2 API.
-- Kontext: Vereinfacht die Anbindung von verwalteten Foundry-Tools ohne manuelle Tool-Definitionen.
-- Grenzen: Foundry Agent Service aktuell nur North Central US (DSGVO-Flag bleibt bestehen).
+#### Gemini-Client *(neu in Python 1.1.0, 2026-04-21)*
 
+Erster offizieller Non-Azure/Non-OpenAI-Client. `agent-framework-google`-Package ermöglicht Gemini-Modelle im selben Agent-Code — Multi-Modell-Strategie erweitert. Grenze: initiales Release, Feature-Parität noch nicht vollständig dokumentiert.
 
+#### Hyperlight CodeAct *(neu in Python 1.1.0, 2026-04-21)*
 
+Package `agent-framework-hyperlight` bringt Hyperlight-basierte CodeAct-Ausführung — **isolierte Micro-VM-Sandbox für Code-Execution durch Agenten**. Erhöht Sicherheit bei Code-ausführenden Agents erheblich, relevant für Pro-Code-Szenarien mit untrusted Tool-Output. Grenze: eigenes Package, Hyperlight-Runtime-Infrastruktur nötig.
+
+#### Foundry Toolboxes & Hosted Agent V2 *(neu in Python 1.1.0, 2026-04-21)*
+
+`agent-framework-foundry` unterstützt jetzt Foundry Toolboxes (gebündelte Tool-Sammlungen aus dem Foundry-Katalog) und die Hosted Agent V2 API. Vereinfacht Anbindung managed Foundry-Tools ohne manuelle Tool-Definitionen. Grenze: Foundry Agent Service nach wie vor NC-US-Only.
+
+#### .NET Agent Skills *(neu 2026-04-13)*
+
+In .NET können **Skills über drei Authoring-Wege** definiert werden: datei-basiert, inline C#-Code, gekapselte Klassen. Alle drei kombinierbar unter einem gemeinsamen Provider, inklusive Built-in Script Execution + **Human-Approval-Mechanismus** für sicherheitskritische Script-Calls.
 
 ### Typischer Workflow
 
-1. **Setup** — `dotnet add package Microsoft.AgentFramework` / `pip install microsoft-agent-framework`, Foundry-Project + Modell-Deployment, Entra-App-Registration für Tools.
-2. **Build** — Agent-Klasse, Tools als annotierte Funktionen, Orchestrator-Pattern wählen, Lokal-Tests.
-3. **Deploy** — Container Apps / Functions / Foundry Agent Service (je nach Hosting-Anforderung).
-4. **Operate** — Tracing in Foundry Control Plane aktivieren, Evaluation-Suite in CI einbinden.
+1. **Setup** — `dotnet add package Microsoft.AgentFramework` / `pip install microsoft-agent-framework`, Foundry-Project + Modell-Deployment, Entra-App-Registration.
+2. **Build / Configure** — Agent-Klasse definieren (System Prompt, Tool-Liste, Modell), Tools als annotierte Funktionen schreiben, Orchestrator-Pattern wählen.
+3. **Deploy** — Container Apps (Standard), Azure Functions (Event-getrieben), Foundry Agent Service (managed, Region-Lock), M365 Agents SDK (Teams).
+4. **Operate** — Foundry Control Plane Tracing + Eval-Suite in CI; App Insights Alerts; Kosten-Monitoring.
 
 ### Skills-Voraussetzungen
 
-| Rolle | Was muss er/sie können |
-| ----- | ---------------------- |
-| Entwickler | .NET 8+ oder Python 3.11+, async/await, DI, HTTP-APIs |
-| Solution Architect | Stack-Verständnis Foundry ↔ MAF ↔ Hosting, Tracing-Konzepte |
-| Citizen Developer | Nicht die Zielgruppe — gehört zu Copilot Studio |
+| Rolle | Was er/sie können muss |
+|-------|------------------------|
+| **Builder (Journai intern)** | .NET 8+ oder Python 3.11+, async/await, DI-Pattern, HTTP-APIs, Azure CLI; Prompt-Engineering-Basics |
+| **Admin (beim Kunden)** | Azure-Subscription-Admin für Foundry/OpenAI-Deployment, Entra-App-Registration |
+| **End-User (beim Kunden)** | Keine — konsumiert den Agent via Chat-UI |
 
-## 5. Limitierungen & Fallstricke
+---
 
-### Harte Capability-Grenzen
+## Limitierungen & Fallstricke
 
-- **Keine eingebaute UI** — MAF ist Logik-Layer. Für Teams/Web braucht man M365 Agents SDK + Teams SDK. **Alternative:** Foundry Agent Service bietet Web-Frontend out-of-the-box.
-- **Kein Built-in Vector Store** — Retrieval muss man anbinden (Azure AI Search, Foundry IQ, Cosmos DB Vector). **Alternative:** Foundry IQ für Convenience.
-- **Python-SDK nicht feature-parity zu .NET** (Stand 2026-04) — einige Enterprise-Features (Kernel-Hooks, Planner-Varianten) zuerst in .NET.
+### Was das Produkt NICHT kann
 
-### Konzeptionelle Fallstricke
+| Limitierung | Alternative / Workaround |
+|-------------|--------------------------|
+| **Keine eingebaute UI** | M365 Agents SDK + Teams SDK · Foundry Agent Service |
+| **Kein Built-in Vector Store** | Azure AI Search, Foundry IQ, Cosmos DB Vector |
+| **Keine Retry/Timeout-Policy pro Agent** | Polly (.NET), tenacity (Python), oder Foundry Agent Service |
+| **Thread-Memory nicht persistent über Prozessgrenzen** | Externer State-Store (Cosmos DB Checkpoint, Redis, Azure Storage) |
 
-- **Fallstrick:** Teams sehen MAF als Drop-in-Ersatz für Semantic Kernel — **Warum:** APIs sind _nah_, aber Thread-Semantik und Plugin-System sind neu — **Gegenmittel:** Migrations-Runbook + kleiner Pilot, nicht Big-Bang.
-- **Fallstrick:** Multi-Agent wird als "mehr Agenten = besser" verkauft — **Warum:** Jeder zusätzliche Agent ist Latenz + Kosten + Failure-Mode — **Gegenmittel:** Standard-Antwort "Single-Agent zuerst, Multi nur wenn Verantwortung klar trennbar".
-- **Fallstrick:** DSGVO wird übersehen, weil MAF lokal läuft — **Warum:** Modell-Endpunkt zieht Daten in die Modell-Region — **Gegenmittel:** Foundry-Region prüfen, ggf. Foundry Local.
+### Typische Fallstricke im Einsatz
+
+- **MAF als Drop-in-Ersatz für Semantic Kernel sehen** — APIs sind *nah*, aber Thread-Semantik + Plugin-System sind neu. *Gegenmittel: Migrations-Runbook + kleiner Pilot.*
+- **„Multi-Agent = besser"-Trugschluss** — Latenz + Kosten + Failure-Modes. *Gegenmittel: Single-Agent zuerst, Multi nur wenn Verantwortung klar trennbar.*
+- **DSGVO übersehen, weil MAF-Runtime lokal läuft** — Modell-Endpunkt zieht die Daten in die Modell-Region. *Gegenmittel: Region explizit prüfen.*
+- **Tracing erst nach Go-Live anschalten** — Baseline-Daten fehlen für Eval. *Gegenmittel: Tracing ist „Definition of Done".*
 
 ### Security-Hinweise (Python SDK ≥ 1.0.1)
 
-- **`FileCheckpointStorage` – restricted unpickler (Breaking Change):** Ab 1.0.1 läuft Checkpoint-Deserialisierung standardmäßig durch einen eingeschränkten Unpickler, der nur sichere Python-Built-in-Typen sowie alle `agent_framework`-Framework-Typen zulässt. Eigene Klassen in Checkpoints müssen über den neuen Konstruktorparameter `allowed_checkpoint_types` (Format: `"module:qualname"`) explizit freigegeben werden — sonst wirft der Load eine `WorkflowCheckpointException`. → [Security Considerations](https://learn.microsoft.com/en-us/agent-framework/workflows/checkpoints?pivots=programming-language-python#security-considerations)
-- **Cosmos DB NoSQL Checkpoint Storage:** Neues Package `agent-framework-azure-cosmos` bietet skalierbaren, verwalteten Checkpoint-Store als Alternative zu `FileCheckpointStorage`.
+- **`FileCheckpointStorage` — restricted unpickler (BREAKING CHANGE):** ab 1.0.1 läuft Checkpoint-Deserialisierung durch einen eingeschränkten Unpickler, der nur sichere Built-in-Typen + `agent_framework`-Framework-Typen zulässt. Eigene Klassen via Parameter `allowed_checkpoint_types` (Format: `"module:qualname"`) explizit freigeben — sonst `WorkflowCheckpointException`.
+- **Cosmos DB NoSQL Checkpoint Storage:** neues Package `agent-framework-azure-cosmos` als skalierbare Alternative zu `FileCheckpointStorage`.
+- **BREAKING in 1.1.0:** `CosmosCheckpointStorage` nutzt jetzt ebenfalls restriktive Pickle-Deserialisierung per Default — Bestandscheckpoints mit nicht-erlaubten Typen müssen migriert werden, bevor ein Upgrade auf 1.1.0 eingespielt wird.
 
-**Breaking Change (python-1.1.0):** `CosmosCheckpointStorage` (package `agent-framework-azure-cosmos`) verwendet ab 1.1.0 **restriktive Pickle-Deserialisierung per Default**. Bestehende Checkpoints mit nicht erlaubten Typen können nicht mehr geladen werden — Migration erforderlich, bevor ein Upgrade auf 1.1.0 eingespielt wird.
+---
 
-
-
-## 6. Offizielle Referenzen & Monitoring
-
-### Primary (Microsoft offiziell)
-
-| Quelle | URL | Zuletzt gesichtet |
-| ------ | --- | ----------------- |
-| Product Page | https://learn.microsoft.com/en-us/agent-framework/ | 2026-04-21 |
-| GitHub Repo | https://github.com/microsoft/agent-framework | 2026-04-21 |
-| Releases (Atom) | https://github.com/microsoft/agent-framework/releases.atom | 2026-04-21 |
-| devblogs (Semantic Kernel / Foundry) | https://devblogs.microsoft.com/semantic-kernel/feed/ | 2026-04-21 |
-| Azure Updates (Agent Framework tag) | https://azure.microsoft.com/en-us/updates/feed/ | 2026-04-21 |
-
-### Secondary (Analysten)
-
-| Quelle | URL | Zuletzt gesichtet |
-| ------ | --- | ----------------- |
-
-### Tertiary (MVPs / Community)
-
-| Quelle | URL | Zuletzt gesichtet |
-| ------ | --- | ----------------- |
-
-### Events
-
-- Microsoft Build 2026: Deep-Dive-Sessions zu MAF + Foundry Agent Service (erwartet Mai 2026)
-- Microsoft Ignite 2025: GA-Ankündigung (November 2025)
-
-## 7. Changelog
-
-
-
-
-| Datum | Autor | Änderung | Quelle |
-| ----- | ----- | -------- | ------ |
-| 2026-04-21 | auto-sync | Python SDK 1.1.0: GeminiChatClient (Gemini-Integration), Hyperlight CodeAct-Package, Foundry Toolboxes & Hosted Agent V2, A2A-Metadaten-Propagation, AG-UI forwardedProps via Session-Metadata, finish_reason in AgentResponse, experimenteller File-History-Provider, AgentExecutorResponse.with_text(). BREAKING: CosmosCheckpointStorage nutzt jetzt restriktive Pickle-Deserialisierung per Default. | https://github.com/microsoft/agent-framework/releases/tag/python-1.1.0 |
-| 2026-04-10 | auto-sync | Python SDK 1.0.1: Security-Hardening für FileCheckpointStorage (restricted unpickler, Breaking Change), neuer Cosmos DB NoSQL Checkpoint Storage (`agent-framework-azure-cosmos`), Breaking Change im Handoff-Workflow-Context-Management. | https://github.com/microsoft/agent-framework/releases/tag/python-1.0.1 |
-| 2026-04-13 | auto-sync | Agent Skills in .NET: Drei Authoring-Varianten (Datei-basiert, Inline-C#-Code, gekapselte Klassen) können frei kombiniert und über einen einzigen Provider ausgeführt werden. Hinzu kommen Built-in Script Execution sowie ein Human-Approval-Mechanismus für Script-Calls. | https://devblogs.microsoft.com/agent-framework/agent-skills-in-net-three-ways-to-author-one-provider-to-run-them/ |
-| 2026-04-21 | Hongyu | Note angelegt als Walking-Skeleton-Referenz | — |
-
-## 8. Integrationen *(close)*
+## Integrationen
 
 ### Microsoft-intern
 
-| Produkt | Integrationsart | Friction |
-| ------- | --------------- | -------- |
-| Azure OpenAI / Foundry Models | Modell-Endpunkt | keine — nativ |
-| M365 Agents SDK | Hosting-Runtime für Teams/Copilot | mittel — SDK-Abgrenzung zu Agent ≠ intuitiv |
-| Foundry Agent Service | managed hosting | gering, aber Region-Lock NC-US |
-| Agent 365 + Entra Agent ID | Governance | hoch — Agent-ID-Lifecycle muss verstanden sein |
-| Azure AI Search / Foundry IQ | RAG | gering |
-| Application Insights | Tracing | gering |
+| Mit | Zweck | Reifegrad | Friction-Points |
+|-----|-------|-----------|-----------------|
+| Azure OpenAI / Foundry Models | Modell-Endpunkt | GA, nativ | keine — SDK wählt Endpunkt-Typ automatisch |
+| M365 Agents SDK | Hosting-Runtime für Teams/Copilot-Kanäle | GA | mittel — SDK-Abgrenzung MAF (Logik) ≠ M365 Agents SDK (Hosting) nicht intuitiv |
+| Foundry Agent Service | Managed Hosting in der Cloud | GA, Region-Lock NC-US | gering technisch, aber DSGVO-Problem für EU |
+| Agent 365 + Entra Agent ID | Governance / Identity | GA 01.05.2026 | hoch — Agent-ID-Lifecycle muss verstanden sein |
+| Azure AI Search / Foundry IQ | RAG-Backend | GA | gering |
+| Microsoft Graph | M365-Datenzugriff | GA | mittel — Delegated vs. App-only Auth bewusst wählen |
+| Application Insights | Tracing, Metrics | GA | gering |
+| Azure AI Evaluation SDK | Offline-Eval | GA | gering |
 
 ### Third-Party
 
-| System | Integrationsart | Friction |
-| ------ | --------------- | -------- |
-| OpenAI (direkt) | Modell-Backend | gering, aber kein PTU/Bundle-Vorteil |
-| Anthropic Claude (via Foundry Models) | Modell-Backend | gering, EU-Availability prüfen |
-| MCP-Server (beliebig) | Tool-Provider | gering |
+| Mit | Zweck | Reifegrad | Friction-Points |
+|-----|-------|-----------|-----------------|
+| OpenAI (direkt) | Modell-Backend | GA | kein PTU/Bundle-Vorteil, keine MS-DPA |
+| Anthropic Claude (via Foundry Models) | Modell-Backend | GA | EU-Region-Availability prüfen |
+| Google Gemini (neu 1.1.0) | Modell-Backend | Initial | Feature-Parität noch unvollständig |
+| MCP-Server (beliebig) | Tool-Provider | GA | gering — via Standard-Protokoll |
 
-## 9. Security & Compliance *(close)*
+### APIs / Protokolle
 
-- **DSGVO-Lage:** Framework selbst neutral — Modell-Region bestimmt Daten-Region.
-- **Data Residency:** Foundry-Modell-Deployment wählt die Region; Foundry Agent Service derzeit nur NC-US.
-- **DPA-Scope:** Standard MS Online Services DPA, wenn auf Azure gehostet.
-- **EU-AI-Act:** Framework ist Infrastruktur → kein direkter Adressat; relevant sind die Use-Cases, die man darauf baut.
-- **Microsoft-Compliance-Stack:** Defender for AI (Runtime-Schutz), Purview (Classification der Tool-In/Outputs), Entra Agent ID (Identity).
-- **Bekannte Lücken:** Kein Built-in-PII-Redaction-Layer — muss als Tool/Middleware implementiert werden.
+- **OpenAI-kompatible Chat-Completion** als primärer Modell-Contract
+- **Model Context Protocol (MCP)** für Tool-Integration
+- **OpenTelemetry** für Tracing
+- **Activity Protocol** (via M365 Agents SDK) wenn für Teams deployed
+- **Hyperlight** (neu 1.1.0) für isolierte Code-Execution
 
-## 10. Abgrenzung & Wettbewerb *(close)*
+---
 
-### Microsoft-intern (wann welches MS-Produkt?)
+## Security & Compliance
 
-| Alternative | Wann stattdessen? |
-| ----------- | ----------------- |
-| Copilot Studio | Low-Code, M365-zentriert, Business-User als Builder |
-| M365 Agents SDK ohne MAF | Wenn nur Activity-Protocol-Hosting gebraucht wird (einfache Bots) |
-| Foundry Agent Service (UI-only) | Wenn "Agent-in-a-box" in der Cloud reicht und kein Code-Ownership gebraucht wird |
+### Datenverarbeitung
+
+| Thema | Status |
+|-------|--------|
+| **Data Residency** | Ergibt sich aus der Modell-Region. Bei Azure OpenAI/Foundry explizit EU-Region wählen. Foundry Agent Service aktuell nur NC-US. |
+| **Prompts & Outputs** | Bei Azure OpenAI: nicht für Training, Logging abschaltbar. Bei direktem OpenAI-Endpoint: OpenAI-Terms. |
+| **DPA** | Abgedeckt im MS Online Services DPA auf Azure. |
+| **EU-AI-Act** | Framework = Infrastruktur → kein direkter Adressat. Use-Case entscheidet. |
+
+### Microsoft-Compliance-Stack
+
+- **Defender for AI** (Runtime-Schutz)
+- **Purview** (Klassifizierung der Tool-In/Outputs)
+- **Entra Agent ID** (Identity)
+- **Azure AI Content Safety** (Prompt Shields als Eingangsfilter)
+
+### Bekannte Compliance-Lücken
+
+- **Kein Built-in-PII-Redaction-Layer** — muss als Tool/Middleware implementiert werden (Presidio, Azure AI Language PII).
+- **Anthropic Claude via Foundry** in EU/EFTA/UK per Default deaktiviert — manuell freischalten.
+
+---
+
+## Abgrenzung & Wettbewerb
+
+### Microsoft-intern: Wann MAF vs. welches andere MS-Produkt?
+
+| Frage-Situation | MAF | Alternative MS-Produkt |
+|-----------------|-----|------------------------|
+| „Agent ohne Code" | ❌ | ✅ [[Copilot Studio]] |
+| „Nur Teams-Bot-Activity-Protocol-Hosting" | ⚠️ Overkill | ✅ [[M365 Agents SDK]] ohne MAF |
+| „Agent in Teams" | ✅ (Logik) | + [[M365 Agents SDK]] + [[Teams SDK]] |
+| „Managed Cloud-Hosting" | ✅ (Logik) | + [[Foundry Agent Service]] |
+| „Data-Flow ohne LLM" | ❌ | ✅ [[Logic Apps]] / [[Power Automate]] |
 
 ### Externe Alternativen
 
-| Alternative | Wann stattdessen? | Risiko für MS |
-| ----------- | ----------------- | ------------- |
-| LangGraph | Python-only, aggressive Feature-Velocity, Stateful Graph | mittel — Entwickler-Präferenz |
-| CrewAI | Einfache Rolle-basierte Multi-Agent | gering — Enterprise-Features schwach |
-| OpenAI Agents SDK | Wenn Kunde OpenAI-first und nicht Azure | hoch bei OpenAI-nativen Kunden |
-| n8n / Zapier AI | Integration-first statt Agent-first | gering — andere Zielgruppe |
+| Dimension | MAF | LangGraph | CrewAI | OpenAI Agents SDK |
+|-----------|-----|-----------|--------|-------------------|
+| **Fokus** | Enterprise + MS-Integration | Stateful Graph, aggressive Velocity | Rollen-Teams, einfache UX | OpenAI-native |
+| **EU-Data-Residency** | ✅ via Azure | Backend-abhängig | Backend-abhängig | ⚠️ begrenzt |
+| **Integrationstiefe in MS** | ✅ nativ | ⚠️ DIY | ⚠️ DIY | ❌ |
+| **Multi-Cloud** | ⚠️ MS-lastig | ✅ | ✅ | ❌ |
+
+### Empfehlungs-Regel
+
+Wir nehmen **MAF** über LangGraph, wenn MS-Ökosystem-Heavy + DSGVO-Pflicht + Governance via Agent 365 realistisch. Sonst, bei Python-Teams ohne MS-Bindung + Multi-Cloud-Ambition, kann **LangGraph** passender sein.
+
+---
+
+## Offizielle Referenzen & Monitoring
+
+### Primary (Microsoft offiziell)
+
+| Typ | Quelle | Link | Zuletzt gesichtet | Monitoring-Zweck |
+|-----|--------|------|-------------------|------------------|
+| Product Page | Agent Framework Overview | https://learn.microsoft.com/en-us/agent-framework/ | 2026-04-22 | allgemeine Änderungen |
+| Quickstart | Agent Framework Quickstart | https://learn.microsoft.com/en-us/agent-framework/quickstart/ | 2026-04-22 | Demos/PoCs |
+| Docs Hub | Agent Framework Docs | https://learn.microsoft.com/en-us/agent-framework/docs/ | 2026-04-22 | API-/SDK-Updates |
+| GitHub Repository | microsoft/agent-framework | https://github.com/microsoft/agent-framework | 2026-04-22 | Code-Änderungen, Issues |
+| Releases (Atom Feed) | Release-Atom | https://github.com/microsoft/agent-framework/releases.atom | 2026-04-22 | Versionsänderungen (→ automation fetcher) |
+| Tech Blog | devblogs – Agent Framework / SK | https://devblogs.microsoft.com/agent-framework/ · https://devblogs.microsoft.com/semantic-kernel/ | 2026-04-22 | neue Features, Roadmap |
+
+### Events
+
+| Event | Datum | Erwartete Ankündigungen |
+|-------|-------|-------------------------|
+| Microsoft Build 2026 | Mai 2026 | MAF-Deep-Dive, Foundry Agent Service Region-Expansion, Multi-Agent-Patterns |
+| Microsoft Ignite 2026 | November 2026 | Nächste MAF-Major-Version, Enterprise-Features, Agent 365-Integration |
+| AI Tour Zürich 2026 | 29.04.2026 | Regionale EU-Details, Foundry-EU-Roadmap |
+
+---
+
+## Changelog
+
+| Datum | Autor | Änderung | Quelle |
+|-------|-------|----------|--------|
+| 2026-04-22 | Hongyu | Migration auf neues Product Note Template (v2) — Struktur umgezogen, Inhalt erhalten und erweitert (Einsatz-Szenarien, Stack-Tabelle, Decision-Regel vs. externe Alternativen, neue Fähigkeiten aus 1.1.0 eingepflegt). | — |
+| 2026-04-21 | auto-sync | **Python SDK 1.1.0**: Gemini-Client (erster Non-Azure/Non-OpenAI-Client), Hyperlight CodeAct-Package (isolierte Micro-VM-Sandbox für Agent-Code-Exec), Foundry Toolboxes + Hosted Agent V2, A2A-Metadaten-Propagation, AG-UI forwardedProps, finish_reason in AgentResponse, experimenteller File-History-Provider. **BREAKING:** `CosmosCheckpointStorage` nutzt jetzt restriktive Pickle-Deserialisierung per Default. | https://github.com/microsoft/agent-framework/releases/tag/python-1.1.0 |
+| 2026-04-13 | auto-sync | **.NET Agent Skills**: 3 Authoring-Varianten (Datei-basiert / Inline-C#-Code / gekapselte Klassen) frei kombinierbar unter einem Provider. Built-in Script Execution + Human-Approval-Mechanismus für Script-Calls. | https://devblogs.microsoft.com/agent-framework/agent-skills-in-net-three-ways-to-author-one-provider-to-run-them/ |
+| 2026-04-10 | auto-sync | **Python SDK 1.0.1**: Security-Hardening für `FileCheckpointStorage` (restricted unpickler, **Breaking Change**) — eigene Klassen in Checkpoints müssen via `allowed_checkpoint_types` explizit freigegeben werden. Neues Cosmos DB NoSQL Checkpoint Storage `agent-framework-azure-cosmos`. Breaking Change im Handoff-Workflow-Context-Management. | https://github.com/microsoft/agent-framework/releases/tag/python-1.0.1 |
+| 2026-04-21 | Hongyu | Initial-Erstellung der Note, watch: close, Status: GA | GitHub Release v1.0 |
