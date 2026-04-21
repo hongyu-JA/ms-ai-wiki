@@ -1,4 +1,8 @@
 {
-  "last_run_utc": null,
-  "counts": {}
+  "last_run_utc": "2026-04-21T21:20:26.945Z",
+  "counts": {
+    "maf-github-releases": 30,
+    "devblogs-semantic-kernel": 10
+  },
+  "errors": []
 }
