@@ -253,8 +253,8 @@ products:
     watch: standard
     keywords: ["M365 Agents SDK", "Microsoft 365 Agents SDK", "Agents Toolkit"]
     sources: [devblogs-semantic-kernel]
-    changelog_trigger_sections: []
-    enabled: false
+    changelog_trigger_sections: ["Status & Pricing", "Kernkonzept"]
+    enabled: true
 
   - slug: teams-sdk
     note: "Teams SDK.md"
@@ -425,8 +425,10 @@ products:
     tier: 2
     watch: passive
     keywords: ["Semantic Kernel", "SK"]
+    regex_exclude: ["Semantic Kernel Architect"]  # LinkedIn-Job-Titel ausschliessen
     sources: [devblogs-semantic-kernel]
-    enabled: false
+    changelog_trigger_sections: ["Status & Pricing", "Migrationspfad zu MAF"]
+    enabled: true
 
   - slug: autogen
     note: "deprecated/AutoGen.md"
@@ -435,4 +437,5 @@ products:
     watch: passive
     keywords: ["AutoGen", "MS AutoGen"]
     sources: [devblogs-semantic-kernel]
-    enabled: false
+    changelog_trigger_sections: ["Status & Pricing", "Migrationspfad zu MAF"]
+    enabled: true
