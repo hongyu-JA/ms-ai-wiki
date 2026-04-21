@@ -56,7 +56,8 @@ function applyToProductNote(envelope: PatchEnvelope, today: string): void {
   const parsed = parseNote(note_path);
   let body = parsed.body;
 
-  for (const patch of decision.section_patches) {
+  const patches = Array.isArray(decision.section_patches) ? decision.section_patches : [];
+  for (const patch of patches) {
     if (patch.mode === "append") {
       body = appendToSection(body, patch.section, patch.new_content);
     } else if (patch.mode === "replace") {
@@ -90,7 +91,10 @@ function applyToProductNote(envelope: PatchEnvelope, today: string): void {
 }
 
 function applyToMoc(envelope: PatchEnvelope): void {
-  for (const mu of envelope.decision.moc_updates) {
+  const updates = Array.isArray(envelope.decision.moc_updates)
+    ? envelope.decision.moc_updates
+    : [];
+  for (const mu of updates) {
     const mocPath = findMocNote(mu.moc);
     if (!mocPath) {
       console.warn(`[apply] MOC not found: ${mu.moc}`);
@@ -152,7 +156,11 @@ function main() {
         `[apply] NEW-PRODUCT candidate flagged — manual triage required: ${env.filtered.item.title}`,
       );
       // Wir erzeugen im Walking-Skeleton keinen Stub automatisch; PR-Reviewer
-      // legt manuell eine Note nach Template an. Hook kommt in v2.
+      // legt manuell eine Note nach Template an. Hook kommt in v2. Für
+      // new_product skippen wir auch MOC-Updates — es gibt noch keine Zeile
+      // in der MOC-Tabelle, die aktualisiert werden könnte.
+      applied++;
+      continue;
     }
     applyToMoc(env);
     applied++;

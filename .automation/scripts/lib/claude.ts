@@ -196,7 +196,24 @@ export async function askClaudeForPatch(
       `Claude returned no tool_use block (stop_reason=${resp.stop_reason}). Text was: ${textDump}`,
     );
   }
-  return toolUse.input as PatchDecision;
+  return normalizeDecision(toolUse.input as Partial<PatchDecision>);
+}
+
+/**
+ * Array- und Null-Felder defensiv normalisieren. Auch mit Tool-Schema kann
+ * Claude bei leeren Feldern `null` statt `[]` liefern — darauf darf das
+ * downstream nicht per for-of crashen.
+ */
+function normalizeDecision(d: Partial<PatchDecision>): PatchDecision {
+  return {
+    decision: d.decision ?? "skip",
+    reason: d.reason ?? "",
+    confidence: d.confidence ?? "low",
+    changelog_entry: d.changelog_entry ?? null,
+    section_patches: Array.isArray(d.section_patches) ? d.section_patches : [],
+    moc_updates: Array.isArray(d.moc_updates) ? d.moc_updates : [],
+    deprecation_radar_update: d.deprecation_radar_update ?? null,
+  };
 }
 
 function dryRunStub(ctx: {

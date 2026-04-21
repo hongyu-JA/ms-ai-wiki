@@ -33,65 +33,85 @@ export function serializeNote(fm: Record<string, unknown>, body: string): string
   return `---\n${fmText}\n---\n${body.startsWith("\n") ? body : "\n" + body}`;
 }
 
+// --- Heading-Matching -------------------------------------------------------
+
+function normalizeHeading(s: string): string {
+  return s
+    .toLowerCase()
+    .replace(/^\d+\.\s*/, "") // leading "3. "
+    .replace(/\*[^*]+\*/g, "") // strip *(close)* / *italics*
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+interface HeadingHit {
+  line: number; // index of the heading line itself
+  level: number; // 1..6
+  bodyStart: number; // first line of body (heading + 1)
+  bodyEnd: number; // exclusive — index of next heading of same-or-lower depth, or EOF
+}
+
 /**
- * Return the body of a section identified by its heading text
- * (heading level 2, "## Section Title" — the common pattern in our Template).
- * Case-insensitive, ignores leading section number like "3. ".
+ * Finde eine Sektion in `lines` anhand des normalisierten Titels.
+ * Sucht zuerst auf level 2 (Template-Standard), bei Misserfolg auf level 3
+ * (z. B. „Kern-Fähigkeiten" unter „## 4. Kernkonzept"). Die Sektions-Grenze
+ * endet, sobald eine Heading-Zeile mit ≤ eigener Tiefe auftaucht.
  */
-export function getSectionBody(body: string, title: string): string | null {
-  const lines = body.split(/\r?\n/);
-  const normalize = (s: string) => s.toLowerCase().replace(/^\d+\.\s*/, "").trim();
-  const target = normalize(title);
-  const headingRe = /^## +(.+?)\s*$/;
-  let startIdx = -1;
-  let endIdx = lines.length;
-  for (let i = 0; i < lines.length; i++) {
-    const mm = lines[i]!.match(headingRe);
-    if (!mm) continue;
-    if (normalize(mm[1]!) === target) {
-      startIdx = i + 1;
+function findSection(lines: string[], title: string): HeadingHit | null {
+  const target = normalizeHeading(title);
+  const headingRe = /^(#{2,6}) +(.+?)\s*$/;
+  for (const preferredLevel of [2, 3]) {
+    for (let i = 0; i < lines.length; i++) {
+      const mm = lines[i]!.match(headingRe);
+      if (!mm) continue;
+      const level = mm[1]!.length;
+      if (level !== preferredLevel) continue;
+      if (normalizeHeading(mm[2]!) !== target) continue;
+      let end = lines.length;
       for (let j = i + 1; j < lines.length; j++) {
-        if (/^## +/.test(lines[j]!)) {
-          endIdx = j;
+        const m2 = lines[j]!.match(headingRe);
+        if (m2 && m2[1]!.length <= level) {
+          end = j;
           break;
         }
       }
-      break;
+      return { line: i, level, bodyStart: i + 1, bodyEnd: end };
     }
   }
-  if (startIdx < 0) return null;
-  return lines.slice(startIdx, endIdx).join("\n");
+  return null;
+}
+
+// --- Lesen / Schreiben ------------------------------------------------------
+
+export function getSectionBody(body: string, title: string): string | null {
+  const lines = body.split(/\r?\n/);
+  const hit = findSection(lines, title);
+  if (!hit) return null;
+  return lines.slice(hit.bodyStart, hit.bodyEnd).join("\n");
 }
 
 /**
- * Append text to an existing section (before the next "## " heading).
- * If the section does not exist, returns the body unchanged and logs a warning.
+ * Append-Text am Ende einer bestehenden Sektion (vor dem nächsten gleich-
+ * oder höher-stehenden Heading). Legt die Sektion am File-Ende an, falls sie
+ * nicht existiert (mit Warnung, damit man das im Log sieht).
  */
 export function appendToSection(body: string, title: string, addition: string): string {
   const lines = body.split(/\r?\n/);
-  const normalize = (s: string) => s.toLowerCase().replace(/^\d+\.\s*/, "").trim();
-  const target = normalize(title);
-  const headingRe = /^## +(.+?)\s*$/;
-  for (let i = 0; i < lines.length; i++) {
-    const mm = lines[i]!.match(headingRe);
-    if (!mm || normalize(mm[1]!) !== target) continue;
-    // find next H2 or end-of-file
-    let j = i + 1;
-    while (j < lines.length && !/^## +/.test(lines[j]!)) j++;
-    // trim trailing blank lines inside this section
-    let insertIdx = j;
-    while (insertIdx > i + 1 && lines[insertIdx - 1]!.trim() === "") insertIdx--;
-    const before = lines.slice(0, insertIdx);
-    const after = lines.slice(insertIdx);
-    return [...before, "", addition.trimEnd(), "", ...after].join("\n");
+  const hit = findSection(lines, title);
+  if (!hit) {
+    console.warn(`[obsidian] Section "${title}" not found; appending at end.`);
+    return body.trimEnd() + `\n\n## ${title}\n\n${addition.trimEnd()}\n`;
   }
-  console.warn(`[obsidian] Section "${title}" not found; appending at end.`);
-  return body.trimEnd() + `\n\n## ${title}\n\n${addition.trimEnd()}\n`;
+  let insertIdx = hit.bodyEnd;
+  while (insertIdx > hit.bodyStart && lines[insertIdx - 1]!.trim() === "") insertIdx--;
+  const before = lines.slice(0, insertIdx);
+  const after = lines.slice(insertIdx);
+  return [...before, "", addition.trimEnd(), "", ...after].join("\n");
 }
 
 /**
- * Replace the first paragraph that contains `needle` within the given section
- * with `replacement`. If not found, falls back to append.
+ * Ersetze den ersten Absatz in der gegebenen Sektion, der `needle` enthält,
+ * durch `replacement`. Kein Treffer → fallback auf append.
  */
 export function replaceInSection(
   body: string,
@@ -100,33 +120,25 @@ export function replaceInSection(
   replacement: string,
 ): string {
   const section = getSectionBody(body, title);
-  if (!section) return appendToSection(body, title, replacement);
-  if (!section.includes(needle)) return appendToSection(body, title, replacement);
+  if (!section || !section.includes(needle)) {
+    return appendToSection(body, title, replacement);
+  }
   const updated = section.replace(needle, replacement);
-  // Swap the section in-place
   return swapSectionBody(body, title, updated);
 }
 
 function swapSectionBody(body: string, title: string, newSectionBody: string): string {
   const lines = body.split(/\r?\n/);
-  const normalize = (s: string) => s.toLowerCase().replace(/^\d+\.\s*/, "").trim();
-  const target = normalize(title);
-  const headingRe = /^## +(.+?)\s*$/;
-  for (let i = 0; i < lines.length; i++) {
-    const mm = lines[i]!.match(headingRe);
-    if (!mm || normalize(mm[1]!) !== target) continue;
-    let j = i + 1;
-    while (j < lines.length && !/^## +/.test(lines[j]!)) j++;
-    const before = lines.slice(0, i + 1);
-    const after = lines.slice(j);
-    return [...before, "", newSectionBody.trimEnd(), "", ...after].join("\n");
-  }
-  return body;
+  const hit = findSection(lines, title);
+  if (!hit) return body;
+  const before = lines.slice(0, hit.bodyStart);
+  const after = lines.slice(hit.bodyEnd);
+  return [...before, "", newSectionBody.trimEnd(), "", ...after].join("\n");
 }
 
 /**
- * Add a new row to the changelog table inside the `## 7. Changelog` section.
- * Creates the section if missing.
+ * Neueste Zeile oben in der Changelog-Tabelle einfügen. Erzeugt Tabelle oder
+ * Sektion, falls sie fehlen.
  */
 export function prependChangelogRow(
   body: string,
@@ -153,7 +165,6 @@ export function prependChangelogRow(
     }
   }
   if (sepIdx < 0) {
-    // No table yet — rebuild
     const rebuilt =
       `| Datum | Autor | Änderung | Quelle |\n| ----- | ----- | -------- | ------ |\n${row}\n` +
       lines.join("\n");
