@@ -183,6 +183,47 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 
 <!-- AUTO-INDEX-END: research-status -->
 
+## Letzte Aktivität
+
+_Jüngste Changelog-Einträge der letzten 30 Tage aus allen Product-Notes. Auto-generiert._
+
+<!-- AUTO-INDEX-START: activity -->
+
+| Datum | Produkt | Änderung | Autor |
+| ----- | ------- | -------- | ----- |
+| 2026-04-22 | [[Microsoft 365 Copilot]] | Copilot Cowork (Long-Running, Multi-Step-Work) ist jetzt via Frontier-Programm verfügbar. Nutzer können über das Frontier-Programm Early … | auto-sync |
+| 2026-04-22 | [[Agent 365]] | Kompletter Ausbau: GA-Scope-Diagramm (was GA, was bleibt Preview), Identity-Modell (4 neue Entra-Objekttypen), Sponsor-Konzept als DSGVO-… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Agent 365]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[APIM AI Gateway]] | 5 GA-AI-Policies dokumentiert, MCP-Proxy GA (mit Einschränkungen: kein Workspace, keine Prompts), Tier-Matrix, CH-Region-Verfügbarkeit (k… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Azure AI Search]] | **Agentic Retrieval** als First-Class-Feature (MCP-exposed, +40% relevance), **Entra Doc-Level Security GA 2025**, Hybrid-Search-Flow-Dia… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Azure AI Search]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Azure Container Apps]] | Pricing + Regionen (CH North = Consumption + Dedicated, Flex fehlt), Scale-to-Zero-Regeln (nur event-basiert), Dapr Building Blocks + KED… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Azure Container Apps]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Azure Functions]] | Drei Agent-Personas (Host / MCP-Tool / Durable-Workflow) als zentrale Struktur, **MCP Binding GA Jan 2026** mit Code-Beispielen (C# + Pyt… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Azure Machine Learning]] | v1-vs-v2-Status (SDK v1 EOS 30.06.2026!), 4 legitime Agent-Zeitalter-Use-Cases, Azure ML vs. Foundry Linie, Pricing-Struktur, Journai-Tie… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Azure Machine Learning]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Copilot Studio]] | 4-Ebenen-Eskalationsleiter-Diagramm, Cowork Deep-Dive mit EU-Data-Boundary-Warnung (Anthropic default-OFF), vollständige Pricing-Matrix m… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Foundry Agent Service]] | **Major correction**: DSGVO-Flag aus Arbeitsauftrag §2.6 überholt — **Switzerland North ist GA-Region**. 10 EU/EFTA-Regionen. Preview-Lim… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Foundry Agent Service]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Foundry Control Plane]] | Tracing-Architektur-Diagramm (Foundry+AppInsights = ein Storage), 35+ OOB-Evaluators in 6 Kategorien, RBAC-Rollen-Matrix + Journai-Enterp… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Foundry Control Plane]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Foundry IQ]] | Architektur-Diagramm KB → Sources → MCP-Server → Clients, MCP-Endpoint-Pattern, Reasoning-Effort-Levels (minimal/low/medium), Code-Sketch… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Foundry IQ]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Foundry Local]] | Scope-Klärung Foundry Local vs. Windows AI Foundry (Runtime vs. Platform-Stack), 10-Modell-Katalog mit Hardware-Matrix, API-Delta OpenAI-… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Foundry Local]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Foundry Models]] | Top-20-Katalog-Tabelle, PAYG/MaaS/PTU-Entscheidungs-Flow, Break-Even-Rechnung (~$1.8k PAYG/Monat → PTU), EU-Region-Matrix mit **Claude=Sw… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Foundry Models]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Foundry SDKs]] | API-Oberfläche mit Sub-Client-Map + Python/.NET Code-Sketches, Migration-Guide `azure-ai-projects 1.x → 2.0` mit 8 Breaking Changes, Spra… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Foundry SDKs]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Foundry Tools]] | Services-Inventar mit Status + SMB-Relevanz, DI Deep-Dive (Pricing-Matrix, Prebuilt-Models v4.0, Custom Generative), CU Deep-Dive (Schema… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Foundry Tools]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Microsoft 365 Copilot]] | **Vollständige Deep-Research-Integration** via claude-researcher agent: Wave-3-Features mit EU-Details, Flex-Routing-Warnung (DSGVO-kriti… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Microsoft 365 E7]] | Bundle-Math mit korrekten $60/$30/$12/$15 Einzelpreisen + $99/$90,45 E7-Preis; CSP-Promo-Realität korrigiert (30/40% Copilot-for-All stat… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Microsoft Agent Framework]] | Migration auf neues Product Note Template (v2) — Struktur umgezogen, Inhalt erhalten und erweitert (Einsatz-Szenarien, Stack-Tabelle, Dec… | Hongyu |
+| 2026-04-22 | [[Microsoft Foundry]] | **Grössere Korrektur**: Foundry ist seit Ignite 2025 **neue PaaS**, nicht Rebrand. Neuer Resource Provider `Microsoft.CognitiveServices/a… | Hongyu / Deep-Research |
+
+<!-- AUTO-INDEX-END: activity -->
+
 
 ## Querverweise
 

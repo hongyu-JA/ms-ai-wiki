@@ -71,6 +71,84 @@ function detectDepth(filePath: string): "stub" | "deep" {
   }
 }
 
+interface ActivityEntry {
+  date: string; // YYYY-MM-DD
+  product_slug: string;
+  product_link: string;
+  author: string;
+  change: string;
+  source: string;
+}
+
+/**
+ * Extrahiert die Changelog-Zeilen aller Product-Notes der Form
+ *   | YYYY-MM-DD | author | change | source |
+ * und gibt sie sortiert nach Datum (neueste zuerst) zurück.
+ * Optional auf die letzten `lookbackDays` Tage eingegrenzt.
+ */
+function collectRecentActivity(lookbackDays = 30, limit = 20): ActivityEntry[] {
+  const products = loadAllProducts();
+  const today = new Date();
+  const cutoff = new Date(today.getTime() - lookbackDays * 86400_000)
+    .toISOString()
+    .slice(0, 10);
+
+  const entries: ActivityEntry[] = [];
+  for (const p of products) {
+    const filePath = path.join(PRODUCTS_DIR, p.note);
+    if (!fs.existsSync(filePath)) continue;
+    const content = fs.readFileSync(filePath, "utf8");
+    const changelogStart = content.search(/^##[^#][^\n]*Changelog/m);
+    if (changelogStart < 0) continue;
+    const changelog = content.slice(changelogStart);
+
+    // Regex: Tabellen-Zeile mit Datum in Spalte 1
+    const rowRe =
+      /^\|\s*(20\d{2}-\d{2}-\d{2})\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]*?)\s*\|\s*$/gm;
+    let m: RegExpExecArray | null;
+    while ((m = rowRe.exec(changelog)) !== null) {
+      const [, date, author, change, source] = m;
+      if (date! < cutoff) continue;
+      const noteLink = `[[${p.note.replace(/\.md$/, "")}]]`;
+      entries.push({
+        date: date!,
+        product_slug: p.slug,
+        product_link: noteLink,
+        author: author!.trim(),
+        change: change!.trim(),
+        source: source!.trim(),
+      });
+    }
+  }
+  // Sortierung: Datum desc → auto-sync-Einträge zuerst (Automation-Aktivität
+  // sichtbar machen) → Produkt-Slug asc.
+  entries.sort((a, b) => {
+    if (a.date !== b.date) return a.date < b.date ? 1 : -1;
+    const aAuto = /auto-sync/i.test(a.author) ? 0 : 1;
+    const bAuto = /auto-sync/i.test(b.author) ? 0 : 1;
+    if (aAuto !== bAuto) return aAuto - bAuto;
+    return a.product_slug.localeCompare(b.product_slug);
+  });
+  return entries.slice(0, limit);
+}
+
+function buildActivityTable(entries: ActivityEntry[]): string {
+  if (entries.length === 0) {
+    return "_Keine Changelog-Einträge in den letzten 30 Tagen._";
+  }
+  const rows = entries.map((e) => {
+    // Änderung auf ~120 Zeichen kappen, lange Links raus-kürzen
+    let change = e.change.replace(/\s+/g, " ");
+    if (change.length > 140) change = change.slice(0, 137) + "…";
+    return `| ${e.date} | ${e.product_link} | ${change} | ${e.author} |`;
+  });
+  return [
+    "| Datum | Produkt | Änderung | Autor |",
+    "| ----- | ------- | -------- | ----- |",
+    ...rows,
+  ].join("\n");
+}
+
 function scanAllProducts(): ProductStatus[] {
   const products = loadAllProducts();
   return products.map((p: Product) => {
@@ -226,6 +304,23 @@ function updateRootMoc() {
     }
   } else {
     content = injectOrReplaceMarker(content, "research-status", researchTable);
+  }
+
+  // 3. "Letzte Aktivität" — zeigt die jüngsten Changelog-Einträge aller Products
+  //    der letzten 30 Tage. Macht sichtbar dass der Sync wirklich etwas getan
+  //    hat, selbst wenn die Kennzahlen-Tabelle unverändert bleibt.
+  const activity = collectRecentActivity(30, 30);
+  const activityTable = buildActivityTable(activity);
+  if (!/<!-- AUTO-INDEX-START: activity -->/.test(content)) {
+    const endMarker = "<!-- AUTO-INDEX-END: research-status -->";
+    const idx = content.indexOf(endMarker);
+    if (idx >= 0) {
+      const insertAt = idx + endMarker.length;
+      const block = `\n\n## Letzte Aktivität\n\n_Jüngste Changelog-Einträge der letzten 30 Tage aus allen Product-Notes. Auto-generiert._\n\n<!-- AUTO-INDEX-START: activity -->\n\n${activityTable}\n\n<!-- AUTO-INDEX-END: activity -->`;
+      content = content.slice(0, insertAt) + block + content.slice(insertAt);
+    }
+  } else {
+    content = injectOrReplaceMarker(content, "activity", activityTable);
   }
 
   fs.writeFileSync(MICROSOFT_MOC, content);
