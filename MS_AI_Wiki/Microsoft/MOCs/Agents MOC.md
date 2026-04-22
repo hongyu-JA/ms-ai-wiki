@@ -67,7 +67,7 @@ Das semantische Modell: **drei Schichten × Reifegrad**.
 | 🟡 [[M365 Agents SDK]] | Hosting-/Runtime-Layer, ersetzt Bot Framework; Activity-Protocol bleibt | T2 | standard |
 | 🟡 [[Teams SDK]] | Teams-spezifische UI/UX-Schicht (Adaptive Cards, Teams-Events); ergänzt M365 Agents SDK | T2 | standard |
 | 🟡 [[deprecated/AutoGen]] | 🟡 Konsolidiert in MAF — Research-Features teilweise experimental | T2 · 🔻 | passive |
-| 🟡 [[deprecated/Bot Framework]] | 🔴 EOS 2025-12-31 — Migration zu M365 Agents SDK | T2 · 🔻 | passive |
+| 🟢 [[deprecated/Bot Framework]] | 🔴 EOS 2025-12-31 — Migration zu M365 Agents SDK | T2 · 🔻 | passive |
 | 🟡 [[deprecated/Semantic Kernel]] | 🟡 Konsolidiert in MAF — Migration-Pfad | T2 · 🔻 | passive |
 
 <!-- AUTO-INDEX-END: produkte -->

@@ -52,9 +52,10 @@ Einstieg für die Frage: **„Wie kommen Daten in den Agent?"** Drei Achsen ents
 | Produkt | Was es ist (1 Satz) | Tier | Watch |
 | ------- | ------------------- | ---- | ----- |
 | 🟡 [[Dataverse]] | Strukturierter Knowledge-Store (Power Platform) — Limits: 15 Tables/Source, 500 Knowledge Objects | T2 | standard |
+| 🟡 [[Dataverse MCP Server]] | MCP-Server-Wrapper um Dataverse — Tabellen als MCP-Tools für MAF/Copilot Studio/Windows-Agents | T2 | standard |
 | 🟡 [[Microsoft Graph]] | M365-Daten-API-Backbone (Outlook, Teams, SharePoint, OneDrive) | T2 | standard |
-| 🔴 [[Azure Cosmos DB for AI]] | NoSQL + Vector-Search, Co-Location mit App-Daten | T3 | passive |
-| 🔴 [[Microsoft Fabric]] | Lakehouse / Data-Plattform (inkl. OneLake + Fabric Data Agents) | T3 | passive |
+| 🟡 [[Azure Cosmos DB for AI]] | NoSQL + Vector-Search, Co-Location mit App-Daten | T3 | passive |
+| 🟡 [[Microsoft Fabric]] | Lakehouse / Data-Plattform (inkl. OneLake + Fabric Data Agents) | T3 | passive |
 
 <!-- AUTO-INDEX-END: produkte -->
 

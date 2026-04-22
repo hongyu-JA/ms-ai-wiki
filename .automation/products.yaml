@@ -291,6 +291,50 @@ products:
     changelog_trigger_sections: []
     enabled: false
 
+  - slug: dataverse-mcp-server
+    note: "Dataverse MCP Server.md"
+    primary_home_moc: "Data & Knowledge MOC"
+    tagline: "MCP-Server-Wrapper um Dataverse — Tabellen als MCP-Tools für MAF/Copilot Studio/Windows-Agents"
+    tier: 2
+    watch: standard
+    keywords: ["Dataverse MCP Server", "Dataverse MCP"]
+    sources: []
+    changelog_trigger_sections: []
+    enabled: false
+
+  - slug: azure-ai-content-understanding
+    note: "Azure AI Content Understanding.md"
+    primary_home_moc: "Azure AI MOC"
+    tagline: "Multimodale Content-Analyse (Text/Bild/Video/Audio) mit Schema-gesteuertem Output — Teil von Foundry Tools"
+    tier: 2
+    watch: standard
+    keywords: ["Azure AI Content Understanding", "Content Understanding"]
+    sources: []
+    changelog_trigger_sections: []
+    enabled: false
+
+  - slug: azure-ai-document-intelligence
+    note: "Azure AI Document Intelligence.md"
+    primary_home_moc: "Azure AI MOC"
+    tagline: "OCR + Dokumenten-Struktur-Erkennung (Rechnungen, Verträge, Formulare) — SMB-Einstiegs-Use-Case, ex Form Recognizer"
+    tier: 2
+    watch: standard
+    keywords: ["Azure AI Document Intelligence", "Document Intelligence", "Form Recognizer"]
+    sources: []
+    changelog_trigger_sections: []
+    enabled: false
+
+  - slug: purview-dspm
+    note: "Purview DSPM.md"
+    primary_home_moc: "Security & Identity MOC"
+    tagline: "Data Security Posture Management — kontinuierliches Risk-Scoring sensitiver Daten"
+    tier: 2
+    watch: standard
+    keywords: ["Purview DSPM", "Data Security Posture Management", "DSPM"]
+    sources: []
+    changelog_trigger_sections: []
+    enabled: false
+
   - slug: microsoft-graph
     note: "Microsoft Graph.md"
     primary_home_moc: "Data & Knowledge MOC"

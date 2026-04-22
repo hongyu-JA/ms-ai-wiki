@@ -80,7 +80,9 @@ Ergänzend außerhalb Foundry:
 | 🟢 [[Foundry Tools]] | Sammelbegriff für Azure AI Services (Document Intelligence, Content Understanding u. a.) | T1 | close |
 | 🟢 [[Microsoft Foundry]] | Dach-Produkt der Azure-AI-Plattform — Portal, Projects & Hubs, Playground | T1 | close |
 | 🟢 [[Azure Machine Learning]] | Klassische ML-Plattform — v1 ist Deprecation-Kandidat | T1 | passive |
-| 🔴 [[Azure OpenAI Service Pricing]] | PAYG vs PTU vs Batch — Kostenoptimierung | T3 | passive |
+| 🟡 [[Azure AI Content Understanding]] | Multimodale Content-Analyse (Text/Bild/Video/Audio) mit Schema-gesteuertem Output — Teil von Foundry Tools | T2 | standard |
+| 🟡 [[Azure AI Document Intelligence]] | OCR + Dokumenten-Struktur-Erkennung (Rechnungen, Verträge, Formulare) — SMB-Einstiegs-Use-Case, ex Form Recognizer | T2 | standard |
+| 🟡 [[Azure OpenAI Service Pricing]] | PAYG vs PTU vs Batch — Kostenoptimierung | T3 | passive |
 
 <!-- AUTO-INDEX-END: produkte -->
 

@@ -1,7 +1,8 @@
 ---
 watch: passive
 status: deprecated
-last_verified: 2026-04-21
+research_depth: deep
+last_verified: 2026-04-22
 aliases: [Bot Framework v4, BF, Microsoft Bot Framework]
 moc:
   - "[[Microsoft MOC]]"
