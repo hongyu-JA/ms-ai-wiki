@@ -5,12 +5,13 @@
   "private": true,
   "description": "Automation pipeline for the Microsoft AI Obsidian knowledge base (fetch → filter → patch → apply).",
   "scripts": {
-    "fetch": "tsx scripts/fetch.ts",
-    "filter": "tsx scripts/filter.ts",
-    "patch": "tsx scripts/patch.ts",
-    "apply": "tsx scripts/apply.ts",
-    "sync": "npm run fetch && npm run filter && npm run patch && npm run apply",
-    "sync:dry": "cross-env DRY_RUN=1 DRY_WRITE=1 npm run sync"
+    "fetch":  "bun run scripts/fetch.ts",
+    "filter": "bun run scripts/filter.ts",
+    "patch":  "bun run scripts/patch.ts",
+    "apply":  "bun run scripts/apply.ts",
+    "indices": "bun run scripts/update-indices.ts",
+    "sync":   "bun run scripts/fetch.ts && bun run scripts/filter.ts && bun run scripts/patch.ts && bun run scripts/apply.ts",
+    "sync:dry": "cross-env DRY_RUN=1 DRY_WRITE=1 bun run sync"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.40.0",
