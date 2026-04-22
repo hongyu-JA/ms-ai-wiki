@@ -130,7 +130,7 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | Kennzahl | Wert |
 | -------- | ---- |
 | Tier-1 Notes | **19 deep** · 0 stub · total 19 |
-| Tier-2 Notes | **4 deep** · 12 stub · total 16 |
+| Tier-2 Notes | **5 deep** · 11 stub · total 16 |
 | Tier-3 Notes | **0 deep** · 4 stub · total 4 |
 | Deprecated Notes | **1 deep** · 2 stub · total 3 |
 | MOCs insgesamt | 10 (Root + 6 Primary + 2 Lens + 1 Commercial) |
@@ -165,6 +165,7 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | 🟢 deep | T1 | close | [[Microsoft Foundry]] | Azure AI MOC |
 | 🟢 deep | T1 | close | [[Model Context Protocol]] | Agents MOC |
 | 🟢 deep | T2 · 🔻 | passive | [[deprecated/Bot Framework]] | Agents MOC |
+| 🟢 deep | T2 | standard | [[Microsoft 365 Copilot Connectors]] | Copilot MOC |
 | 🟢 deep | T2 | standard | [[M365 Agents SDK]] | Agents MOC |
 | 🟢 deep | T2 | close | [[Microsoft 365 E7]] | Licensing & SKUs MOC |
 | 🟢 deep | T2 | standard | [[Microsoft Graph]] | Data & Knowledge MOC |
@@ -173,7 +174,6 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | 🟡 stub | T2 | standard | [[Azure AI Content Safety]] | Security & Identity MOC |
 | 🟡 stub | T2 | standard | [[Azure AI Content Understanding]] | Azure AI MOC |
 | 🟡 stub | T2 | standard | [[Azure AI Document Intelligence]] | Azure AI MOC |
-| 🟡 stub | T2 | standard | [[Microsoft 365 Copilot Connectors]] | Copilot MOC |
 | 🟡 stub | T2 | standard | [[Dataverse]] | Data & Knowledge MOC |
 | 🟡 stub | T2 | standard | [[Dataverse MCP Server]] | Data & Knowledge MOC |
 | 🟡 stub | T2 | standard | [[Defender for AI]] | Security & Identity MOC |
@@ -209,6 +209,8 @@ _Jüngste Changelog-Einträge der letzten 30 Tage aus allen Product-Notes. Auto-
 | 2026-04-22 | [[Azure Functions]] | Drei Agent-Personas (Host / MCP-Tool / Durable-Workflow) als zentrale Struktur, **MCP Binding GA Jan 2026** mit Code-Beispielen (C# + Pyt… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Azure Machine Learning]] | v1-vs-v2-Status (SDK v1 EOS 30.06.2026!), 4 legitime Agent-Zeitalter-Use-Cases, Azure ML vs. Foundry Linie, Pricing-Struktur, Journai-Tie… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Azure Machine Learning]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Microsoft 365 Copilot Connectors]] | Deep-Dive Copilot Connectors: OOB-Inventar (>100 Connectors), Custom-Schema-Snippet, Security Trimming via ACLs, 50M-Quota-Details, Abgre… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Microsoft 365 Copilot Connectors]] | Initial Stub, watch: standard, status: GA | Hongyu |
 | 2026-04-22 | [[Copilot Studio]] | 4-Ebenen-Eskalationsleiter-Diagramm, Cowork Deep-Dive mit EU-Data-Boundary-Warnung (Anthropic default-OFF), vollständige Pricing-Matrix m… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Entra Agent ID]] | Kompletter Ausbau von Stub → Deep-Research-Note (watch: close). Abgrenzung zu [[Agent 365]] (Entra Agent ID = Identity-Plane darunter, ni… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Foundry Agent Service]] | **Major correction**: DSGVO-Flag aus Arbeitsauftrag §2.6 überholt — **Switzerland North ist GA-Region**. 10 EU/EFTA-Regionen. Preview-Lim… | Hongyu / Deep-Research |
@@ -226,8 +228,6 @@ _Jüngste Changelog-Einträge der letzten 30 Tage aus allen Product-Notes. Auto-
 | 2026-04-22 | [[Foundry Tools]] | Services-Inventar mit Status + SMB-Relevanz, DI Deep-Dive (Pricing-Matrix, Prebuilt-Models v4.0, Custom Generative), CU Deep-Dive (Schema… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Foundry Tools]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[M365 Agents SDK]] | Kompletter Deep-Dive nach MAF-Template, Bot-Framework-Migration-Path, Code-Beispiele, Hosting-Varianten | Hongyu / Deep-Research |
-| 2026-04-22 | [[M365 Agents SDK]] | Initial Stub (watch: standard → upgrade auf close nach Deep-Research) | Hongyu |
-| 2026-04-22 | [[Microsoft 365 Copilot]] | **Vollständige Deep-Research-Integration** via claude-researcher agent: Wave-3-Features mit EU-Details, Flex-Routing-Warnung (DSGVO-kriti… | Hongyu / Deep-Research |
 
 <!-- AUTO-INDEX-END: activity -->
 

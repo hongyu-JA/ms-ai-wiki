@@ -53,7 +53,7 @@ Einstieg für alle Kundengespräche, bei denen es um **Copilot-basierte Produkti
 | Produkt | Was es ist (1 Satz) | Tier | Watch |
 | ------- | ------------------- | ---- | ----- |
 | 🟢 [[Microsoft 365 Copilot]] | Dach-Produkt, Kunden-primäre Erfahrung mit MS-AI | T1 | close |
-| 🟡 [[Microsoft 365 Copilot Connectors]] | Graph-Connector-Ökosystem zum Grounden auf Kundendaten | T2 | standard |
+| 🟢 [[Microsoft 365 Copilot Connectors]] | Graph-Connector-Ökosystem zum Grounden auf Kundendaten | T2 | standard |
 
 <!-- AUTO-INDEX-END: produkte -->
 
@@ -66,6 +66,8 @@ _Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert 
 | Datum | Produkt | Änderung | Autor |
 | ----- | ------- | -------- | ----- |
 | 2026-04-22 | [[Microsoft 365 Copilot]] | Copilot Cowork (Long-Running, Multi-Step-Work) ist jetzt via Frontier-Programm verfügbar. Nutzer können über das Frontier-Programm Early … | auto-sync |
+| 2026-04-22 | [[Microsoft 365 Copilot Connectors]] | Deep-Dive Copilot Connectors: OOB-Inventar (>100 Connectors), Custom-Schema-Snippet, Security Trimming via ACLs, 50M-Quota-Details, Abgre… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Microsoft 365 Copilot Connectors]] | Initial Stub, watch: standard, status: GA | Hongyu |
 | 2026-04-22 | [[Microsoft 365 Copilot]] | **Vollständige Deep-Research-Integration** via claude-researcher agent: Wave-3-Features mit EU-Details, Flex-Routing-Warnung (DSGVO-kriti… | Hongyu / Deep-Research |
 | 2026-04-21 | [[Microsoft 365 Copilot]] | Initial Stub, watch: close, Status: GA Wave 3 | Hongyu |
 
