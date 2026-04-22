@@ -55,7 +55,7 @@ Einstieg für die Frage: **„Wie kommen Daten in den Agent?"** Drei Achsen ents
 | 🟢 [[Dataverse MCP Server]] | MCP-Server-Wrapper um Dataverse — Tabellen als MCP-Tools für MAF/Copilot Studio/Windows-Agents | T2 | standard |
 | 🟢 [[Microsoft Graph]] | M365-Daten-API-Backbone (Outlook, Teams, SharePoint, OneDrive) | T2 | standard |
 | 🟢 [[Azure Cosmos DB for AI]] | NoSQL + Vector-Search, Co-Location mit App-Daten | T3 | passive |
-| 🟡 [[Microsoft Fabric]] | Lakehouse / Data-Plattform (inkl. OneLake + Fabric Data Agents) | T3 | passive |
+| 🟢 [[Microsoft Fabric]] | Lakehouse / Data-Plattform (inkl. OneLake + Fabric Data Agents) | T3 | passive |
 
 <!-- AUTO-INDEX-END: produkte -->
 
@@ -73,6 +73,8 @@ _Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert 
 | 2026-04-22 | [[Dataverse]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Dataverse MCP Server]] | Deep-Dive Dataverse MCP Server: Endpoint, Auth-Flows, Copilot-Credit-Modell, MAF-Integration | Hongyu / Deep-Research |
 | 2026-04-22 | [[Dataverse MCP Server]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Microsoft Fabric]] | Deep-Dive Fabric: OneLake + Data Agents bundled, 8 Workloads, F-SKU-Pricing, SMB-Ehrlichkeit (nur BI-Kunden) | Hongyu / Deep-Research |
+| 2026-04-22 | [[Microsoft Fabric]] | Initial Stub (Tier 3 Awareness — bündelt OneLake + Fabric Data Agents) | Hongyu |
 | 2026-04-22 | [[Microsoft Graph]] | Kompletter Deep-Dive: Auth-Flows inkl. Entra Agent ID OBO, Kern-Endpunkte SMB, Throttling-Patterns, DSGVO-Einordnung | Hongyu / Deep-Research |
 | 2026-04-22 | [[Microsoft Graph]] | Initial Stub, watch: standard, Status GA | Hongyu |
 

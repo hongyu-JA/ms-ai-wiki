@@ -131,7 +131,7 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | -------- | ---- |
 | Tier-1 Notes | **19 deep** · 0 stub · total 19 |
 | Tier-2 Notes | **16 deep** · 0 stub · total 16 |
-| Tier-3 Notes | **5 deep** · 2 stub · total 7 |
+| Tier-3 Notes | **6 deep** · 1 stub · total 7 |
 | Deprecated Notes | **3 deep** · 0 stub · total 3 |
 | MOCs insgesamt | 10 (Root + 6 Primary + 2 Lens + 1 Commercial) |
 | Automation-Pipeline | läuft seit 2026-04-21 (siehe README) |
@@ -187,8 +187,8 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | 🟢 deep | T3 | passive | [[Azure OpenAI Responses API]] | Azure AI MOC |
 | 🟢 deep | T3 | passive | [[Azure Cosmos DB for AI]] | Data & Knowledge MOC |
 | 🟢 deep | T3 | passive | [[Dynamics 365 Agents]] | Copilot MOC |
+| 🟢 deep | T3 | passive | [[Microsoft Fabric]] | Data & Knowledge MOC |
 | 🟢 deep | T3 | passive | [[Purview Data Map]] | Security & Identity MOC |
-| 🟡 stub | T3 | passive | [[Microsoft Fabric]] | Data & Knowledge MOC |
 | 🟡 stub | T3 | passive | [[Microsoft AI Developer Tooling]] | Integration & Compute MOC |
 
 <!-- AUTO-INDEX-END: research-status -->
