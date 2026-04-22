@@ -129,7 +129,7 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 
 | Kennzahl | Wert |
 | -------- | ---- |
-| Tier-1 Notes | **18 deep** · 1 stub · total 19 |
+| Tier-1 Notes | **19 deep** · 0 stub · total 19 |
 | Tier-2 Notes | **1 deep** · 15 stub · total 16 |
 | Tier-3 Notes | **0 deep** · 4 stub · total 4 |
 | Deprecated Notes | **1 deep** · 2 stub · total 3 |
@@ -152,6 +152,7 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | 🟢 deep | T1 | close | [[Azure Functions]] | Integration & Compute MOC |
 | 🟢 deep | T1 | passive | [[Azure Machine Learning]] | Azure AI MOC |
 | 🟢 deep | T1 | close | [[Copilot Studio]] | Agents MOC |
+| 🟢 deep | T1 | close | [[Entra Agent ID]] | Security & Identity MOC |
 | 🟢 deep | T1 | close | [[Foundry Agent Service]] | Azure AI MOC |
 | 🟢 deep | T1 | close | [[Foundry Control Plane]] | Azure AI MOC |
 | 🟢 deep | T1 | close | [[Foundry IQ]] | Azure AI MOC |
@@ -163,7 +164,6 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | 🟢 deep | T1 | close | [[Microsoft Agent Framework]] | Agents MOC |
 | 🟢 deep | T1 | close | [[Microsoft Foundry]] | Azure AI MOC |
 | 🟢 deep | T1 | close | [[Model Context Protocol]] | Agents MOC |
-| 🟡 stub | T1 | close | [[Entra Agent ID]] | Security & Identity MOC |
 | 🟢 deep | T2 · 🔻 | passive | [[deprecated/Bot Framework]] | Agents MOC |
 | 🟢 deep | T2 | close | [[Microsoft 365 E7]] | Licensing & SKUs MOC |
 | 🟡 stub | T2 · 🔻 | passive | [[deprecated/AutoGen]] | Agents MOC |
@@ -210,6 +210,7 @@ _Jüngste Changelog-Einträge der letzten 30 Tage aus allen Product-Notes. Auto-
 | 2026-04-22 | [[Azure Machine Learning]] | v1-vs-v2-Status (SDK v1 EOS 30.06.2026!), 4 legitime Agent-Zeitalter-Use-Cases, Azure ML vs. Foundry Linie, Pricing-Struktur, Journai-Tie… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Azure Machine Learning]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Copilot Studio]] | 4-Ebenen-Eskalationsleiter-Diagramm, Cowork Deep-Dive mit EU-Data-Boundary-Warnung (Anthropic default-OFF), vollständige Pricing-Matrix m… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Entra Agent ID]] | Kompletter Ausbau von Stub → Deep-Research-Note (watch: close). Abgrenzung zu [[Agent 365]] (Entra Agent ID = Identity-Plane darunter, ni… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Foundry Agent Service]] | **Major correction**: DSGVO-Flag aus Arbeitsauftrag §2.6 überholt — **Switzerland North ist GA-Region**. 10 EU/EFTA-Regionen. Preview-Lim… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Foundry Agent Service]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Foundry Control Plane]] | Tracing-Architektur-Diagramm (Foundry+AppInsights = ein Storage), 35+ OOB-Evaluators in 6 Kategorien, RBAC-Rollen-Matrix + Journai-Enterp… | Hongyu / Deep-Research |
@@ -227,7 +228,6 @@ _Jüngste Changelog-Einträge der letzten 30 Tage aus allen Product-Notes. Auto-
 | 2026-04-22 | [[Microsoft 365 Copilot]] | **Vollständige Deep-Research-Integration** via claude-researcher agent: Wave-3-Features mit EU-Details, Flex-Routing-Warnung (DSGVO-kriti… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Microsoft 365 E7]] | Bundle-Math mit korrekten $60/$30/$12/$15 Einzelpreisen + $99/$90,45 E7-Preis; CSP-Promo-Realität korrigiert (30/40% Copilot-for-All stat… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Microsoft Agent Framework]] | Migration auf neues Product Note Template (v2) — Struktur umgezogen, Inhalt erhalten und erweitert (Einsatz-Szenarien, Stack-Tabelle, Dec… | Hongyu |
-| 2026-04-22 | [[Microsoft Foundry]] | **Grössere Korrektur**: Foundry ist seit Ignite 2025 **neue PaaS**, nicht Rebrand. Neuer Resource Provider `Microsoft.CognitiveServices/a… | Hongyu / Deep-Research |
 
 <!-- AUTO-INDEX-END: activity -->
 
