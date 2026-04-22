@@ -132,7 +132,7 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | Tier-1 Notes | **19 deep** · 0 stub · total 19 |
 | Tier-2 Notes | **16 deep** · 0 stub · total 16 |
 | Tier-3 Notes | **0 deep** · 4 stub · total 4 |
-| Deprecated Notes | **2 deep** · 1 stub · total 3 |
+| Deprecated Notes | **3 deep** · 0 stub · total 3 |
 | MOCs insgesamt | 10 (Root + 6 Primary + 2 Lens + 1 Commercial) |
 | Automation-Pipeline | läuft seit 2026-04-21 (siehe README) |
 | Letzter Index-Rebuild | 2026-04-22 (automatisch durch apply.ts) |
@@ -164,6 +164,7 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | 🟢 deep | T1 | close | [[Microsoft Agent Framework]] | Agents MOC |
 | 🟢 deep | T1 | close | [[Microsoft Foundry]] | Azure AI MOC |
 | 🟢 deep | T1 | close | [[Model Context Protocol]] | Agents MOC |
+| 🟢 deep | T2 · 🔻 | passive | [[deprecated/AutoGen]] | Agents MOC |
 | 🟢 deep | T2 | standard | [[Azure AI Content Safety]] | Security & Identity MOC |
 | 🟢 deep | T2 | standard | [[Azure AI Content Understanding]] | Azure AI MOC |
 | 🟢 deep | T2 | standard | [[Azure AI Document Intelligence]] | Azure AI MOC |
@@ -182,7 +183,6 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | 🟢 deep | T2 | standard | [[Purview DSPM]] | Security & Identity MOC |
 | 🟢 deep | T2 · 🔻 | passive | [[deprecated/Semantic Kernel]] | Agents MOC |
 | 🟢 deep | T2 | standard | [[Teams SDK]] | Agents MOC |
-| 🟡 stub | T2 · 🔻 | passive | [[deprecated/AutoGen]] | Agents MOC |
 | 🟡 stub | T3 | passive | [[Azure OpenAI Service Pricing]] | Azure AI MOC |
 | 🟡 stub | T3 | passive | [[Azure Cosmos DB for AI]] | Data & Knowledge MOC |
 | 🟡 stub | T3 | passive | [[Microsoft Fabric]] | Data & Knowledge MOC |
@@ -202,6 +202,8 @@ _Jüngste Changelog-Einträge der letzten 30 Tage aus allen Product-Notes. Auto-
 | 2026-04-22 | [[Agent 365]] | Kompletter Ausbau: GA-Scope-Diagramm (was GA, was bleibt Preview), Identity-Modell (4 neue Entra-Objekttypen), Sponsor-Konzept als DSGVO-… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Agent 365]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[APIM AI Gateway]] | 5 GA-AI-Policies dokumentiert, MCP-Proxy GA (mit Einschränkungen: kein Workspace, keine Prompts), Tier-Matrix, CH-Region-Verfügbarkeit (k… | Hongyu / Deep-Research |
+| 2026-04-22 | [[deprecated/AutoGen]] | Deep-Dive AutoGen-Deprecation + Migration zu MAF: v0.2 vs v0.4 Unterscheidung, API-Äquivalenzen, Code-Beispiele (RoundRobin→Sequential, C… | Hongyu / Deep-Research |
+| 2026-04-22 | [[deprecated/AutoGen]] | Initial Stub — Migration-Pfad zu MAF | Hongyu |
 | 2026-04-22 | [[Azure AI Content Safety]] | Deep-Dive Content Safety: Prompt Shields (User+Document Attacks), Content-Filter-Categories (0–7-Severity), Groundedness Detection (Reaso… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Azure AI Content Safety]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Azure AI Content Understanding]] | Deep-Dive Content Understanding: multimodales Schema-Driven Extraction, Abgrenzung zu Document Intelligence, SMB-Use-Cases, Pricing-Matri… | Hongyu / Deep-Research |
@@ -226,8 +228,6 @@ _Jüngste Changelog-Einträge der letzten 30 Tage aus allen Product-Notes. Auto-
 | 2026-04-22 | [[Defender for AI]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Entra Agent ID]] | Kompletter Ausbau von Stub → Deep-Research-Note (watch: close). Abgrenzung zu [[Agent 365]] (Entra Agent ID = Identity-Plane darunter, ni… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Foundry Agent Service]] | **Major correction**: DSGVO-Flag aus Arbeitsauftrag §2.6 überholt — **Switzerland North ist GA-Region**. 10 EU/EFTA-Regionen. Preview-Lim… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Foundry Agent Service]] | Initial Stub | Hongyu |
-| 2026-04-22 | [[Foundry Control Plane]] | Tracing-Architektur-Diagramm (Foundry+AppInsights = ein Storage), 35+ OOB-Evaluators in 6 Kategorien, RBAC-Rollen-Matrix + Journai-Enterp… | Hongyu / Deep-Research |
 
 <!-- AUTO-INDEX-END: activity -->
 
