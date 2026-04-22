@@ -51,7 +51,7 @@ Einstieg für regulierte Branchen und Compliance-sensitive Projekte. Diese MOC b
 | 🟡 [[Defender for AI]] | Runtime-Schutz gegen Prompt Injection, Jailbreak | T2 | standard |
 | 🟡 [[Microsoft Entra Suite]] | Identity-Bundle, Voraussetzung für Entra Agent ID, Teil von E7 | T2 | standard |
 | 🟢 [[Microsoft Purview]] | Compliance-Dach: Governance + Security + Compliance (inkl. DSPM, Data Map, Sensitivity Labels) | T2 | standard |
-| 🟡 [[Purview DSPM]] | Data Security Posture Management — kontinuierliches Risk-Scoring sensitiver Daten | T2 | standard |
+| 🟢 [[Purview DSPM]] | Data Security Posture Management — kontinuierliches Risk-Scoring sensitiver Daten | T2 | standard |
 
 <!-- AUTO-INDEX-END: produkte -->
 
@@ -66,6 +66,8 @@ _Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert 
 | 2026-04-22 | [[Entra Agent ID]] | Kompletter Ausbau von Stub → Deep-Research-Note (watch: close). Abgrenzung zu [[Agent 365]] (Entra Agent ID = Identity-Plane darunter, ni… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Microsoft Purview]] | Deep-Dive Purview: 3-Säulen-Portfolio, Sensitivity Labels für Copilot, Agent-Governance-Hooks, Lizenz-Matrix | Hongyu / Deep-Research |
 | 2026-04-22 | [[Microsoft Purview]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Purview DSPM]] | Deep-Dive DSPM + DSPM for AI: Risk-Signale, Coverage-Matrix, Pricing, Copilot-spezifische Detections | Hongyu / Deep-Research |
+| 2026-04-22 | [[Purview DSPM]] | Initial Stub | Hongyu |
 | 2026-04-21 | [[Entra Agent ID]] | Initial Stub | Hongyu |
 
 <!-- AUTO-INDEX-END: activity -->
