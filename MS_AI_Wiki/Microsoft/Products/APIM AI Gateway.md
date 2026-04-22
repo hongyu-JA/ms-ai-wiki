@@ -16,6 +16,49 @@ moc:
 
 ---
 
+## Einsatz
+
+### Job-to-be-done
+
+When I mehrere AI-Workloads oder Kunden auf gemeinsame Modell-Backends route, I want to Rate-Limiting, Token-Budget, Semantic-Cache und MCP-Proxy vor dem LLM-Endpunkt, so I can Cost-Caps + Auditing zentral durchsetzen statt pro Agent.
+
+### Trigger-Signale
+
+- „Azure-OpenAI-Rechnung ist letzten Monat explodiert, weil ein User einen Loop gebaut hat."
+- „Mehrere Agents teilen ein PTU — wer verbraucht wieviel?"
+- „Wir brauchen einen MCP-Proxy für Enterprise-Governance."
+
+### Einsatz-Szenarien
+
+1. **Token-Budget pro Kunde / Agent** — bei Multi-Tenant-Deployments mit `llm-token-limit` harte Caps pro Subscription-Key; Budget-Alert via Azure Monitor.
+2. **Semantic-Cache für häufige Prompts** — `llm-semantic-cache-lookup`/`-store` senkt Kosten messbar bei Customer-Support-Agents mit repetitiven Queries.
+3. **MCP-Server-Proxy** — einheitlicher Auth + Audit für mehrere Backend-MCP-Server (z. B. [[Azure Functions]] + [[Dataverse MCP Server]] + Dritt-MCP).
+
+### Voraussetzungen beim Kunden
+
+| Voraussetzung | Details |
+|---------------|---------|
+| **Lizenz-Baseline** | APIM Standard v2 oder Premium v2 (VNet-Support + AI Policies) |
+| **Tenant / Infrastruktur** | Azure-Architekt für Policy-Definition; Journai-Baseline: Standard v2 in Switzerland North |
+| **Skills / Rollen** | Policy-XML / IaC-Skills; Observability für `llm-emit-token-metric` |
+| **Compliance-Rahmen** | VNet-Integration + Private Endpoints + Managed Identity |
+
+### Aufwand & Kosten (Journai-Schätzung)
+
+| Dimension | Größenordnung |
+|-----------|---------------|
+| **Setup / Einführung** | 2–5 Tage für Baseline-Policies als Infra-as-Code |
+| **Laufende Lizenzkosten** | Standard v2 CH ~€665/Monat (VNet inklusive); Premium deutlich höher |
+| **Laufender Betrieb** | gering; Policy-Reviews quartalsweise bei Feature-Änderungen |
+
+### Empfehlung
+
+**Status:** 🟢 **für Multi-Agent-/Multi-Kunden-Setups Pflicht**; 🟡 für Single-Agent unnötiger Overhead.
+
+**Nächster Schritt für Journai:** Standard-Policy-Template (`llm-token-limit` + `semantic-cache` + `llm-content-safety` + MCP-Proxy) als Bicep/IaC im Starter-Repo ablegen; als Default-Deployment für alle Multi-Agent-Kunden.
+
+---
+
 ## 5 GA-AI-Policies (Stand April 2026)
 
 ### Token-Kontrolle & Metriken

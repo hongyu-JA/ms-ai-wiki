@@ -16,6 +16,49 @@ moc:
 
 ---
 
+## Einsatz
+
+### Job-to-be-done
+
+When I einem Foundry-Agent Knowledge geben will, I want to einen Out-of-Box-Index ohne [[Azure AI Search]]-Setup, so I can schnell starten und später bei Bedarf auf AI Search direkt wechseln.
+
+### Trigger-Signale
+
+- „Agent soll auf ~100 PDFs antworten — schnellster Weg zur PoC?"
+- „Wir wollen Agentic Retrieval nutzen ohne Index-Tuning zu lernen."
+- „CH-Region + minimal Setup."
+
+### Einsatz-Szenarien
+
+1. **PoC-Phase mit minimaler Infrastruktur** — Foundry-Project + Datenquelle (SPO/OneDrive/Storage) + IQ-Knowledge-Base aktivieren → Agent kann via MCP-Tool `knowledge_base_retrieve` zugreifen.
+2. **Standard-MCP-Tool für Foundry-Agents** — wenn Journai nicht mehrere Custom-Indexe verwalten will, bleibt IQ die Convenience-Option.
+3. **Later-Switch zu Azure AI Search** — wenn Custom Scoring / Synonym Maps / Entra-DLS gebraucht werden, Migration auf AI Search direkt (IQ nutzt es unter der Haube).
+
+### Voraussetzungen beim Kunden
+
+| Voraussetzung | Details |
+|---------------|---------|
+| **Lizenz-Baseline** | Azure-Subscription + Foundry-Project |
+| **Tenant / Infrastruktur** | Switzerland North GA; Datenquelle SPO/OneDrive/Storage |
+| **Skills / Rollen** | keine Search-Expertise nötig; nur Foundry-Portal-Bedienung |
+| **Compliance-Rahmen** | Underlying AI Search + Storage unterliegen Region-Wahl |
+
+### Aufwand & Kosten (Journai-Schätzung)
+
+| Dimension | Größenordnung |
+|-----------|---------------|
+| **Setup / Einführung** | <1 Tag für erste Knowledge Base |
+| **Laufende Lizenzkosten** | kein eigener IQ-Preis; Underlying Azure AI Search (Basic ~€75/Mo) + Storage |
+| **Laufender Betrieb** | minimal; Re-Indexing bei Datenänderungen automatisch |
+
+### Empfehlung
+
+**Status:** 🟢 für PoC + einfache Fälle; 🟡 wenn Custom Scoring / Synonyms / DLS nötig → direkt auf [[Azure AI Search]] wechseln.
+
+**Nächster Schritt für Journai:** Preview → GA monitoren; IQ als Standard in PoC-Phase, AI Search für Produktion wenn Custom-Anforderungen.
+
+---
+
 ## Architektur
 
 ```

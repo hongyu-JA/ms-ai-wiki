@@ -16,6 +16,49 @@ moc:
 
 ---
 
+## Einsatz
+
+### Job-to-be-done
+
+When I Modelle in produktiven Azure-Workloads deployen will, I want to einen kuratierten Katalog mit einheitlichem Billing + Azure-Integration + MS-DPA, so I can Anbieter-Wechsel ohne neuen Vertrag durchführen und pro Region sauber steuern.
+
+### Trigger-Signale
+
+- „Wir brauchen Claude 4.6 — aber EU-Data-Boundary ist kritisch."
+- „PAYG skaliert kostenmäßig nicht, lohnt PTU?"
+- „Welches Modell für SMB-Rechnungs-Klassifikation?"
+
+### Einsatz-Szenarien
+
+1. **Multi-Modell-Routing via APIM** — [[APIM AI Gateway]] vor mehreren Foundry-Model-Endpoints; Policy entscheidet pro Request (GPT-4.1 für komplex, GPT-4.1-mini für Masse).
+2. **PTU-Break-even** — ab ~$1.5k/Monat konstantem PAYG-Volumen rechnet sich 50 PTU (GPT-4.1). Exakt via Azure Pricing Calculator.
+3. **Claude-Einsatz in EU** — nur in Sweden Central + East US2 verfügbar, **nicht CH**; DSGVO-Kommunikation mit Kunden Pflicht (EU-Data-Boundary-Warnung).
+
+### Voraussetzungen beim Kunden
+
+| Voraussetzung | Details |
+|---------------|---------|
+| **Lizenz-Baseline** | Azure-Subscription mit AI-Services-Kontingent |
+| **Tenant / Infrastruktur** | Foundry-Project in gewünschter Region; Modell-Verfügbarkeit prüfen (CH: 92 Modelle, ohne Claude) |
+| **Skills / Rollen** | Azure-Architekt für Modell-Wahl + Cost-Planning |
+| **Compliance-Rahmen** | MS-DPA + ggf. Anbieter-spezifische DPAs (OpenAI/Anthropic/Meta) |
+
+### Aufwand & Kosten (Journai-Schätzung)
+
+| Dimension | Größenordnung |
+|-----------|---------------|
+| **Setup / Einführung** | Deployment eines Modells <1 Tag |
+| **Laufende Lizenzkosten** | PAYG: pro 1M Tokens modell-abhängig; PTU: ~$1.5k–10k/Monat je nach Modell + PTU-Count |
+| **Laufender Betrieb** | Modell-Deprecations monitoren (siehe Deprecation-Radar) |
+
+### Empfehlung
+
+**Status:** 🟢 für M365-/Azure-Kunden mit klarer Modell-Strategie. 🟡 Claude-Einsatz nur mit expliziter Sweden-Central-Wahl + DSGVO-Kommunikation.
+
+**Nächster Schritt für Journai:** PTU-Break-even-Kalkulator als Standard-Asset im Kunden-Gespräch; Modell-Deprecation-Monitoring via [[Deprecation Radar]].
+
+---
+
 ## Top-20-Modelle (April 2026)
 
 | # | Modell | Anbieter | Kontext | Modalität | EU-Region | Pricing |

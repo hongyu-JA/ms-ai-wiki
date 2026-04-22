@@ -16,6 +16,49 @@ moc:
 
 ---
 
+## Einsatz
+
+### Job-to-be-done
+
+When I Agents mit vielen externen Tools verbinde, I want to ein einheitliches offenes Protokoll für Tool-Discovery + Call + Result, so I can M×N-Integrationen auf M+N reduzieren und Anbieter-unabhängig bleiben.
+
+### Trigger-Signale
+
+- „Unser Agent braucht Zugriff auf 10+ Systeme — schreiben wir für jedes einen Connector?"
+- „Wir wollen Foundry-Agent auf Line-of-Business-Tools skalieren ohne Vendor-Lock-in."
+- „OpenAI sunsetted die Assistants API, was ist der Ersatz?"
+
+### Einsatz-Szenarien
+
+1. **Custom MCP-Server in Azure Functions** — Line-of-Business-Funktion als MCP-Tool exposed via `MCP Binding` (GA Jan 2026), OAuth 2.1 via Entra.
+2. **Foundry-Agent mit Out-of-Box-MCP-Tools** — [[Foundry IQ]] `knowledge_base_retrieve`, [[Dataverse MCP Server]] Tables, Speech/Language-Tools als MAF-Standardpalette.
+3. **MAF-Agent mit Mix** — offizielle MS-MCP-Server + Custom + Dritt-MCP zentral über [[APIM AI Gateway]]-MCP-Proxy geroutet für Governance.
+
+### Voraussetzungen beim Kunden
+
+| Voraussetzung | Details |
+|---------------|---------|
+| **Lizenz-Baseline** | MCP-fähiger Client: [[Microsoft Agent Framework]], [[Copilot Studio]], [[Microsoft Foundry]], Windows Dev Runtime (ODR) |
+| **Tenant / Infrastruktur** | OAuth 2.1 via Entra für Secure MCP-Server; MCP-Proxy optional für Multi-Server |
+| **Skills / Rollen** | Dev-Skills für Custom-MCP-Server (Python/C#); Security für Auth-Konfiguration |
+| **Compliance-Rahmen** | Entra-Consent-Framework; MCP-Spec 2025-11-25 für Interop |
+
+### Aufwand & Kosten (Journai-Schätzung)
+
+| Dimension | Größenordnung |
+|-----------|---------------|
+| **Setup / Einführung** | Custom-MCP-Server 1–5 Tage; Out-of-Box-Nutzung wenige Stunden |
+| **Laufende Lizenzkosten** | keine Protokoll-Lizenz; Underlying Compute (Functions/ACA) + Model-Tokens |
+| **Laufender Betrieb** | Server-Versions-Updates folgen MCP-Spec-Releases |
+
+### Empfehlung
+
+**Status:** 🟢 — De-facto-Industriestandard 2026. OpenAI, Anthropic, Microsoft, AWS alle dabei. Jeder neue MAF-/Foundry-Agent sollte MCP-Tool-Auswahl als erste Design-Decision haben.
+
+**Nächster Schritt für Journai:** Interne MCP-Server-Bibliothek aufbauen (Line-of-Business-Funktionen der Top-10-Journai-Kunden); „MCP-Tools" als eigene Angebotszeile etablieren.
+
+---
+
 ## Spec-Status 2025-11-25
 
 ```

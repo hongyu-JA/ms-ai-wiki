@@ -16,6 +16,49 @@ moc:
 
 ---
 
+## Einsatz
+
+### Job-to-be-done
+
+When I programmatisch auf Foundry-Ressourcen zugreife (Agents, Models, Evaluations, Memory), I want to einen einheitlichen Client statt drei separater SDKs, so I can Migration + Maintenance + CI-Integration vereinfachen.
+
+### Trigger-Signale
+
+- „Wir haben bestehenden Code mit `azure-ai-projects 1.x` — was passiert?"
+- „Brauchen wir Python, .NET, JS oder Java für neues Projekt?"
+- „Wie integrieren wir Evaluations in unsere CI-Pipeline?"
+
+### Einsatz-Szenarien
+
+1. **MAF-Agent-Deployment via AIProjectClient 2.0** — MAF-Agent-Code + `foundry.agents.create(...)` deployed nach [[Foundry Agent Service]]; Entra-Workload-ID statt Connection Strings.
+2. **CI/CD mit Evaluation-Runs** — `foundry.evaluations.run_batch(...)` gegen definierte Eval-Sets als GitHub-Action / Azure-Pipeline-Step; Regression-Tests pro PR.
+3. **Migration `azure-ai-projects 1.x` → `AIProjectClient 2.0`** — Breaking Changes in Auth + Endpoint-Resolution; Journai-Migration-Runbook pro Kunde.
+
+### Voraussetzungen beim Kunden
+
+| Voraussetzung | Details |
+|---------------|---------|
+| **Lizenz-Baseline** | Azure-Subscription + Foundry-Project |
+| **Tenant / Infrastruktur** | Python ≥3.10 / .NET 8 / Node 20 / Java 17; Foundry-Project-Endpoint statt Connection Strings |
+| **Skills / Rollen** | Dev-Skills in Zielsprache + Entra-Auth-Verständnis |
+| **Compliance-Rahmen** | Managed Identity über Service-Principal; MS-DPA für Cloud-Nutzung |
+
+### Aufwand & Kosten (Journai-Schätzung)
+
+| Dimension | Größenordnung |
+|-----------|---------------|
+| **Setup / Einführung** | Neu-Projekt <1 Tag; Migration 1.x → 2.0 typisch 1–3 Tage pro Projekt |
+| **Laufende Lizenzkosten** | SDK selbst kostenfrei (MIT); Underlying Foundry-Usage |
+| **Laufender Betrieb** | Version-Monitoring folgt Release-Kadenz (quartalsweise Minor) |
+
+### Empfehlung
+
+**Status:** 🟢 Python / .NET / JS — alle GA, stable API. 🟡 Java (1.0.0-beta.3) nur mit Workaround-Bereitschaft.
+
+**Nächster Schritt für Journai:** Starter-Template-Repo mit AIProjectClient 2.0 + `azd ai` für Project-Scaffolding + Evaluation-Pipeline als Standard für neue Kunden-Projekte.
+
+---
+
 ## API-Oberfläche — Sub-Clients
 
 ```

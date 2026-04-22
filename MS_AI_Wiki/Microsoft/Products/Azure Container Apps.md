@@ -16,6 +16,49 @@ moc:
 
 ---
 
+## Einsatz
+
+### Job-to-be-done
+
+When I einen langlaufenden Container-basierten MAF-Agent hoste und Functions-Grenzen reiche, I want to managed Kubernetes ohne k8s-Komplexität mit VNet + KEDA + Dapr, so I can Custom-Images deployen ohne AKS zu betreiben.
+
+### Trigger-Signale
+
+- „Agent braucht Private VNet + Custom Docker-Image mit proprietären Libraries."
+- „Agent-Session läuft > 10 min — Functions-Grenze."
+- „KEDA-Scaling auf Queue-Depth, Kafka-Lag oder Cron."
+
+### Einsatz-Szenarien
+
+1. **MAF-Host in VNet** — Container-Image mit MAF-Agent + Private Endpoint zu [[Foundry Agent Service]] / [[Foundry Models]], Entra-Workload-ID.
+2. **Dapr-basierter Multi-Agent-Service-Mesh** — mehrere Micro-Agents kommunizieren via Dapr Pub/Sub + State Store, ohne Kubernetes-Operator.
+3. **Migration von Azure Functions** — wenn Cold-Start / Memory / Laufzeit-Limits reichen, minimaler Lift-and-Shift auf ACA ohne Rewrite.
+
+### Voraussetzungen beim Kunden
+
+| Voraussetzung | Details |
+|---------------|---------|
+| **Lizenz-Baseline** | Azure-Subscription + Azure Container Registry (ACR) |
+| **Tenant / Infrastruktur** | Switzerland North: Consumption + Dedicated Plan (Flex 2026 TODO) |
+| **Skills / Rollen** | Container-Skills beim Kunden (Docker-Build, ACR-Push); DevOps-Pipeline |
+| **Compliance-Rahmen** | VNet-Integration + Entra Managed Identity + Private Endpoints für DSGVO |
+
+### Aufwand & Kosten (Journai-Schätzung)
+
+| Dimension | Größenordnung |
+|-----------|---------------|
+| **Setup / Einführung** | 1–3 Tage für ersten produktiven Agent auf ACA |
+| **Laufende Lizenzkosten** | Consumption ab ~€30/Monat (Scale-to-Zero); Dedicated ab ~€120/Monat |
+| **Laufender Betrieb** | gering bei Scale-to-Zero; Monitoring via App Insights |
+
+### Empfehlung
+
+**Status:** 🟢 — Sweet-Spot zwischen [[Azure Functions]] (zu eingeschränkt für Custom-Container) und AKS (zu komplex). CH-Region mit Consumption + Dedicated GA.
+
+**Nächster Schritt für Journai:** Flex-Consumption-Variante 2026 beobachten (bringt bessere Scale-Granularität); vorerst Consumption als Default empfehlen.
+
+---
+
 ## Pricing & Regionen
 
 ### Consumption Plan

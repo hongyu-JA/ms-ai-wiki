@@ -16,6 +16,49 @@ moc:
 
 ---
 
+## Einsatz
+
+### Job-to-be-done
+
+When I klassisches ML (Training, AutoML, MLOps-Pipelines) betreibe — **nicht** Agent-Workflows — I want to eine etablierte ML-Plattform, so I can Scikit/PyTorch/TensorFlow-Modelle im Azure-Umfeld produktiv verwalten.
+
+### Trigger-Signale
+
+- „Wir haben klassische ML-Modelle (Forecast, Classification) — nicht LLM — wie managen wir die?"
+- „MLOps für Regression-Modelle: Versioning, A/B-Tests, Monitoring."
+- „Azure-ML-v1-Kunde — wie weiter vor dem EOS 2026-06-30?"
+
+### Einsatz-Szenarien
+
+1. **Bestandskunden-Betrieb mit klassischem ML** — Forecasting, Churn-Prediction, Image-Classification ohne LLM-Bezug; AzureML bleibt die richtige Plattform.
+2. **v1 → v2 Migration** — **kritisch: v1 EOS 2026-06-30** — Journai muss Bestandskunden bis dahin auf v2-SDK migrieren (Bicep/IaC für neue Workspaces, Code-Refactor für v1-Scripts).
+3. **Hybrid AzureML + Foundry** — klassisches ML-Modell in AzureML trainiert + via Foundry Model-Deployment für LLM-Agent-Inference-Combined-Use-Case.
+
+### Voraussetzungen beim Kunden
+
+| Voraussetzung | Details |
+|---------------|---------|
+| **Lizenz-Baseline** | Azure-Subscription; AzureML-Workspace (v2 empfohlen) |
+| **Tenant / Infrastruktur** | Compute-Cluster für Training (GPU-SKUs je nach Workload) |
+| **Skills / Rollen** | Data-Scientist + MLOps-Engineer |
+| **Compliance-Rahmen** | Region-Wahl CH oder EU; Private Endpoints für DSGVO |
+
+### Aufwand & Kosten (Journai-Schätzung)
+
+| Dimension | Größenordnung |
+|-----------|---------------|
+| **Setup / Einführung** | Workspace-Setup 1–3 Tage; Migration v1 → v2 pro Projekt 5–15 Tage |
+| **Laufende Lizenzkosten** | Compute-SKU-abhängig (GPU ab ~€1/h); keine Plattform-Flat |
+| **Laufender Betrieb** | MLOps-Pipeline-Maintenance; Retraining-Zyklen |
+
+### Empfehlung
+
+**Status:** 🟡 für neue Projekte — meist [[Microsoft Foundry]] bevorzugen (Agent-Zeitalter). 🟢 für Bestandskunden mit klassischem ML, besonders bis v2-Migration abgeschlossen.
+
+**Nächster Schritt für Journai:** Bestandskunden mit Azure-ML-v1 identifizieren; Migrations-Plan Q2-2026 aufsetzen vor EOS 30.06.2026.
+
+---
+
 ## v1-vs-v2-Status (wichtig!)
 
 | Komponente | Status | Datum |

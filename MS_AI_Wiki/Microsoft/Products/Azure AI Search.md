@@ -16,6 +16,49 @@ moc:
 
 ---
 
+## Einsatz
+
+### Job-to-be-done
+
+When I einen Agent mit Knowledge-Base baue, I want to ein produktives RAG-/Vector-Backend mit Hybrid-Search + Entra-DLS + CH-Residenz, so I can ohne eigenen Search-Stack valide Retrievals mit Re-Ranking liefern.
+
+### Trigger-Signale
+
+- „Copilot Studio Knowledge reicht uns nicht — wir brauchen einen Custom-Index."
+- „Agentic Retrieval für komplexe Multi-Hop-Queries."
+- „DSGVO: Daten müssen in der Schweiz bleiben, Index inklusive."
+
+### Einsatz-Szenarien
+
+1. **Custom-Index für MAF-Agent** — Firmenwissen (PDFs, SPO, Dataverse) in Switzerland North, Hybrid Search + Semantic Ranker, MCP-exponiert für MAF/Foundry.
+2. **Backend für [[Foundry IQ]]** — wenn Custom-Scoring / Synonym-Maps / Entra-DLS nötig sind, direkt auf AI Search statt über den IQ-Wrapper.
+3. **Entra Document-Level Security** — Agent darf nur das retrieven, was der anfragende User sehen darf (ab ADLS Gen2 + Blob GA 2025).
+
+### Voraussetzungen beim Kunden
+
+| Voraussetzung | Details |
+|---------------|---------|
+| **Lizenz-Baseline** | Azure-Subscription mit AI-Search-Kontingent |
+| **Tenant / Infrastruktur** | Basic- oder Standard-Tier in Switzerland North (Confidential Computing) |
+| **Skills / Rollen** | Azure-Architekt für Index-Design, Data-Engineer für Ingest-Pipeline |
+| **Compliance-Rahmen** | Entra-RBAC konfiguriert für DLS, ggf. Private Endpoints |
+
+### Aufwand & Kosten (Journai-Schätzung)
+
+| Dimension | Größenordnung |
+|-----------|---------------|
+| **Setup / Einführung** | ½–2 Tage für ersten produktiven Index |
+| **Laufende Lizenzkosten** | ab ~€75/Monat (Basic); Standard-Tiers ab ~€230/Monat |
+| **Laufender Betrieb** | gering; Re-Indexing + Monitoring ~2h/Monat |
+
+### Empfehlung
+
+**Status:** 🟢 — Default-Wahl für jeden Azure-Agent mit Knowledge-Base. CH-verfügbar, Entra-DLS GA, Agentic Retrieval bringt messbar +40 % Relevanz.
+
+**Nächster Schritt für Journai:** PoC in Switzerland North mit Agentic Retrieval + Entra-DLS bei einem ausgewählten SMB-Kunden als Referenzfall.
+
+---
+
 ## Pricing-Matrix (April 2026)
 
 | Tier | Storage / Partition | Max SU | USD / SU / Monat | Notiz |

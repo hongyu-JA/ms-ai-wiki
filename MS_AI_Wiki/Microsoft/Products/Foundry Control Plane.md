@@ -16,6 +16,49 @@ moc:
 
 ---
 
+## Einsatz
+
+### Job-to-be-done
+
+When I Foundry-Projekte produktiv + compliance-konform betreibe, I want to RBAC + VNet + Tracing + Evaluation + Content Safety an einem Ort, so I can Compliance-Anforderungen ohne Tool-Mosaic erfüllen und Kunden DSGVO-belegbare Evidenz liefern.
+
+### Trigger-Signale
+
+- „Wer darf was im Foundry-Projekt? Wir brauchen RBAC-Klarheit für Audit."
+- „Wie kombinieren wir Foundry-Tracing mit Application Insights?"
+- „Welche Evaluators sind out-of-the-box für Regression-Testing verfügbar?"
+
+### Einsatz-Szenarien
+
+1. **Enterprise-Tenant-Setup** — Foundry-Rollen-Matrix (4 Foundry-spezifische Rollen), Entra-Groups pro Journai-Kundenprojekt, Private Endpoints für regulierte Branchen.
+2. **CI/CD mit Evaluation-Runs** — 35+ OOB-Evaluators (Groundedness, Relevance, Coherence, Safety) als Regression-Test-Suite pro PR, Foundry-SDK + GitHub Actions.
+3. **Tracing + App Insights Integration** — Foundry Tracing schreibt in denselben App-Insights-Workspace → einheitliche Observability-Ansicht für SRE-Team.
+
+### Voraussetzungen beim Kunden
+
+| Voraussetzung | Details |
+|---------------|---------|
+| **Lizenz-Baseline** | Azure-Subscription + Foundry-Project + App Insights |
+| **Tenant / Infrastruktur** | VNet + Private Endpoints für Enterprise; Entra-Groups für RBAC |
+| **Skills / Rollen** | Azure-Architekt für Netzwerk; SRE für Observability; Compliance-Officer für Policy-Reviews |
+| **Compliance-Rahmen** | Content Safety Policies aktiviert; Evaluation-Baseline für EU-AI-Act-Audit |
+
+### Aufwand & Kosten (Journai-Schätzung)
+
+| Dimension | Größenordnung |
+|-----------|---------------|
+| **Setup / Einführung** | 1–2 Wochen bei Enterprise-Rollout (Rollen-Matrix + VNet + Baseline-Evaluators) |
+| **Laufende Lizenzkosten** | Foundry selbst kostenfrei; Azure AI Evaluation SDK + App Insights volumenbasiert |
+| **Laufender Betrieb** | Policy-Reviews quartalsweise; Evaluation-Baseline bei Modell-Wechsel |
+
+### Empfehlung
+
+**Status:** 🟢 für alle produktiven Foundry-Deployments — Governance ist nicht optional. Ohne Control Plane kein DSGVO-/EU-AI-Act-Evidenz-Track.
+
+**Nächster Schritt für Journai:** Rollen-Matrix-Template + Standard-Evaluators-Set (Groundedness + Safety + Relevance) als Infra-as-Code im Starter-Repo ablegen; als Default für alle neuen Foundry-Projekte.
+
+---
+
 ## Tracing — kein paralleler Stack, sondern derselbe Storage
 
 ```

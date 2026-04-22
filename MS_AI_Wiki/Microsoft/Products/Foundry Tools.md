@@ -16,6 +16,49 @@ moc:
 
 ---
 
+## Einsatz
+
+### Job-to-be-done
+
+When I strukturierte Daten aus Dokumenten, Speech oder Multi-Modal-Input extrahieren will, I want to fertige Azure AI Services mit MCP-Tool-Exposition, so I can ohne eigenes ML-Training produktive Agent-Inputs generieren.
+
+### Trigger-Signale
+
+- „Kunde hat 500 Rechnungen pro Woche, alles manuell — geht das automatisiert?"
+- „Meeting-Recording → Action Items + Topic-Summary."
+- „Anwaltskanzlei will Verträge OCR-en und kategorisieren."
+
+### Einsatz-Szenarien
+
+1. **Document Intelligence für SMB-Rechnungsverarbeitung** — `prebuilt-invoice` in Switzerland North (GA), Integration mit [[Power Automate]] oder [[Logic Apps]] für Dataverse-Ingest.
+2. **Content Understanding für Multi-Modal** — Video-Meetings, Schadensfotos, PDF-Hybrid. ⚠️ **CH nicht verfügbar** → Sweden Central; DSGVO-Kommunikation Pflicht.
+3. **Speech/Language/Translator als MAF-Tool** — 8 MCP-Tools aus Language-Service stehen Agents direkt als Funktionen zur Verfügung (Deterministisch, kein LLM-Aufruf).
+
+### Voraussetzungen beim Kunden
+
+| Voraussetzung | Details |
+|---------------|---------|
+| **Lizenz-Baseline** | Azure-Subscription + AI-Services-Kontingent |
+| **Tenant / Infrastruktur** | Foundry-Project + Region-Wahl (CH für DI; Sweden Central für CU) |
+| **Skills / Rollen** | Integrations-Dev + Prompt-/Schema-Design für CU |
+| **Compliance-Rahmen** | DSGVO-konforme Region-Wahl; Content Safety (Built-in) |
+
+### Aufwand & Kosten (Journai-Schätzung)
+
+| Dimension | Größenordnung |
+|-----------|---------------|
+| **Setup / Einführung** | Standard-Flow 1–3 Tage; Custom-Analyzer für CU 3–10 Tage |
+| **Laufende Lizenzkosten** | DI: $10/1k Pages prebuilt · CU: $5/1k Pages + Foundry-Tokens separat |
+| **Laufender Betrieb** | Schema-Reviews bei neuen Dokumenttypen |
+
+### Empfehlung
+
+**Status:** 🟢 [[Azure AI Document Intelligence]] für CH-SMB als IDP-Standard; 🟡 [[Azure AI Content Understanding]] nur bei Sweden-Central-Akzeptanz + Gen-AI-Pricing-Transparenz.
+
+**Nächster Schritt für Journai:** SMB-IDP-Starter-Angebot (Rechnungsverarbeitung via DI + Dataverse) als Festpreis-Paket ausarbeiten.
+
+---
+
 ## Services-Inventar (April 2026)
 
 | Service | Rebranding | Status | SMB-Relevanz |

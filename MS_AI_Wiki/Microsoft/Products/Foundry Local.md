@@ -16,6 +16,49 @@ moc:
 
 ---
 
+## Einsatz
+
+### Job-to-be-done
+
+When I AI-Workloads lokal brauche (DSGVO / Offline / Privacy-sensitive Branche / Kosten-Cap), I want to eine lokale Inference-Runtime mit OpenAI-API-Kompatibilität, so I can ohne Cloud-Abhängigkeit produktiv werden und Foundry-Agents lokal hosten.
+
+### Trigger-Signale
+
+- „Arzt / Anwalt / Steuerberater fragt: geht AI bei uns ohne Cloud?"
+- „Außendienst ohne Internet — Offline-Notfall-Betrieb."
+- „Token-Kosten explodieren bei hohem Volumen — gibt's lokale Option?"
+
+### Einsatz-Szenarien
+
+1. **Copilot+ PC mit Phi Silica** — Field-Worker-Szenario (Werkstatt / Baustelle / Praxis) mit NPU-beschleunigter Inference lokal, kein Round-Trip zur Cloud.
+2. **Hybrid-Pattern** — Chat-Interface lokal (Phi / Llama quantisiert), Orchestrierung + Knowledge-Base-Retrieval in Cloud; nur Queries verlassen die Maschine, nie PII.
+3. **DSGVO-regulierte Branchen** — Medizin / Recht / Treuhand: vollständig On-Device, OpenAI-kompatible API erlaubt Drop-in für Dev-Teams ohne Code-Änderungen.
+
+### Voraussetzungen beim Kunden
+
+| Voraussetzung | Details |
+|---------------|---------|
+| **Lizenz-Baseline** | Foundry Local gratis (MIT-like); Modelle ggf. mit eigener Lizenz (Meta, Phi, Mistral) |
+| **Tenant / Infrastruktur** | Windows 11 / macOS / Linux; NPU für Copilot+ PC (Snapdragon X Elite / Lunar Lake) optional für beste Performance |
+| **Skills / Rollen** | Dev für API-Integration; IT für Deployment-Packaging pro Device |
+| **Compliance-Rahmen** | On-Device-Inference = automatisch DSGVO-konform; keine Daten verlassen das Gerät |
+
+### Aufwand & Kosten (Journai-Schätzung)
+
+| Dimension | Größenordnung |
+|-----------|---------------|
+| **Setup / Einführung** | Installation auf einzelnem Device Stunden; Enterprise-Roll-out per MEM-Paket Tage |
+| **Laufende Lizenzkosten** | keine Cloud-Tokens; Hardware-Investition (Copilot+ PC ab ~CHF 1500) |
+| **Laufender Betrieb** | Modell-Updates per Script; MEM-Deployment für Flotten |
+
+### Empfehlung
+
+**Status:** 🟢 für DSGVO-regulierte SMB-Branchen (Medizin, Recht, Treuhand, KMU mit sensitiven Daten). Hybrid-Pattern (Cloud-Orchestrierung + lokaler Chat) oft pragmatischer als Full-Local.
+
+**Nächster Schritt für Journai:** Windows-AI-Foundry-Referenz-Setup dokumentieren (Phi Silica + Foundry Local + Windows ML + Windows AI APIs); als Standard-Angebot „AI On-Premise für SMB" vermarkten.
+
+---
+
 ## Scope-Klärung — Foundry Local ≠ Windows AI Foundry
 
 ```

@@ -43,14 +43,39 @@ const PRODUCT_SECTION_ALIASES: Record<string, RegExp[]> = {
     /^##[^#][^\n]*Pricing/im,
     /^##[^#][^\n]*Preise/im,
     /^##[^#][^\n]*Lizenz/im,
+    /^##[^#][^\n]*Integrations[- ]?Matrix/im,
+    /^##[^#][^\n]*GA[- ]Status/im,
+    /^##[^#][^\n]*PAYG\s*vs\.?\s*MaaS/im, // Foundry Models
+    /^##[^#][^\n]*Hardware[- ]?Matrix/im, // Foundry Local
+    /^##[^#][^\n]*Sprach[- ]?Parit[aä]t[s\-]/im, // Foundry SDKs (Versioning)
+    /^##[^#][^\n]*Services[- ]Inventar/im, // Foundry Tools (enthält Pricing-Info)
+    /^##[^#][^\n]*Deployment[- ]Strateg/im, // Foundry Control Plane
   ],
   Kernkonzept: [
     /^##[^#][^\n]*Kern[- ]?Konzept/im,
+    /^##[^#][^\n]*Kern[- ]F[aä]higkeiten/im,
     /^##[^#][^\n]*Architektur/im,
     /^##[^#][^\n]*Konzept/im,
-    /^##[^#][^\n]*Top[- ]\d+/im, // z.B. "Top-20-Modelle"
+    /^##[^#][^\n]*Top[- ]\d+/im,
+    /^##[^#][^\n]*Services[- ]Inventar/im,
+    /^##[^#][^\n]*Die drei /im,
+    /^##[^#][^\n]*Netzwerk/im,
+    /^##[^#][^\n]*Networking/im,
+    /^##[^#][^\n]*Tracing/im,
+    /^##[^#][^\n]*Spec[- ]?Status/im,
+    /^##[^#][^\n]*v1[- ]vs[- ]v2/im,
+    /^##[^#][^\n]*API[- ]Oberfl[aä]che/im,
+    /^##[^#][^\n]*Policies/im, // APIM AI Gateway "5 GA-AI-Policies"
+    /^##[^#][^\n]*Modell[- ]?Katalog/im, // Foundry Local
+    /^##[^#][^\n]*Evaluation/im, // Foundry Control Plane
   ],
-  Limitierungen: [/^##[^#][^\n]*Limit/im, /^##[^#][^\n]*Fallstrick/im, /^##[^#][^\n]*Einschränk/im],
+  Limitierungen: [
+    /^##[^#][^\n]*Limit/im,
+    /^##[^#][^\n]*Fallstrick/im,
+    /^##[^#][^\n]*Einschränk/im,
+    /^##[^#][^\n]*Deprecation/im, // Foundry Models "Model Deprecations"
+    /^##[^#][^\n]*Abgrenzung/im, // Foundry Control Plane hat Abgrenzung statt Limitierung
+  ],
   Referenzen: [/^##[^#][^\n]*Referenzen/im, /^##[^#][^\n]*Quellen/im, /^##[^#][^\n]*Monitoring/im],
   Changelog: [/^##[^#][^\n]*Changelog/im, /^##[^#][^\n]*Historie/im],
 };

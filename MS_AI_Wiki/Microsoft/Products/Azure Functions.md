@@ -16,6 +16,49 @@ moc:
 
 ---
 
+## Einsatz
+
+### Job-to-be-done
+
+When I event-getriebene Agent-Bausteine oder MCP-Tools hoste, I want to Serverless-Compute mit Flex Consumption + MCP Binding + Durable Task, so I can Pay-per-Invocation-Skalierung ohne Container-Build erreichen.
+
+### Trigger-Signale
+
+- „Agent soll auf Message-Queue / Blob-Upload reagieren — nicht 24/7 laufen."
+- „Wir wollen ein Custom MCP-Tool in Python für unseren Agent hosten."
+- „Long-Running-Workflow mit Human-in-the-Loop über Tage."
+
+### Einsatz-Szenarien
+
+1. **MCP-Tool-Provider für Foundry-Agents** — Function-App mit MCP Binding exponiert Line-of-Business-Funktionen als Tools; Auth via Easy Auth + Entra.
+2. **Durable-Task-Workflow** — mehrtägige Prozesse mit Timeouts, Approvals und Fan-out; ersetzt klassisches Azure-Logic-Apps-State-Management wenn Pro-Code gewünscht.
+3. **Event-driven Ingestion** — Blob/Service-Bus-triggered Function, die Dokumente an [[Azure AI Document Intelligence]] / [[Azure AI Search]] pusht.
+
+### Voraussetzungen beim Kunden
+
+| Voraussetzung | Details |
+|---------------|---------|
+| **Lizenz-Baseline** | Azure-Subscription |
+| **Tenant / Infrastruktur** | Flex-Consumption-Plan-Region — *{TODO: CH-Verfügbarkeit UNCLEAR, ggf. Consumption v2 als Fallback}* |
+| **Skills / Rollen** | Python/.NET-Dev + Azure-Basics |
+| **Compliance-Rahmen** | Entra Managed Identity für Bindings, Private Endpoints für VNet-Integration |
+
+### Aufwand & Kosten (Journai-Schätzung)
+
+| Dimension | Größenordnung |
+|-----------|---------------|
+| **Setup / Einführung** | 1–3 Tage für erste produktive Function |
+| **Laufende Lizenzkosten** | typisch €50–200/Monat (volumenabhängig), Flex ab Execution Units |
+| **Laufender Betrieb** | minimal bei Flex (kein Plan-Mindestbetrag) |
+
+### Empfehlung
+
+**Status:** 🟢 — Default-Hosting für MAF-Agents ohne Container-Build-Pipeline und für Custom-MCP-Tools. MCP Binding (GA Jan 2026) macht Function-Apps zum nativen Tool-Provider.
+
+**Nächster Schritt für Journai:** CH-Flex-Verfügbarkeit final klären; Referenz-Template „Function as MCP-Tool" im Journai-Starter-Repo ablegen.
+
+---
+
 ## Die drei Agent-Personas
 
 ```
