@@ -47,7 +47,7 @@ Einstieg für regulierte Branchen und Compliance-sensitive Projekte. Diese MOC b
 | Produkt | Was es ist (1 Satz) | Tier | Watch |
 | ------- | ------------------- | ---- | ----- |
 | 🟢 [[Entra Agent ID]] | Agent-eigene Identity, Grundlage für Conditional Access auf Agents | T1 | close |
-| 🟡 [[Azure AI Content Safety]] | Prompt Shields als Eingangs-Filter, Content-Filter | T2 | standard |
+| 🟢 [[Azure AI Content Safety]] | Prompt Shields als Eingangs-Filter, Content-Filter | T2 | standard |
 | 🟢 [[Defender for AI]] | Runtime-Schutz gegen Prompt Injection, Jailbreak | T2 | standard |
 | 🟡 [[Microsoft Entra Suite]] | Identity-Bundle, Voraussetzung für Entra Agent ID, Teil von E7 | T2 | standard |
 | 🟢 [[Microsoft Purview]] | Compliance-Dach: Governance + Security + Compliance (inkl. DSPM, Data Map, Sensitivity Labels) | T2 | standard |
@@ -63,6 +63,8 @@ _Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert 
 
 | Datum | Produkt | Änderung | Autor |
 | ----- | ------- | -------- | ----- |
+| 2026-04-22 | [[Azure AI Content Safety]] | Deep-Dive Content Safety: Prompt Shields (User+Document Attacks), Content-Filter-Categories (0–7-Severity), Groundedness Detection (Reaso… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Azure AI Content Safety]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Defender for AI]] | Deep-Dive Defender for AI: Coverage (Defender for Cloud AI Services GA + Defender XDR Security for AI Agents Preview), Detection-Methoden… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Defender for AI]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Entra Agent ID]] | Kompletter Ausbau von Stub → Deep-Research-Note (watch: close). Abgrenzung zu [[Agent 365]] (Entra Agent ID = Identity-Plane darunter, ni… | Hongyu / Deep-Research |
