@@ -254,6 +254,30 @@ function buildResearchStatusTable(products: ProductStatus[]): string {
   ].join("\n");
 }
 
+/**
+ * Chirurgisches Update des `last_verified`-Feldes im MOC-Frontmatter.
+ * Berührt keine anderen Felder, keine Formatierung, kein Re-Dump.
+ * - Feld vorhanden → In-Place-Ersetzung des Datums
+ * - Feld fehlt → Zeile am Ende des Frontmatters einfügen
+ * - Kein Frontmatter → gibt content unverändert zurück
+ */
+function updateLastVerified(content: string, today: string): string {
+  const fmRe = /^(---\r?\n)([\s\S]*?)(\r?\n---\r?\n)/;
+  const m = content.match(fmRe);
+  if (!m) return content;
+  const [, openFence, fmBody, closeFence] = m;
+  const lineRe = /^(last_verified:\s*)(.+)$/m;
+  let newFmBody: string;
+  if (lineRe.test(fmBody!)) {
+    newFmBody = fmBody!.replace(lineRe, `$1${today}`);
+  } else {
+    // Am Ende einfügen (vor eventuellen trailing-whitespaces)
+    newFmBody = fmBody!.replace(/\s*$/, "") + `\nlast_verified: ${today}`;
+  }
+  if (newFmBody === fmBody) return content;
+  return openFence + newFmBody + closeFence + content.slice(m[0].length);
+}
+
 function injectOrReplaceMarker(
   content: string,
   markerId: string,
@@ -278,7 +302,11 @@ function injectOrReplaceMarker(
 
 function updateRootMoc() {
   const products = scanAllProducts();
+  const today = new Date().toISOString().slice(0, 10);
   let content = fs.readFileSync(MICROSOFT_MOC, "utf8");
+
+  // Frontmatter last_verified synchron halten
+  content = updateLastVerified(content, today);
 
   const standTable = buildStandTable(products);
   const researchTable = buildResearchStatusTable(products);
@@ -382,6 +410,7 @@ function buildProdukteInMocTable(products: ProductStatus[], originals: Product[]
 function updatePrimaryHomeMocs(): void {
   const originals = loadAllProducts();
   const products = scanAllProducts();
+  const today = new Date().toISOString().slice(0, 10);
 
   // Gruppieren nach primary_home_moc
   const byMoc = new Map<string, ProductStatus[]>();
@@ -399,6 +428,9 @@ function updatePrimaryHomeMocs(): void {
     }
     const table = buildProdukteInMocTable(ps, originals);
     let content = fs.readFileSync(mocPath, "utf8");
+
+    // Frontmatter last_verified synchron halten
+    content = updateLastVerified(content, today);
 
     if (!/<!-- AUTO-INDEX-START: produkte -->/.test(content)) {
       // Erste Migration: existierende handgepflegte "Produkte in dieser MOC"-Sektion

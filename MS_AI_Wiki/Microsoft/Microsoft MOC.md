@@ -1,7 +1,10 @@
 ---
 type: moc
-tags: [moc, microsoft, root]
-last_verified: 2026-04-21
+tags:
+  - moc
+  - microsoft
+  - root
+last_verified: 2026-04-22
 ---
 
 # Microsoft MOC
