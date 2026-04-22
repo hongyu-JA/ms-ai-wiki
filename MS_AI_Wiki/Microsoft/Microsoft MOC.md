@@ -130,7 +130,7 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | Kennzahl | Wert |
 | -------- | ---- |
 | Tier-1 Notes | **19 deep** · 0 stub · total 19 |
-| Tier-2 Notes | **1 deep** · 15 stub · total 16 |
+| Tier-2 Notes | **2 deep** · 14 stub · total 16 |
 | Tier-3 Notes | **0 deep** · 4 stub · total 4 |
 | Deprecated Notes | **1 deep** · 2 stub · total 3 |
 | MOCs insgesamt | 10 (Root + 6 Primary + 2 Lens + 1 Commercial) |
@@ -165,6 +165,7 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | 🟢 deep | T1 | close | [[Microsoft Foundry]] | Azure AI MOC |
 | 🟢 deep | T1 | close | [[Model Context Protocol]] | Agents MOC |
 | 🟢 deep | T2 · 🔻 | passive | [[deprecated/Bot Framework]] | Agents MOC |
+| 🟢 deep | T2 | standard | [[M365 Agents SDK]] | Agents MOC |
 | 🟢 deep | T2 | close | [[Microsoft 365 E7]] | Licensing & SKUs MOC |
 | 🟡 stub | T2 · 🔻 | passive | [[deprecated/AutoGen]] | Agents MOC |
 | 🟡 stub | T2 | standard | [[Azure AI Content Safety]] | Security & Identity MOC |
@@ -175,7 +176,6 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | 🟡 stub | T2 | standard | [[Dataverse MCP Server]] | Data & Knowledge MOC |
 | 🟡 stub | T2 | standard | [[Defender for AI]] | Security & Identity MOC |
 | 🟡 stub | T2 | standard | [[Logic Apps]] | Integration & Compute MOC |
-| 🟡 stub | T2 | standard | [[M365 Agents SDK]] | Agents MOC |
 | 🟡 stub | T2 | standard | [[Microsoft Entra Suite]] | Security & Identity MOC |
 | 🟡 stub | T2 | standard | [[Microsoft Graph]] | Data & Knowledge MOC |
 | 🟡 stub | T2 | standard | [[Microsoft Purview]] | Security & Identity MOC |
@@ -225,9 +225,9 @@ _Jüngste Changelog-Einträge der letzten 30 Tage aus allen Product-Notes. Auto-
 | 2026-04-22 | [[Foundry SDKs]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Foundry Tools]] | Services-Inventar mit Status + SMB-Relevanz, DI Deep-Dive (Pricing-Matrix, Prebuilt-Models v4.0, Custom Generative), CU Deep-Dive (Schema… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Foundry Tools]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[M365 Agents SDK]] | Kompletter Deep-Dive nach MAF-Template, Bot-Framework-Migration-Path, Code-Beispiele, Hosting-Varianten | Hongyu / Deep-Research |
+| 2026-04-22 | [[M365 Agents SDK]] | Initial Stub (watch: standard → upgrade auf close nach Deep-Research) | Hongyu |
 | 2026-04-22 | [[Microsoft 365 Copilot]] | **Vollständige Deep-Research-Integration** via claude-researcher agent: Wave-3-Features mit EU-Details, Flex-Routing-Warnung (DSGVO-kriti… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Microsoft 365 E7]] | Bundle-Math mit korrekten $60/$30/$12/$15 Einzelpreisen + $99/$90,45 E7-Preis; CSP-Promo-Realität korrigiert (30/40% Copilot-for-All stat… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Microsoft Agent Framework]] | Migration auf neues Product Note Template (v2) — Struktur umgezogen, Inhalt erhalten und erweitert (Einsatz-Szenarien, Stack-Tabelle, Dec… | Hongyu |
 
 <!-- AUTO-INDEX-END: activity -->
 
