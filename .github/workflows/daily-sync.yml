@@ -2,8 +2,11 @@ name: Daily MS AI KB Sync
 
 on:
   schedule:
-    # Täglich 06:00 UTC (≈ 08:00 CEST / 07:00 CET)
-    - cron: "0 6 * * *"
+    # Täglich 06:17 UTC (≈ 08:17 CEST / 07:17 CET).
+    # Bewusst NICHT auf der vollen Stunde — GitHub Actions drosselt/dropt
+    # scheduled Events zu Peak-Zeiten (xx:00 ist globaler Stampede).
+    # Siehe docs.github.com/en/actions/reference/workflow-syntax-schedule
+    - cron: "17 6 * * *"
   workflow_dispatch:
     inputs:
       dry_run:
