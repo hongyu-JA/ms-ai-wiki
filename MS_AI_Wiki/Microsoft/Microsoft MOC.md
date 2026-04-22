@@ -130,7 +130,7 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | Kennzahl | Wert |
 | -------- | ---- |
 | Tier-1 Notes | **19 deep** · 0 stub · total 19 |
-| Tier-2 Notes | **12 deep** · 4 stub · total 16 |
+| Tier-2 Notes | **13 deep** · 3 stub · total 16 |
 | Tier-3 Notes | **0 deep** · 4 stub · total 4 |
 | Deprecated Notes | **1 deep** · 2 stub · total 3 |
 | MOCs insgesamt | 10 (Root + 6 Primary + 2 Lens + 1 Commercial) |
@@ -170,6 +170,7 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | 🟢 deep | T2 | standard | [[Dataverse]] | Data & Knowledge MOC |
 | 🟢 deep | T2 | standard | [[Dataverse MCP Server]] | Data & Knowledge MOC |
 | 🟢 deep | T2 | standard | [[Defender for AI]] | Security & Identity MOC |
+| 🟢 deep | T2 | standard | [[Logic Apps]] | Integration & Compute MOC |
 | 🟢 deep | T2 | standard | [[M365 Agents SDK]] | Agents MOC |
 | 🟢 deep | T2 | close | [[Microsoft 365 E7]] | Licensing & SKUs MOC |
 | 🟢 deep | T2 | standard | [[Microsoft Entra Suite]] | Security & Identity MOC |
@@ -180,7 +181,6 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | 🟡 stub | T2 · 🔻 | passive | [[deprecated/AutoGen]] | Agents MOC |
 | 🟡 stub | T2 | standard | [[Azure AI Content Understanding]] | Azure AI MOC |
 | 🟡 stub | T2 | standard | [[Azure AI Document Intelligence]] | Azure AI MOC |
-| 🟡 stub | T2 | standard | [[Logic Apps]] | Integration & Compute MOC |
 | 🟡 stub | T2 | standard | [[Power Automate]] | Integration & Compute MOC |
 | 🟡 stub | T2 · 🔻 | passive | [[deprecated/Semantic Kernel]] | Agents MOC |
 | 🟡 stub | T3 | passive | [[Azure OpenAI Service Pricing]] | Azure AI MOC |

@@ -56,7 +56,7 @@ Einstieg für die Frage **„Wo läuft der Custom Agent, wie integriert er sich?
 | 🟢 [[APIM AI Gateway]] | Model-Routing, Rate-Limiting, MCP-Proxy zwischen Agents und Modell-Endpunkten | T1 | close |
 | 🟢 [[Azure Container Apps]] | Container-Runtime als Hosting-Ziel für langlaufende Agents | T1 | close |
 | 🟢 [[Azure Functions]] | Serverless-Compute mit Flex Consumption, MCP Binding, Durable Task für Agent-Workflows | T1 | close |
-| 🟡 [[Logic Apps]] | Pro-Code-Integration-Plattform, Enterprise-Konnektoren | T2 | standard |
+| 🟢 [[Logic Apps]] | Pro-Code-Integration-Plattform, Enterprise-Konnektoren | T2 | standard |
 | 🟡 [[Power Automate]] | Citizen-Dev-Workflow-Engine, Agent Flows für Agent-Integration | T2 | standard |
 | 🟡 [[Microsoft AI Developer Tooling]] | Bündel: VS 2026 AI-native + VS Code AI Toolkit + GitHub Copilot Cloud Agents + azd AI | T3 | passive |
 
@@ -74,6 +74,8 @@ _Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert 
 | 2026-04-22 | [[Azure Container Apps]] | Pricing + Regionen (CH North = Consumption + Dedicated, Flex fehlt), Scale-to-Zero-Regeln (nur event-basiert), Dapr Building Blocks + KED… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Azure Container Apps]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Azure Functions]] | Drei Agent-Personas (Host / MCP-Tool / Durable-Workflow) als zentrale Struktur, **MCP Binding GA Jan 2026** mit Code-Beispielen (C# + Pyt… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Logic Apps]] | Deep-Dive Logic Apps: Consumption vs. Standard vs. Hybrid (Hybrid GA Juni 2025), 1400+ Enterprise-Konnektoren, **Agent Workflows** (auton… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Logic Apps]] | Initial Stub | Hongyu |
 | 2026-04-21 | [[APIM AI Gateway]] | Initial Stub | Hongyu |
 | 2026-04-21 | [[Azure Functions]] | Initial Stub | Hongyu |
 
