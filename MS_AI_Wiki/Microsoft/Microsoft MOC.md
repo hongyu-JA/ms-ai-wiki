@@ -130,7 +130,7 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | Kennzahl | Wert |
 | -------- | ---- |
 | Tier-1 Notes | **19 deep** · 0 stub · total 19 |
-| Tier-2 Notes | **5 deep** · 11 stub · total 16 |
+| Tier-2 Notes | **6 deep** · 10 stub · total 16 |
 | Tier-3 Notes | **0 deep** · 4 stub · total 4 |
 | Deprecated Notes | **1 deep** · 2 stub · total 3 |
 | MOCs insgesamt | 10 (Root + 6 Primary + 2 Lens + 1 Commercial) |
@@ -169,6 +169,7 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | 🟢 deep | T2 | standard | [[M365 Agents SDK]] | Agents MOC |
 | 🟢 deep | T2 | close | [[Microsoft 365 E7]] | Licensing & SKUs MOC |
 | 🟢 deep | T2 | standard | [[Microsoft Graph]] | Data & Knowledge MOC |
+| 🟢 deep | T2 | standard | [[Microsoft Purview]] | Security & Identity MOC |
 | 🟢 deep | T2 | standard | [[Teams SDK]] | Agents MOC |
 | 🟡 stub | T2 · 🔻 | passive | [[deprecated/AutoGen]] | Agents MOC |
 | 🟡 stub | T2 | standard | [[Azure AI Content Safety]] | Security & Identity MOC |
@@ -179,7 +180,6 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | 🟡 stub | T2 | standard | [[Defender for AI]] | Security & Identity MOC |
 | 🟡 stub | T2 | standard | [[Logic Apps]] | Integration & Compute MOC |
 | 🟡 stub | T2 | standard | [[Microsoft Entra Suite]] | Security & Identity MOC |
-| 🟡 stub | T2 | standard | [[Microsoft Purview]] | Security & Identity MOC |
 | 🟡 stub | T2 | standard | [[Power Automate]] | Integration & Compute MOC |
 | 🟡 stub | T2 | standard | [[Purview DSPM]] | Security & Identity MOC |
 | 🟡 stub | T2 · 🔻 | passive | [[deprecated/Semantic Kernel]] | Agents MOC |
