@@ -222,6 +222,8 @@ _Jüngste Changelog-Einträge der letzten 30 Tage aus allen Product-Notes. Auto-
 | 2026-04-22 | [[Azure Machine Learning]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Azure OpenAI Service Pricing]] | Deep-Dive: PAYG/PTU/Batch-Matrix, Break-Even-Rechnung, Region-Deltas, SMB-Beratungs-Szenarien, Hidden-Costs-Tabelle, PTU-modell-unabhängi… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Azure OpenAI Service Pricing]] | Initial Stub (Tier 3 Awareness) | Hongyu |
+| 2026-04-22 | [[Azure OpenAI Responses API]] | Deep-Dive Responses API: Azure-Implementierung, Migration von Chat Completions + Assistants, MAF-Abgrenzung | Hongyu / Deep-Research |
+| 2026-04-22 | [[Azure OpenAI Responses API]] | Initial Stub (wartet auf Deep-Research) | Hongyu |
 | 2026-04-22 | [[Microsoft 365 Copilot Connectors]] | Deep-Dive Copilot Connectors: OOB-Inventar (>100 Connectors), Custom-Schema-Snippet, Security Trimming via ACLs, 50M-Quota-Details, Abgre… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Microsoft 365 Copilot Connectors]] | Initial Stub, watch: standard, status: GA | Hongyu |
 | 2026-04-22 | [[Copilot Studio]] | 4-Ebenen-Eskalationsleiter-Diagramm, Cowork Deep-Dive mit EU-Data-Boundary-Warnung (Anthropic default-OFF), vollständige Pricing-Matrix m… | Hongyu / Deep-Research |
@@ -229,8 +231,6 @@ _Jüngste Changelog-Einträge der letzten 30 Tage aus allen Product-Notes. Auto-
 | 2026-04-22 | [[Dataverse]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Dataverse MCP Server]] | Deep-Dive Dataverse MCP Server: Endpoint, Auth-Flows, Copilot-Credit-Modell, MAF-Integration | Hongyu / Deep-Research |
 | 2026-04-22 | [[Dataverse MCP Server]] | Initial Stub | Hongyu |
-| 2026-04-22 | [[Defender for AI]] | Deep-Dive Defender for AI: Coverage (Defender for Cloud AI Services GA + Defender XDR Security for AI Agents Preview), Detection-Methoden… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Defender for AI]] | Initial Stub | Hongyu |
 
 <!-- AUTO-INDEX-END: activity -->
 

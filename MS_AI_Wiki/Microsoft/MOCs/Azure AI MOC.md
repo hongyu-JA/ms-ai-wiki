@@ -105,11 +105,11 @@ _Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert 
 | 2026-04-22 | [[Azure Machine Learning]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Azure OpenAI Service Pricing]] | Deep-Dive: PAYG/PTU/Batch-Matrix, Break-Even-Rechnung, Region-Deltas, SMB-Beratungs-Szenarien, Hidden-Costs-Tabelle, PTU-modell-unabhängi… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Azure OpenAI Service Pricing]] | Initial Stub (Tier 3 Awareness) | Hongyu |
+| 2026-04-22 | [[Azure OpenAI Responses API]] | Deep-Dive Responses API: Azure-Implementierung, Migration von Chat Completions + Assistants, MAF-Abgrenzung | Hongyu / Deep-Research |
+| 2026-04-22 | [[Azure OpenAI Responses API]] | Initial Stub (wartet auf Deep-Research) | Hongyu |
 | 2026-04-22 | [[Foundry Agent Service]] | **Major correction**: DSGVO-Flag aus Arbeitsauftrag §2.6 überholt — **Switzerland North ist GA-Region**. 10 EU/EFTA-Regionen. Preview-Lim… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Foundry Agent Service]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Foundry Control Plane]] | Tracing-Architektur-Diagramm (Foundry+AppInsights = ein Storage), 35+ OOB-Evaluators in 6 Kategorien, RBAC-Rollen-Matrix + Journai-Enterp… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Foundry Control Plane]] | Initial Stub | Hongyu |
-| 2026-04-22 | [[Foundry IQ]] | Architektur-Diagramm KB → Sources → MCP-Server → Clients, MCP-Endpoint-Pattern, Reasoning-Effort-Levels (minimal/low/medium), Code-Sketch… | Hongyu / Deep-Research |
 
 <!-- AUTO-INDEX-END: activity -->
 
