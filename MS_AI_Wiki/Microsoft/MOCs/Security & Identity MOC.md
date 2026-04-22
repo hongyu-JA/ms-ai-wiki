@@ -41,16 +41,18 @@ Einstieg für regulierte Branchen und Compliance-sensitive Projekte. Diese MOC b
 
 ## Produkte in dieser MOC
 
-| Produkt | Was es ist (1 Satz) | Watch |
-|---------|---------------------|-------|
-| [[Agent 365]] | Control Plane für Agent-Governance, GA 2026-05-01 *(auch in [[Agents MOC]])* | close |
-| [[Entra Agent ID]] | Agent-eigene Identity, Grundlage für Conditional Access auf Agents | close |
-| [[Microsoft Entra Suite]] | Identity-Bundle, Voraussetzung für Entra Agent ID | standard |
-| [[Microsoft Purview]] | Compliance-Dach: Governance + Security + Compliance | standard |
-| [[Purview DSPM]] | Data Security Posture Management | standard |
-| [[Defender for AI]] | Runtime-Schutz gegen Prompt Injection, Jailbreak | standard |
-| [[Azure AI Content Safety]] | Prompt Shields als Eingangs-Filter | standard |
-| [[Purview Data Map]] | Data-Governance-Säule (Kontrast zu DSPM) | passive |
+
+<!-- AUTO-INDEX-START: produkte -->
+
+| Produkt | Was es ist (1 Satz) | Tier | Watch |
+| ------- | ------------------- | ---- | ----- |
+| 🟡 [[Entra Agent ID]] | Agent-eigene Identity, Grundlage für Conditional Access auf Agents | T1 | close |
+| 🟡 [[Azure AI Content Safety]] | Prompt Shields als Eingangs-Filter, Content-Filter | T2 | standard |
+| 🟡 [[Defender for AI]] | Runtime-Schutz gegen Prompt Injection, Jailbreak | T2 | standard |
+| 🟡 [[Microsoft Entra Suite]] | Identity-Bundle, Voraussetzung für Entra Agent ID, Teil von E7 | T2 | standard |
+| 🟡 [[Microsoft Purview]] | Compliance-Dach: Governance + Security + Compliance (inkl. DSPM, Data Map, Sensitivity Labels) | T2 | standard |
+
+<!-- AUTO-INDEX-END: produkte -->
 
 ---
 

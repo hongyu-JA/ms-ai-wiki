@@ -44,21 +44,15 @@ Einstieg für alle Kundengespräche, bei denen es um **Copilot-basierte Produkti
 
 ## Produkte in dieser MOC
 
-| Produkt | Was es ist (1 Satz) | Watch |
-|---------|---------------------|-------|
-| [[Microsoft 365 Copilot]] | Dach-Produkt, Kunden-primäre Erfahrung mit MS-AI | close |
-| [[Microsoft 365 Copilot Connectors]] | Graph-Connector-Ökosystem zum Grounden auf Kundendaten | standard |
-| [[Copilot Studio]] | *Lebt primär in [[Agents MOC]], hat hier Cross-Reference wegen Declarative-Agent-Pfad* | close |
 
-### Copilot-Hierarchie (lebt hier als Konzept, nicht als eigene Note)
+<!-- AUTO-INDEX-START: produkte -->
 
-Die Eskalationsleiter ist Teil von Tier 2 (#9 in [[Microsoft MOC]]) aber ohne eigene Product-Note — sie erklärt sich durch die drei Stufen:
+| Produkt | Was es ist (1 Satz) | Tier | Watch |
+| ------- | ------------------- | ---- | ----- |
+| 🟢 [[Microsoft 365 Copilot]] | Dach-Produkt, Kunden-primäre Erfahrung mit MS-AI | T1 | close |
+| 🟡 [[Microsoft 365 Copilot Connectors]] | Graph-Connector-Ökosystem zum Grounden auf Kundendaten | T2 | standard |
 
-| Stufe | Tool | Wann wählen? | Skill-Bedarf |
-|-------|------|--------------|--------------|
-| 1 — **Agent Builder** | integriert in Copilot-UI | Schnelle interne Helper, rein prompt-basiert, keine externen Datenquellen | Kein Coding |
-| 2 — **Declarative Agents** | [[Copilot Studio]] — YAML-Manifest, Adaptive Cards | Strukturierte Agents mit definierten Tools, kanalübergreifend | Low-Code Builder |
-| 3 — **Custom Engine Agents** | [[Microsoft Agent Framework]] + [[M365 Agents SDK]] | Volle Kontrolle, komplexe Logik, eigenes Modell-Routing, Compliance-Anpassung | Pro-Code |
+<!-- AUTO-INDEX-END: produkte -->
 
 ---
 

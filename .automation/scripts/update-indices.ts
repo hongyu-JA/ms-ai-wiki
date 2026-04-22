@@ -245,11 +245,88 @@ function updateRootMoc() {
   );
 }
 
+function buildProdukteInMocTable(products: ProductStatus[], originals: Product[]): string {
+  // Sort: non-deprecated first → tier asc → watch (close<standard<passive) → slug asc
+  const watchOrder: Record<string, number> = { close: 0, standard: 1, passive: 2 };
+  const origBySlug = new Map(originals.map((o) => [o.slug, o]));
+  const sorted = [...products].sort((a, b) => {
+    if (a.is_deprecated !== b.is_deprecated) return a.is_deprecated ? 1 : -1;
+    if (a.tier !== b.tier) return a.tier - b.tier;
+    const wa = watchOrder[a.watch] ?? 3;
+    const wb = watchOrder[b.watch] ?? 3;
+    if (wa !== wb) return wa - wb;
+    return a.slug.localeCompare(b.slug);
+  });
+
+  const rows = sorted.map((p) => {
+    const noteLink = `[[${p.note.replace(/\.md$/, "")}]]`;
+    const icon = p.depth === "deep" ? "🟢" : p.exists ? "🟡" : "🔴";
+    const tierLabel = p.is_deprecated ? `T${p.tier} · 🔻` : `T${p.tier}`;
+    const tagline = origBySlug.get(p.slug)?.tagline ?? "—";
+    return `| ${icon} ${noteLink} | ${tagline} | ${tierLabel} | ${p.watch} |`;
+  });
+
+  return [
+    "| Produkt | Was es ist (1 Satz) | Tier | Watch |",
+    "| ------- | ------------------- | ---- | ----- |",
+    ...rows,
+  ].join("\n");
+}
+
+function updatePrimaryHomeMocs(): void {
+  const originals = loadAllProducts();
+  const products = scanAllProducts();
+
+  // Gruppieren nach primary_home_moc
+  const byMoc = new Map<string, ProductStatus[]>();
+  for (const p of products) {
+    if (!byMoc.has(p.primary_home_moc)) byMoc.set(p.primary_home_moc, []);
+    byMoc.get(p.primary_home_moc)!.push(p);
+  }
+
+  let touched = 0;
+  for (const [mocName, ps] of byMoc) {
+    const mocPath = path.join(MOCS_DIR, `${mocName}.md`);
+    if (!fs.existsSync(mocPath)) {
+      console.warn(`[update-indices] MOC fehlt: ${mocName}`);
+      continue;
+    }
+    const table = buildProdukteInMocTable(ps, originals);
+    let content = fs.readFileSync(mocPath, "utf8");
+
+    if (!/<!-- AUTO-INDEX-START: produkte -->/.test(content)) {
+      // Erste Migration: existierende handgepflegte "Produkte in dieser MOC"-Sektion
+      // (mit oder ohne H3-Sub-Tables) durch Marker + Auto-Tabelle ersetzen.
+      // Wir matchen vom "## Produkte in dieser MOC"-Header bis zum nächsten
+      // H2-Header oder "---"-Trenner.
+      const re = /(## Produkte in dieser MOC\s*\n)([\s\S]*?)(?=\n## |\n---\s*\n)/;
+      if (re.test(content)) {
+        content = content.replace(
+          re,
+          (_m, header: string) =>
+            `${header}\n<!-- AUTO-INDEX-START: produkte -->\n\n${table}\n\n<!-- AUTO-INDEX-END: produkte -->\n`,
+        );
+      } else {
+        // Fallback: Sektion nicht gefunden → am Ende anhängen
+        content =
+          content.trimEnd() +
+          `\n\n## Produkte in dieser MOC\n\n<!-- AUTO-INDEX-START: produkte -->\n\n${table}\n\n<!-- AUTO-INDEX-END: produkte -->\n`;
+      }
+    } else {
+      content = injectOrReplaceMarker(content, "produkte", table);
+    }
+
+    fs.writeFileSync(mocPath, content);
+    touched++;
+    console.log(`[update-indices] Primary-Home-MOC aktualisiert → ${mocName} (${ps.length} Produkte)`);
+  }
+  console.log(`[update-indices] ${touched} Primary-Home-MOCs gepatcht`);
+}
+
 export function updateAllIndices(): void {
   updateRootMoc();
-  // Zukunft: Primary-Home-MOC "Produkte in dieser MOC"-Tabellen ebenso
-  //           (aktuell über Dataview-Queries live, daher nicht zwingend)
-  // Zukunft: Deprecation Radar "Aktive Migrationen"-Tabelle
+  updatePrimaryHomeMocs();
+  // Zukunft: Deprecation Radar „Aktive Migrationen"-Tabelle
 }
 
 // Standalone-Ausführung

@@ -48,14 +48,19 @@ Einstieg für die Frage **„Wo läuft der Custom Agent, wie integriert er sich?
 
 ## Produkte in dieser MOC
 
-| Produkt | Was es ist (1 Satz) | Watch |
-|---------|---------------------|-------|
-| [[Azure Functions]] | Serverless-Compute mit Flex Consumption, MCP Binding, Durable Task für Agent-Workflows | close |
-| [[Azure Container Apps]] | Container-Runtime als Hosting-Ziel für langlaufende Agents | close |
-| [[APIM AI Gateway]] | Model-Routing, Rate-Limiting, MCP-Proxy zwischen Agents und Modell-Endpunkten | close |
-| [[Logic Apps]] | Pro-Code-Integration-Plattform, Enterprise-Konnektoren | standard |
-| [[Power Automate]] | Citizen-Dev-Workflow-Engine, Agent Flows für Agent-Integration | standard |
-| [[Microsoft AI Developer Tooling]] | Bündel: VS 2026 AI-native + VS Code AI Toolkit + GitHub Copilot Cloud Agents + azd AI | passive |
+
+<!-- AUTO-INDEX-START: produkte -->
+
+| Produkt | Was es ist (1 Satz) | Tier | Watch |
+| ------- | ------------------- | ---- | ----- |
+| 🟢 [[APIM AI Gateway]] | Model-Routing, Rate-Limiting, MCP-Proxy zwischen Agents und Modell-Endpunkten | T1 | close |
+| 🟢 [[Azure Container Apps]] | Container-Runtime als Hosting-Ziel für langlaufende Agents | T1 | close |
+| 🟢 [[Azure Functions]] | Serverless-Compute mit Flex Consumption, MCP Binding, Durable Task für Agent-Workflows | T1 | close |
+| 🟡 [[Logic Apps]] | Pro-Code-Integration-Plattform, Enterprise-Konnektoren | T2 | standard |
+| 🟡 [[Power Automate]] | Citizen-Dev-Workflow-Engine, Agent Flows für Agent-Integration | T2 | standard |
+| 🔴 [[Microsoft AI Developer Tooling]] | Bündel: VS 2026 AI-native + VS Code AI Toolkit + GitHub Copilot Cloud Agents + azd AI | T3 | passive |
+
+<!-- AUTO-INDEX-END: produkte -->
 
 ---
 

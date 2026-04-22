@@ -2,6 +2,10 @@
 # Tier-1 Notes sind `enabled: true` — Auto-Sync scannt sie täglich.
 # Tier-2 und Tier-3 Stubs sind `enabled: false` bis die Note wirklich gefüllt ist
 # und Monitoring sinnvoll wird.
+#
+# `tagline` ist die Single-Source-of-Truth für die „Was es ist (1 Satz)"-Spalte
+# in den Primary-Home-MOCs. update-indices.ts generiert daraus die Tabelle
+# „Produkte in dieser MOC" zwischen AUTO-INDEX-Markern.
 
 products:
   # ==================================================================
@@ -11,6 +15,7 @@ products:
   - slug: microsoft-365-copilot
     note: "Microsoft 365 Copilot.md"
     primary_home_moc: "Copilot MOC"
+    tagline: "Dach-Produkt, Kunden-primäre Erfahrung mit MS-AI"
     tier: 1
     watch: close
     keywords:
@@ -25,6 +30,7 @@ products:
   - slug: microsoft-agent-framework
     note: "Microsoft Agent Framework.md"
     primary_home_moc: "Agents MOC"
+    tagline: "Pro-Code-Framework (.NET/Python) für Agent-Logik, Multi-Agent, Tool-Use — GA 2026-04-07, Python SDK 1.1.0"
     tier: 1
     watch: close
     keywords:
@@ -40,6 +46,7 @@ products:
   - slug: copilot-studio
     note: "Copilot Studio.md"
     primary_home_moc: "Agents MOC"
+    tagline: "Low-Code-Agent-Builder im M365-Ökosystem, inkl. Declarative Agents, Agent Builder, Cowork"
     tier: 1
     watch: close
     keywords:
@@ -55,6 +62,7 @@ products:
   - slug: microsoft-foundry
     note: "Microsoft Foundry.md"
     primary_home_moc: "Azure AI MOC"
+    tagline: "Dach-Produkt der Azure-AI-Plattform — Portal, Projects & Hubs, Playground"
     tier: 1
     watch: close
     keywords:
@@ -68,6 +76,7 @@ products:
   - slug: azure-ai-search
     note: "Azure AI Search.md"
     primary_home_moc: "Azure AI MOC"
+    tagline: "Hybrid-Search-Backbone für RAG (ex Cognitive Search) — Basis von Foundry IQ"
     tier: 1
     watch: close
     keywords:
@@ -80,6 +89,7 @@ products:
   - slug: agent-365
     note: "Agent 365.md"
     primary_home_moc: "Agents MOC"
+    tagline: "Governance-Control-Plane für Agents (Identity via Entra Agent ID, RBAC, Audit) — GA 2026-05-01"
     tier: 1
     watch: close
     keywords:
@@ -91,6 +101,7 @@ products:
   - slug: entra-agent-id
     note: "Entra Agent ID.md"
     primary_home_moc: "Security & Identity MOC"
+    tagline: "Agent-eigene Identity, Grundlage für Conditional Access auf Agents"
     tier: 1
     watch: close
     keywords:
@@ -103,6 +114,7 @@ products:
   - slug: azure-functions
     note: "Azure Functions.md"
     primary_home_moc: "Integration & Compute MOC"
+    tagline: "Serverless-Compute mit Flex Consumption, MCP Binding, Durable Task für Agent-Workflows"
     tier: 1
     watch: close
     keywords:
@@ -117,6 +129,7 @@ products:
   - slug: azure-container-apps
     note: "Azure Container Apps.md"
     primary_home_moc: "Integration & Compute MOC"
+    tagline: "Container-Runtime als Hosting-Ziel für langlaufende Agents"
     tier: 1
     watch: close
     keywords:
@@ -129,6 +142,7 @@ products:
   - slug: apim-ai-gateway
     note: "APIM AI Gateway.md"
     primary_home_moc: "Integration & Compute MOC"
+    tagline: "Model-Routing, Rate-Limiting, MCP-Proxy zwischen Agents und Modell-Endpunkten"
     tier: 1
     watch: close
     keywords:
@@ -143,6 +157,7 @@ products:
   - slug: model-context-protocol
     note: "Model Context Protocol.md"
     primary_home_moc: "Agents MOC"
+    tagline: "Cross-cutting Tool-Standard, GA in Copilot Studio / Foundry / Functions / Windows"
     tier: 1
     watch: close
     keywords:
@@ -159,6 +174,7 @@ products:
   - slug: foundry-models
     note: "Foundry Models.md"
     primary_home_moc: "Azure AI MOC"
+    tagline: "Model Catalog mit 11k+ Modellen (PAYG/MaaS/PTU)"
     tier: 1
     watch: close
     keywords: ["Foundry Models", "Model Catalog", "Foundry Model Catalog"]
@@ -169,6 +185,7 @@ products:
   - slug: foundry-agent-service
     note: "Foundry Agent Service.md"
     primary_home_moc: "Azure AI MOC"
+    tagline: "Managed Hosting für MAF-Agents in Azure — aktuell nur North Central US"
     tier: 1
     watch: close
     keywords: ["Foundry Agent Service", "Azure AI Agent Service"]
@@ -179,6 +196,7 @@ products:
   - slug: foundry-control-plane
     note: "Foundry Control Plane.md"
     primary_home_moc: "Azure AI MOC"
+    tagline: "RBAC, Private Networking, Tracing, Evaluation, Content Safety"
     tier: 1
     watch: close
     keywords: ["Foundry Control Plane", "Foundry Tracing", "Foundry Evaluation", "Responsible AI"]
@@ -189,6 +207,7 @@ products:
   - slug: foundry-iq
     note: "Foundry IQ.md"
     primary_home_moc: "Azure AI MOC"
+    tagline: "Custom Knowledge Base auf Azure AI Search"
     tier: 1
     watch: close
     keywords: ["Foundry IQ"]
@@ -199,6 +218,7 @@ products:
   - slug: foundry-tools
     note: "Foundry Tools.md"
     primary_home_moc: "Azure AI MOC"
+    tagline: "Sammelbegriff für Azure AI Services (Document Intelligence, Content Understanding u. a.)"
     tier: 1
     watch: close
     keywords:
@@ -213,6 +233,7 @@ products:
   - slug: azure-machine-learning
     note: "Azure Machine Learning.md"
     primary_home_moc: "Azure AI MOC"
+    tagline: "Klassische ML-Plattform — v1 ist Deprecation-Kandidat"
     tier: 1
     watch: passive
     keywords: ["Azure Machine Learning", "Azure ML"]
@@ -223,6 +244,7 @@ products:
   - slug: foundry-local
     note: "Foundry Local.md"
     primary_home_moc: "Azure AI MOC"
+    tagline: "Lokale Inference (CPU/GPU/NPU), SMB-relevant für DSGVO/Offline"
     tier: 1
     watch: close
     keywords:
@@ -235,6 +257,7 @@ products:
   - slug: foundry-sdks
     note: "Foundry SDKs.md"
     primary_home_moc: "Azure AI MOC"
+    tagline: "AIProjectClient 2.0 GA — Python · .NET · JS · Java"
     tier: 1
     watch: close
     keywords: ["AIProjectClient", "azure-ai-projects", "Azure.AI.Projects", "Foundry SDK"]
@@ -249,6 +272,7 @@ products:
   - slug: m365-agents-sdk
     note: "M365 Agents SDK.md"
     primary_home_moc: "Agents MOC"
+    tagline: "Hosting-/Runtime-Layer, ersetzt Bot Framework; Activity-Protocol bleibt"
     tier: 2
     watch: standard
     keywords: ["M365 Agents SDK", "Microsoft 365 Agents SDK", "Agents Toolkit"]
@@ -259,6 +283,7 @@ products:
   - slug: teams-sdk
     note: "Teams SDK.md"
     primary_home_moc: "Agents MOC"
+    tagline: "Teams-spezifische UI/UX-Schicht (Adaptive Cards, Teams-Events); ergänzt M365 Agents SDK"
     tier: 2
     watch: standard
     keywords: ["Teams SDK", "Teams AI Library"]
@@ -269,6 +294,7 @@ products:
   - slug: microsoft-graph
     note: "Microsoft Graph.md"
     primary_home_moc: "Data & Knowledge MOC"
+    tagline: "M365-Daten-API-Backbone (Outlook, Teams, SharePoint, OneDrive)"
     tier: 2
     watch: standard
     keywords: ["Microsoft Graph", "Graph API"]
@@ -279,6 +305,7 @@ products:
   - slug: copilot-connectors
     note: "Microsoft 365 Copilot Connectors.md"
     primary_home_moc: "Copilot MOC"
+    tagline: "Graph-Connector-Ökosystem zum Grounden auf Kundendaten"
     tier: 2
     watch: standard
     keywords: ["Copilot Connectors", "Graph Connectors"]
@@ -289,6 +316,7 @@ products:
   - slug: dataverse
     note: "Dataverse.md"
     primary_home_moc: "Data & Knowledge MOC"
+    tagline: "Strukturierter Knowledge-Store (Power Platform) — Limits: 15 Tables/Source, 500 Knowledge Objects"
     tier: 2
     watch: standard
     keywords: ["Dataverse", "Common Data Service"]
@@ -299,6 +327,7 @@ products:
   - slug: logic-apps
     note: "Logic Apps.md"
     primary_home_moc: "Integration & Compute MOC"
+    tagline: "Pro-Code-Integration-Plattform, Enterprise-Konnektoren"
     tier: 2
     watch: standard
     keywords: ["Azure Logic Apps"]
@@ -309,6 +338,7 @@ products:
   - slug: power-automate
     note: "Power Automate.md"
     primary_home_moc: "Integration & Compute MOC"
+    tagline: "Citizen-Dev-Workflow-Engine, Agent Flows für Agent-Integration"
     tier: 2
     watch: standard
     keywords: ["Power Automate", "Agent Flows"]
@@ -319,6 +349,7 @@ products:
   - slug: microsoft-purview
     note: "Microsoft Purview.md"
     primary_home_moc: "Security & Identity MOC"
+    tagline: "Compliance-Dach: Governance + Security + Compliance (inkl. DSPM, Data Map, Sensitivity Labels)"
     tier: 2
     watch: standard
     keywords: ["Microsoft Purview", "Purview DSPM"]
@@ -329,6 +360,7 @@ products:
   - slug: defender-for-ai
     note: "Defender for AI.md"
     primary_home_moc: "Security & Identity MOC"
+    tagline: "Runtime-Schutz gegen Prompt Injection, Jailbreak"
     tier: 2
     watch: standard
     keywords: ["Defender for AI"]
@@ -339,6 +371,7 @@ products:
   - slug: azure-ai-content-safety
     note: "Azure AI Content Safety.md"
     primary_home_moc: "Security & Identity MOC"
+    tagline: "Prompt Shields als Eingangs-Filter, Content-Filter"
     tier: 2
     watch: standard
     keywords: ["Azure AI Content Safety", "Prompt Shields"]
@@ -349,6 +382,7 @@ products:
   - slug: microsoft-entra-suite
     note: "Microsoft Entra Suite.md"
     primary_home_moc: "Security & Identity MOC"
+    tagline: "Identity-Bundle, Voraussetzung für Entra Agent ID, Teil von E7"
     tier: 2
     watch: standard
     keywords: ["Microsoft Entra Suite"]
@@ -359,6 +393,7 @@ products:
   - slug: microsoft-365-e7
     note: "Microsoft 365 E7.md"
     primary_home_moc: "Licensing & SKUs MOC"
+    tagline: "Dach-Bundle: E5 + Copilot + Entra Suite + Agent 365, $99/user/month"
     tier: 2
     watch: close
     keywords: ["Microsoft 365 E7", "M365 E7", "Frontier Program"]
@@ -373,6 +408,7 @@ products:
   - slug: ms-ai-dev-tooling
     note: "Microsoft AI Developer Tooling.md"
     primary_home_moc: "Integration & Compute MOC"
+    tagline: "Bündel: VS 2026 AI-native + VS Code AI Toolkit + GitHub Copilot Cloud Agents + azd AI"
     tier: 3
     watch: passive
     keywords: ["VS Code AI Toolkit", "GitHub Copilot Cloud Agents", "azd AI"]
@@ -382,6 +418,7 @@ products:
   - slug: azure-openai-pricing
     note: "Azure OpenAI Service Pricing.md"
     primary_home_moc: "Azure AI MOC"
+    tagline: "PAYG vs PTU vs Batch — Kostenoptimierung"
     tier: 3
     watch: passive
     keywords: ["Azure OpenAI PAYG", "Azure OpenAI PTU", "Azure OpenAI Batch"]
@@ -391,6 +428,7 @@ products:
   - slug: cosmos-db-for-ai
     note: "Azure Cosmos DB for AI.md"
     primary_home_moc: "Data & Knowledge MOC"
+    tagline: "NoSQL + Vector-Search, Co-Location mit App-Daten"
     tier: 3
     watch: passive
     keywords: ["Cosmos DB Vector"]
@@ -400,6 +438,7 @@ products:
   - slug: fabric-data-agents
     note: "Microsoft Fabric.md"
     primary_home_moc: "Data & Knowledge MOC"
+    tagline: "Lakehouse / Data-Plattform (inkl. OneLake + Fabric Data Agents)"
     tier: 3
     watch: passive
     keywords: ["Microsoft Fabric", "OneLake", "Fabric Data Agents"]
@@ -413,6 +452,7 @@ products:
   - slug: bot-framework
     note: "deprecated/Bot Framework.md"
     primary_home_moc: "Agents MOC"
+    tagline: "🔴 EOS 2025-12-31 — Migration zu M365 Agents SDK"
     tier: 2
     watch: passive
     keywords: ["Bot Framework", "BF v4", "Microsoft Bot Builder"]
@@ -422,6 +462,7 @@ products:
   - slug: semantic-kernel
     note: "deprecated/Semantic Kernel.md"
     primary_home_moc: "Agents MOC"
+    tagline: "🟡 Konsolidiert in MAF — Migration-Pfad"
     tier: 2
     watch: passive
     keywords: ["Semantic Kernel", "SK"]
@@ -433,6 +474,7 @@ products:
   - slug: autogen
     note: "deprecated/AutoGen.md"
     primary_home_moc: "Agents MOC"
+    tagline: "🟡 Konsolidiert in MAF — Research-Features teilweise experimental"
     tier: 2
     watch: passive
     keywords: ["AutoGen", "MS AutoGen"]

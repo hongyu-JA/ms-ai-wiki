@@ -49,13 +49,14 @@ Einstieg für alle **Angebots- und Pricing-Fragen**. Eine Stelle, an der Bundle-
 
 ## Produkte in dieser MOC
 
-| Produkt | Was es ist (1 Satz) | Watch |
-|---------|---------------------|-------|
-| [[Microsoft 365 E7]] | Dach-Bundle: E5 + Copilot + Entra Suite + Agent 365, $99/user/month | close |
-| [[Wave 3]] | Release-Welle: Cowork, Edit, Multi-Model, Work IQ | close |
-| [[Frontier Program]] | Preview-Zugang zu nicht-GA-Features | close |
-| [[Azure OpenAI Service Pricing]] | PAYG vs PTU vs Batch | passive |
-| [[Microsoft Entra Suite]] | Identity-Bundle, Teil von E7 (auch standalone) | standard |
+
+<!-- AUTO-INDEX-START: produkte -->
+
+| Produkt | Was es ist (1 Satz) | Tier | Watch |
+| ------- | ------------------- | ---- | ----- |
+| 🟢 [[Microsoft 365 E7]] | Dach-Bundle: E5 + Copilot + Entra Suite + Agent 365, $99/user/month | T2 | close |
+
+<!-- AUTO-INDEX-END: produkte -->
 
 ---
 

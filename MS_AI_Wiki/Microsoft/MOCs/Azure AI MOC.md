@@ -65,31 +65,24 @@ Ergänzend außerhalb Foundry:
 
 ## Produkte in dieser MOC
 
-### Foundry (Dach + 8 Komponenten)
 
-| Produkt | Was es ist (1 Satz) | Watch |
-|---------|---------------------|-------|
-| [[Microsoft Foundry]] | Dach-Produkt, Portal + Projects & Hubs + Playground | close |
-| [[Foundry Models]] | Model Catalog mit 11k+ Modellen (PAYG/MaaS/PTU) | close |
-| [[Foundry Agent Service]] | Managed Hosting für MAF-Agents, Region-Lock NC-US | close |
-| [[Foundry Control Plane]] | RBAC, Private Networking, Tracing, Evaluation, Content Safety | close |
-| [[Foundry IQ]] | Custom Knowledge Base auf Azure AI Search | close |
-| [[Foundry Tools]] | Sammelbegriff für Azure AI Services (Document Intelligence, Content Understanding u. a.) | close |
-| [[Azure Machine Learning]] | Klassische ML-Plattform — v1 ist Deprecation-Kandidat | passive |
-| [[Foundry Local]] | Lokale Inference, SMB-relevant für DSGVO/Offline | close |
-| [[Foundry SDKs]] | AIProjectClient 2.0 GA | close |
+<!-- AUTO-INDEX-START: produkte -->
 
-### Weitere Azure-AI-Produkte
+| Produkt | Was es ist (1 Satz) | Tier | Watch |
+| ------- | ------------------- | ---- | ----- |
+| 🟢 [[Azure AI Search]] | Hybrid-Search-Backbone für RAG (ex Cognitive Search) — Basis von Foundry IQ | T1 | close |
+| 🟢 [[Foundry Agent Service]] | Managed Hosting für MAF-Agents in Azure — aktuell nur North Central US | T1 | close |
+| 🟢 [[Foundry Control Plane]] | RBAC, Private Networking, Tracing, Evaluation, Content Safety | T1 | close |
+| 🟢 [[Foundry IQ]] | Custom Knowledge Base auf Azure AI Search | T1 | close |
+| 🟢 [[Foundry Local]] | Lokale Inference (CPU/GPU/NPU), SMB-relevant für DSGVO/Offline | T1 | close |
+| 🟢 [[Foundry Models]] | Model Catalog mit 11k+ Modellen (PAYG/MaaS/PTU) | T1 | close |
+| 🟢 [[Foundry SDKs]] | AIProjectClient 2.0 GA — Python · .NET · JS · Java | T1 | close |
+| 🟢 [[Foundry Tools]] | Sammelbegriff für Azure AI Services (Document Intelligence, Content Understanding u. a.) | T1 | close |
+| 🟢 [[Microsoft Foundry]] | Dach-Produkt der Azure-AI-Plattform — Portal, Projects & Hubs, Playground | T1 | close |
+| 🟢 [[Azure Machine Learning]] | Klassische ML-Plattform — v1 ist Deprecation-Kandidat | T1 | passive |
+| 🔴 [[Azure OpenAI Service Pricing]] | PAYG vs PTU vs Batch — Kostenoptimierung | T3 | passive |
 
-| Produkt | Was es ist (1 Satz) | Watch |
-|---------|---------------------|-------|
-| [[Azure AI Search]] | Hybrid-Search-Backbone für RAG (ex Cognitive Search) — Basis von Foundry IQ | close |
-| [[Azure AI Content Understanding]] | Multimodale Doc-/Bild-/Video-Verarbeitung (Foundry Tools) | standard |
-| [[Azure AI Document Intelligence]] | Formular-/Vertragserkennung (Foundry Tools) | standard |
-| [[Azure AI Content Safety]] | Prompt Shields, Content-Filter | standard |
-| [[Azure OpenAI Service Pricing]] | PAYG vs PTU vs Batch — Kostenoptimierung | passive |
-| [[Azure OpenAI Responses API]] | Neuer Response-API-Standard | passive |
-| [[Application Insights for AI]] + [[Azure AI Evaluation SDK]] | Observability + Offline-Eval | passive |
+<!-- AUTO-INDEX-END: produkte -->
 
 ---
 

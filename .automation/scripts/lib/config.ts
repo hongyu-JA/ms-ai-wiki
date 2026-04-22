@@ -8,12 +8,13 @@ export interface Product {
   slug: string;
   note: string;
   primary_home_moc: string;
+  tagline?: string;
   tier: 1 | 2 | 3;
   watch: Watch;
   keywords: string[];
   regex_exclude?: string[];
   sources: string[];
-  changelog_trigger_sections: string[];
+  changelog_trigger_sections?: string[];
   last_seen?: string;
   enabled?: boolean;
 }

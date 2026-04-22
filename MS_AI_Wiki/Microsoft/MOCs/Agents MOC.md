@@ -55,27 +55,22 @@ Das semantische Modell: **drei Schichten × Reifegrad**.
 
 ## Produkte in dieser MOC
 
-| Produkt | Was es ist (1 Satz) | Watch |
-|---------|---------------------|-------|
-| [[Microsoft Agent Framework]] | Pro-Code-Framework (.NET/Python) für Agent-Logik, Multi-Agent, Tool-Use — GA 2026-04-07, Python SDK aktuell 1.1.0 | close |
-| [[Copilot Studio]] | Low-Code-Agent-Builder im M365-Ökosystem, inkl. Declarative Agents, Agent Builder, Cowork | close |
-| [[Agent 365]] | Governance-Control-Plane für Agents (Identity via Entra Agent ID, RBAC, Audit) — GA 2026-05-01 | close |
-| [[Model Context Protocol]] | Cross-cutting Tool-Standard, GA in Copilot Studio / Foundry / Functions / Windows | close |
-| [[Foundry Agent Service]] | Managed Hosting für MAF-Agents in Azure — aktuell nur North Central US | close |
-| [[M365 Agents SDK]] | Hosting-/Runtime-Layer, ersetzt Bot Framework; Activity-Protocol bleibt | standard |
-| [[Teams SDK]] | Teams-spezifische UI/UX-Schicht (Adaptive Cards, Teams-Events); ergänzt M365 Agents SDK | standard |
-| [[Power Automate]] | Integration-Glue, Agent Flows als Citizen-Dev-Layer | standard |
-| [[Dataverse MCP Server]] | Dataverse-Knowledge über MCP für Agents nutzbar | standard |
-| [[deprecated/Bot Framework]] | 🔴 EOS 2025-12-31 — Migration zu M365 Agents SDK | passive |
-| [[deprecated/Semantic Kernel]] | 🟡 Konsolidiert in MAF — Migration-Pfad | passive |
-| [[deprecated/AutoGen]] | 🟡 Konsolidiert in MAF — Research-Features teilweise experimental | passive |
 
-```dataview
-TABLE watch, status, last_verified
-FROM "Microsoft/Products"
-WHERE contains(moc, this.file.link)
-SORT watch ASC
-```
+<!-- AUTO-INDEX-START: produkte -->
+
+| Produkt | Was es ist (1 Satz) | Tier | Watch |
+| ------- | ------------------- | ---- | ----- |
+| 🟢 [[Agent 365]] | Governance-Control-Plane für Agents (Identity via Entra Agent ID, RBAC, Audit) — GA 2026-05-01 | T1 | close |
+| 🟢 [[Copilot Studio]] | Low-Code-Agent-Builder im M365-Ökosystem, inkl. Declarative Agents, Agent Builder, Cowork | T1 | close |
+| 🟢 [[Microsoft Agent Framework]] | Pro-Code-Framework (.NET/Python) für Agent-Logik, Multi-Agent, Tool-Use — GA 2026-04-07, Python SDK 1.1.0 | T1 | close |
+| 🟢 [[Model Context Protocol]] | Cross-cutting Tool-Standard, GA in Copilot Studio / Foundry / Functions / Windows | T1 | close |
+| 🟡 [[M365 Agents SDK]] | Hosting-/Runtime-Layer, ersetzt Bot Framework; Activity-Protocol bleibt | T2 | standard |
+| 🟡 [[Teams SDK]] | Teams-spezifische UI/UX-Schicht (Adaptive Cards, Teams-Events); ergänzt M365 Agents SDK | T2 | standard |
+| 🟡 [[deprecated/AutoGen]] | 🟡 Konsolidiert in MAF — Research-Features teilweise experimental | T2 · 🔻 | passive |
+| 🟡 [[deprecated/Bot Framework]] | 🔴 EOS 2025-12-31 — Migration zu M365 Agents SDK | T2 · 🔻 | passive |
+| 🟡 [[deprecated/Semantic Kernel]] | 🟡 Konsolidiert in MAF — Migration-Pfad | T2 · 🔻 | passive |
+
+<!-- AUTO-INDEX-END: produkte -->
 
 ---
 

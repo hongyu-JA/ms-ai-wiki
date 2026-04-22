@@ -46,15 +46,17 @@ Einstieg für die Frage: **„Wie kommen Daten in den Agent?"** Drei Achsen ents
 
 ## Produkte in dieser MOC
 
-| Produkt | Was es ist (1 Satz) | Watch |
-|---------|---------------------|-------|
-| [[Microsoft Graph]] | M365-Daten-API-Backbone (Outlook, Teams, SharePoint, OneDrive) | standard |
-| [[Dataverse]] | Strukturierter Knowledge-Store (Power Platform) — Limits: 15 Tables/Source, 500 Knowledge Objects | standard |
-| [[Dataverse MCP Server]] | Dataverse via MCP für Agents zugänglich | standard |
-| [[Microsoft Fabric]] | Lakehouse / Data-Plattform | passive |
-| [[OneLake]] | Fabric-Storage-Layer | passive |
-| [[Fabric Data Agents]] | AI-gesteuerte Abfragen auf Lakehouse | passive |
-| [[Azure Cosmos DB for AI]] | NoSQL + Vector-Search, Co-Location mit App-Daten | passive |
+
+<!-- AUTO-INDEX-START: produkte -->
+
+| Produkt | Was es ist (1 Satz) | Tier | Watch |
+| ------- | ------------------- | ---- | ----- |
+| 🟡 [[Dataverse]] | Strukturierter Knowledge-Store (Power Platform) — Limits: 15 Tables/Source, 500 Knowledge Objects | T2 | standard |
+| 🟡 [[Microsoft Graph]] | M365-Daten-API-Backbone (Outlook, Teams, SharePoint, OneDrive) | T2 | standard |
+| 🔴 [[Azure Cosmos DB for AI]] | NoSQL + Vector-Search, Co-Location mit App-Daten | T3 | passive |
+| 🔴 [[Microsoft Fabric]] | Lakehouse / Data-Plattform (inkl. OneLake + Fabric Data Agents) | T3 | passive |
+
+<!-- AUTO-INDEX-END: produkte -->
 
 ---
 
