@@ -1,14 +1,17 @@
 ---
-title: "Copilot Cowork: Now available in Frontier"
-source: "https://www.microsoft.com/en-us/microsoft-365/blog/2026/03/30/copilot-cowork-now-available-in-frontier/"
+title: "Copilot\_Cowork: Now\_available in Frontier"
+source: https://www.microsoft.com/en-us/microsoft-365/blog/2026/03/30/copilot-cowork-now-available-in-frontier/
 author:
-  - "[[Jared Spataro]]"
-published: 2026-03-30
-created: 2026-04-22
-description: "Today, Copilot Cowork—designed for long-running, multi-step work in Microsoft 365—is available via the Frontier program."
+  - '[[Jared Spataro]]'
+published: 2026-03-30T00:00:00.000Z
+created: 2026-04-22T00:00:00.000Z
+description: "Today,\_Copilot Cowork—designed for\_long-running, multi-step work in Microsoft 365—is available via the Frontier program."
 tags:
-  - "clippings"
+  - clippings
+processed_at: '2026-04-22T08:33:02.920Z'
+classification: 'applied: update → microsoft-365-copilot'
 ---
+
 [Microsoft 365 Copilot](https://www.microsoft.com/en-us/microsoft-365-copilot) is your AI for work. It’s built on a multi‑model advantage—bringing the best AI innovation from across the industry into your tenant, grounded in the knowledge of [Work IQ](https://techcommunity.microsoft.com/blog/microsoft365copilotblog/a-closer-look-at-work-iq/4499789) and protected with Enterprise Data Protection. Copilot is a system for work that puts that intelligence directly into the apps and workflows where work already happens, enabling you to put AI to use—from simple tasks to full, multi‑step workflows. This is a pattern that will only become more powerful as new models and new ways of working continue to emerge. Today, we are excited to announce new innovation that moves us forward on this [Frontier Transformation](https://blogs.microsoft.com/blog/2026/03/09/introducing-the-first-frontier-suite-built-on-intelligence-trust/).
 
 We [recently shared](https://www.microsoft.com/en-us/microsoft-365/blog/2026/03/09/powering-frontier-transformation-with-copilot-and-agents/) that we’re bringing the technology platform that powers Claude Cowork into Microsoft 365 Copilot. ****Today,** [**Copilot Cowork**](https://www.microsoft.com/en-us/microsoft-365/blog/2026/03/09/copilot-cowork-a-new-way-of-getting-work-done/) **—designed for long-running, multi-step work in Microsoft 365—is available via the Frontier program.**** [Join Frontier](https://www.microsoft.com/en-us/microsoft-365-copilot/frontier-program) to get early access to Microsoft’s latest AI innovations and [learn more about Copilot Cowork here](https://learn.microsoft.com/en-us/copilot/microsoft-365/cowork/).

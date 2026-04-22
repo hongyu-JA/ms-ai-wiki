@@ -2,11 +2,15 @@
 watch: close
 status: ga
 last_verified: 2026-04-22
-aliases: [M365 Copilot, Copilot]
+aliases:
+  - M365 Copilot
+  - Copilot
 moc:
-  - "[[Microsoft MOC]]"
-  - "[[Copilot MOC]]"
-  - "[[Licensing & SKUs MOC]]"
+  - '[[Microsoft MOC]]'
+  - '[[Copilot MOC]]'
+  - '[[Licensing & SKUs MOC]]'
+zuletzt_gesichtet: 2026-04-22
+updated: 2026-04-22
 ---
 
 # Microsoft 365 Copilot
@@ -142,6 +146,10 @@ Global. **EU-Besonderheiten**: Claude default deaktiviert + Flex Routing default
 
 ---
 
+
+> **Copilot Cowork (Frontier)**: Ab sofort via [Frontier-Programm](https://www.microsoft.com/en-us/microsoft-365-copilot/frontier-program) zugänglich. Separates Pricing noch nicht kommuniziert; Early Access im Rahmen bestehender M365-Copilot-Lizenzen erwartet.
+
+
 ## Kernkonzept
 
 ### Was es im Kern ist
@@ -226,6 +234,19 @@ Quelle: [techcommunity: From draft to done](https://techcommunity.microsoft.com/
 ```
 
 **Wichtig**: Tenant-weiter Cross-Product-Toggle „Microsoft usage data" (aus Edge/Bing/MSN-Daten für Personalisierung) ist vielerorts **by-default ON** — Admins müssen explizit opt-out setzen. Quelle: [Microsoft Support: Copilot Privacy Controls](https://support.microsoft.com/en-us/topic/microsoft-copilot-privacy-controls-8e479f27-6eb6-48c5-8d6a-c134062e2be6).
+
+#### Wave 3 — Copilot Cowork *(Long-Running, Multi-Step)*
+
+**Was**: Copilot Cowork ist für lang laufende, mehrstufige Aufgaben in Microsoft 365 konzipiert. Der Nutzer beschreibt das gewünschte Ergebnis; Cowork erstellt einen Plan, arbeitet eigenständig über Dateien und Tools hinweg und liefert sichtbaren Fortschritt mit Interventionsmöglichkeiten.
+
+**Status**: **Verfügbar via [Frontier-Programm](https://www.microsoft.com/en-us/microsoft-365-copilot/frontier-program)** (Early Access). Breiter GA-Zeitplan noch nicht kommuniziert.
+
+**Unterstützte Modell-Basis**: Multi-Model (bringt die Technologie-Plattform hinter Claude Cowork in M365 Copilot).
+
+**Docs**: [learn.microsoft.com/copilot/microsoft-365/cowork](https://learn.microsoft.com/en-us/copilot/microsoft-365/cowork/)
+
+**Voraussetzung**: Anmeldung beim Frontier-Programm erforderlich.
+
 
 ### Typischer Workflow
 
@@ -483,7 +504,9 @@ Plus: **Copilot Dashboard (Viva Insights)** für org-weite Adoption-Analytics je
 
 ## Changelog
 
+
 | Datum | Autor | Änderung | Quelle |
 |-------|-------|----------|--------|
+| 2026-04-22 | auto-sync | Copilot Cowork (Long-Running, Multi-Step-Work) ist jetzt via Frontier-Programm verfügbar. Nutzer können über das Frontier-Programm Early Access beantragen. | https://www.microsoft.com/en-us/microsoft-365-copilot |
 | 2026-04-22 | Hongyu / Deep-Research | **Vollständige Deep-Research-Integration** via claude-researcher agent: Wave-3-Features mit EU-Details, Flex-Routing-Warnung (DSGVO-kritisch), korrigierte CSP-Realität (30%/40% Copilot-for-All statt 10/15/15%), Connector-Matrix mit realen Reifegraden, Admin-Playbook mit 5 konkreten Anlaufstellen, E7-Bundle-Math. Quellen: 30+ Primary (learn.microsoft.com + techcommunity + Microsoft Blogs) + 7 Secondary (SAMexpert, Directions, UC Today, office365itpros, CNBC) | siehe Referenzen oben |
 | 2026-04-21 | Hongyu | Initial Stub, watch: close, Status: GA Wave 3 | Arbeitsauftrag |
