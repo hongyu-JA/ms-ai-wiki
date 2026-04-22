@@ -73,6 +73,8 @@ _Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert 
 | 2026-04-22 | [[Microsoft Entra Suite]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Microsoft Purview]] | Deep-Dive Purview: 3-Säulen-Portfolio, Sensitivity Labels für Copilot, Agent-Governance-Hooks, Lizenz-Matrix | Hongyu / Deep-Research |
 | 2026-04-22 | [[Microsoft Purview]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Purview Data Map]] | Deep-Dive Data Map: Data-Governance-Säule, Abgrenzung zu DSPM, SMB-Relevanz (meist irrelevant für AI-Kunden ohne Data-Engineering-Team) | Hongyu / Deep-Research |
+| 2026-04-22 | [[Purview Data Map]] | Initial Stub (wartet auf Deep-Research) | Hongyu |
 | 2026-04-22 | [[Purview DSPM]] | Deep-Dive DSPM + DSPM for AI: Risk-Signale, Coverage-Matrix, Pricing, Copilot-spezifische Detections | Hongyu / Deep-Research |
 | 2026-04-22 | [[Purview DSPM]] | Initial Stub | Hongyu |
 | 2026-04-21 | [[Entra Agent ID]] | Initial Stub | Hongyu |
