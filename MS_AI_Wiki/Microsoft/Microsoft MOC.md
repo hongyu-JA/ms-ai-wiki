@@ -122,16 +122,67 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 
 ## Stand der Wissensbasis
 
-| Kennzahl | Wert |
-|----------|------|
-| Tier-1 Notes gefüllt | 1 / 16 (MAF — Referenz) |
-| Tier-2 Notes gefüllt | 0 / 11 |
-| Tier-3 Notes gefüllt | 0 / 9 |
-| MOCs | 10 (Root + 6 Primary + 2 Lens + 1 Commercial) |
-| Deprecated Notes gefüllt | 1 / 3 (Bot Framework) |
-| Automation-Pipeline | läuft seit 2026-04-21 ([[README]]) |
+<!-- AUTO-INDEX-START: stand -->
 
----
+| Kennzahl | Wert |
+| -------- | ---- |
+| Tier-1 Notes | **18 deep** · 1 stub · total 19 |
+| Tier-2 Notes | **1 deep** · 11 stub · total 12 |
+| Tier-3 Notes | **0 deep** · 0 stub · total 4 |
+| Deprecated Notes | **0 deep** · 3 stub · total 3 |
+| MOCs insgesamt | 10 (Root + 6 Primary + 2 Lens + 1 Commercial) |
+| Automation-Pipeline | läuft seit 2026-04-21 (siehe README) |
+| Letzter Index-Rebuild | 2026-04-22 (automatisch durch apply.ts) |
+
+<!-- AUTO-INDEX-END: stand -->
+
+## Research-Status pro Produkt
+
+<!-- AUTO-INDEX-START: research-status -->
+
+| Depth | Tier | Watch | Note | Primary Home MOC |
+| ----- | ---- | ----- | ---- | ---------------- |
+| 🟢 deep | T1 | close | [[Agent 365]] | Agents MOC |
+| 🟢 deep | T1 | close | [[APIM AI Gateway]] | Integration & Compute MOC |
+| 🟢 deep | T1 | close | [[Azure AI Search]] | Azure AI MOC |
+| 🟢 deep | T1 | close | [[Azure Container Apps]] | Integration & Compute MOC |
+| 🟢 deep | T1 | close | [[Azure Functions]] | Integration & Compute MOC |
+| 🟢 deep | T1 | passive | [[Azure Machine Learning]] | Azure AI MOC |
+| 🟢 deep | T1 | close | [[Copilot Studio]] | Agents MOC |
+| 🟢 deep | T1 | close | [[Foundry Agent Service]] | Azure AI MOC |
+| 🟢 deep | T1 | close | [[Foundry Control Plane]] | Azure AI MOC |
+| 🟢 deep | T1 | close | [[Foundry IQ]] | Azure AI MOC |
+| 🟢 deep | T1 | close | [[Foundry Local]] | Azure AI MOC |
+| 🟢 deep | T1 | close | [[Foundry Models]] | Azure AI MOC |
+| 🟢 deep | T1 | close | [[Foundry SDKs]] | Azure AI MOC |
+| 🟢 deep | T1 | close | [[Foundry Tools]] | Azure AI MOC |
+| 🟢 deep | T1 | close | [[Microsoft 365 Copilot]] | Copilot MOC |
+| 🟢 deep | T1 | close | [[Microsoft Agent Framework]] | Agents MOC |
+| 🟢 deep | T1 | close | [[Microsoft Foundry]] | Azure AI MOC |
+| 🟢 deep | T1 | close | [[Model Context Protocol]] | Agents MOC |
+| 🟡 stub | T1 | close | [[Entra Agent ID]] | Security & Identity MOC |
+| 🟢 deep | T2 | close | [[Microsoft 365 E7]] | Licensing & SKUs MOC |
+| 🟡 stub | T2 · 🔻 | passive | [[deprecated/AutoGen]] | Agents MOC |
+| 🟡 stub | T2 | standard | [[Azure AI Content Safety]] | Security & Identity MOC |
+| 🟡 stub | T2 · 🔻 | passive | [[deprecated/Bot Framework]] | Agents MOC |
+| 🟡 stub | T2 | standard | [[Microsoft 365 Copilot Connectors]] | Copilot MOC |
+| 🟡 stub | T2 | standard | [[Dataverse]] | Data & Knowledge MOC |
+| 🟡 stub | T2 | standard | [[Defender for AI]] | Security & Identity MOC |
+| 🟡 stub | T2 | standard | [[Logic Apps]] | Integration & Compute MOC |
+| 🟡 stub | T2 | standard | [[M365 Agents SDK]] | Agents MOC |
+| 🟡 stub | T2 | standard | [[Microsoft Entra Suite]] | Security & Identity MOC |
+| 🟡 stub | T2 | standard | [[Microsoft Graph]] | Data & Knowledge MOC |
+| 🟡 stub | T2 | standard | [[Microsoft Purview]] | Security & Identity MOC |
+| 🟡 stub | T2 | standard | [[Power Automate]] | Integration & Compute MOC |
+| 🟡 stub | T2 · 🔻 | passive | [[deprecated/Semantic Kernel]] | Agents MOC |
+| 🟡 stub | T2 | standard | [[Teams SDK]] | Agents MOC |
+| 🔴 missing | T3 | passive | [[Azure OpenAI Service Pricing]] | Azure AI MOC |
+| 🔴 missing | T3 | passive | [[Azure Cosmos DB for AI]] | Data & Knowledge MOC |
+| 🔴 missing | T3 | passive | [[Microsoft Fabric]] | Data & Knowledge MOC |
+| 🔴 missing | T3 | passive | [[Microsoft AI Developer Tooling]] | Integration & Compute MOC |
+
+<!-- AUTO-INDEX-END: research-status -->
+
 
 ## Querverweise
 

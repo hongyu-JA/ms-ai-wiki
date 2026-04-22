@@ -24,6 +24,7 @@ import {
 } from "./lib/obsidian.js";
 import type { PatchDecision } from "./lib/claude.js";
 import type { Product } from "./lib/config.js";
+import { updateAllIndices } from "./update-indices.js";
 
 interface PatchEnvelope {
   filtered: {
@@ -167,6 +168,20 @@ function main() {
   }
 
   console.log(`[apply] applied=${applied}, skipped=${skipped}`);
+
+  // Stage 4 — Index-Rebuild. Läuft IMMER (auch ohne Patches), damit Änderungen
+  // durch manuelle Edits oder neue Stubs erkannt werden.
+  if (process.env.DRY_WRITE !== "1") {
+    try {
+      updateAllIndices();
+    } catch (e) {
+      console.warn(
+        `[apply] update-indices failed (non-fatal): ${e instanceof Error ? e.message : String(e)}`,
+      );
+    }
+  } else {
+    console.log("[apply] (dry-write) update-indices übersprungen");
+  }
 }
 
 main();

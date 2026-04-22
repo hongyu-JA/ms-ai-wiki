@@ -42,6 +42,16 @@ export function loadProducts(): Product[] {
   return (parsed.products ?? []).filter((p) => p.enabled !== false);
 }
 
+/**
+ * Lädt alle Produkte — auch `enabled: false`. Für Index-Rebuild notwendig,
+ * weil auch deaktivierte Stubs in der Wissensbasis gezählt werden sollen.
+ */
+export function loadAllProducts(): Product[] {
+  const text = fs.readFileSync(PRODUCTS_YAML, "utf8");
+  const parsed = yaml.load(text) as ProductsConfig;
+  return parsed.products ?? [];
+}
+
 export function loadSources(): Source[] {
   const text = fs.readFileSync(SOURCES_YAML, "utf8");
   const parsed = yaml.load(text) as SourcesConfig;
