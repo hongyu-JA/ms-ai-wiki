@@ -130,7 +130,7 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | Kennzahl | Wert |
 | -------- | ---- |
 | Tier-1 Notes | **19 deep** · 0 stub · total 19 |
-| Tier-2 Notes | **2 deep** · 14 stub · total 16 |
+| Tier-2 Notes | **3 deep** · 13 stub · total 16 |
 | Tier-3 Notes | **0 deep** · 4 stub · total 4 |
 | Deprecated Notes | **1 deep** · 2 stub · total 3 |
 | MOCs insgesamt | 10 (Root + 6 Primary + 2 Lens + 1 Commercial) |
@@ -167,6 +167,7 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | 🟢 deep | T2 · 🔻 | passive | [[deprecated/Bot Framework]] | Agents MOC |
 | 🟢 deep | T2 | standard | [[M365 Agents SDK]] | Agents MOC |
 | 🟢 deep | T2 | close | [[Microsoft 365 E7]] | Licensing & SKUs MOC |
+| 🟢 deep | T2 | standard | [[Teams SDK]] | Agents MOC |
 | 🟡 stub | T2 · 🔻 | passive | [[deprecated/AutoGen]] | Agents MOC |
 | 🟡 stub | T2 | standard | [[Azure AI Content Safety]] | Security & Identity MOC |
 | 🟡 stub | T2 | standard | [[Azure AI Content Understanding]] | Azure AI MOC |
@@ -182,7 +183,6 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | 🟡 stub | T2 | standard | [[Power Automate]] | Integration & Compute MOC |
 | 🟡 stub | T2 | standard | [[Purview DSPM]] | Security & Identity MOC |
 | 🟡 stub | T2 · 🔻 | passive | [[deprecated/Semantic Kernel]] | Agents MOC |
-| 🟡 stub | T2 | standard | [[Teams SDK]] | Agents MOC |
 | 🟡 stub | T3 | passive | [[Azure OpenAI Service Pricing]] | Azure AI MOC |
 | 🟡 stub | T3 | passive | [[Azure Cosmos DB for AI]] | Data & Knowledge MOC |
 | 🟡 stub | T3 | passive | [[Microsoft Fabric]] | Data & Knowledge MOC |
