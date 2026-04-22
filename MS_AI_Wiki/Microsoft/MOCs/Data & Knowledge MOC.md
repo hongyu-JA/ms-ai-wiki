@@ -58,6 +58,16 @@ Einstieg für die Frage: **„Wie kommen Daten in den Agent?"** Drei Achsen ents
 
 <!-- AUTO-INDEX-END: produkte -->
 
+## Letzte Aktivität
+
+_Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert — konsistent mit [[Microsoft MOC#Letzte Aktivität]]._
+
+<!-- AUTO-INDEX-START: activity -->
+
+_Keine Changelog-Einträge in den letzten 30 Tagen._
+
+<!-- AUTO-INDEX-END: activity -->
+
 ---
 
 ## Eskalationsleiter / Entscheidungslogik

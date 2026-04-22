@@ -58,6 +58,19 @@ Einstieg für alle **Angebots- und Pricing-Fragen**. Eine Stelle, an der Bundle-
 
 <!-- AUTO-INDEX-END: produkte -->
 
+## Letzte Aktivität
+
+_Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert — konsistent mit [[Microsoft MOC#Letzte Aktivität]]._
+
+<!-- AUTO-INDEX-START: activity -->
+
+| Datum | Produkt | Änderung | Autor |
+| ----- | ------- | -------- | ----- |
+| 2026-04-22 | [[Microsoft 365 E7]] | Bundle-Math mit korrekten $60/$30/$12/$15 Einzelpreisen + $99/$90,45 E7-Preis; CSP-Promo-Realität korrigiert (30/40% Copilot-for-All stat… | Hongyu / Deep-Research |
+| 2026-04-21 | [[Microsoft 365 E7]] | Initial Stub mit Bundle-Komposition + Claude-EU-Flag | Hongyu |
+
+<!-- AUTO-INDEX-END: activity -->
+
 ---
 
 ## Kern-Regeln (Pricing + Compliance-Stolperfallen)

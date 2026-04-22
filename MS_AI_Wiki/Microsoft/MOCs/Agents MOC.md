@@ -72,6 +72,30 @@ Das semantische Modell: **drei Schichten × Reifegrad**.
 
 <!-- AUTO-INDEX-END: produkte -->
 
+## Letzte Aktivität
+
+_Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert — konsistent mit [[Microsoft MOC#Letzte Aktivität]]._
+
+<!-- AUTO-INDEX-START: activity -->
+
+| Datum | Produkt | Änderung | Autor |
+| ----- | ------- | -------- | ----- |
+| 2026-04-22 | [[Agent 365]] | Kompletter Ausbau: GA-Scope-Diagramm (was GA, was bleibt Preview), Identity-Modell (4 neue Entra-Objekttypen), Sponsor-Konzept als DSGVO-… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Agent 365]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Copilot Studio]] | 4-Ebenen-Eskalationsleiter-Diagramm, Cowork Deep-Dive mit EU-Data-Boundary-Warnung (Anthropic default-OFF), vollständige Pricing-Matrix m… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Microsoft Agent Framework]] | Migration auf neues Product Note Template (v2) — Struktur umgezogen, Inhalt erhalten und erweitert (Einsatz-Szenarien, Stack-Tabelle, Dec… | Hongyu |
+| 2026-04-22 | [[Model Context Protocol]] | Spec-Status 2025-11-25, 12+ MS-Integrations-Matrix, Three-Hop-Auth-Diagramm, Enterprise-Patterns (APIM-Proxy, Zero Trust, OTel), Ecosyste… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Model Context Protocol]] | Initial Stub | Hongyu |
+| 2026-04-21 | [[Microsoft Agent Framework]] | **Python SDK 1.1.0**: Gemini-Client (erster Non-Azure/Non-OpenAI-Client), Hyperlight CodeAct-Package (isolierte Micro-VM-Sandbox für Agen… | auto-sync |
+| 2026-04-21 | [[deprecated/Bot Framework]] | Migration auf neues Product Note Template (v2); Migrationspfad präzisiert (LUIS → CLU, QnA → AI Search) | Hongyu |
+| 2026-04-21 | [[deprecated/Bot Framework]] | Initial-Erstellung der Deprecated-Note, watch: passive, Status: deprecated (EOS 2025-12-31) | Hongyu |
+| 2026-04-21 | [[Copilot Studio]] | Initial Stub, watch: close, Status: GA | Hongyu |
+| 2026-04-21 | [[Microsoft Agent Framework]] | Initial-Erstellung der Note, watch: close, Status: GA | Hongyu |
+| 2026-04-13 | [[Microsoft Agent Framework]] | **.NET Agent Skills**: 3 Authoring-Varianten (Datei-basiert / Inline-C#-Code / gekapselte Klassen) frei kombinierbar unter einem Provider… | auto-sync |
+| 2026-04-10 | [[Microsoft Agent Framework]] | **Python SDK 1.0.1**: Security-Hardening für `FileCheckpointStorage` (restricted unpickler, **Breaking Change**) — eigene Klassen in Chec… | auto-sync |
+
+<!-- AUTO-INDEX-END: activity -->
+
 ---
 
 ## Eskalationsleiter / Entscheidungslogik

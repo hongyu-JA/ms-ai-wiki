@@ -85,9 +85,20 @@ interface ActivityEntry {
  *   | YYYY-MM-DD | author | change | source |
  * und gibt sie sortiert nach Datum (neueste zuerst) zurück.
  * Optional auf die letzten `lookbackDays` Tage eingegrenzt.
+ *
+ * Mit `mocFilter` werden nur Products berücksichtigt, deren
+ * primary_home_moc === mocFilter ist. So bekommt jede Primary-Home-MOC
+ * ihre eigene gefilterte Aktivitäts-Ansicht.
  */
-function collectRecentActivity(lookbackDays = 30, limit = 20): ActivityEntry[] {
-  const products = loadAllProducts();
+function collectRecentActivity(
+  lookbackDays = 30,
+  limit = 20,
+  mocFilter?: string,
+): ActivityEntry[] {
+  const all = loadAllProducts();
+  const products = mocFilter
+    ? all.filter((p) => p.primary_home_moc === mocFilter)
+    : all;
   const today = new Date();
   const cutoff = new Date(today.getTime() - lookbackDays * 86400_000)
     .toISOString()
@@ -409,6 +420,23 @@ function updatePrimaryHomeMocs(): void {
       }
     } else {
       content = injectOrReplaceMarker(content, "produkte", table);
+    }
+
+    // MOC-gefilterte Aktivitäts-Sektion: nur Changelog-Einträge von Products
+    // deren primary_home_moc dieser MOC ist.
+    const mocActivity = collectRecentActivity(30, 15, mocName);
+    const mocActivityTable = buildActivityTable(mocActivity);
+    if (!/<!-- AUTO-INDEX-START: activity -->/.test(content)) {
+      // Einfügen direkt nach AUTO-INDEX-END: produkte
+      const endMarker = "<!-- AUTO-INDEX-END: produkte -->";
+      const idx = content.indexOf(endMarker);
+      if (idx >= 0) {
+        const insertAt = idx + endMarker.length;
+        const block = `\n\n## Letzte Aktivität\n\n_Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert — konsistent mit [[Microsoft MOC#Letzte Aktivität]]._\n\n<!-- AUTO-INDEX-START: activity -->\n\n${mocActivityTable}\n\n<!-- AUTO-INDEX-END: activity -->`;
+        content = content.slice(0, insertAt) + block + content.slice(insertAt);
+      }
+    } else {
+      content = injectOrReplaceMarker(content, "activity", mocActivityTable);
     }
 
     fs.writeFileSync(mocPath, content);

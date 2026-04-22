@@ -84,6 +84,32 @@ Ergänzend außerhalb Foundry:
 
 <!-- AUTO-INDEX-END: produkte -->
 
+## Letzte Aktivität
+
+_Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert — konsistent mit [[Microsoft MOC#Letzte Aktivität]]._
+
+<!-- AUTO-INDEX-START: activity -->
+
+| Datum | Produkt | Änderung | Autor |
+| ----- | ------- | -------- | ----- |
+| 2026-04-22 | [[Azure AI Search]] | **Agentic Retrieval** als First-Class-Feature (MCP-exposed, +40% relevance), **Entra Doc-Level Security GA 2025**, Hybrid-Search-Flow-Dia… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Azure AI Search]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Azure Machine Learning]] | v1-vs-v2-Status (SDK v1 EOS 30.06.2026!), 4 legitime Agent-Zeitalter-Use-Cases, Azure ML vs. Foundry Linie, Pricing-Struktur, Journai-Tie… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Azure Machine Learning]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Foundry Agent Service]] | **Major correction**: DSGVO-Flag aus Arbeitsauftrag §2.6 überholt — **Switzerland North ist GA-Region**. 10 EU/EFTA-Regionen. Preview-Lim… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Foundry Agent Service]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Foundry Control Plane]] | Tracing-Architektur-Diagramm (Foundry+AppInsights = ein Storage), 35+ OOB-Evaluators in 6 Kategorien, RBAC-Rollen-Matrix + Journai-Enterp… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Foundry Control Plane]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Foundry IQ]] | Architektur-Diagramm KB → Sources → MCP-Server → Clients, MCP-Endpoint-Pattern, Reasoning-Effort-Levels (minimal/low/medium), Code-Sketch… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Foundry IQ]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Foundry Local]] | Scope-Klärung Foundry Local vs. Windows AI Foundry (Runtime vs. Platform-Stack), 10-Modell-Katalog mit Hardware-Matrix, API-Delta OpenAI-… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Foundry Local]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Foundry Models]] | Top-20-Katalog-Tabelle, PAYG/MaaS/PTU-Entscheidungs-Flow, Break-Even-Rechnung (~$1.8k PAYG/Monat → PTU), EU-Region-Matrix mit **Claude=Sw… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Foundry Models]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Foundry SDKs]] | API-Oberfläche mit Sub-Client-Map + Python/.NET Code-Sketches, Migration-Guide `azure-ai-projects 1.x → 2.0` mit 8 Breaking Changes, Spra… | Hongyu / Deep-Research |
+
+<!-- AUTO-INDEX-END: activity -->
+
 ---
 
 ## Eskalationsleiter / Entscheidungslogik — Foundry-Abgrenzungen

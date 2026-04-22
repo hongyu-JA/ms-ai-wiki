@@ -62,6 +62,23 @@ Einstieg für die Frage **„Wo läuft der Custom Agent, wie integriert er sich?
 
 <!-- AUTO-INDEX-END: produkte -->
 
+## Letzte Aktivität
+
+_Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert — konsistent mit [[Microsoft MOC#Letzte Aktivität]]._
+
+<!-- AUTO-INDEX-START: activity -->
+
+| Datum | Produkt | Änderung | Autor |
+| ----- | ------- | -------- | ----- |
+| 2026-04-22 | [[APIM AI Gateway]] | 5 GA-AI-Policies dokumentiert, MCP-Proxy GA (mit Einschränkungen: kein Workspace, keine Prompts), Tier-Matrix, CH-Region-Verfügbarkeit (k… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Azure Container Apps]] | Pricing + Regionen (CH North = Consumption + Dedicated, Flex fehlt), Scale-to-Zero-Regeln (nur event-basiert), Dapr Building Blocks + KED… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Azure Container Apps]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Azure Functions]] | Drei Agent-Personas (Host / MCP-Tool / Durable-Workflow) als zentrale Struktur, **MCP Binding GA Jan 2026** mit Code-Beispielen (C# + Pyt… | Hongyu / Deep-Research |
+| 2026-04-21 | [[APIM AI Gateway]] | Initial Stub | Hongyu |
+| 2026-04-21 | [[Azure Functions]] | Initial Stub | Hongyu |
+
+<!-- AUTO-INDEX-END: activity -->
+
 ---
 
 ## Eskalationsleiter / Entscheidungslogik

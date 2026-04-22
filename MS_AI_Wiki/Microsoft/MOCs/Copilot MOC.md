@@ -57,6 +57,20 @@ Einstieg für alle Kundengespräche, bei denen es um **Copilot-basierte Produkti
 
 <!-- AUTO-INDEX-END: produkte -->
 
+## Letzte Aktivität
+
+_Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert — konsistent mit [[Microsoft MOC#Letzte Aktivität]]._
+
+<!-- AUTO-INDEX-START: activity -->
+
+| Datum | Produkt | Änderung | Autor |
+| ----- | ------- | -------- | ----- |
+| 2026-04-22 | [[Microsoft 365 Copilot]] | Copilot Cowork (Long-Running, Multi-Step-Work) ist jetzt via Frontier-Programm verfügbar. Nutzer können über das Frontier-Programm Early … | auto-sync |
+| 2026-04-22 | [[Microsoft 365 Copilot]] | **Vollständige Deep-Research-Integration** via claude-researcher agent: Wave-3-Features mit EU-Details, Flex-Routing-Warnung (DSGVO-kriti… | Hongyu / Deep-Research |
+| 2026-04-21 | [[Microsoft 365 Copilot]] | Initial Stub, watch: close, Status: GA Wave 3 | Hongyu |
+
+<!-- AUTO-INDEX-END: activity -->
+
 ---
 
 <!-- auto-sync: update_row · {"product":"Microsoft 365 Copilot","columns":{"notes":"Copilot Cowork jetzt via Frontier-Programm verfügbar (April 2026)"}} -->
