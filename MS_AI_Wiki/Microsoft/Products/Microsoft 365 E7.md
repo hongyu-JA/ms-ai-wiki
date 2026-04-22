@@ -164,6 +164,63 @@ Auch wenn E7 die Copilot-Lizenz enthält und damit **Multi-Model (inkl. Claude)*
 
 ---
 
+## Integrationen
+
+### Microsoft-intern
+
+| Mit | Zweck | Reifegrad | Friction-Points |
+|-----|-------|-----------|-----------------|
+| [[Microsoft 365 Copilot]] | Kern-Bestandteil des Bundles (Copilot-Lizenz inkludiert) | GA | Wave-3-Features (Cowork, Edit) teils Preview, EU-Opt-in für Claude |
+| [[Microsoft Entra Suite]] | 5-Komponenten-Bundle (ID Governance, ID Protection, Internet Access, Private Access, Verified ID) | GA | Permissions Management EOL Nov 2025 — nicht mehr Teil |
+| [[Agent 365]] | GA 2026-05-01 — Governance-Layer im E7-Bundle inkludiert | GA ab 01.05.2026 | Entra Agent ID als Unter-Plane konfigurieren |
+| [[Microsoft Purview]] | Purview Suite ($12 einzeln) ist **nicht** in E7 — separater Add-On nötig | GA | Häufiges Missverständnis — klar kommunizieren |
+| [[Defender for AI]] | Teil Defender XDR-Stacks — hier **nicht** in E7 inkludiert | GA | separat über Defender-XDR-Add-on / E5 Security |
+
+### Third-Party
+
+| Mit | Zweck | Reifegrad | Friction-Points |
+|-----|-------|-----------|-----------------|
+| CSP-Reseller (z. B. Bechtle, SoftwareONE) | Promo-Staffeln 10%/15%/15% Jahr 1/2/3 | GA | EUR-Pricing ab 01.05.2026 — vor-Kauf-Wechselkurs-Risiko |
+| Directions on Microsoft / SAMexpert | unabhängige Lizenz-Beratung | GA | nur für große Deals kosten-wert; SMB eher Eigen-Analyse |
+| SaaS-License-Manager (z. B. Torii, Bettercloud) | E7-Adoption messen | GA | Integration mit M365 Admin Graph; User-Activity-Signale |
+
+### APIs / Protokolle
+
+- **M365 Admin Graph** (`/users`, `/subscribedSkus`) für Lizenz-Zuweisung
+- **Azure Billing API** für Usage-Reports (CSP) — Daily granularity
+- **Copilot Usage API** (Beta) — Adoption-Metrics pro Nutzer
+
+---
+
+## Abgrenzung & Wettbewerb
+
+### Microsoft-intern: Wann E7 vs. E5 + Einzel-Add-ons?
+
+| Frage-Situation | E7 | E5 + Einzel-Add-ons |
+|-----------------|----|--------------------|
+| „Brauchen alle User Agent 365 + Entra Suite + Copilot?" | ✅ E7 — Bundle-Rabatt + ein SKU | ⚠️ E5 + einzeln = administrativer Overhead + oft teurer |
+| „Nur ausgewählte User brauchen Copilot (z. B. 50 von 500)" | ⚠️ E7 unwirtschaftlich | ✅ E5 + Copilot nur für die 50 |
+| „Regulierte Branche, alle User brauchen Governance" | ✅ E7 — Agent 365 tenant-weit ausrollen | ⚠️ wäre sehr teuer als Einzelbuchung |
+| „Noch keine Agents in Produktion" | ⚠️ E7 zahlt man für ungenutzte Features | ✅ E5 mit Copilot als Einstieg, E7 später |
+
+### Externe Alternativen
+
+| Dimension | **Microsoft 365 E7** | Google Workspace Enterprise Plus + Gemini | Best-of-Breed (Okta + Google + Slack + Notion + separately) |
+|-----------|----------------------|------------------------------------------|-------------------------------------------------------------|
+| **Fokus** | Bundled M365 + AI + Identity + Agent-Governance | Google-native Produktivität + Gemini | Flexible Auswahl, keine All-in-One-Logik |
+| **Pricing** | $99/user/month | ~$30 + Gemini Add-on | variabel, oft höher im Bundle |
+| **EU-Data-Residency** | EU Data Boundary aktiv (differenziert) | Google Workspace EU Region | vendor-abhängig |
+| **Integrationstiefe in MS** | maximal | keine (konkurrierendes Ökosystem) | variabel, oft manuell |
+| **Agent-Governance** | ✅ Agent 365 + Entra Agent ID | teilweise (Gemini Governance-Features) | muss selbst gebaut werden |
+| **Stärke** | Single-Vendor-Bundle, Enterprise-Rabatt, Agent-Ready | nahtlos für Google-Kunden | maximale Flexibilität |
+| **Schwäche** | Lock-in; zahlt für ungenutzte Features | kein MS-Ökosystem-Zugriff | Integrations-Komplexität, höhere Gesamtkosten |
+
+### Empfehlungs-Regel
+
+**Wir nehmen E7** wenn Kunde (a) M365-native ist, (b) mehr als ~100 User hat, und (c) Agent-Governance oder Entra Suite bereits plant. **Sonst** bleibt E5 + Copilot-Einzel-Lizenz der wirtschaftlichere Einstieg, mit späterem Upgrade-Pfad zu E7 via Co-Terming.
+
+---
+
 ## Offizielle Referenzen & Monitoring
 
 ### Primary

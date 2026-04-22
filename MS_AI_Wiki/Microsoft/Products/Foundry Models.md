@@ -227,6 +227,36 @@ Eingebaut: `ai.azure.com/explore/leaderboard`.
 
 ---
 
+## Integrationen
+
+### Microsoft-intern
+
+| Mit | Zweck | Reifegrad | Friction-Points |
+|-----|-------|-----------|-----------------|
+| [[Foundry Control Plane]] | RBAC + Tracing + Content Safety Policies vor Modell-Calls | GA | Policies pro Modell-Deployment, nicht tenant-weit |
+| [[APIM AI Gateway]] | Rate-Limiting, Token-Budget, Semantic Cache, Multi-Backend-Routing | GA | PTU nicht shareable — pro Deployment ein APIM-Backend |
+| [[Microsoft Agent Framework]] | Agent ruft Modell via `AIProjectClient.inference.get_chat_client()` | GA | Model-Choice in MAF-Config, nicht zur Laufzeit |
+| [[Azure AI Content Safety]] | Built-in Filter (4 Harm-Kategorien default) + optional Prompt Shields | GA | Prompt Shields opt-in, separat abgerechnet |
+| [[Foundry Agent Service]] | Managed Agent-Hosting nutzt Foundry-Modelle | GA | Region-Match nötig für niedrige Latenz |
+| [[Foundry SDKs]] | `InferenceClient` aus AIProjectClient 2.0 | GA | OpenAI-Kompatibilitäts-Modus über `/openai/deployments/{name}` |
+
+### Third-Party
+
+| Mit | Zweck | Reifegrad | Friction-Points |
+|-----|-------|-----------|-----------------|
+| OpenAI SDK | direkter Zugriff über Azure-OpenAI-Endpoint | GA | Auth via Entra statt OpenAI-API-Key; DNS für `.openai.azure.com` |
+| Anthropic SDK | Claude-Modelle in Foundry aufrufbar | Preview | nur Sweden Central + East US2 — **nicht CH** |
+| LangChain / LlamaIndex | AzureChatOpenAI-Wrapper | GA | Semantic Kernel MAF-Migration parallel im Fluss |
+
+### APIs / Protokolle
+
+- **OpenAI-kompatible REST** (`/openai/deployments/{name}/chat/completions`) — für Drop-in aus OpenAI-Projekten
+- **MaaS REST** für non-OpenAI-Modelle (Anthropic, Meta, Mistral, DeepSeek)
+- **Foundry SDK** (`AIProjectClient`) — einheitlich über alle Modelle
+- **MCP** — Modelle selbst sind keine MCP-Server, aber Agents rufen Modelle **und** MCP-Tools im selben Call
+
+---
+
 ## Offizielle Referenzen
 
 | Typ | Quelle | Link | Zuletzt gesichtet |

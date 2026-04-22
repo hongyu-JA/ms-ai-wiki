@@ -441,6 +441,37 @@ Plus: **Copilot Dashboard (Viva Insights)** für org-weite Adoption-Analytics je
 
 ---
 
+## Abgrenzung & Wettbewerb
+
+### Microsoft-intern: Wann M365 Copilot vs. welches andere MS-Produkt?
+
+| Frage-Situation | **Microsoft 365 Copilot** | Alternative MS-Produkt |
+|-----------------|---------------------------|------------------------|
+| „Kunde will AI in Word/Excel/PowerPoint/Outlook/Teams nutzen" | ✅ Out-of-the-box-Erfahrung | – |
+| „Custom-Agent in Teams, mit Low-Code bauen" | ⚠️ nur Agent Builder / Declarative Agents | [[Copilot Studio]] — bessere Low-Code-UX + Agent Flows |
+| „Pro-Code-Agent mit eigener Orchestration-Logik" | ⚠️ Copilot ist Endbenutzer-Oberfläche, kein Build-Tool | [[Microsoft Agent Framework]] + [[M365 Agents SDK]] + [[Teams SDK]] |
+| „Governance über mehrere Agents hinweg" | ⚠️ Copilot allein reicht nicht | [[Agent 365]] + [[Entra Agent ID]] als Overlay |
+| „Lange Running-Multi-Step-Task mit Autonomie" | ✅ Copilot Cowork (Wave 3, Frontier) | alternativ: MAF-Agent selbst hosten mit Long-Running-Durable-Task |
+| „Kunden-Daten grounden" | ✅ via [[Microsoft 365 Copilot Connectors]] | [[Foundry IQ]] / [[Azure AI Search]] für Azure-Agents |
+
+### Externe Alternativen
+
+| Dimension | **Microsoft 365 Copilot** | Google Workspace + Gemini | Glean | Notion AI | Slack AI |
+|-----------|---------------------------|---------------------------|-------|-----------|----------|
+| **Fokus** | M365-native Produktivität + Agent-Ausbaupfad | Google-native + Gemini | Enterprise-Search + AI-Assistant | Knowledge-Base + Writing | Chat-Summaries + Search |
+| **Pricing** | $30/user/month | $30 (WS + Gemini Add-on) | $30–45/user/month | $10–20/user | Pro $15 |
+| **EU-Data-Residency** | EU Data Boundary GA (⚠️ Wave-3-Flex-Routing prüfen) | Google Cloud EU Region | regional ja | USA (begrenzt EU) | USA |
+| **Integrationstiefe in MS** | maximal | keine | via Connectors | schwach | schwach |
+| **Custom-Agent-Pfad** | via Copilot Studio + Custom Engine | via Vertex AI | via Connector-Actions | keine Agents | Workflow Builder |
+| **Stärke** | M365-Deep-Integration + Agent-Governance-Roadmap | Google-Produkte, Gemini Ultra | Enterprise-Such-Qualität | Doc-zentrisch, Solo-Nutzer | Team-Chat-Integration |
+| **Schwäche** | Vendor-Lock-in; UI-Konsistenz noch hakelig | kein MS-Ökosystem-Zugriff | kein eigenes LLM, abhängig | schwache Agent-/Tool-Layer | eng begrenzter Scope |
+
+### Empfehlungs-Regel
+
+**Wir empfehlen Microsoft 365 Copilot**, wenn der Kunde (a) M365-E3/E5-basiert ist, (b) mindestens 50 Lizenzen plant, (c) Adoption-Begleitung durchführt. **Sonst** bleibt Glean die bessere Enterprise-Search-Option (Multi-SaaS-Kunden); Notion AI / Slack AI nur als **Ergänzung** zu Copilot, nicht als Ersatz. Für Kunden mit **reiner Google-Workspace-Basis** ist Gemini die natürliche Wahl — aber dann kein Agent 365 / Entra Agent ID-Pfad.
+
+---
+
 ## Offizielle Referenzen & Monitoring
 
 ### Primary (Microsoft offiziell)

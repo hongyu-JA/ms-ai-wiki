@@ -91,9 +91,13 @@ const PRODUCT_WATCH_SECTIONS: Record<string, string[]> = {
 const PRODUCT_WATCH_SECTION_ALIASES: Record<string, RegExp[]> = {
   Integrationen: [/^##[^#][^\n]*Integration/im, /^###[^\n]*Integration/im],
   "Security & Compliance": [
-    /^##[^#][^\n]*Security\s*&\s*Compliance/im,
+    /^##[^#][^\n]*Security/im, // matcht "Security & Compliance", "Security & Region" etc.
     /^##[^#][^\n]*Compliance/im,
     /^##[^#][^\n]*DSGVO/im,
+    /^##[^#][^\n]*Content Safety/im,
+    /^##[^#][^\n]*RBAC/im, // Foundry Control Plane
+    /^##[^#][^\n]*Private Networking/im,
+    /^##[^#][^\n]*Auth[- ]Flow/im, // Foundry SDKs
     /^###[^\n]*Security/im,
   ],
   Abgrenzung: [

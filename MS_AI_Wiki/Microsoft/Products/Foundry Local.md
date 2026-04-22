@@ -300,6 +300,91 @@ Foundry Local läuft auf **Windows Server 2025**, ist aber **nicht als Multi-Use
 
 ---
 
+## Integrationen
+
+### Microsoft-intern
+
+| Mit | Zweck | Reifegrad | Friction-Points |
+|-----|-------|-----------|-----------------|
+| Windows AI Foundry | übergeordneter Windows-Stack (Phi Silica + Windows ML + Windows AI APIs) | GA | Foundry Local ist Runtime-Layer — WAF ist Dach |
+| [[Microsoft Agent Framework]] | MAF-Agent läuft lokal mit OpenAI-kompatibler Foundry-Local-API | GA | Model-Name muss lokales Foundry-Modell sein (kein Cloud-Fallback) |
+| [[Model Context Protocol]] | MCP-Support lokal GA — lokale MCP-Server auf selber Maschine | GA | MCP-Server-Discovery per manifest |
+| [[Copilot Studio]] | **NICHT** direkt nutzbar — Copilot Studio ist cloud-only | – | Hybrid-Pattern: Copilot Studio in Cloud ruft on-device lokale Tools |
+| Windows Defender | On-Device-Modell wird als Executable gescannt | GA | erste Installation kann SmartScreen triggern |
+| Microsoft Endpoint Manager (MEM / Intune) | Enterprise-Deployment-Packaging | GA | eigene `.intunewin`-Pakete pro Modell-Revision |
+
+### Third-Party
+
+| Mit | Zweck | Reifegrad | Friction-Points |
+|-----|-------|-----------|-----------------|
+| Ollama | inkompatibel — unterschiedliche API-Schemata | – | Foundry Local ist OpenAI-API-kompatibel, nicht Ollama-kompatibel |
+| LangChain / LlamaIndex | via OpenAI-Kompatibilitäts-Client-Modus | GA | Base-URL auf `http://localhost:{port}` setzen |
+| Hugging Face Hub | als Modell-Quelle (Konvertierung nach ONNX oder GGUF) | Community | offizieller Support nur für kuratiertes Foundry-Local-Katalog |
+
+### APIs / Protokolle
+
+- **OpenAI-kompatible REST** auf `localhost` — Drop-in für bestehende OpenAI-SDK-Nutzung
+- **MCP** (lokale Server) — Tools auf derselben Maschine
+- **Windows ML ONNX Runtime** als Backend — unterstützt CPU/GPU/NPU
+
+---
+
+## Security & Compliance
+
+### Datenverarbeitung
+
+| Thema | Status |
+|-------|--------|
+| **Data Residency** | **N/A — On-Device** — Daten verlassen das Endgerät nicht. Ideal für Medizin, Recht, Treuhand |
+| **Prompts & Outputs** | werden lokal verarbeitet; optional Logging-Opt-in für Debug (deaktiviert by default) |
+| **Data Processing Addendum (DPA)** | On-Device-Inference = DSGVO-by-Design; kein MS-DPA nötig für Foundry Local selbst |
+| **EU-AI-Act-Klassifizierung** | meist Limited Risk; der Benutzer bleibt Verantwortlicher für Workload-Klassifizierung |
+
+### Microsoft-Compliance-Stack
+
+- **Windows Defender** scannt Modell-Dateien (ONNX/GGUF) vor Ausführung
+- **AppLocker / WDAC** für Executables-Whitelisting in Enterprise-Deployments
+- **Microsoft Endpoint Manager (MEM)** für Geräte-weite Rollouts + Versions-Pinning
+- **BitLocker** für lokale Modell-Ablage verschlüsselt
+
+### Bekannte Compliance-Lücken
+
+- **Modell-Provenance nicht kryptografisch signiert** für alle Modelle — Custom-ONNX-Import ohne Hash-Check theoretisch manipulierbar. Gegenmittel: nur aus dem offiziellen Foundry-Local-Katalog laden.
+- **Audit-Log für lokale Inferenz fehlt** — wenn Compliance Protokollierung verlangt, muss Wrapper-App Logging selbst implementieren.
+- **Kein zentrales Policy-Management** — Prompt-Filter / Content-Safety müssen pro Deployment selbst gebaut werden (keine äquivalent zu [[Azure AI Content Safety]] out-of-box).
+
+---
+
+## Abgrenzung & Wettbewerb
+
+### Microsoft-intern: Wann Foundry Local vs. Cloud?
+
+| Frage-Situation | Foundry Local | Cloud (Foundry Models / Agent Service) |
+|-----------------|---------------|----------------------------------------|
+| „Kunde in Medizin/Recht/Treuhand — PII darf nicht raus" | ✅ Local — DSGVO-by-design | ⚠️ Cloud nur mit komplexer Residency + DPA-Setup |
+| „Außendienst / Werkstatt — kein Internet" | ✅ Local | ⚠️ nicht geeignet |
+| „Höchste Modell-Qualität für komplexe Aufgaben" | ⚠️ lokale Modelle < Cloud-Frontier | ✅ Cloud — GPT-4.1 / Claude 4.6 |
+| „Skalierung auf tausende Anfragen/Sekunde" | ⚠️ Device-gebunden | ✅ Cloud |
+| „Multi-User-Szenario auf gemeinsamer Knowledge-Base" | ⚠️ schwierig — pro-Device-Setup | ✅ Cloud + [[Foundry IQ]] / [[Azure AI Search]] |
+
+### Externe Alternativen
+
+| Dimension | **Foundry Local** | Ollama | LM Studio |
+|-----------|-------------------|--------|-----------|
+| **Plattform** | Windows / macOS / Linux | Linux / macOS / Windows (Beta) | Windows / macOS / Linux |
+| **NPU-Support** | ✅ native (Snapdragon X Elite, Lunar Lake) | ❌ nur CPU/GPU | begrenzt |
+| **API-Kompatibilität** | OpenAI-kompatibel | OpenAI-ähnlich (proprietär) | OpenAI-kompatibel |
+| **Enterprise-Management** | ✅ MEM/Intune | ❌ | ❌ |
+| **MS-Support** | ✅ offiziell | ❌ Community | ❌ Community |
+| **Stärke** | NPU + Enterprise-Integration | Flexibilität, OSS | UI für Experimentieren |
+| **Schwäche** | Modell-Katalog kleiner als Ollama | keine NPU, kein MS-Stack | Dev-Tool, nicht Production |
+
+### Empfehlungs-Regel
+
+**Foundry Local** wenn Windows-zentrischer Kunde + NPU-fähige Hardware (Copilot+ PC) + Enterprise-Management nötig. **Ollama** in OSS-heavy Dev-Teams ohne NPU-Bedarf. **Hybrid-Pattern** ist für SMB meist die pragmatischste Wahl — kleine lokale Modelle für PII-sensitive Aufgaben, Cloud für den Rest.
+
+---
+
 ## Offizielle Referenzen
 
 | Typ | Quelle | Link | Zuletzt gesichtet |

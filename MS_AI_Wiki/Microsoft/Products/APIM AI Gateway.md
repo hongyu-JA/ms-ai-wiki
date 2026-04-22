@@ -285,6 +285,62 @@ Foundry-Integration: aktivieren (Preview), aber Policies in APIM-
 
 ---
 
+## Integrationen
+
+### Microsoft-intern
+
+| Mit | Zweck | Reifegrad | Friction-Points |
+|-----|-------|-----------|-----------------|
+| [[Foundry Models]] | Backend für `llm-*`-Policies — Azure OpenAI + MaaS | GA | PTU-Deployment als Backend-Pool-Eintrag; Key-Vault für Secrets |
+| [[Microsoft Agent Framework]] | Agent-Calls durch APIM geroutet für Budget + Audit | GA | MAF-Client-Config auf APIM-Endpoint, nicht direkt auf Foundry |
+| [[Foundry Control Plane]] | komplementär: APIM = Traffic-Layer, Control Plane = Observability | GA | keine Überlappung — beide parallel einsetzen |
+| [[Microsoft Entra Suite]] / Entra | OAuth 2.1 Policy-basierte Auth | GA | App-Registration pro Consumer-Agent |
+| [[Azure AI Content Safety]] | `llm-content-safety`-Policy ruft Content Safety vor Modell | GA | eigener AI-Services-Account nötig |
+| [[Model Context Protocol]] | MCP-Proxy als GA-Feature seit Ignite 2025 | GA | MCP-Server-Definition in Backend-Pool, OAuth-Flow weitergereicht |
+
+### Third-Party
+
+| Mit | Zweck | Reifegrad | Friction-Points |
+|-----|-------|-----------|-----------------|
+| OpenAI API (direkt) | als Backend neben Azure OpenAI — Multi-Vendor-Routing | GA | OpenAI-Key-Management separat |
+| Anthropic API (direkt) | Backend-Option; als Alternative zu Foundry-Anthropic | GA | Nicht-MS-DPA prüfen |
+| Datadog / Dynatrace | Monitoring via APIM-Metrics (Token-Count, Latency) | GA | APIM-Diagnostic-Settings → Event Hub → Third-Party |
+
+### APIs / Protokolle
+
+- **APIM REST** für Policy-Management (IaC via Bicep / Terraform / `az apim`)
+- **OpenAI-kompatible REST** als Frontend-Schema — macht APIM zum Drop-in-Proxy
+- **MCP (2025-11-25)** für Tool-Server-Proxying
+
+---
+
+## Security & Compliance
+
+### Datenverarbeitung
+
+| Thema | Status |
+|-------|--------|
+| **Data Residency** | APIM-Instanz-Region bestimmt Daten-Lokation. Standard v2 + Premium v2 in Switzerland North GA |
+| **Prompts & Outputs** | werden NICHT persistiert von APIM (nur Metrics + Diagnostic-Logs). Semantic Cache speichert Hashes + Response-Bodies im Azure Cache for Redis — eigene Region-Wahl |
+| **Data Processing Addendum (DPA)** | Azure-DPA covered; bei Third-Party-Backends (OpenAI, Anthropic) zusätzliche DPAs |
+| **EU-AI-Act-Klassifizierung** | APIM selbst = Limited Risk; der durchgeleitete Workload kann High Risk sein — Policies + Logging bilden Audit-Basis |
+
+### Microsoft-Compliance-Stack
+
+- **Entra Managed Identity** für Backend-Auth (statt Subscription Keys im Klartext)
+- **Key Vault** für Backend-Secrets (OpenAI-Keys, Anthropic-Keys)
+- **VNet-Integration** (Standard v2 / Premium v2) mit Private Endpoints zu Foundry, AI Search
+- **Azure Monitor** + **Application Insights** für `llm-emit-token-metric`-Auswertung
+- **Microsoft Defender for Cloud** — APIM-Ressourcen-Posture
+
+### Bekannte Compliance-Lücken
+
+- **Semantic Cache speichert Response-Bodies** — sensitive Outputs landen im Cache. Opt-out per Policy nötig für regulierte Kunden.
+- **llm-content-safety blockiert**, aber der Attempt wird in Logs geschrieben — Prompt-Leak-Risiko wenn Log-Retention zu lang.
+- **MCP-Proxy-OAuth-Flow** leitet User-Tokens weiter — Token-Expiry-Handling prüfen, sonst Silent Failures.
+
+---
+
 ## Offizielle Referenzen
 
 | Typ | Quelle | Link | Zuletzt gesichtet |

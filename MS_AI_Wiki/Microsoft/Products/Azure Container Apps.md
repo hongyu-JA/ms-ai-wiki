@@ -285,6 +285,32 @@ az containerapp create \
 
 ---
 
+## Security & Compliance
+
+### Datenverarbeitung
+
+| Thema | Status |
+|-------|--------|
+| **Data Residency** | Container + Revisions + Logs folgen der ACA-Environment-Region. **Switzerland North: Consumption + Dedicated GA** (Flex Plan noch ausstehend) |
+| **Prompts & Outputs** | Container-Stdout in Log Analytics Workspace; bei MAF-Agent-Hosting ggf. PII-Redaktion vor Log-Schreib-Pfad |
+| **Data Processing Addendum (DPA)** | Azure-DPA covered |
+| **EU-AI-Act-Klassifizierung** | ACA = Compute; Klassifizierung folgt Workload (gehosteter Agent-Code) |
+
+### Microsoft-Compliance-Stack
+
+- **Entra Workload Identity** (System- oder User-Assigned Managed Identity) für Backend-Auth zu Foundry / AI Search / Key Vault
+- **Private Endpoints** zu Storage, Foundry, ACR in Enterprise-Environments
+- **Microsoft Defender for Containers** + **Defender for Cloud** — Image-Scanning + Posture
+- **Container Apps Built-In Authentication** (Easy Auth) für Entra-Login vor Container ohne App-Code-Änderung
+
+### Bekannte Compliance-Lücken
+
+- **Flex Plan in CH fehlt** — für DSGVO-harte Anforderungen Consumption oder Dedicated nutzen
+- **Container-Images enthalten oft embedded Secrets** — konsequent ACR + Managed Identity; Secret-Scanning via Defender aktivieren
+- **KEDA-Scaling-Metriken können PII enthalten** (z. B. Queue-Message-Inhalt) — bei sensitive Payloads auf Metadata-Trigger wechseln
+
+---
+
 ## Offizielle Referenzen
 
 | Typ | Quelle | Link | Zuletzt gesichtet |

@@ -254,6 +254,31 @@ MS-Claim: +36–40% Relevance-Uplift vs. single-shot RAG
 
 ---
 
+## Integrationen
+
+### Microsoft-intern
+
+| Mit | Zweck | Reifegrad | Friction-Points |
+|-----|-------|-----------|-----------------|
+| [[Azure AI Search]] | Backend-Implementierung — IQ ist Convenience-Wrapper | GA | keine Control über Index-Tuning |
+| [[Foundry Agent Service]] | MCP-Tool `knowledge_base_retrieve` out-of-box verfügbar | GA | Knowledge nur Foundry-IQ-Format, nicht AI Search direkt |
+| [[Microsoft Agent Framework]] | MCP-Client kann IQ-Tool aufrufen | GA | OAuth-Setup via [[Entra Agent ID]] |
+| [[Copilot Studio]] | Limited Knowledge-Source-Option (bevorzugt SPO/Dataverse) | Preview | nicht alle IQ-Features exposed |
+
+### Third-Party
+
+| Mit | Zweck | Reifegrad | Friction-Points |
+|-----|-------|-----------|-----------------|
+| LangChain / LlamaIndex | über Azure AI Search direkt, nicht über IQ | N/A | IQ bietet kein eigenes SDK — wenn Third-Party nötig, auf AI Search gehen |
+
+### APIs / Protokolle
+
+- **MCP Server** — Endpoint `mcp://{project}.foundry.azure.com/knowledge-bases/{id}`, OAuth 2.1 via Entra
+- **Foundry REST API** — Management (Create/Update/Delete) via AIProjectClient 2.0
+- **Vector + Hybrid Query** — unter der Haube Azure AI Search; nicht direkt exposed
+
+---
+
 ## Offizielle Referenzen
 
 | Typ | Quelle | Link | Zuletzt gesichtet |

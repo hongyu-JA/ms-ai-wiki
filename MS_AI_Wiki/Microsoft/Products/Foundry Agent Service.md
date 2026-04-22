@@ -231,6 +231,35 @@ Agent-Code auf eigener ACA-Instance in CH-North → ruft Foundry Responses-API +
 
 ---
 
+## Integrationen
+
+### Microsoft-intern
+
+| Mit | Zweck | Reifegrad | Friction-Points |
+|-----|-------|-----------|-----------------|
+| [[Microsoft Agent Framework]] | Agent-Code-Framework, deployed nach FAS | GA | Agent-Code muss MAF-konform strukturiert sein |
+| [[Foundry Control Plane]] | RBAC, Tracing, Evaluation für gehostete Agents | GA | Tracing automatisch in App-Insights-Workspace des Projects |
+| [[Entra Agent ID]] | Agent-Identity + Conditional Access | GA | OBO-Flows für User-Daten müssen explizit konfiguriert sein |
+| [[Foundry Models]] | Modell-Backend für Agent — Region-Match mit FAS wichtig | GA | Cross-Region-Calls möglich, aber Latenz + DSGVO-Flag |
+| [[APIM AI Gateway]] | Proxy vor Agent-Calls für Token-Budget + Audit | GA | zusätzlicher Hop, ~10–30 ms Latenz |
+| [[Foundry IQ]] / [[Azure AI Search]] | Knowledge-Quelle für Agent-RAG | GA | IQ einfacher, Search mehr Kontrolle |
+| [[Azure Functions]] / [[Azure Container Apps]] | alternative Self-Hosting-Optionen | GA | FAS managed; Functions/ACA für Custom-Container-Needs |
+
+### Third-Party
+
+| Mit | Zweck | Reifegrad | Friction-Points |
+|-----|-------|-----------|-----------------|
+| Custom MCP-Server | FAS-Agent ruft Dritt-MCP-Tools auf | GA | OAuth-2.1-Setup pro Server |
+| LangGraph / CrewAI | **NICHT** auf FAS deploybar — FAS ist MAF-spezifisch | – | Alternative: Container Apps mit eigenem Runtime |
+
+### APIs / Protokolle
+
+- **Foundry REST API** für Agent-Management (Create/Update/Deploy)
+- **MCP-Client** (Standard 2025-11-25) für Tool-Calls
+- **OpenTelemetry** für Tracing — Auto-Export zu Foundry Control Plane + App Insights
+
+---
+
 ## Offizielle Referenzen & Monitoring
 
 | Typ | Quelle | Link | Zuletzt gesichtet |

@@ -262,6 +262,33 @@ Gleicher REST-API, separates Billing. Relevant bei bestehenden Enterprise-Vertr�
 
 ---
 
+## Security & Compliance
+
+### Datenverarbeitung
+
+| Thema | Status |
+|-------|--------|
+| **Data Residency** | Service-spezifisch: [[Azure AI Document Intelligence]] **Switzerland North GA**; [[Azure AI Content Understanding]] **nicht in CH** (Sweden Central / West Europe); Speech/Language folgen Foundry-Project-Region |
+| **Prompts & Outputs** | DI verarbeitet Dokument-Bytes; speichert Inputs **nicht** standardmäßig. CU speichert für Reasoning-Mode temporär, konfigurierbar |
+| **Data Processing Addendum (DPA)** | Azure-DPA covered; DI + CU als Azure AI Services abgedeckt |
+| **EU-AI-Act-Klassifizierung** | meist Limited Risk; bei biometrischen / behördlichen Use-Cases kann High Risk werden |
+
+### Microsoft-Compliance-Stack
+
+- **Entra Managed Identity** für Service-Calls statt API-Keys
+- **Private Endpoints** für DI/CU bei Enterprise-Deployments
+- **Customer-Managed Keys (CMK)** optional für DI Custom Models
+- **[[Microsoft Purview]] Data Map** kann extrahierte Felder aus DI/CU klassifizieren
+
+### Bekannte Compliance-Lücken
+
+- **CU nicht in Switzerland North** — für CH-regulierte Kunden (Medizin, Treuhand, Recht) Fallback auf DI + eigenes LLM-Post-Processing
+- **CU Pro Mode speichert Daten temporär** für Multi-Doc-Reasoning — Retention + Lösch-Policy prüfen
+- **Biometrie (Face Recognition)** hat eigene LOA-Prozess (Limited Access Registration) — Kunden-spezifischer Antrag
+- **Speech-Service Modelle nicht alle in EU** — pro-Modell-Check; Neural Voice zum Teil US-only
+
+---
+
 ## Offizielle Referenzen
 
 | Typ | Quelle | Link | Zuletzt gesichtet |

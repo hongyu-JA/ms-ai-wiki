@@ -325,6 +325,35 @@ Volle Decision-Matrix siehe [[RAG Pattern MOC]].
 
 ---
 
+## Integrationen
+
+### Microsoft-intern
+
+| Mit | Zweck | Reifegrad | Friction-Points |
+|-----|-------|-----------|-----------------|
+| [[Foundry IQ]] | Convenience-Wrapper, nutzt AI Search unter der Haube | GA | wenig Custom-Scoring-Kontrolle |
+| [[Microsoft Agent Framework]] | Agentic Retrieval als MCP-Tool `knowledge_base_retrieve` | GA | MCP-Server nur bei Foundry-IQ-Knowledge-Bases |
+| [[Copilot Studio]] | Knowledge-Source-Option neben Dataverse + SPO | GA | max. 500 Docs/Source begrenzt Enterprise-Cases |
+| [[Azure AI Document Intelligence]] | Pre-Processing für PDFs → AI Search Indexer | GA | eigener Skill-Typ (`#Microsoft.Skills.Text.DocumentIntelligenceSkill`) |
+| [[Microsoft Graph]] + Graph Connectors | Ingest-Pfad aus M365 (SPO/OneDrive/Teams) | GA | Limits pro Connection; siehe [[Microsoft 365 Copilot Connectors]] |
+| [[Entra Agent ID]] / Entra ID | Document-Level Security via Entra-Claims (GA 2025, ADLS Gen2 + Blob) | GA | nur Blob + ADLS Gen2, keine SPO-DLS |
+
+### Third-Party
+
+| Mit | Zweck | Reifegrad | Friction-Points |
+|-----|-------|-----------|-----------------|
+| LangChain | `AzureSearch` Vector Store Retriever | GA | Semantic Ranker nicht 1:1 exposed — eigenen Wrapper |
+| LlamaIndex | AzureAISearchVectorStore | GA | ähnlich wie LangChain; Hybrid Search via Custom-Query |
+| Elasticsearch-Migration | offizielles ES-to-AzureAISearch-Tool | Preview | nur ES < 8.x; Schema-Mapping manuell |
+
+### APIs / Protokolle
+
+- **REST API** (2024-07-01, GA) — OData-ähnliche Query-Syntax, Vector + Semantic-Ranker Query-Types
+- **gRPC Indexer-Pushdown** — für High-Volume-Ingest
+- **MCP Server** — via [[Foundry IQ]] (nicht direkt von AI Search selbst)
+
+---
+
 ## Offizielle Referenzen & Monitoring
 
 | Typ | Quelle | Link | Zuletzt gesichtet |

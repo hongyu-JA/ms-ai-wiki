@@ -429,6 +429,32 @@ EUR/CHF *{UNCLEAR — Azure Pricing Calculator mit Region=Switzerland North prü
 
 ---
 
+## Security & Compliance
+
+### Datenverarbeitung
+
+| Thema | Status |
+|-------|--------|
+| **Data Residency** | Flex Consumption / Consumption v2 / Dedicated folgen der gewählten Azure-Region. ⚠️ **Flex Consumption Switzerland North**: TODO (UNCLEAR Stand April 2026) |
+| **Prompts & Outputs** | Function-Logs landen in Application Insights — bei Agent-Tool-Invocations ggf. PII-Maskierung vor Log-Write |
+| **Data Processing Addendum (DPA)** | Azure-DPA covered |
+| **EU-AI-Act-Klassifizierung** | Function selbst ist Compute — Klassifizierung hängt am Workload (Tool vs. Agent-Host) |
+
+### Microsoft-Compliance-Stack
+
+- **Entra Managed Identity** für Bindings statt Connection Strings (MSI > Key Vault > Env-Var)
+- **Private Endpoints** zu Storage, Foundry, Azure AI Search bei Flex Consumption + Dedicated
+- **Microsoft Defender for Cloud** — Function-App-Security-Posture-Empfehlungen
+- **Easy Auth** (Entra + OIDC) als minimaler Auth-Layer vor MCP-Tool-Endpunkt
+
+### Bekannte Compliance-Lücken
+
+- **Flex Consumption CH-Region fehlt** — für DSGVO-harte Kunden aktuell Consumption v2 oder Container Apps in Switzerland North als Fallback
+- **App-Insights-Logs enthalten Prompt-Text** wenn Function als MCP-Tool-Provider läuft — Log-Retention + Purview-Scan prüfen
+- **Durable Task Scheduler Storage** liegt in derselben Region wie Function — bei Cross-Region-Setups explizit pinnen
+
+---
+
 ## Offizielle Referenzen
 
 ### Primary (Microsoft Learn)

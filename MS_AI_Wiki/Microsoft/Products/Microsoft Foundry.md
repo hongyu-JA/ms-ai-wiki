@@ -258,6 +258,34 @@ VORHER (Azure AI Foundry classic, bis 2025)            NACHHER (Microsoft Foundr
 
 ---
 
+## Security & Compliance
+
+### Datenverarbeitung
+
+| Thema | Status |
+|-------|--------|
+| **Data Residency** | Foundry-Projects sind Region-gebunden (Switzerland North GA; Sweden Central für Claude-Modelle). Cross-Region-Calls möglich, aber separate DSGVO-Analyse nötig |
+| **Prompts & Outputs** | standardmäßig **nicht** für MS-Training verwendet (siehe Azure-OpenAI-Data-Privacy-Dokumentation). Tracing optional über [[Foundry Control Plane]] |
+| **Data Processing Addendum (DPA)** | Azure-DPA + pro Modell-Provider ggf. zusätzlich (OpenAI embedded in Azure-DPA; Anthropic separate DPA) |
+| **EU-AI-Act-Klassifizierung** | Foundry selbst = Plattform (Limited Risk); konkreter Workload klassifiziert separat, [[Foundry Control Plane]] Evaluation liefert Audit-Evidenz |
+
+### Microsoft-Compliance-Stack
+
+- **[[Foundry Control Plane]]** bündelt Entra-RBAC, Private Networking, Content-Safety-Policies, Evaluation
+- **[[Azure AI Content Safety]]** als Default-Filter bei allen Azure-OpenAI / MaaS-Modellen (4 Harm-Kategorien medium)
+- **[[Defender for AI]]** (Preview) für Runtime-Detection
+- **[[Microsoft Purview]] DSPM for AI** für Oversharing-Risiken
+- **Private Endpoints** zu Foundry-Project für VNet-Isolation
+
+### Bekannte Compliance-Lücken
+
+- **Claude / Anthropic-Modelle nur Sweden Central + East US2** — nicht in Switzerland North; für CH-Kunden DSGVO-Kommunikation + Region-Wechsel-Strategie
+- **Foundry Hubs (Legacy) versus Foundry Projects (Neu)** — unterschiedliche RBAC-Semantik; Bestandskunden migrieren
+- **Prompt-Flow (Legacy)** deprecated Q1 2027 — Migrations-Druck
+- **DPA-Zusatz für Anbieter** (OpenAI, Anthropic, Meta, DeepSeek) muss kundenseitig geprüft werden — MS gibt nur Azure-DPA pauschal
+
+---
+
 ## Offizielle Referenzen & Monitoring
 
 | Typ | Quelle | Link | Zuletzt gesichtet |

@@ -231,6 +231,34 @@ Ab 2026-05-01 GA: Copilot-Studio-Agents bekommen **automatisch** eine [[Entra Ag
 
 ---
 
+## Security & Compliance
+
+### Datenverarbeitung
+
+| Thema | Status |
+|-------|--------|
+| **Data Residency** | folgt der M365-Tenant-Region; Copilot-Credit-Abrechnung separat regional getrennt |
+| **Prompts & Outputs** | Audit-Logs via [[Microsoft Purview]] (Copilot-Audit-Events seit 2024-11 GA); Retention per M365-Audit-Policy |
+| **Data Processing Addendum (DPA)** | MS DPA + Copilot-spezifische Zusätze (Wave 3 / Anthropic-Nutzung) |
+| **EU-AI-Act-Klassifizierung** | meist Limited Risk; Hochrisiko nur bei spezifischen Anwendungsfällen (Bewertung / Entscheidung über Personen) |
+
+### Microsoft-Compliance-Stack
+
+- **Purview Sensitivity Labels** werden bei Dataverse-Knowledge-Sources respektiert (EXTRACT-Usage-Right zwingend)
+- **[[Purview DSPM]] for AI** zeigt Oversharing-Risiken in Copilot-Studio-Agents
+- **[[Defender for AI]]** (Preview → GA 2026-05-01 an Agent 365 gekoppelt) — Runtime-Erkennung von Prompt-Injection-Angriffen
+- **[[Azure AI Content Safety]]** als Policy-Layer bei Custom-Engine-Agents einstellbar
+- **Conditional Access** via [[Microsoft Entra Suite]] für Agent-Zugriffe
+
+### Bekannte Compliance-Lücken
+
+- **Wave 3 Cowork: Anthropic / Claude default OFF** in EU/EFTA/UK — explizit im Admin Center einschalten; DSGVO-Hintergrund von MS **nicht** kommentiert → Vorsicht bei regulierten Kunden
+- **Sensitivity-Label-Propagation auf Agent-Outputs fehlt** (Gap zu [[Agent 365]]) — Compliance-Gap für 2026-05-01-GA
+- **Generative Actions mit externen Connectors** können DLP-Policy umgehen — DLP-Prüfung pro Connector manuell nötig
+- **Preview-Features (Agent Builder Advanced)** liegen **nicht** zwingend in EU-Data-Boundary
+
+---
+
 ## Offizielle Referenzen & Monitoring
 
 | Typ | Quelle | Link | Zuletzt gesichtet |

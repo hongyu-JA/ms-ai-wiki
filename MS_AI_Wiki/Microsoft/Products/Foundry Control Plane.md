@@ -255,6 +255,36 @@ Rollback:
 
 ---
 
+## Integrationen
+
+### Microsoft-intern
+
+| Mit | Zweck | Reifegrad | Friction-Points |
+|-----|-------|-----------|-----------------|
+| [[Microsoft Foundry]] | Control Plane ist Teil von Foundry, nicht Standalone-Produkt | GA | kein eigenes Portal — UI via ai.azure.com |
+| [[Foundry Models]] | Policies (Content Safety, Rate-Limit) vor Modell-Calls | GA | pro Deployment konfiguriert, nicht global |
+| [[Foundry Agent Service]] | Agent-Tracing auto-exportiert ins Workspace | GA | App Insights Workspace muss pre-provisioned sein |
+| [[Microsoft Agent Framework]] | OpenTelemetry-Propagation in MAF-Agents | GA | OTLP-Endpoint im Env-Var setzen |
+| [[Entra Agent ID]] / Entra | RBAC-Rollen auf Foundry-Project-Ebene | GA | 4 Foundry-spezifische Rollen (Admin, Contributor, Reader, Evaluation) |
+| Azure Application Insights | Tracing-Daten landen im selben Workspace wie App-Logs | GA | Log-Volumen skaliert mit Agent-Aufrufen — Cost-Alert nötig |
+| Azure Monitor / Log Analytics | Kusto-Queries für Auswertungen | GA | eigene Tabellen (`AIAgentsInfo`, `AppTraces`) — Schema-Docs lesen |
+| [[Microsoft Purview]] | Audit + Sensitivity-Label-Propagation (Preview) | Preview | Labels noch nicht vollständig in Foundry-Trace übernommen |
+
+### Third-Party
+
+| Mit | Zweck | Reifegrad | Friction-Points |
+|-----|-------|-----------|-----------------|
+| Grafana / Datadog | OTLP-Export aus Foundry-Tracing | GA | OTel-Collector als Proxy; Azure-Monitor-Datenquelle |
+| Langfuse / Phoenix | Alternative Trace-Viewer via OTLP | Community | keine offizielle MS-Unterstützung; Self-Hosting |
+
+### APIs / Protokolle
+
+- **OpenTelemetry (OTLP)** als Standard — Foundry Tracing emittiert standard-konforme Spans
+- **Azure Monitor REST API** für programmatische Query-Auswertungen
+- **Azure AI Evaluation SDK** (`azure-ai-evaluation`) für CI-Integration
+
+---
+
 ## Offizielle Referenzen
 
 | Typ | Quelle | Link | Zuletzt gesichtet |
