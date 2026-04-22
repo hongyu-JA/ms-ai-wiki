@@ -82,7 +82,7 @@ Ergänzend außerhalb Foundry:
 | 🟢 [[Azure Machine Learning]] | Klassische ML-Plattform — v1 ist Deprecation-Kandidat | T1 | passive |
 | 🟢 [[Azure AI Content Understanding]] | Multimodale Content-Analyse (Text/Bild/Video/Audio) mit Schema-gesteuertem Output — Teil von Foundry Tools | T2 | standard |
 | 🟢 [[Azure AI Document Intelligence]] | OCR + Dokumenten-Struktur-Erkennung (Rechnungen, Verträge, Formulare) — SMB-Einstiegs-Use-Case, ex Form Recognizer | T2 | standard |
-| 🟡 [[Azure OpenAI Service Pricing]] | PAYG vs PTU vs Batch — Kostenoptimierung | T3 | passive |
+| 🟢 [[Azure OpenAI Service Pricing]] | PAYG vs PTU vs Batch — Kostenoptimierung | T3 | passive |
 | 🟢 [[Azure OpenAI Responses API]] | Neuer Response-API-Standard — Assistants-API-Nachfolger für Azure-OpenAI-Direktzugriff | T3 | passive |
 
 <!-- AUTO-INDEX-END: produkte -->
@@ -103,13 +103,13 @@ _Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert 
 | 2026-04-22 | [[Azure AI Search]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Azure Machine Learning]] | v1-vs-v2-Status (SDK v1 EOS 30.06.2026!), 4 legitime Agent-Zeitalter-Use-Cases, Azure ML vs. Foundry Linie, Pricing-Struktur, Journai-Tie… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Azure Machine Learning]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Azure OpenAI Service Pricing]] | Deep-Dive: PAYG/PTU/Batch-Matrix, Break-Even-Rechnung, Region-Deltas, SMB-Beratungs-Szenarien, Hidden-Costs-Tabelle, PTU-modell-unabhängi… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Azure OpenAI Service Pricing]] | Initial Stub (Tier 3 Awareness) | Hongyu |
 | 2026-04-22 | [[Foundry Agent Service]] | **Major correction**: DSGVO-Flag aus Arbeitsauftrag §2.6 überholt — **Switzerland North ist GA-Region**. 10 EU/EFTA-Regionen. Preview-Lim… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Foundry Agent Service]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Foundry Control Plane]] | Tracing-Architektur-Diagramm (Foundry+AppInsights = ein Storage), 35+ OOB-Evaluators in 6 Kategorien, RBAC-Rollen-Matrix + Journai-Enterp… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Foundry Control Plane]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Foundry IQ]] | Architektur-Diagramm KB → Sources → MCP-Server → Clients, MCP-Endpoint-Pattern, Reasoning-Effort-Levels (minimal/low/medium), Code-Sketch… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Foundry IQ]] | Initial Stub | Hongyu |
-| 2026-04-22 | [[Foundry Local]] | Scope-Klärung Foundry Local vs. Windows AI Foundry (Runtime vs. Platform-Stack), 10-Modell-Katalog mit Hardware-Matrix, API-Delta OpenAI-… | Hongyu / Deep-Research |
 
 <!-- AUTO-INDEX-END: activity -->
 
