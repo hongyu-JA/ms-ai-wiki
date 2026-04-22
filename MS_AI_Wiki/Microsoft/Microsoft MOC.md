@@ -132,7 +132,7 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | Tier-1 Notes | **19 deep** · 0 stub · total 19 |
 | Tier-2 Notes | **16 deep** · 0 stub · total 16 |
 | Tier-3 Notes | **0 deep** · 4 stub · total 4 |
-| Deprecated Notes | **1 deep** · 2 stub · total 3 |
+| Deprecated Notes | **2 deep** · 1 stub · total 3 |
 | MOCs insgesamt | 10 (Root + 6 Primary + 2 Lens + 1 Commercial) |
 | Automation-Pipeline | läuft seit 2026-04-21 (siehe README) |
 | Letzter Index-Rebuild | 2026-04-22 (automatisch durch apply.ts) |
@@ -180,9 +180,9 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | 🟢 deep | T2 | standard | [[Microsoft Purview]] | Security & Identity MOC |
 | 🟢 deep | T2 | standard | [[Power Automate]] | Integration & Compute MOC |
 | 🟢 deep | T2 | standard | [[Purview DSPM]] | Security & Identity MOC |
+| 🟢 deep | T2 · 🔻 | passive | [[deprecated/Semantic Kernel]] | Agents MOC |
 | 🟢 deep | T2 | standard | [[Teams SDK]] | Agents MOC |
 | 🟡 stub | T2 · 🔻 | passive | [[deprecated/AutoGen]] | Agents MOC |
-| 🟡 stub | T2 · 🔻 | passive | [[deprecated/Semantic Kernel]] | Agents MOC |
 | 🟡 stub | T3 | passive | [[Azure OpenAI Service Pricing]] | Azure AI MOC |
 | 🟡 stub | T3 | passive | [[Azure Cosmos DB for AI]] | Data & Knowledge MOC |
 | 🟡 stub | T3 | passive | [[Microsoft Fabric]] | Data & Knowledge MOC |

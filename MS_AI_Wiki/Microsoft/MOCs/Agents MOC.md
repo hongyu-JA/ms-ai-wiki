@@ -68,7 +68,7 @@ Das semantische Modell: **drei Schichten × Reifegrad**.
 | 🟢 [[Teams SDK]] | Teams-spezifische UI/UX-Schicht (Adaptive Cards, Teams-Events); ergänzt M365 Agents SDK | T2 | standard |
 | 🟡 [[deprecated/AutoGen]] | 🟡 Konsolidiert in MAF — Research-Features teilweise experimental | T2 · 🔻 | passive |
 | 🟢 [[deprecated/Bot Framework]] | 🔴 EOS 2025-12-31 — Migration zu M365 Agents SDK | T2 · 🔻 | passive |
-| 🟡 [[deprecated/Semantic Kernel]] | 🟡 Konsolidiert in MAF — Migration-Pfad | T2 · 🔻 | passive |
+| 🟢 [[deprecated/Semantic Kernel]] | 🟡 Konsolidiert in MAF — Migration-Pfad | T2 · 🔻 | passive |
 
 <!-- AUTO-INDEX-END: produkte -->
 
@@ -88,13 +88,13 @@ _Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert 
 | 2026-04-22 | [[Microsoft Agent Framework]] | Migration auf neues Product Note Template (v2) — Struktur umgezogen, Inhalt erhalten und erweitert (Einsatz-Szenarien, Stack-Tabelle, Dec… | Hongyu |
 | 2026-04-22 | [[Model Context Protocol]] | Spec-Status 2025-11-25, 12+ MS-Integrations-Matrix, Three-Hop-Auth-Diagramm, Enterprise-Patterns (APIM-Proxy, Zero Trust, OTel), Ecosyste… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Model Context Protocol]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[deprecated/Semantic Kernel]] | Deep-Dive SK-Deprecation + Migration-Pfad zu MAF: API-Äquivalenzen, Code-Beispiele (.NET + Python), Support-Timeline (≥ 1 Jahr nach MAF-G… | Hongyu / Deep-Research |
+| 2026-04-22 | [[deprecated/Semantic Kernel]] | Initial Stub — Migration-Pfad zu MAF | Hongyu |
 | 2026-04-22 | [[Teams SDK]] | Deep-Dive inkl. SDK-Sandwich-Positionierung, Teams-Primitiven, Adaptive Cards, Meeting-Hooks, Manifest-Workflow | Hongyu / Deep-Research |
 | 2026-04-22 | [[Teams SDK]] | Initial Stub | Hongyu |
 | 2026-04-21 | [[Microsoft Agent Framework]] | **Python SDK 1.1.0**: Gemini-Client (erster Non-Azure/Non-OpenAI-Client), Hyperlight CodeAct-Package (isolierte Micro-VM-Sandbox für Agen… | auto-sync |
 | 2026-04-21 | [[deprecated/Bot Framework]] | Migration auf neues Product Note Template (v2); Migrationspfad präzisiert (LUIS → CLU, QnA → AI Search) | Hongyu |
 | 2026-04-21 | [[deprecated/Bot Framework]] | Initial-Erstellung der Deprecated-Note, watch: passive, Status: deprecated (EOS 2025-12-31) | Hongyu |
-| 2026-04-21 | [[Copilot Studio]] | Initial Stub, watch: close, Status: GA | Hongyu |
-| 2026-04-21 | [[Microsoft Agent Framework]] | Initial-Erstellung der Note, watch: close, Status: GA | Hongyu |
 
 <!-- AUTO-INDEX-END: activity -->
 
