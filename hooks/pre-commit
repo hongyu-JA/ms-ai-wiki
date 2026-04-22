@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+# Git pre-commit hook — baut die MOC-Tabellen neu, wenn Änderungen in
+# MS_AI_Wiki/ oder .automation/products.yaml gestaged sind. Die daraus
+# entstehenden Änderungen an den MOCs werden automatisch mit-gestaged, damit
+# der Commit immer mit frischen Index-Tabellen rausgeht (Change-Management).
+#
+# Aktivieren:
+#   git config core.hooksPath hooks
+# (oder: install.ps1 / install.sh aus dem Repo-Root)
+set -euo pipefail
+
+repo_root="$(git rev-parse --show-toplevel)"
+cd "$repo_root"
+
+# Nur triggern, wenn relevante Pfade betroffen sind
+staged=$(git diff --cached --name-only)
+if ! printf '%s\n' "$staged" | grep -E '^(MS_AI_Wiki/|\.automation/products\.yaml)' >/dev/null; then
+  exit 0
+fi
+
+echo "[pre-commit] MOCs neu bauen (change management)..."
+
+# Bun-Binary finden (auch wenn PATH im Git-Context minimaler ist)
+if command -v bun >/dev/null 2>&1; then
+  BUN=bun
+elif [ -x "$HOME/.bun/bin/bun" ]; then
+  BUN="$HOME/.bun/bin/bun"
+elif [ -x "$HOME/.bun/bin/bun.exe" ]; then
+  BUN="$HOME/.bun/bin/bun.exe"
+else
+  echo "[pre-commit] WARNUNG: bun nicht gefunden, Index-Rebuild übersprungen" >&2
+  exit 0
+fi
+
+(
+  cd .automation
+  "$BUN" run scripts/update-indices.ts
+) || {
+  echo "[pre-commit] Index-Rebuild fehlgeschlagen — Commit wird abgebrochen" >&2
+  exit 1
+}
+
+# Geänderte MOCs automatisch mit-stagen
+git add \
+  "MS_AI_Wiki/Microsoft/Microsoft MOC.md" \
+  "MS_AI_Wiki/Microsoft/MOCs/" 2>/dev/null || true
+
+echo "[pre-commit] MOCs aktualisiert und mit-gestaged."

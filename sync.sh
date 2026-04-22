@@ -24,7 +24,10 @@ if [ "${1:-}" = "--dry" ]; then
   echo "[sync] DRY-RUN-Modus"
 fi
 
-echo "[sync] Stage 0 — fetch"
+echo "[sync] Stage 0a — classify Clippings/"
+bun run scripts/classify-clippings.ts
+
+echo "[sync] Stage 0b — fetch"
 bun run scripts/fetch.ts
 
 echo "[sync] Stage 1 — filter"

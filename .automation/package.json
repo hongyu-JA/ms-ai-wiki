@@ -10,7 +10,8 @@
     "patch":  "bun run scripts/patch.ts",
     "apply":  "bun run scripts/apply.ts",
     "indices": "bun run scripts/update-indices.ts",
-    "sync":   "bun run scripts/fetch.ts && bun run scripts/filter.ts && bun run scripts/patch.ts && bun run scripts/apply.ts",
+    "classify": "bun run scripts/classify-clippings.ts",
+    "sync":   "bun run scripts/classify-clippings.ts && bun run scripts/fetch.ts && bun run scripts/filter.ts && bun run scripts/patch.ts && bun run scripts/apply.ts",
     "sync:dry": "cross-env DRY_RUN=1 DRY_WRITE=1 bun run sync"
   },
   "dependencies": {

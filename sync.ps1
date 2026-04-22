@@ -34,7 +34,11 @@ if ($DryRun) {
     Write-Host "[sync] DRY-RUN-Modus (keine Claude-Calls, keine File-Writes)" -ForegroundColor Yellow
 }
 
-Write-Host "[sync] Stage 0 — fetch" -ForegroundColor Cyan
+Write-Host "[sync] Stage 0a — classify Clippings/" -ForegroundColor Cyan
+bun run scripts/classify-clippings.ts
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+Write-Host "[sync] Stage 0b — fetch" -ForegroundColor Cyan
 bun run scripts/fetch.ts
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 

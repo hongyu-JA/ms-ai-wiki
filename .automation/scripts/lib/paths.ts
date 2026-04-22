@@ -36,3 +36,8 @@ export const DEPRECATION_RADAR = path.resolve(MS_DIR, "Deprecation Radar.md");
 export const INBOX_DIR = path.resolve(VAULT_DIR, "_Inbox");
 export const INBOX_PROCESSED_DIR = path.resolve(INBOX_DIR, "_processed");
 export const INBOX_REJECTED_DIR = path.resolve(INBOX_DIR, "_rejected");
+
+// Clippings: Obsidian Web Clipper Ziel + Roh-Clippings-Ablage.
+// Der classify-clippings.ts Vorfilter verschiebt MS-AI-relevante Files nach
+// INBOX_DIR, nicht-relevante bleiben hier.
+export const CLIPPINGS_DIR = path.resolve(VAULT_DIR, "Clippings");
