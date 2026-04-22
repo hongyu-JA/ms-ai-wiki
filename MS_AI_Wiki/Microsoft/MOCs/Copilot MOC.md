@@ -1,6 +1,9 @@
 ---
 type: moc
-tags: [moc, microsoft, copilot]
+tags:
+  - moc
+  - microsoft
+  - copilot
 last_verified: 2026-04-21
 ---
 
@@ -55,6 +58,9 @@ Einstieg für alle Kundengespräche, bei denen es um **Copilot-basierte Produkti
 <!-- AUTO-INDEX-END: produkte -->
 
 ---
+
+<!-- auto-sync: update_row · {"product":"Microsoft 365 Copilot","columns":{"notes":"Copilot Cowork jetzt via Frontier-Programm verfügbar (April 2026)"}} -->
+
 
 ## Eskalationsleiter / Entscheidungslogik
 

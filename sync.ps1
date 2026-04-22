@@ -13,20 +13,26 @@ param(
 
 $ErrorActionPreference = "Stop"
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
-Set-Location (Join-Path $root ".automation")
 
-# .env laden (ANTHROPIC_API_KEY)
-$envFile = Join-Path $PWD ".env"
-if (Test-Path $envFile) {
+# .env laden — bevorzugt Repo-Root, Fallback .automation\.env
+$envFile = $null
+$rootEnv = Join-Path $root ".env"
+$autoEnv = Join-Path $root ".automation\.env"
+if (Test-Path $rootEnv) { $envFile = $rootEnv }
+elseif (Test-Path $autoEnv) { $envFile = $autoEnv }
+
+if ($envFile) {
     Get-Content $envFile | ForEach-Object {
         if ($_ -match '^\s*([A-Z_][A-Z0-9_]*)\s*=\s*(.+?)\s*$') {
             [System.Environment]::SetEnvironmentVariable($matches[1], $matches[2], "Process")
         }
     }
-    Write-Host "[sync] .env geladen" -ForegroundColor DarkGray
+    Write-Host "[sync] .env geladen aus $envFile" -ForegroundColor DarkGray
 } else {
     Write-Host "[sync] WARNUNG: keine .env gefunden — Claude-Calls werden Dry-Run" -ForegroundColor Yellow
 }
+
+Set-Location (Join-Path $root ".automation")
 
 if ($DryRun) {
     $env:DRY_RUN = "1"

@@ -465,7 +465,9 @@ products:
     tagline: "🟡 Konsolidiert in MAF — Migration-Pfad"
     tier: 2
     watch: passive
-    keywords: ["Semantic Kernel", "SK"]
+    # "SK" als Keyword entfernt — matchte als substring in task/risk/desktop etc.
+    # Für kurze Abkürzungen Wortgrenzen-Match via filter.ts (siehe dort).
+    keywords: ["Semantic Kernel", "semantic-kernel", "SemanticKernel"]
     regex_exclude: ["Semantic Kernel Architect"]  # LinkedIn-Job-Titel ausschliessen
     sources: [devblogs-semantic-kernel]
     changelog_trigger_sections: ["Status & Pricing", "Migrationspfad zu MAF"]

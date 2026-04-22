@@ -5,18 +5,26 @@
 set -euo pipefail
 
 here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$here/.automation"
 
-# .env laden (nur simple KEY=VALUE Zeilen)
-if [ -f .env ]; then
+# .env laden — bevorzugt Repo-Root, Fallback .automation/.env
+env_file=""
+if [ -f "$here/.env" ]; then
+  env_file="$here/.env"
+elif [ -f "$here/.automation/.env" ]; then
+  env_file="$here/.automation/.env"
+fi
+
+if [ -n "$env_file" ]; then
   set -a
-  # shellcheck disable=SC1091
-  . .env
+  # shellcheck disable=SC1090
+  . "$env_file"
   set +a
-  echo "[sync] .env geladen"
+  echo "[sync] .env geladen aus $env_file"
 else
   echo "[sync] WARNUNG: keine .env gefunden — Claude-Calls werden Dry-Run"
 fi
+
+cd "$here/.automation"
 
 if [ "${1:-}" = "--dry" ]; then
   export DRY_RUN=1

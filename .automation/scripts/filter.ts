@@ -42,11 +42,31 @@ function haystack(item: RawItem): string {
   return `${item.title}\n${item.summary}`.toLowerCase();
 }
 
+/**
+ * Kurze, wortähnliche Keywords (<=4 Zeichen, kein Leerzeichen) werden per
+ * Wortgrenzen-Regex gematcht, um False-Positives durch Substring-Hits zu
+ * vermeiden (z. B. "SK" in "task", "MAF" in "Mafia").
+ * Längere Keywords werden weiter als Substring gematcht (normaler Titel-
+ * /Summary-Scan), weil bei Produktnamen wie "Copilot Studio" Wortgrenzen
+ * irrelevant sind.
+ */
+function keywordMatches(hay: string, kw: string): boolean {
+  const lower = kw.toLowerCase();
+  const isShortToken = lower.length <= 4 && !/\s/.test(lower);
+  if (!isShortToken) {
+    return hay.includes(lower);
+  }
+  // Wortgrenzen: links Non-Word oder Start, rechts Non-Word oder Ende
+  const escaped = lower.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const re = new RegExp(`(^|[^a-z0-9])${escaped}($|[^a-z0-9])`);
+  return re.test(hay);
+}
+
 function matchesProduct(item: RawItem, p: Product): { matched: string[]; excluded: boolean } {
   const hay = haystack(item);
   const matched: string[] = [];
   for (const kw of p.keywords) {
-    if (hay.includes(kw.toLowerCase())) matched.push(kw);
+    if (keywordMatches(hay, kw)) matched.push(kw);
   }
   if (matched.length === 0) return { matched, excluded: false };
   for (const rex of p.regex_exclude ?? []) {
