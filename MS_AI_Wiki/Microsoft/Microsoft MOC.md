@@ -130,7 +130,7 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | Kennzahl | Wert |
 | -------- | ---- |
 | Tier-1 Notes | **19 deep** · 0 stub · total 19 |
-| Tier-2 Notes | **15 deep** · 1 stub · total 16 |
+| Tier-2 Notes | **16 deep** · 0 stub · total 16 |
 | Tier-3 Notes | **0 deep** · 4 stub · total 4 |
 | Deprecated Notes | **1 deep** · 2 stub · total 3 |
 | MOCs insgesamt | 10 (Root + 6 Primary + 2 Lens + 1 Commercial) |
@@ -166,6 +166,7 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | 🟢 deep | T1 | close | [[Model Context Protocol]] | Agents MOC |
 | 🟢 deep | T2 | standard | [[Azure AI Content Safety]] | Security & Identity MOC |
 | 🟢 deep | T2 | standard | [[Azure AI Content Understanding]] | Azure AI MOC |
+| 🟢 deep | T2 | standard | [[Azure AI Document Intelligence]] | Azure AI MOC |
 | 🟢 deep | T2 · 🔻 | passive | [[deprecated/Bot Framework]] | Agents MOC |
 | 🟢 deep | T2 | standard | [[Microsoft 365 Copilot Connectors]] | Copilot MOC |
 | 🟢 deep | T2 | standard | [[Dataverse]] | Data & Knowledge MOC |
@@ -181,7 +182,6 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | 🟢 deep | T2 | standard | [[Purview DSPM]] | Security & Identity MOC |
 | 🟢 deep | T2 | standard | [[Teams SDK]] | Agents MOC |
 | 🟡 stub | T2 · 🔻 | passive | [[deprecated/AutoGen]] | Agents MOC |
-| 🟡 stub | T2 | standard | [[Azure AI Document Intelligence]] | Azure AI MOC |
 | 🟡 stub | T2 · 🔻 | passive | [[deprecated/Semantic Kernel]] | Agents MOC |
 | 🟡 stub | T3 | passive | [[Azure OpenAI Service Pricing]] | Azure AI MOC |
 | 🟡 stub | T3 | passive | [[Azure Cosmos DB for AI]] | Data & Knowledge MOC |
@@ -206,6 +206,8 @@ _Jüngste Changelog-Einträge der letzten 30 Tage aus allen Product-Notes. Auto-
 | 2026-04-22 | [[Azure AI Content Safety]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Azure AI Content Understanding]] | Deep-Dive Content Understanding: multimodales Schema-Driven Extraction, Abgrenzung zu Document Intelligence, SMB-Use-Cases, Pricing-Matri… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Azure AI Content Understanding]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Azure AI Document Intelligence]] | Deep-Dive Document Intelligence: Prebuilt-Models-Inventar (Financial, ID, Tax, Mortgage, Generic), Custom Neural/Template/Classification/… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Azure AI Document Intelligence]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Azure AI Search]] | **Agentic Retrieval** als First-Class-Feature (MCP-exposed, +40% relevance), **Entra Doc-Level Security GA 2025**, Hybrid-Search-Flow-Dia… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Azure AI Search]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Azure Container Apps]] | Pricing + Regionen (CH North = Consumption + Dedicated, Flex fehlt), Scale-to-Zero-Regeln (nur event-basiert), Dapr Building Blocks + KED… | Hongyu / Deep-Research |
@@ -226,8 +228,6 @@ _Jüngste Changelog-Einträge der letzten 30 Tage aus allen Product-Notes. Auto-
 | 2026-04-22 | [[Foundry Agent Service]] | **Major correction**: DSGVO-Flag aus Arbeitsauftrag §2.6 überholt — **Switzerland North ist GA-Region**. 10 EU/EFTA-Regionen. Preview-Lim… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Foundry Agent Service]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Foundry Control Plane]] | Tracing-Architektur-Diagramm (Foundry+AppInsights = ein Storage), 35+ OOB-Evaluators in 6 Kategorien, RBAC-Rollen-Matrix + Journai-Enterp… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Foundry Control Plane]] | Initial Stub | Hongyu |
-| 2026-04-22 | [[Foundry IQ]] | Architektur-Diagramm KB → Sources → MCP-Server → Clients, MCP-Endpoint-Pattern, Reasoning-Effort-Levels (minimal/low/medium), Code-Sketch… | Hongyu / Deep-Research |
 
 <!-- AUTO-INDEX-END: activity -->
 

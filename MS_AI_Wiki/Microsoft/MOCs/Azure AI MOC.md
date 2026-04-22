@@ -81,7 +81,7 @@ Ergänzend außerhalb Foundry:
 | 🟢 [[Microsoft Foundry]] | Dach-Produkt der Azure-AI-Plattform — Portal, Projects & Hubs, Playground | T1 | close |
 | 🟢 [[Azure Machine Learning]] | Klassische ML-Plattform — v1 ist Deprecation-Kandidat | T1 | passive |
 | 🟢 [[Azure AI Content Understanding]] | Multimodale Content-Analyse (Text/Bild/Video/Audio) mit Schema-gesteuertem Output — Teil von Foundry Tools | T2 | standard |
-| 🟡 [[Azure AI Document Intelligence]] | OCR + Dokumenten-Struktur-Erkennung (Rechnungen, Verträge, Formulare) — SMB-Einstiegs-Use-Case, ex Form Recognizer | T2 | standard |
+| 🟢 [[Azure AI Document Intelligence]] | OCR + Dokumenten-Struktur-Erkennung (Rechnungen, Verträge, Formulare) — SMB-Einstiegs-Use-Case, ex Form Recognizer | T2 | standard |
 | 🟡 [[Azure OpenAI Service Pricing]] | PAYG vs PTU vs Batch — Kostenoptimierung | T3 | passive |
 
 <!-- AUTO-INDEX-END: produkte -->
@@ -96,6 +96,8 @@ _Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert 
 | ----- | ------- | -------- | ----- |
 | 2026-04-22 | [[Azure AI Content Understanding]] | Deep-Dive Content Understanding: multimodales Schema-Driven Extraction, Abgrenzung zu Document Intelligence, SMB-Use-Cases, Pricing-Matri… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Azure AI Content Understanding]] | Initial Stub | Hongyu |
+| 2026-04-22 | [[Azure AI Document Intelligence]] | Deep-Dive Document Intelligence: Prebuilt-Models-Inventar (Financial, ID, Tax, Mortgage, Generic), Custom Neural/Template/Classification/… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Azure AI Document Intelligence]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Azure AI Search]] | **Agentic Retrieval** als First-Class-Feature (MCP-exposed, +40% relevance), **Entra Doc-Level Security GA 2025**, Hybrid-Search-Flow-Dia… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Azure AI Search]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Azure Machine Learning]] | v1-vs-v2-Status (SDK v1 EOS 30.06.2026!), 4 legitime Agent-Zeitalter-Use-Cases, Azure ML vs. Foundry Linie, Pricing-Struktur, Journai-Tie… | Hongyu / Deep-Research |
@@ -107,8 +109,6 @@ _Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert 
 | 2026-04-22 | [[Foundry IQ]] | Architektur-Diagramm KB → Sources → MCP-Server → Clients, MCP-Endpoint-Pattern, Reasoning-Effort-Levels (minimal/low/medium), Code-Sketch… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Foundry IQ]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Foundry Local]] | Scope-Klärung Foundry Local vs. Windows AI Foundry (Runtime vs. Platform-Stack), 10-Modell-Katalog mit Hardware-Matrix, API-Delta OpenAI-… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Foundry Local]] | Initial Stub | Hongyu |
-| 2026-04-22 | [[Foundry Models]] | Top-20-Katalog-Tabelle, PAYG/MaaS/PTU-Entscheidungs-Flow, Break-Even-Rechnung (~$1.8k PAYG/Monat → PTU), EU-Region-Matrix mit **Claude=Sw… | Hongyu / Deep-Research |
 
 <!-- AUTO-INDEX-END: activity -->
 
