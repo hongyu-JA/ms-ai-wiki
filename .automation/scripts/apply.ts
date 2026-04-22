@@ -13,6 +13,7 @@ import path from "node:path";
 import {
   STATE_PATCHES,
   DEPRECATION_RADAR,
+  INBOX_DIR,
 } from "./lib/paths.js";
 import {
   parseNote,
@@ -25,6 +26,7 @@ import {
 import type { PatchDecision } from "./lib/claude.js";
 import type { Product } from "./lib/config.js";
 import { updateAllIndices } from "./update-indices.js";
+import { archiveInboxFile, rejectInboxFile } from "./lib/inbox.js";
 
 interface PatchEnvelope {
   filtered: {
@@ -39,6 +41,25 @@ interface PatchEnvelope {
   product: Product | null;
   note_path: string | null;
   decision: PatchDecision;
+}
+
+/**
+ * Inbox-Item? source_id startet mit "inbox/..." → die Datei liegt im Vault-
+ * Unterordner `_Inbox/` und sollte nach Verarbeitung archiviert werden.
+ */
+function isInboxItem(env: PatchEnvelope): boolean {
+  return env.filtered.item.source_id.startsWith("inbox/");
+}
+
+/**
+ * Rekonstruiert den absoluten Pfad der Inbox-Datei aus der source_id.
+ * source_id hat die Form "inbox/<rel-path-ohne-.md>".
+ */
+function inboxAbsPath(env: PatchEnvelope): string | null {
+  const sid = env.filtered.item.source_id;
+  if (!sid.startsWith("inbox/")) return null;
+  const rel = sid.slice("inbox/".length) + ".md";
+  return path.join(INBOX_DIR, rel);
 }
 
 const DRY_WRITE = process.env.DRY_WRITE === "1";
@@ -141,9 +162,26 @@ function main() {
   let applied = 0;
   let skipped = 0;
 
+  let inboxArchived = 0;
+  let inboxRejected = 0;
+
   for (const env of envelopes) {
+    const inbox = isInboxItem(env);
+    const inboxPath = inbox ? inboxAbsPath(env) : null;
+
     if (env.decision.decision === "skip") {
       skipped++;
+      // Inbox-Skip: wenn der Grund „Inbox-Item ohne Microsoft-AI-Signal" ist
+      // → Datei nach _rejected/ verschieben.
+      if (inbox && inboxPath && env.filtered.product_slug === "__inbox_rejected__") {
+        if (!DRY_WRITE) {
+          rejectInboxFile(inboxPath, env.decision.reason || "kein MS-AI-Signal");
+          console.log(`[apply] inbox-reject → ${path.basename(inboxPath)}`);
+          inboxRejected++;
+        } else {
+          console.log(`[apply] (dry-write) would reject inbox ${path.basename(inboxPath)}`);
+        }
+      }
       continue;
     }
     if (env.decision.decision === "update" || env.decision.decision === "deprecate") {
@@ -161,13 +199,35 @@ function main() {
       // new_product skippen wir auch MOC-Updates — es gibt noch keine Zeile
       // in der MOC-Tabelle, die aktualisiert werden könnte.
       applied++;
+      if (inbox && inboxPath) {
+        if (!DRY_WRITE) {
+          archiveInboxFile(inboxPath, "new_product_candidate");
+          console.log(`[apply] inbox-archive (new_product) → ${path.basename(inboxPath)}`);
+          inboxArchived++;
+        } else {
+          console.log(`[apply] (dry-write) would archive inbox ${path.basename(inboxPath)}`);
+        }
+      }
       continue;
     }
     applyToMoc(env);
     applied++;
+    // Normale Inbox-Updates: nach erfolgreicher Verarbeitung archivieren,
+    // damit dieselbe Datei nicht beim nächsten Lauf erneut verarbeitet wird.
+    if (inbox && inboxPath) {
+      if (!DRY_WRITE) {
+        archiveInboxFile(inboxPath, `applied: ${env.decision.decision} → ${env.filtered.product_slug}`);
+        console.log(`[apply] inbox-archive → ${path.basename(inboxPath)}`);
+        inboxArchived++;
+      } else {
+        console.log(`[apply] (dry-write) would archive inbox ${path.basename(inboxPath)}`);
+      }
+    }
   }
 
-  console.log(`[apply] applied=${applied}, skipped=${skipped}`);
+  console.log(
+    `[apply] applied=${applied}, skipped=${skipped}, inbox-archived=${inboxArchived}, inbox-rejected=${inboxRejected}`,
+  );
 
   // Stage 4 — Index-Rebuild. Läuft IMMER (auch ohne Patches), damit Änderungen
   // durch manuelle Edits oder neue Stubs erkannt werden.

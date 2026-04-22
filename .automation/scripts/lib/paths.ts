@@ -31,3 +31,8 @@ export const PROMPT_USER_TEMPLATE = path.resolve(PROMPTS_DIR, "user-template.md"
 
 export const MICROSOFT_MOC = path.resolve(MS_DIR, "Microsoft MOC.md");
 export const DEPRECATION_RADAR = path.resolve(MS_DIR, "Deprecation Radar.md");
+
+// Inbox: Ort, an dem User manuell Markdown-Files für den nächsten Sync ablegt.
+export const INBOX_DIR = path.resolve(VAULT_DIR, "_Inbox");
+export const INBOX_PROCESSED_DIR = path.resolve(INBOX_DIR, "_processed");
+export const INBOX_REJECTED_DIR = path.resolve(INBOX_DIR, "_rejected");

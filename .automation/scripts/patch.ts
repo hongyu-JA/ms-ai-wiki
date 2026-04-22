@@ -67,6 +67,28 @@ async function processOne(
   systemPrompt: string,
   userTemplate: string,
 ): Promise<PatchEnvelope | null> {
+  // Inbox-Rejects: kein MS-AI-Bezug → kein Claude-Call, reine Skip-Decision.
+  // apply.ts nutzt das Flag, um die Datei nach `_Inbox/_rejected/` zu verschieben.
+  if (fi.product_slug === "__inbox_rejected__") {
+    console.log(
+      `[patch] (${i}/${total}) ⤫ inbox-reject (no MS-AI signal): ${fi.item.title.slice(0, 60)}`,
+    );
+    return {
+      filtered: fi,
+      product: null,
+      note_path: null,
+      decision: {
+        decision: "skip",
+        reason: "Inbox-Item ohne Microsoft-AI-Signal",
+        confidence: "low",
+        changelog_entry: null,
+        section_patches: [],
+        moc_updates: [],
+        deprecation_radar_update: null,
+      },
+    };
+  }
+
   const product = products.get(fi.product_slug) ?? null;
   let notePath: string | null = null;
   let frontmatterYaml = "";
@@ -80,7 +102,7 @@ async function processOne(
     }
     const parsed = parseNote(notePath);
     frontmatterYaml = JSON.stringify(parsed.frontmatter, null, 2);
-    relevantSectionsText = product.changelog_trigger_sections
+    relevantSectionsText = (product.changelog_trigger_sections ?? [])
       .map((title) => {
         const body = getSectionBody(parsed.body, title);
         return body ? `### ${title}\n${body.slice(0, 2000)}` : `### ${title}\n(leer)`;

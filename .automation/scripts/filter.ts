@@ -128,14 +128,32 @@ function main() {
     }
 
     if (!matchedAny) {
-      // potenzieller new-product Kandidat — einfache Heuristik
       const hay = haystack(item);
-      const meta =
+      const isInbox = item.source_id.startsWith("inbox/");
+
+      // MS-AI-Heuristik: vermerken wenn es nach Microsoft-AI-Umfeld aussieht.
+      const msAiSignal =
         hay.includes("microsoft") &&
-        (hay.includes("agent") || hay.includes("copilot") || hay.includes("foundry"));
-      if (meta) {
+        (hay.includes("agent") ||
+          hay.includes("copilot") ||
+          hay.includes("foundry") ||
+          hay.includes("azure ai") ||
+          hay.includes("entra") ||
+          hay.includes("purview"));
+
+      if (msAiSignal) {
         filtered.push({
           product_slug: "__new_candidate__",
+          item,
+          matched_keywords: [],
+          variant: "new_product_candidate",
+        });
+      } else if (isInbox) {
+        // Inbox-Items ohne MS-AI-Signal: als Nicht-Treffer markieren, damit
+        // apply.ts die Datei später nach `_Inbox/_rejected/` verschieben kann.
+        // Wir tragen sie als special-variant ein — Claude wird nicht aufgerufen.
+        filtered.push({
+          product_slug: "__inbox_rejected__",
           item,
           matched_keywords: [],
           variant: "new_product_candidate",
