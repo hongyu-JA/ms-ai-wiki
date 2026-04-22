@@ -489,6 +489,36 @@ products:
     sources: []
     enabled: false
 
+  - slug: azure-openai-responses-api
+    note: "Azure OpenAI Responses API.md"
+    primary_home_moc: "Azure AI MOC"
+    tagline: "Neuer Response-API-Standard — Assistants-API-Nachfolger für Azure-OpenAI-Direktzugriff"
+    tier: 3
+    watch: passive
+    keywords: ["Responses API", "Azure OpenAI Responses"]
+    sources: []
+    enabled: false
+
+  - slug: purview-data-map
+    note: "Purview Data Map.md"
+    primary_home_moc: "Security & Identity MOC"
+    tagline: "Data-Governance-Säule von Purview (Data Catalog) — Kontrast zu DSPM"
+    tier: 3
+    watch: passive
+    keywords: ["Purview Data Map", "Purview Data Catalog"]
+    sources: []
+    enabled: false
+
+  - slug: dynamics-365-agents
+    note: "Dynamics 365 Agents.md"
+    primary_home_moc: "Copilot MOC"
+    tagline: "AI-Agents speziell in Dynamics 365 (Sales, Customer Service, Finance) — nur bei D365-Kunden relevant"
+    tier: 3
+    watch: passive
+    keywords: ["Dynamics 365 Agents", "D365 Copilot Agents"]
+    sources: []
+    enabled: false
+
   # ==================================================================
   # Deprecated
   # ==================================================================

@@ -52,6 +52,7 @@ Einstieg für regulierte Branchen und Compliance-sensitive Projekte. Diese MOC b
 | 🟢 [[Microsoft Entra Suite]] | Identity-Bundle, Voraussetzung für Entra Agent ID, Teil von E7 | T2 | standard |
 | 🟢 [[Microsoft Purview]] | Compliance-Dach: Governance + Security + Compliance (inkl. DSPM, Data Map, Sensitivity Labels) | T2 | standard |
 | 🟢 [[Purview DSPM]] | Data Security Posture Management — kontinuierliches Risk-Scoring sensitiver Daten | T2 | standard |
+| 🟢 [[Purview Data Map]] | Data-Governance-Säule von Purview (Data Catalog) — Kontrast zu DSPM | T3 | passive |
 
 <!-- AUTO-INDEX-END: produkte -->
 

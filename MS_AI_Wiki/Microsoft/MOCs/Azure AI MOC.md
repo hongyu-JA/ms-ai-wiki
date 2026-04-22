@@ -83,6 +83,7 @@ Ergänzend außerhalb Foundry:
 | 🟢 [[Azure AI Content Understanding]] | Multimodale Content-Analyse (Text/Bild/Video/Audio) mit Schema-gesteuertem Output — Teil von Foundry Tools | T2 | standard |
 | 🟢 [[Azure AI Document Intelligence]] | OCR + Dokumenten-Struktur-Erkennung (Rechnungen, Verträge, Formulare) — SMB-Einstiegs-Use-Case, ex Form Recognizer | T2 | standard |
 | 🟡 [[Azure OpenAI Service Pricing]] | PAYG vs PTU vs Batch — Kostenoptimierung | T3 | passive |
+| 🟢 [[Azure OpenAI Responses API]] | Neuer Response-API-Standard — Assistants-API-Nachfolger für Azure-OpenAI-Direktzugriff | T3 | passive |
 
 <!-- AUTO-INDEX-END: produkte -->
 
