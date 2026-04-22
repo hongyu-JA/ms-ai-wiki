@@ -54,7 +54,7 @@ Einstieg für die Frage: **„Wie kommen Daten in den Agent?"** Drei Achsen ents
 | 🟢 [[Dataverse]] | Strukturierter Knowledge-Store (Power Platform) — Limits: 15 Tables/Source, 500 Knowledge Objects | T2 | standard |
 | 🟢 [[Dataverse MCP Server]] | MCP-Server-Wrapper um Dataverse — Tabellen als MCP-Tools für MAF/Copilot Studio/Windows-Agents | T2 | standard |
 | 🟢 [[Microsoft Graph]] | M365-Daten-API-Backbone (Outlook, Teams, SharePoint, OneDrive) | T2 | standard |
-| 🟡 [[Azure Cosmos DB for AI]] | NoSQL + Vector-Search, Co-Location mit App-Daten | T3 | passive |
+| 🟢 [[Azure Cosmos DB for AI]] | NoSQL + Vector-Search, Co-Location mit App-Daten | T3 | passive |
 | 🟡 [[Microsoft Fabric]] | Lakehouse / Data-Plattform (inkl. OneLake + Fabric Data Agents) | T3 | passive |
 
 <!-- AUTO-INDEX-END: produkte -->
@@ -67,6 +67,8 @@ _Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert 
 
 | Datum | Produkt | Änderung | Autor |
 | ----- | ------- | -------- | ----- |
+| 2026-04-22 | [[Azure Cosmos DB for AI]] | Deep-Dive Cosmos DB for AI: DiskANN-Index, Pricing-Modell, Abgrenzung zu Azure AI Search, SMB-Use-Cases | Hongyu / Deep-Research |
+| 2026-04-22 | [[Azure Cosmos DB for AI]] | Initial Stub (Tier 3 Awareness) | Hongyu |
 | 2026-04-22 | [[Dataverse]] | Deep-Dive Dataverse: Knowledge-Objects-Limits, Security-Model, Agent-Integration, Pricing-Modell | Hongyu / Deep-Research |
 | 2026-04-22 | [[Dataverse]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[Dataverse MCP Server]] | Deep-Dive Dataverse MCP Server: Endpoint, Auth-Flows, Copilot-Credit-Modell, MAF-Integration | Hongyu / Deep-Research |

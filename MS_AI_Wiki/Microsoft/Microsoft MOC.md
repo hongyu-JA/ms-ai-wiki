@@ -131,7 +131,7 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | -------- | ---- |
 | Tier-1 Notes | **19 deep** · 0 stub · total 19 |
 | Tier-2 Notes | **16 deep** · 0 stub · total 16 |
-| Tier-3 Notes | **4 deep** · 3 stub · total 7 |
+| Tier-3 Notes | **5 deep** · 2 stub · total 7 |
 | Deprecated Notes | **3 deep** · 0 stub · total 3 |
 | MOCs insgesamt | 10 (Root + 6 Primary + 2 Lens + 1 Commercial) |
 | Automation-Pipeline | läuft seit 2026-04-21 (siehe README) |
@@ -185,9 +185,9 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | 🟢 deep | T2 | standard | [[Teams SDK]] | Agents MOC |
 | 🟢 deep | T3 | passive | [[Azure OpenAI Service Pricing]] | Azure AI MOC |
 | 🟢 deep | T3 | passive | [[Azure OpenAI Responses API]] | Azure AI MOC |
+| 🟢 deep | T3 | passive | [[Azure Cosmos DB for AI]] | Data & Knowledge MOC |
 | 🟢 deep | T3 | passive | [[Dynamics 365 Agents]] | Copilot MOC |
 | 🟢 deep | T3 | passive | [[Purview Data Map]] | Security & Identity MOC |
-| 🟡 stub | T3 | passive | [[Azure Cosmos DB for AI]] | Data & Knowledge MOC |
 | 🟡 stub | T3 | passive | [[Microsoft Fabric]] | Data & Knowledge MOC |
 | 🟡 stub | T3 | passive | [[Microsoft AI Developer Tooling]] | Integration & Compute MOC |
 
@@ -227,10 +227,10 @@ _Jüngste Changelog-Einträge der letzten 30 Tage aus allen Product-Notes. Auto-
 | 2026-04-22 | [[Microsoft 365 Copilot Connectors]] | Deep-Dive Copilot Connectors: OOB-Inventar (>100 Connectors), Custom-Schema-Snippet, Security Trimming via ACLs, 50M-Quota-Details, Abgre… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Microsoft 365 Copilot Connectors]] | Initial Stub, watch: standard, status: GA | Hongyu |
 | 2026-04-22 | [[Copilot Studio]] | 4-Ebenen-Eskalationsleiter-Diagramm, Cowork Deep-Dive mit EU-Data-Boundary-Warnung (Anthropic default-OFF), vollständige Pricing-Matrix m… | Hongyu / Deep-Research |
+| 2026-04-22 | [[Azure Cosmos DB for AI]] | Deep-Dive Cosmos DB for AI: DiskANN-Index, Pricing-Modell, Abgrenzung zu Azure AI Search, SMB-Use-Cases | Hongyu / Deep-Research |
+| 2026-04-22 | [[Azure Cosmos DB for AI]] | Initial Stub (Tier 3 Awareness) | Hongyu |
 | 2026-04-22 | [[Dataverse]] | Deep-Dive Dataverse: Knowledge-Objects-Limits, Security-Model, Agent-Integration, Pricing-Modell | Hongyu / Deep-Research |
 | 2026-04-22 | [[Dataverse]] | Initial Stub | Hongyu |
-| 2026-04-22 | [[Dataverse MCP Server]] | Deep-Dive Dataverse MCP Server: Endpoint, Auth-Flows, Copilot-Credit-Modell, MAF-Integration | Hongyu / Deep-Research |
-| 2026-04-22 | [[Dataverse MCP Server]] | Initial Stub | Hongyu |
 
 <!-- AUTO-INDEX-END: activity -->
 
