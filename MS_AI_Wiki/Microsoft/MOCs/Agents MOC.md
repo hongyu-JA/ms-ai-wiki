@@ -1,7 +1,10 @@
 ---
 type: moc
-tags: [moc, microsoft, agents]
-last_verified: 2026-04-22
+tags:
+  - moc
+  - microsoft
+  - agents
+last_verified: 2026-04-28
 ---
 
 # Agents MOC
@@ -72,6 +75,9 @@ Das semantische Modell: **drei Schichten × Reifegrad**.
 
 <!-- AUTO-INDEX-END: produkte -->
 
+<!-- auto-sync: update_row · {"product":"Microsoft Agent Framework","columns":{"Version":"Python 1.2.0","Stand":"2026-04-24"}} -->
+
+
 ## Letzte Aktivität
 
 _Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert — konsistent mit [[Microsoft MOC#Letzte Aktivität]]._
@@ -80,6 +86,7 @@ _Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert 
 
 | Datum | Produkt | Änderung | Autor |
 | ----- | ------- | -------- | ----- |
+| 2026-04-24 | [[Microsoft Agent Framework]] | Python SDK 1.2.0: Funktionale Workflow-API (agent-framework-core), OpenTelemetry-Integration für GitHubCopilotAgent, Agent-Framework-to-A… | auto-sync |
 | 2026-04-22 | [[Agent 365]] | Kompletter Ausbau: GA-Scope-Diagramm (was GA, was bleibt Preview), Identity-Modell (4 neue Entra-Objekttypen), Sponsor-Konzept als DSGVO-… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Agent 365]] | Initial Stub | Hongyu |
 | 2026-04-22 | [[deprecated/AutoGen]] | Deep-Dive AutoGen-Deprecation + Migration zu MAF: v0.2 vs v0.4 Unterscheidung, API-Äquivalenzen, Code-Beispiele (RoundRobin→Sequential, C… | Hongyu / Deep-Research |
@@ -94,7 +101,6 @@ _Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert 
 | 2026-04-22 | [[deprecated/Semantic Kernel]] | Initial Stub — Migration-Pfad zu MAF | Hongyu |
 | 2026-04-22 | [[Teams SDK]] | Deep-Dive inkl. SDK-Sandwich-Positionierung, Teams-Primitiven, Adaptive Cards, Meeting-Hooks, Manifest-Workflow | Hongyu / Deep-Research |
 | 2026-04-22 | [[Teams SDK]] | Initial Stub | Hongyu |
-| 2026-04-21 | [[Microsoft Agent Framework]] | **Python SDK 1.1.0**: Gemini-Client (erster Non-Azure/Non-OpenAI-Client), Hyperlight CodeAct-Package (isolierte Micro-VM-Sandbox für Agen… | auto-sync |
 
 <!-- AUTO-INDEX-END: activity -->
 
