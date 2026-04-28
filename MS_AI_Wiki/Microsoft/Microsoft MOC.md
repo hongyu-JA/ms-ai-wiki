@@ -4,7 +4,7 @@ tags:
   - moc
   - microsoft
   - root
-last_verified: 2026-04-22
+last_verified: 2026-04-28
 ---
 
 # Microsoft MOC
@@ -135,7 +135,7 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | Deprecated Notes | **3 deep** · 0 stub · total 3 |
 | MOCs insgesamt | 10 (Root + 6 Primary + 2 Lens + 1 Commercial) |
 | Automation-Pipeline | läuft seit 2026-04-21 (siehe README) |
-| Letzter Index-Rebuild | 2026-04-22 (automatisch durch apply.ts) |
+| Letzter Index-Rebuild | 2026-04-28 (automatisch durch apply.ts) |
 
 <!-- AUTO-INDEX-END: stand -->
 
@@ -201,6 +201,7 @@ _Jüngste Changelog-Einträge der letzten 30 Tage aus allen Product-Notes. Auto-
 
 | Datum | Produkt | Änderung | Autor |
 | ----- | ------- | -------- | ----- |
+| 2026-04-24 | [[Microsoft Agent Framework]] | Python SDK 1.2.0: Funktionale Workflow-API (agent-framework-core), OpenTelemetry-Integration für GitHubCopilotAgent, Agent-Framework-to-A… | auto-sync |
 | 2026-04-22 | [[Microsoft 365 Copilot]] | Copilot Cowork (Long-Running, Multi-Step-Work) ist jetzt via Frontier-Programm verfügbar. Nutzer können über das Frontier-Programm Early … | auto-sync |
 | 2026-04-22 | [[Agent 365]] | Kompletter Ausbau: GA-Scope-Diagramm (was GA, was bleibt Preview), Identity-Modell (4 neue Entra-Objekttypen), Sponsor-Konzept als DSGVO-… | Hongyu / Deep-Research |
 | 2026-04-22 | [[Agent 365]] | Initial Stub | Hongyu |
@@ -230,7 +231,6 @@ _Jüngste Changelog-Einträge der letzten 30 Tage aus allen Product-Notes. Auto-
 | 2026-04-22 | [[Azure Cosmos DB for AI]] | Deep-Dive Cosmos DB for AI: DiskANN-Index, Pricing-Modell, Abgrenzung zu Azure AI Search, SMB-Use-Cases | Hongyu / Deep-Research |
 | 2026-04-22 | [[Azure Cosmos DB for AI]] | Initial Stub (Tier 3 Awareness) | Hongyu |
 | 2026-04-22 | [[Dataverse]] | Deep-Dive Dataverse: Knowledge-Objects-Limits, Security-Model, Agent-Integration, Pricing-Modell | Hongyu / Deep-Research |
-| 2026-04-22 | [[Dataverse]] | Initial Stub | Hongyu |
 
 <!-- AUTO-INDEX-END: activity -->
 

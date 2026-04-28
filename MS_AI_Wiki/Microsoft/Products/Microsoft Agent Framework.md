@@ -2,10 +2,14 @@
 watch: close
 status: ga
 last_verified: 2026-04-22
-aliases: [MAF, Agent Framework]
+aliases:
+  - MAF
+  - Agent Framework
 moc:
-  - "[[Microsoft MOC]]"
-  - "[[Agents MOC]]"
+  - '[[Microsoft MOC]]'
+  - '[[Agents MOC]]'
+zuletzt_gesichtet: 2026-04-28
+updated: 2026-04-28
 ---
 
 # Microsoft Agent Framework
@@ -76,6 +80,20 @@ When I einen zuverlässigen, wartbaren, unter Governance stehenden Agent bauen w
 | **Upgrade-Pfad** | Semantic Kernel → MAF (API-nah, einige Plugins wandern nicht 1:1 — Migration-Runbook notwendig). AutoGen → MAF (Research-Features teilweise in MAF experimental, teilweise entfallen) |
 
 ---
+
+| Detail | Wert |
+|--------|------|
+| **Aktueller Status** | GA · Python SDK aktuell 1.2.0 |
+| **GA-Datum** | 2026-04-07 |
+| **Standalone-Preis (USD)** | Framework selbst kostenlos (MIT); Backend-Kosten via Azure OpenAI PAYG oder Foundry PTU (Mindestabnahme ~$2500/Monat) |
+| **Standalone-Preis (EUR)** | n/a — EUR-Preise ergeben sich aus dem gewählten Backend |
+| **Lizenz-Bundle** | Kein Bundle — eigenständiges OSS-Paket. Azure-OpenAI-Credits können über E7 / Azure-EA kommen |
+| **Voraussetzung** | .NET 8+ oder Python 3.11+ · Azure OpenAI Resource oder Foundry Project · Entra App Registration für Tool-Aufrufe |
+| **Region-Verfügbarkeit** | SDK global einsetzbar — **Foundry Agent Service (managed hosting) aktuell nur North Central US** (DSGVO-Flag für EU-Kunden!) |
+| **CSP-Promo / Discounts** | Nicht anwendbar auf das Framework selbst |
+| **Hidden Costs** | Tracing + Evaluation erzeugt Log-Ingestion in Application Insights — bei hohem Volumen nicht trivial. Multi-Agent-Orchestrierung multipliziert Modell-Calls — Kostenschätzung vor Produktion Pflicht. |
+| **Upgrade-Pfad** | Semantic Kernel → MAF (API-nah, einige Plugins wandern nicht 1:1 — Migration-Runbook notwendig). AutoGen → MAF (Research-Features teilweise in MAF experimental, teilweise entfallen) |
+
 
 ## Kernkonzept
 
@@ -208,6 +226,10 @@ In .NET können **Skills über drei Authoring-Wege** definiert werden: datei-bas
 
 ---
 
+- **A2A-Bridge** (`agent-framework-a2a`, ab 1.2.0): Direkte Brücke zwischen Agent Framework und dem Agent-to-Agent-Protokoll (A2A) — ermöglicht Interoperabilität mit A2A-kompatiblen Agenten außerhalb des MAF-Ökosystems.
+- **OpenTelemetry** (`agent-framework-github-copilot`, ab 1.2.0): Tracing für `GitHubCopilotAgent` via OpenTelemetry-Integration.
+
+
 ## Security & Compliance
 
 ### Datenverarbeitung
@@ -285,10 +307,14 @@ Wir nehmen **MAF** über LangGraph, wenn MS-Ökosystem-Heavy + DSGVO-Pflicht + G
 
 ## Changelog
 
+
 | Datum | Autor | Änderung | Quelle |
 |-------|-------|----------|--------|
+| 2026-04-24 | auto-sync | Python SDK 1.2.0: Funktionale Workflow-API (agent-framework-core), OpenTelemetry-Integration für GitHubCopilotAgent, Agent-Framework-to-A2A-Bridge-Support, oauth_consent_request-Events in Foundry-Clients, FoundryAgent-Update für hosted agent sessions, Hosting-Server-Upgrade (agent-framework-foundry-hosting); Fixes: AG-UI reasoning role + multimodal media parsing, [TOOLBOXES]-Warning unterdrückt, User-Agent-Prefix korrigiert (Anthropic, Azure AI Search, Cosmos). | https://github.com/microsoft/agent-framework/releases/tag/python-1.2.0 |
 | 2026-04-22 | Hongyu | Migration auf neues Product Note Template (v2) — Struktur umgezogen, Inhalt erhalten und erweitert (Einsatz-Szenarien, Stack-Tabelle, Decision-Regel vs. externe Alternativen, neue Fähigkeiten aus 1.1.0 eingepflegt). | — |
 | 2026-04-21 | auto-sync | **Python SDK 1.1.0**: Gemini-Client (erster Non-Azure/Non-OpenAI-Client), Hyperlight CodeAct-Package (isolierte Micro-VM-Sandbox für Agent-Code-Exec), Foundry Toolboxes + Hosted Agent V2, A2A-Metadaten-Propagation, AG-UI forwardedProps, finish_reason in AgentResponse, experimenteller File-History-Provider. **BREAKING:** `CosmosCheckpointStorage` nutzt jetzt restriktive Pickle-Deserialisierung per Default. | https://github.com/microsoft/agent-framework/releases/tag/python-1.1.0 |
 | 2026-04-13 | auto-sync | **.NET Agent Skills**: 3 Authoring-Varianten (Datei-basiert / Inline-C#-Code / gekapselte Klassen) frei kombinierbar unter einem Provider. Built-in Script Execution + Human-Approval-Mechanismus für Script-Calls. | https://devblogs.microsoft.com/agent-framework/agent-skills-in-net-three-ways-to-author-one-provider-to-run-them/ |
 | 2026-04-10 | auto-sync | **Python SDK 1.0.1**: Security-Hardening für `FileCheckpointStorage` (restricted unpickler, **Breaking Change**) — eigene Klassen in Checkpoints müssen via `allowed_checkpoint_types` explizit freigegeben werden. Neues Cosmos DB NoSQL Checkpoint Storage `agent-framework-azure-cosmos`. Breaking Change im Handoff-Workflow-Context-Management. | https://github.com/microsoft/agent-framework/releases/tag/python-1.0.1 |
 | 2026-04-21 | Hongyu | Initial-Erstellung der Note, watch: close, Status: GA | GitHub Release v1.0 |
+
+| 2026-04-24 | **Python SDK 1.2.0** — Funktionale Workflow-API (`agent-framework-core`); OpenTelemetry-Integration für `GitHubCopilotAgent`; Agent-Framework-to-A2A-Bridge-Support (`agent-framework-a2a`); `oauth_consent_request`-Events aus Responses API in Foundry-Clients; `FoundryAgent`-Update für hosted agent sessions; Hosting-Server-Upgrade + erweiterter Typ-Support (`agent-framework-foundry-hosting`). Fixes: AG-UI reasoning role + multimodal media parsing spec-konform; `[TOOLBOXES]`-Warning bei `FoundryChatClient` unterdrückt; User-Agent-Prefix für Anthropic, Azure AI Search, Cosmos korrigiert. | [Release Notes](https://github.com/microsoft/agent-framework/releases/tag/python-1.2.0) |
