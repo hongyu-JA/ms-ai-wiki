@@ -4,7 +4,7 @@ tags:
   - moc
   - microsoft
   - agents
-last_verified: 2026-04-28
+last_verified: 2026-04-29
 ---
 
 # Agents MOC
