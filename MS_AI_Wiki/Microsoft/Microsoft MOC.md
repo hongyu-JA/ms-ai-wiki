@@ -4,7 +4,7 @@ tags:
   - moc
   - microsoft
   - root
-last_verified: 2026-04-28
+last_verified: 2026-04-30
 ---
 
 # Microsoft MOC
@@ -135,7 +135,7 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | Deprecated Notes | **3 deep** · 0 stub · total 3 |
 | MOCs insgesamt | 10 (Root + 6 Primary + 2 Lens + 1 Commercial) |
 | Automation-Pipeline | läuft seit 2026-04-21 (siehe README) |
-| Letzter Index-Rebuild | 2026-04-28 (automatisch durch apply.ts) |
+| Letzter Index-Rebuild | 2026-04-30 (automatisch durch apply.ts) |
 
 <!-- AUTO-INDEX-END: stand -->
 
