@@ -45,12 +45,18 @@ last_verified: <heutiges Datum YYYY-MM-DD>
 aliases: [<frühere/alternative Namen, leer falls keine>]
 moc:
   - "[[Microsoft MOC]]"
-  - "[[<Primary-Home-MOC>]]"
+  - "[[<Primary-Home-MOC, z.B. Azure AI MOC>]]"
   - "[[<weitere MOC falls relevant, z.B. Licensing & SKUs MOC>]]"
 ---
 ```
 
-Wähle die Primary-Home-MOC aus genau einer dieser sechs:
+⚠️ **MOC-NAMENS-REGEL (HART)**: Alle MOC-Wikilinks **MÜSSEN** auf das Suffix
+` MOC` enden. Beispiel: `[[Azure AI MOC]]` ist korrekt, `[[Azure AI]]` ist
+falsch (würde auf nicht-existente Note verlinken). Kürze niemals "MOC" weg.
+Ebenso `[[Microsoft MOC]]`, niemals `[[Microsoft]]`.
+
+Wähle die Primary-Home-MOC aus genau einer dieser sechs (Wikilink **exakt**
+so übernehmen, mit ` MOC`-Suffix):
 - `[[Agents MOC]]` — Agenten bauen & orchestrieren
 - `[[Copilot MOC]]` — M365 Copilot & Produktivität
 - `[[Azure AI MOC]]` — Azure-AI-Plattform / Foundry-Stack
@@ -359,7 +365,9 @@ REGELN (HART, NICHT VERHANDELBAR)
 6. **MOCs:** Mindestens `[[Microsoft MOC]]` + genau **eine** Primary-Home-MOC.
    Optional `[[Licensing & SKUs MOC]]` falls kommerziell signifikant. **Keine**
    Lens-MOCs als Home (Agent-Building-Pattern und RAG Pattern werden nicht
-   als moc: gesetzt — sie verlinken quer von ihrer Seite aus).
+   als moc: gesetzt — sie verlinken quer von ihrer Seite aus). **Alle
+   MOC-Wikilinks enden auf ` MOC`** — `[[Azure AI MOC]]` korrekt,
+   `[[Azure AI]]` falsch und führt zu Broken-Link.
 7. **Empfehlung 🟢/🟡/🔴:** Eines auswählen, mit Begründung. "Sowohl als auch"
    ist ein Anti-Pattern.
 8. **Limitierungen ehrlich.** Wenn das Produkt eine harte Capability-Grenze

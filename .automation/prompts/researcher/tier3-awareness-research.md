@@ -38,12 +38,18 @@ last_verified: <YYYY-MM-DD>
 aliases: [<frühere/alternative Namen, leer falls keine>]
 moc:
   - "[[Microsoft MOC]]"
-  - "[[<Primary-Home-MOC>]]"
+  - "[[<Primary-Home-MOC, z.B. Azure AI MOC>]]"
 ---
 ```
 
-Primary-Home-MOC: eine aus Agents / Copilot / Azure AI / Data & Knowledge /
-Security & Identity / Integration & Compute. Optional Licensing & SKUs MOC.
+⚠️ **MOC-NAMENS-REGEL (HART)**: Alle MOC-Wikilinks **MÜSSEN** auf das Suffix
+` MOC` enden. `[[Azure AI MOC]]` korrekt, `[[Azure AI]]` falsch (Broken-Link).
+Niemals "MOC" wegkürzen.
+
+Primary-Home-MOC: eine aus diesen sechs (Wikilink **exakt** mit ` MOC`-Suffix):
+`[[Agents MOC]]` · `[[Copilot MOC]]` · `[[Azure AI MOC]]` ·
+`[[Data & Knowledge MOC]]` · `[[Security & Identity MOC]]` · `[[Integration & Compute MOC]]`.
+Optional zusätzlich: `[[Licensing & SKUs MOC]]`.
 
 QUELLEN-PRIORITÄT
 
@@ -170,7 +176,7 @@ REGELN (HART)
 3. Kritisch-pragmatischer Standpunkt — keine Marketing-Phrasen.
 4. Council/Critique: konsolidierte Note.
 5. Sprache: Deutsch, sachlich, kein Du.
-6. MOCs: `[[Microsoft MOC]]` + genau eine Primary-Home-MOC. Optional Licensing & SKUs MOC. Keine Lens-MOCs.
+6. MOCs: `[[Microsoft MOC]]` + genau eine Primary-Home-MOC. Optional Licensing & SKUs MOC. Keine Lens-MOCs. **Alle MOC-Wikilinks enden auf ` MOC`** — `[[Azure AI MOC]]` korrekt, `[[Azure AI]]` falsch (Broken-Link).
 7. Empfehlung 🟢/🟡/🔴 mit kurzer Begründung.
 8. **Nicht ausfüllen**: Integrationen-Tabellen, Security & Compliance-Sektion (Kerntatsache reicht in Voraussetzungen), Abgrenzung & Wettbewerb. **Stack-Tabelle und Skills-Voraussetzungen weglassen.**
 9. **Quota-Sparsamkeit**: knapp halten, ca. 100–180 Zeilen Markdown insgesamt sind ein gutes Ziel.

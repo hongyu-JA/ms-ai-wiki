@@ -50,11 +50,15 @@ last_verified: <YYYY-MM-DD>
 aliases: [<frühere Namen>]
 moc:
   - "[[Microsoft MOC]]"
-  - "[[<Primary-Home-MOC, dieselbe wie vorher>]]"
+  - "[[<Primary-Home-MOC, dieselbe wie vorher, z.B. Agents MOC>]]"
 successor: <Slug-des-Nachfolgers>      # z.B. m365-agents-sdk
 deprecation_date: <YYYY-MM-DD>          # offiziell angekündigtes EOS-Datum
 ---
 ```
+
+⚠️ **MOC-NAMENS-REGEL (HART)**: Alle MOC-Wikilinks **MÜSSEN** auf das Suffix
+` MOC` enden. `[[Agents MOC]]` korrekt, `[[Agents]]` falsch (Broken-Link).
+Niemals "MOC" wegkürzen.
 
 `successor` und `deprecation_date` sind Pflicht für Deprecated-Notes.
 `successor` ist der `slug` aus `products.yaml` (nicht der Display-Name).
@@ -164,6 +168,8 @@ REGELN (HART)
 3. Keine Marketing-Phrasen wie "evolves into", "transitions to" — sachlich: "ersetzt durch", "EOS YYYY-MM-DD".
 4. Sprache: Deutsch, sachlich, kein Du.
 5. Frontmatter-Sonderfelder `successor` und `deprecation_date` sind Pflicht.
+   **Alle MOC-Wikilinks enden auf ` MOC`** — `[[Agents MOC]]` korrekt,
+   `[[Agents]]` falsch (Broken-Link).
 6. **Nicht ausfüllen**: Trigger-Signale, Einsatz-Szenarien, Empfehlung 🟢/🟡 (Deprecated-Notes haben implizit 🔴 Meiden für Neueinsatz, das wird nicht extra ausgewiesen), Kernkonzept-Tiefe, Integrationen, Security-Compliance-Block, Abgrenzung & Wettbewerb.
 7. Verkürzungs-Prinzip: ein Berater, der die Note liest, soll in 2 Minuten wissen — bis wann läuft es noch, was ist der Nachfolger, was kostet die Migration grob.
 

@@ -43,12 +43,16 @@ last_verified: <heutiges Datum YYYY-MM-DD>
 aliases: [<frühere/alternative Namen, leer falls keine>]
 moc:
   - "[[Microsoft MOC]]"
-  - "[[<Primary-Home-MOC>]]"
+  - "[[<Primary-Home-MOC, z.B. Azure AI MOC>]]"
   - "[[<weitere falls relevant>]]"
 ---
 ```
 
-Primary-Home-MOC aus genau einer:
+⚠️ **MOC-NAMENS-REGEL (HART)**: Alle MOC-Wikilinks **MÜSSEN** auf das Suffix
+` MOC` enden. `[[Azure AI MOC]]` korrekt, `[[Azure AI]]` falsch (broken Link).
+Niemals "MOC" wegkürzen.
+
+Primary-Home-MOC aus genau einer (Wikilink **exakt** mit ` MOC`-Suffix):
 - `[[Agents MOC]]` · `[[Copilot MOC]]` · `[[Azure AI MOC]]`
 - `[[Data & Knowledge MOC]]` · `[[Security & Identity MOC]]` · `[[Integration & Compute MOC]]`
 
@@ -262,7 +266,7 @@ REGELN (HART)
 3. Kritisch-pragmatischer Standpunkt — keine Marketing-Phrasen.
 4. Council/Critique: konsolidierte Note, kein Side-by-Side.
 5. Sprache: Deutsch, sachlich, kein Du.
-6. MOCs: `[[Microsoft MOC]]` + genau eine Primary-Home-MOC. Optional Licensing & SKUs MOC. Keine Lens-MOCs als Home.
+6. MOCs: `[[Microsoft MOC]]` + genau eine Primary-Home-MOC. Optional Licensing & SKUs MOC. Keine Lens-MOCs als Home. **Alle MOC-Wikilinks enden auf ` MOC`** — `[[Azure AI MOC]]` korrekt, `[[Azure AI]]` falsch (Broken-Link).
 7. Empfehlung 🟢/🟡/🔴 mit Begründung — "sowohl als auch" ist Anti-Pattern.
 8. Limitierungen ehrlich, auch wenn sie der Empfehlung widersprechen.
 9. **Nicht ausfüllen**: Sektion "Abgrenzung & Wettbewerb" (das ist Tier-1-Pflicht).
