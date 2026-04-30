@@ -39,6 +39,30 @@ Ist es ein bestehendes Produkt, dessen Note refresh braucht?
 Faustregel: **Researcher ist teuer (25/Monat-Quota). Verwende ihn nur, wenn
 Mikro-Patches via daily-sync nicht reichen.**
 
+### Ausnahme · "Consultancy-deep aber stabil"
+
+Manche Produkte haben `watch: passive` (= stabil, niedrige Änderungs-Dynamik),
+sind aber für Journais Beratung **inhaltlich tief** und brauchen mehr als die
+6 Pflicht-Sektionen, die `tier3-awareness-research.md` liefert. Typische Fälle:
+
+- **Pricing / Lizenzierungs-Notes** (z.B. Azure OpenAI Service Pricing,
+  M365 Copilot Pricing): Hidden Costs, Break-Even-Rechnungen, Region-Deltas
+  sind Kerninhalt von Kundengesprächen.
+- **Bundle / SKU-Notes** (z.B. Microsoft 365 E7): Bundle-Komposition,
+  Co-Terming, Upgrade-Pfade — kommerzielle Tiefe nötig.
+- **Compliance-Topics** (z.B. EU-AI-Act-Mapping, DPA-Spezifika): viele
+  Detail-Aspekte, auch wenn Microsoft selbst wenig dazu publiziert.
+
+Für diese Fälle gilt: **`tier2-standard-research.md` verwenden**, **nicht**
+`tier3-awareness-research.md`. Die Tier-3-Brevity (100–180 Zeilen) reicht
+nicht — typisch werden 200–280 Zeilen gebraucht. Im YAML-Frontmatter bleibt
+`watch: passive` (das beschreibt die Beobachtungs-Frequenz, nicht die
+Note-Tiefe).
+
+Faustregel zum Entscheiden: *"Würde ein Berater bei einem Kundengespräch zu
+diesem Produkt 5+ Minuten in der Note brauchen?"* — wenn ja, ist Tier-3-
+Brevity zu eng. Tier 2 nehmen.
+
 ## Anwendung — Schritt für Schritt
 
 ### Schritt 1: Stub registrieren (falls neue Note)
