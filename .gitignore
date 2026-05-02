@@ -29,6 +29,9 @@ dist/
 .automation/state/filtered-items.json
 .automation/state/patches.json
 
+# SharePoint-Sync-Log (Skript schreibt jeden Lauf an, lokal-only)
+.automation/state/sharepoint-sync.log
+
 # Editor / OS
 .DS_Store
 Thumbs.db
