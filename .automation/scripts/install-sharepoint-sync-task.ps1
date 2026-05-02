@@ -29,11 +29,13 @@ $action = New-ScheduledTaskAction `
 # Trigger 1: bei jeder Anmeldung des aktuellen Users
 $tLogin = New-ScheduledTaskTrigger -AtLogOn -User $env:USERNAME
 
-# Trigger 2: alle 3 Stunden, dauerhaft (100 Jahre = "praktisch fuer immer")
+# Trigger 2: alle 3 Stunden, dauerhaft.
+# Hinweis: Task Scheduler akzeptiert maximal ~P9999D (~27 Jahre) als Duration.
+# 36500 Tage (100 Jahre) wird mit "Wert ausserhalb Bereich" abgelehnt.
 $tHourly = New-ScheduledTaskTrigger `
     -Once -At (Get-Date) `
     -RepetitionInterval (New-TimeSpan -Hours 3) `
-    -RepetitionDuration ([TimeSpan]::FromDays(36500))
+    -RepetitionDuration (New-TimeSpan -Days 9999)
 
 # Settings
 $settings = New-ScheduledTaskSettingsSet `
