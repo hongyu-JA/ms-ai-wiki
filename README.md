@@ -150,6 +150,40 @@ npm run sync
 
 ---
 
+## SharePoint-Sync (für Copilot Studio Agent)
+
+Das lokale Vault wird zusätzlich zu GitHub auch zu SharePoint gespiegelt,
+damit der interne **Copilot Studio Agent** immer den aktuellen Wissensstand
+sieht. Architektur: lokales Obsidian = Source of Truth → robocopy → OneDrive
+→ SharePoint Library `Microsoft_AIProducts_Wiki`.
+
+**Cadence:** alle 3 Stunden + bei jeder User-Anmeldung (Windows Task Scheduler).
+
+**Skripte:**
+
+| Datei | Wann | Wie |
+|---|---|---|
+| [`.automation/scripts/sync-to-sharepoint.ps1`](.automation/scripts/sync-to-sharepoint.ps1) | automatisch (Task Scheduler) | wird vom Task triggert, kein manueller Aufruf nötig |
+| [`.automation/scripts/install-sharepoint-sync-task.ps1`](.automation/scripts/install-sharepoint-sync-task.ps1) | einmalig | als angemeldeter User in PowerShell ausführen |
+| [`.automation/scripts/sync-now.bat`](.automation/scripts/sync-now.bat) | vor Demos | Doppelklick (Desktop-Verknüpfung empfohlen) |
+
+**Setup auf neuer Maschine:**
+
+1. SharePoint-Library im Browser öffnen → "Synchronisieren" klicken
+   (OneDrive-Client erstellt lokalen Ordner)
+2. Pfade in [`sync-to-sharepoint.ps1`](.automation/scripts/sync-to-sharepoint.ps1)
+   an die Maschine anpassen (Konstanten `$RepoRoot` und `$OneDriveDst` oben im Skript)
+3. `.\.automation\scripts\install-sharepoint-sync-task.ps1` ausführen
+4. Acceptance-Test laut [Spec §6](docs/superpowers/specs/2026-05-02-sharepoint-sync-design.md) durchlaufen
+
+**Logs:** `.automation/state/sharepoint-sync.log` (gitignored, lokal-only).
+
+**Spec + Plan:**
+- [Design Spec](docs/superpowers/specs/2026-05-02-sharepoint-sync-design.md)
+- [Implementation Plan](docs/superpowers/plans/2026-05-02-sharepoint-sync.md)
+
+---
+
 ## Mapping auf die Deliverables aus `Arbeitsauftrag Microsoft AI Research.md`
 
 | Deliverable                                     | Status im Skeleton                                                                           |
