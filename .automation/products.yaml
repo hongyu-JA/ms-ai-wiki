@@ -1,7 +1,10 @@
 # Produkte-Matrix für Stage-1-Filter.
-# Tier-1 Notes sind `enabled: true` — Auto-Sync scannt sie täglich.
-# Tier-2 und Tier-3 Stubs sind `enabled: false` bis die Note wirklich gefüllt ist
-# und Monitoring sinnvoll wird.
+#
+# Stand 2026-05-02: ALLE Notes (45) sind „deep" gefüllt → alle Produkte sind
+# `enabled: true`. Watch-Frequenz steuert die Update-Kadenz:
+#   close    = täglich
+#   standard = wöchentlich
+#   passive  = monatlich
 #
 # `tagline` ist die Single-Source-of-Truth für die „Was es ist (1 Satz)"-Spalte
 # in den Primary-Home-MOCs. update-indices.ts generiert daraus die Tabelle
@@ -23,7 +26,7 @@ products:
       - "M365 Copilot"
       - "Copilot Wave 3"
       - "Copilot Cowork"
-    sources: [m365-roadmap, devblogs-semantic-kernel]
+    sources: [m365-roadmap, devblogs-semantic-kernel, devblogs-microsoft365dev]
     changelog_trigger_sections: ["Status & Pricing", "Kernkonzept", "Integrationen"]
     enabled: true
 
@@ -55,7 +58,7 @@ products:
       - "Declarative Agent"
       - "Agent Builder"
       - "Agent Flows"
-    sources: [m365-roadmap, devblogs-semantic-kernel]
+    sources: [m365-roadmap, devblogs-semantic-kernel, devblogs-microsoft365dev]
     changelog_trigger_sections: ["Status & Pricing", "Kernkonzept"]
     enabled: true
 
@@ -107,7 +110,7 @@ products:
     keywords:
       - "Entra Agent ID"
       - "Microsoft Entra Agent"
-    sources: [m365-roadmap, azure-updates]
+    sources: [m365-roadmap, azure-updates, devblogs-identity]
     changelog_trigger_sections: ["Status & Pricing", "Kernkonzept"]
     enabled: true
 
@@ -276,7 +279,7 @@ products:
     tier: 2
     watch: standard
     keywords: ["M365 Agents SDK", "Microsoft 365 Agents SDK", "Agents Toolkit"]
-    sources: [devblogs-semantic-kernel]
+    sources: [devblogs-semantic-kernel, devblogs-microsoft365dev]
     changelog_trigger_sections: ["Status & Pricing", "Kernkonzept"]
     enabled: true
 
@@ -287,9 +290,9 @@ products:
     tier: 2
     watch: standard
     keywords: ["Teams SDK", "Teams AI Library"]
-    sources: []
+    sources: [devblogs-microsoft365dev]
     changelog_trigger_sections: []
-    enabled: false
+    enabled: true
 
   - slug: dataverse-mcp-server
     note: "Dataverse MCP Server.md"
@@ -300,7 +303,7 @@ products:
     keywords: ["Dataverse MCP Server", "Dataverse MCP"]
     sources: []
     changelog_trigger_sections: []
-    enabled: false
+    enabled: true
 
   - slug: azure-ai-content-understanding
     note: "Azure AI Content Understanding.md"
@@ -311,7 +314,7 @@ products:
     keywords: ["Azure AI Content Understanding", "Content Understanding"]
     sources: []
     changelog_trigger_sections: []
-    enabled: false
+    enabled: true
 
   - slug: azure-ai-document-intelligence
     note: "Azure AI Document Intelligence.md"
@@ -322,7 +325,7 @@ products:
     keywords: ["Azure AI Document Intelligence", "Document Intelligence", "Form Recognizer"]
     sources: []
     changelog_trigger_sections: []
-    enabled: false
+    enabled: true
 
   - slug: purview-dspm
     note: "Purview DSPM.md"
@@ -333,7 +336,7 @@ products:
     keywords: ["Purview DSPM", "Data Security Posture Management", "DSPM"]
     sources: []
     changelog_trigger_sections: []
-    enabled: false
+    enabled: true
 
   - slug: microsoft-graph
     note: "Microsoft Graph.md"
@@ -342,9 +345,9 @@ products:
     tier: 2
     watch: standard
     keywords: ["Microsoft Graph", "Graph API"]
-    sources: []
+    sources: [devblogs-microsoft365dev]
     changelog_trigger_sections: []
-    enabled: false
+    enabled: true
 
   - slug: copilot-connectors
     note: "Microsoft 365 Copilot Connectors.md"
@@ -353,9 +356,9 @@ products:
     tier: 2
     watch: standard
     keywords: ["Copilot Connectors", "Graph Connectors"]
-    sources: []
+    sources: [devblogs-microsoft365dev, m365-roadmap]
     changelog_trigger_sections: []
-    enabled: false
+    enabled: true
 
   - slug: dataverse
     note: "Dataverse.md"
@@ -366,7 +369,7 @@ products:
     keywords: ["Dataverse", "Common Data Service"]
     sources: []
     changelog_trigger_sections: []
-    enabled: false
+    enabled: true
 
   - slug: logic-apps
     note: "Logic Apps.md"
@@ -377,7 +380,7 @@ products:
     keywords: ["Azure Logic Apps"]
     sources: []
     changelog_trigger_sections: []
-    enabled: false
+    enabled: true
 
   - slug: power-automate
     note: "Power Automate.md"
@@ -388,7 +391,7 @@ products:
     keywords: ["Power Automate", "Agent Flows"]
     sources: []
     changelog_trigger_sections: []
-    enabled: false
+    enabled: true
 
   - slug: microsoft-purview
     note: "Microsoft Purview.md"
@@ -399,7 +402,7 @@ products:
     keywords: ["Microsoft Purview", "Purview DSPM"]
     sources: []
     changelog_trigger_sections: []
-    enabled: false
+    enabled: true
 
   - slug: defender-for-ai
     note: "Defender for AI.md"
@@ -410,7 +413,7 @@ products:
     keywords: ["Defender for AI"]
     sources: []
     changelog_trigger_sections: []
-    enabled: false
+    enabled: true
 
   - slug: azure-ai-content-safety
     note: "Azure AI Content Safety.md"
@@ -421,7 +424,7 @@ products:
     keywords: ["Azure AI Content Safety", "Prompt Shields"]
     sources: []
     changelog_trigger_sections: []
-    enabled: false
+    enabled: true
 
   - slug: microsoft-entra-suite
     note: "Microsoft Entra Suite.md"
@@ -430,9 +433,9 @@ products:
     tier: 2
     watch: standard
     keywords: ["Microsoft Entra Suite"]
-    sources: []
+    sources: [devblogs-identity, m365-roadmap]
     changelog_trigger_sections: []
-    enabled: false
+    enabled: true
 
   - slug: microsoft-365-e7
     note: "Microsoft 365 E7.md"
@@ -443,7 +446,7 @@ products:
     keywords: ["Microsoft 365 E7", "M365 E7", "Frontier Program"]
     sources: [m365-roadmap]
     changelog_trigger_sections: []
-    enabled: false
+    enabled: true
 
   # ==================================================================
   # Tier 3 — Awareness (deaktiviert)
@@ -457,7 +460,7 @@ products:
     watch: passive
     keywords: ["VS Code AI Toolkit", "GitHub Copilot Cloud Agents", "azd AI"]
     sources: []
-    enabled: false
+    enabled: true
 
   - slug: azure-openai-pricing
     note: "Azure OpenAI Service Pricing.md"
@@ -467,7 +470,7 @@ products:
     watch: passive
     keywords: ["Azure OpenAI PAYG", "Azure OpenAI PTU", "Azure OpenAI Batch"]
     sources: []
-    enabled: false
+    enabled: true
 
   - slug: cosmos-db-for-ai
     note: "Azure Cosmos DB for AI.md"
@@ -477,7 +480,7 @@ products:
     watch: passive
     keywords: ["Cosmos DB Vector"]
     sources: []
-    enabled: false
+    enabled: true
 
   - slug: fabric-data-agents
     note: "Microsoft Fabric.md"
@@ -487,7 +490,7 @@ products:
     watch: passive
     keywords: ["Microsoft Fabric", "OneLake", "Fabric Data Agents"]
     sources: []
-    enabled: false
+    enabled: true
 
   - slug: azure-openai-responses-api
     note: "Azure OpenAI Responses API.md"
@@ -497,7 +500,7 @@ products:
     watch: passive
     keywords: ["Responses API", "Azure OpenAI Responses"]
     sources: []
-    enabled: false
+    enabled: true
 
   - slug: purview-data-map
     note: "Purview Data Map.md"
@@ -507,7 +510,7 @@ products:
     watch: passive
     keywords: ["Purview Data Map", "Purview Data Catalog"]
     sources: []
-    enabled: false
+    enabled: true
 
   - slug: dynamics-365-agents
     note: "Dynamics 365 Agents.md"
@@ -517,7 +520,7 @@ products:
     watch: passive
     keywords: ["Dynamics 365 Agents", "D365 Copilot Agents"]
     sources: []
-    enabled: false
+    enabled: true
 
   # ==================================================================
   # Deprecated

@@ -6,6 +6,10 @@
 # Claude Code lokaler Zustand — pro Entwickler, nicht teilen
 .claude/settings.local.json
 
+# Claude Code worktrees — jedes hat eigenen .git-Link, der Ordner selbst soll
+# nicht im Haupt-Repo auftauchen
+.claude/worktrees/
+
 # Node
 node_modules/
 npm-debug.log*
