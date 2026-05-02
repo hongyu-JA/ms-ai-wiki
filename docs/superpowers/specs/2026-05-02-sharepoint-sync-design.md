@@ -4,6 +4,7 @@ created: 2026-05-02
 owner: Hongyu
 status: approved
 related_issue: M365 Copilot Declarative Agent Hands-on (Pivot von Foundry Hands-on)
+related_pr: https://github.com/hongyu-JA/ms-ai-wiki/pull/17
 ---
 
 # Spec: SharePoint-Sync für Copilot Agent Knowledge Base

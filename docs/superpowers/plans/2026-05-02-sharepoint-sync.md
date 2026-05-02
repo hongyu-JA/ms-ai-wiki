@@ -10,6 +10,8 @@
 
 **Spec Reference:** [docs/superpowers/specs/2026-05-02-sharepoint-sync-design.md](../specs/2026-05-02-sharepoint-sync-design.md)
 
+**PR:** [hongyu-JA/ms-ai-wiki#17](https://github.com/hongyu-JA/ms-ai-wiki/pull/17)
+
 ---
 
 ## Pre-Flight Check (vor Task 1)
