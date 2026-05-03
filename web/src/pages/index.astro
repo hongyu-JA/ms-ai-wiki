@@ -1,10 +1,23 @@
 ---
 import "../styles/global.css";
 import { loadProducts } from "../lib/load-products";
-import ProductCard from "../components/ProductCard.astro";
+import CatalogClient from "../components/CatalogClient";
 
 const products = await loadProducts();
 const sorted = products.sort((a, b) => a.tier - b.tier || a.id.localeCompare(b.id));
+const allMocs = [...new Set(sorted.map((p) => p.primaryHomeMoc).filter(Boolean) as string[])].sort();
+
+const productData = sorted.map((p) => ({
+  slug: p.slug,
+  id: p.id,
+  displayName: p.displayName,
+  tier: p.tier,
+  tagline: p.tagline,
+  watch: p.data.watch ?? "standard",
+  status: p.data.status ?? "ga",
+  primaryHomeMoc: p.primaryHomeMoc,
+  isDeprecated: p.isDeprecated,
+}));
 ---
 <!doctype html>
 <html lang="de">
@@ -14,14 +27,12 @@ const sorted = products.sort((a, b) => a.tier - b.tier || a.id.localeCompare(b.i
     <title>MS AI Wiki — Catalog</title>
   </head>
   <body>
-    <header class="bg-white border-b border-gray-200 px-8 py-4">
+    <header class="bg-white border-b border-gray-200 px-8 py-4 sticky top-0 z-10">
       <h1 class="m-0">Microsoft AI Knowledge Base</h1>
       <p class="m-0 text-sm text-gray-600">{products.length} Produkte · Stand: {new Date().toISOString().slice(0, 10)}</p>
     </header>
     <main class="p-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {sorted.map((p) => <ProductCard product={p} tier={p.tier} tagline={p.tagline} />)}
-      </div>
+      <CatalogClient client:load products={productData} allMocs={allMocs} />
     </main>
   </body>
 </html>

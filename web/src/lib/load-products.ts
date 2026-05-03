@@ -19,6 +19,7 @@ export type Product = CollectionEntry<"products"> & {
   primaryHomeMoc: string | null;
   tier: 1 | 2 | 3;
   tagline: string;
+  displayName: string;
 };
 
 /**
@@ -56,7 +57,10 @@ export async function loadProducts(): Promise<Product[]> {
 
     const tier = yamlEntry?.tier ?? 3;
     const tagline = yamlEntry?.tagline ?? "(keine Tagline gepflegt)";
+    const displayName = yamlEntry?.note
+      ? yamlEntry.note.replace(/\.md$/i, "").replace(/^deprecated\//, "")
+      : slugRaw.replace(/^deprecated\//, "");
 
-    return { ...entry, slug, isDeprecated, primaryHomeMoc, tier, tagline };
+    return { ...entry, slug, isDeprecated, primaryHomeMoc, tier, tagline, displayName };
   });
 }
