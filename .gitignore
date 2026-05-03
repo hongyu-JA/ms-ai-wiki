@@ -21,6 +21,9 @@ yarn-error.log*
 # Bun (wir verwenden npm im CI, package-lock.json ist massgeblich)
 bun.lockb
 bun.lock
+# Ausnahme: web/ verwendet Bun als Build-Tool, Lockfile muss für reproduzierbare Cloudflare-Builds versioniert sein
+!web/bun.lock
+!web/bun.lockb
 
 # Build / tmp
 dist/
