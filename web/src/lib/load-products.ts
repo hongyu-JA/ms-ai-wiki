@@ -6,7 +6,7 @@ import yaml from "js-yaml";
 interface ProductYaml {
   slug: string;
   note: string;
-  primary_home_moc: string;
+  primary_home_moc?: string;
   tagline?: string;
   tier: 1 | 2 | 3;
   watch?: "close" | "standard" | "passive";
@@ -30,18 +30,27 @@ export async function loadProducts(): Promise<Product[]> {
   const yamlPath = resolve(process.cwd(), "../.automation/products.yaml");
   const yamlText = readFileSync(yamlPath, "utf8");
   const yamlDoc = yaml.load(yamlText) as { products: ProductYaml[] };
-  const yamlBySlug = new Map(yamlDoc.products.map((p) => [p.slug, p]));
+  // YAML hat unabhaengige Felder `slug` (kanonische ID) und `note` (Dateiname).
+  // Lookup per `note`, da entry.id dem Dateinamen ohne .md entspricht.
+  const yamlByNote = new Map(yamlDoc.products.map((p) => [p.note, p]));
 
   const raw = await getCollection("products");
   return raw.map((entry) => {
     const slugRaw = entry.id;
     const slug = slugRaw.toLowerCase().replace(/[\s/]+/g, "-").replace(/[^a-z0-9-]/g, "");
     const isDeprecated = slugRaw.startsWith("deprecated/");
-    const primaryHomeMoc = (entry.data.moc ?? [])
-      .map((m) => m.replace(/^\[\[|\]\]$/g, ""))
-      .find((m) => m !== "Microsoft MOC") ?? null;
 
-    const yamlEntry = yamlBySlug.get(slug);
+    const yamlEntry = yamlByNote.get(slugRaw + ".md");
+    if (!yamlEntry) {
+      console.warn(`[load-products] Kein yaml-Eintrag fuer: ${slugRaw}`);
+    }
+
+    const primaryHomeMoc = yamlEntry?.primary_home_moc ?? (
+      (entry.data.moc ?? [])
+        .map((m) => m.replace(/^\[\[|\]\]$/g, ""))
+        .find((m) => m !== "Microsoft MOC") ?? null
+    );
+
     const tier = yamlEntry?.tier ?? 3;
     const tagline = yamlEntry?.tagline ?? "(keine Tagline gepflegt)";
 
