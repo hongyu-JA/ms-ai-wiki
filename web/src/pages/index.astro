@@ -17,6 +17,7 @@ const productData = sorted.map((p) => ({
   status: p.data.status ?? "ga",
   primaryHomeMoc: p.primaryHomeMoc,
   isDeprecated: p.isDeprecated,
+  aliases: p.data.aliases ?? [],   // NEU
 }));
 ---
 <!doctype html>

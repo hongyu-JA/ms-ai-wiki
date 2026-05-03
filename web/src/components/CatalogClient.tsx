@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import FilterBar, { type FilterState } from "./FilterBar";
+import SearchBox from "./SearchBox";
 
 interface ProductData {
   slug: string;
@@ -11,6 +12,7 @@ interface ProductData {
   status: string;
   primaryHomeMoc: string | null;
   isDeprecated: boolean;
+  aliases: string[];
 }
 
 interface Props {
@@ -41,21 +43,33 @@ function parseFilterFromUrl(): FilterState {
   };
 }
 
+function parseQueryFromUrl(): string {
+  if (typeof window === "undefined") return "";
+  return new URLSearchParams(window.location.search).get("q") ?? "";
+}
+
 export default function CatalogClient({ products, allMocs }: Props) {
   const [filterState, setFilterState] = useState<FilterState>(parseFilterFromUrl);
+  const [query, setQuery] = useState<string>(parseQueryFromUrl);
 
   const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
     return products.filter((p) => {
       if (filterState.tier.size && !filterState.tier.has(p.tier)) return false;
       if (filterState.moc.size && !(p.primaryHomeMoc && filterState.moc.has(p.primaryHomeMoc))) return false;
       if (filterState.watch.size && !filterState.watch.has(p.watch as any)) return false;
       if (filterState.status.size && !filterState.status.has(p.status as any)) return false;
+      if (q) {
+        const hay = `${p.displayName} ${p.tagline} ${p.aliases.join(" ")}`.toLowerCase();
+        if (!hay.includes(q)) return false;
+      }
       return true;
     });
-  }, [products, filterState]);
+  }, [products, filterState, query]);
 
   return (
     <>
+      <div className="mb-3"><SearchBox initial={query} onChange={setQuery} /></div>
       <FilterBar initial={filterState} onChange={setFilterState} allMocs={allMocs} />
       <div className="text-sm text-gray-500 mt-2">{filtered.length} von {products.length} Produkten</div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
