@@ -17,3 +17,13 @@ const { current = "grid", subtitle = "" } = Astro.props;
     </nav>
   </div>
 </header>
+<script>
+  // Preserve URL filter state when toggling Grid <-> Table
+  const search = window.location.search;
+  if (search) {
+    document.querySelectorAll<HTMLAnchorElement>('header nav a').forEach((a) => {
+      const url = new URL(a.href);
+      a.href = url.pathname + search;
+    });
+  }
+</script>
