@@ -1,15 +1,27 @@
 ---
 import "../styles/global.css";
+import { loadProducts } from "../lib/load-products";
+import ProductCard from "../components/ProductCard.astro";
+
+const products = await loadProducts();
+const sorted = products.sort((a, b) => a.tier - b.tier || a.id.localeCompare(b.id));
 ---
 <!doctype html>
 <html lang="de">
   <head>
     <meta charset="utf-8" />
-    <title>MS AI Wiki</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MS AI Wiki — Catalog</title>
   </head>
-  <body class="p-8">
-    <h1>Microsoft AI Knowledge Base</h1>
-    <p class="mt-2 text-gray-600">Catalog wird gebaut...</p>
-    <span class="badge badge-tier-1 mt-4">Test Badge</span>
+  <body>
+    <header class="bg-white border-b border-gray-200 px-8 py-4">
+      <h1 class="m-0">Microsoft AI Knowledge Base</h1>
+      <p class="m-0 text-sm text-gray-600">{products.length} Produkte · Stand: {new Date().toISOString().slice(0, 10)}</p>
+    </header>
+    <main class="p-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {sorted.map((p) => <ProductCard product={p} tier={p.tier} tagline={p.tagline} />)}
+      </div>
+    </main>
   </body>
 </html>

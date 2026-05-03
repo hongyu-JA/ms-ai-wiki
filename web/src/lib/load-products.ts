@@ -31,8 +31,11 @@ export async function loadProducts(): Promise<Product[]> {
   const yamlText = readFileSync(yamlPath, "utf8");
   const yamlDoc = yaml.load(yamlText) as { products: ProductYaml[] };
   // YAML hat unabhaengige Felder `slug` (kanonische ID) und `note` (Dateiname).
-  // Lookup per `note`, da entry.id dem Dateinamen ohne .md entspricht.
-  const yamlByNote = new Map(yamlDoc.products.map((p) => [p.note, p]));
+  // Astro-glob-loader normalisiert den Dateinamen zu entry.id: lowercase, Leerzeichen→Bindestriche,
+  // Slashes bleiben erhalten (Unterverzeichnisse wie deprecated/).
+  const normalizeNote = (note: string) =>
+    note.replace(/\.md$/i, "").toLowerCase().replace(/ +/g, "-").replace(/[^a-z0-9\-/]/g, "");
+  const yamlByNote = new Map(yamlDoc.products.map((p) => [normalizeNote(p.note), p]));
 
   const raw = await getCollection("products");
   return raw.map((entry) => {
@@ -40,7 +43,7 @@ export async function loadProducts(): Promise<Product[]> {
     const slug = slugRaw.toLowerCase().replace(/[\s/]+/g, "-").replace(/[^a-z0-9-]/g, "");
     const isDeprecated = slugRaw.startsWith("deprecated/");
 
-    const yamlEntry = yamlByNote.get(slugRaw + ".md");
+    const yamlEntry = yamlByNote.get(slugRaw);
     if (!yamlEntry) {
       console.warn(`[load-products] Kein yaml-Eintrag fuer: ${slugRaw}`);
     }
