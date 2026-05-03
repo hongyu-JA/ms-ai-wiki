@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body { @apply bg-gray-50 text-gray-900 font-sans antialiased; }
+  h1 { @apply text-3xl font-bold; }
+  h2 { @apply text-2xl font-semibold mt-6 mb-3; }
+  h3 { @apply text-xl font-semibold mt-4 mb-2; }
+  a { @apply text-blue-600 hover:underline; }
+}
+
+@layer components {
+  .badge { @apply inline-block px-2 py-0.5 text-xs font-semibold rounded-full; }
+  .badge-tier-1 { @apply bg-tier-1 text-white; }
+  .badge-tier-2 { @apply bg-tier-2 text-white; }
+  .badge-tier-3 { @apply bg-tier-3 text-gray-700; }
+  .badge-watch-close { @apply bg-watch-close text-white; }
+  .badge-watch-standard { @apply bg-watch-standard text-white; }
+  .badge-watch-passive { @apply bg-watch-passive text-gray-700; }
+  .badge-status-ga { @apply bg-status-ga text-white; }
+  .badge-status-preview { @apply bg-status-preview text-white; }
+  .badge-status-deprecated { @apply bg-status-deprecated text-white; }
+  .badge-status-eos { @apply bg-status-eos text-white; }
+}

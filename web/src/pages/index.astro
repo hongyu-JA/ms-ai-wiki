@@ -1,0 +1,37 @@
+---
+import "../styles/global.css";
+import { loadProducts } from "../lib/load-products";
+import Header from "../components/Header.astro";
+import CatalogClient from "../components/CatalogClient";
+
+const products = await loadProducts();
+const sorted = [...products].sort((a, b) => a.tier - b.tier || a.id.localeCompare(b.id));
+const allMocs = [...new Set(sorted.map((p) => p.primaryHomeMoc).filter(Boolean) as string[])].sort();
+
+const productData = sorted.map((p) => ({
+  slug: p.slug,
+  id: p.id,
+  displayName: p.displayName,
+  tier: p.tier,
+  tagline: p.tagline,
+  watch: p.data.watch ?? "standard",
+  status: p.data.status ?? "ga",
+  primaryHomeMoc: p.primaryHomeMoc,
+  isDeprecated: p.isDeprecated,
+  aliases: p.data.aliases ?? [],
+}));
+---
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MS AI Wiki — Catalog</title>
+  </head>
+  <body>
+    <Header current="grid" subtitle={`${products.length} Produkte · Stand: ${new Date().toISOString().slice(0, 10)}`} />
+    <main class="p-8">
+      <CatalogClient client:load products={productData} allMocs={allMocs} />
+    </main>
+  </body>
+</html>

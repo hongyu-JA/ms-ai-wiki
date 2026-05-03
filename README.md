@@ -184,6 +184,17 @@ sieht. Architektur: lokales Obsidian = Source of Truth → robocopy → OneDrive
 
 ---
 
+## Web Catalog (Sub-Project A)
+
+Static-Site Browse/Filter-UI für die KB. 45 Produkt-Notes als Karten + Tabelle, mit Filter (Tier, MOC, Watch, Status) und Free-Text-Search. Auto-deployed zu Cloudflare Pages.
+
+- **Code:** [`web/`](web/) (Astro + React + Tailwind)
+- **Lokale Entwicklung:** `cd web && bun install && bun run dev`
+- **Setup-Doku:** [web/README.md](web/README.md)
+- **Spec:** [docs/superpowers/specs/2026-05-03-web-catalog-design.md](docs/superpowers/specs/2026-05-03-web-catalog-design.md)
+
+---
+
 ## Mapping auf die Deliverables aus `Arbeitsauftrag Microsoft AI Research.md`
 
 | Deliverable                                     | Status im Skeleton                                                                           |

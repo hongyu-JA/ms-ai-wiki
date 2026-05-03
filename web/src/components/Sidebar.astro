@@ -1,0 +1,68 @@
+---
+import type { Product } from "../lib/load-products";
+
+interface Props {
+  product: Product;
+  related: Product[];
+}
+const { product, related } = Astro.props;
+const { data, tier } = product;
+---
+<aside class="w-full md:w-72 flex-shrink-0 p-4 bg-white border-t md:border-t-0 md:border-l border-gray-200">
+  <h3 class="text-base font-semibold mt-0">Metadaten</h3>
+  <dl class="text-sm space-y-2">
+    <div>
+      <dt class="text-gray-500">Tier</dt>
+      <dd><span class={`badge badge-tier-${tier}`}>T{tier}</span></dd>
+    </div>
+    <div>
+      <dt class="text-gray-500">Watch</dt>
+      <dd><span class={`badge badge-watch-${data.watch ?? "standard"}`}>{data.watch ?? "standard"}</span></dd>
+    </div>
+    <div>
+      <dt class="text-gray-500">Status</dt>
+      <dd>{data.status ?? "ga"}</dd>
+    </div>
+    {data.last_verified && (
+      <div>
+        <dt class="text-gray-500">Last verified</dt>
+        <dd>{data.last_verified}</dd>
+      </div>
+    )}
+    {product.primaryHomeMoc && (
+      <div>
+        <dt class="text-gray-500">Primary Home MOC</dt>
+        <dd>{product.primaryHomeMoc}</dd>
+      </div>
+    )}
+    {data.aliases.length > 0 && (
+      <div>
+        <dt class="text-gray-500">Aliases</dt>
+        <dd class="text-xs text-gray-700">{data.aliases.join(", ")}</dd>
+      </div>
+    )}
+    {data.successor && (
+      <div>
+        <dt class="text-gray-500">Successor</dt>
+        <dd>{data.successor}</dd>
+      </div>
+    )}
+    {data.deprecation_date && (
+      <div>
+        <dt class="text-gray-500">Deprecation Date</dt>
+        <dd>{data.deprecation_date}</dd>
+      </div>
+    )}
+  </dl>
+
+  {related.length > 0 && (
+    <Fragment>
+      <h3 class="text-base font-semibold mt-6">Verwandte Produkte</h3>
+      <ul class="text-sm space-y-1 list-none p-0">
+        {related.map((r) => (
+          <li><a href={`/products/${r.slug}`} class="text-blue-600 hover:underline">{r.displayName}</a></li>
+        ))}
+      </ul>
+    </Fragment>
+  )}
+</aside>

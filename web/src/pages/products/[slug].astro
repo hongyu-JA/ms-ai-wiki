@@ -1,0 +1,46 @@
+---
+import "../../styles/global.css";
+import { loadProducts, type Product } from "../../lib/load-products";
+import Header from "../../components/Header.astro";
+import Sidebar from "../../components/Sidebar.astro";
+import { render } from "astro:content";
+
+export async function getStaticPaths() {
+  const allProducts = await loadProducts();
+  return allProducts.map((p) => ({
+    params: { slug: p.slug },
+    props: { product: p, allProducts },
+  }));
+}
+
+interface Props { product: Product; allProducts: Product[]; }
+const { product, allProducts } = Astro.props;
+const { Content } = await render(product);
+
+// Related: same primary_home_moc, sorted by tier then displayName, max 8
+const related = allProducts
+  .filter((p) => p.slug !== product.slug && p.primaryHomeMoc && p.primaryHomeMoc === product.primaryHomeMoc)
+  .sort((a, b) => a.tier - b.tier || a.displayName.localeCompare(b.displayName))
+  .slice(0, 8);
+---
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{product.displayName} — MS AI Wiki</title>
+  </head>
+  <body>
+    <Header current="grid" subtitle="Produkt-Detail" />
+    <div class="flex flex-col md:flex-row">
+      <nav class="w-full md:w-48 flex-shrink-0 p-4 border-b md:border-b-0 md:border-r border-gray-200">
+        <a href="/" class="text-sm text-blue-600 hover:underline">← Zurück zur Übersicht</a>
+      </nav>
+      <main class="flex-1 p-8 max-w-3xl prose prose-gray">
+        <h1>{product.displayName}</h1>
+        <Content />
+      </main>
+      <Sidebar product={product} related={related} />
+    </div>
+  </body>
+</html>

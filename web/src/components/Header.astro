@@ -1,0 +1,29 @@
+---
+interface Props {
+  current?: "grid" | "table";
+  subtitle?: string;
+}
+const { current = "grid", subtitle = "" } = Astro.props;
+---
+<header class="bg-white border-b border-gray-200 px-8 py-4 sticky top-0 z-10">
+  <div class="flex items-baseline justify-between">
+    <div>
+      <h1 class="m-0">Microsoft AI Knowledge Base</h1>
+      {subtitle && <p class="m-0 text-sm text-gray-600">{subtitle}</p>}
+    </div>
+    <nav class="flex gap-2">
+      <a href="/" class={`px-3 py-1 text-sm rounded ${current === "grid" ? "bg-blue-600 text-white no-underline" : "bg-gray-100 text-gray-700 hover:bg-gray-200 no-underline"}`}>Grid</a>
+      <a href="/table" class={`px-3 py-1 text-sm rounded ${current === "table" ? "bg-blue-600 text-white no-underline" : "bg-gray-100 text-gray-700 hover:bg-gray-200 no-underline"}`}>Table</a>
+    </nav>
+  </div>
+</header>
+<script>
+  // Preserve URL filter state when toggling Grid <-> Table
+  const search = window.location.search;
+  if (search) {
+    document.querySelectorAll<HTMLAnchorElement>('header nav a').forEach((a) => {
+      const url = new URL(a.href);
+      a.href = url.pathname + search;
+    });
+  }
+</script>
