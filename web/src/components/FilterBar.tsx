@@ -1,11 +1,7 @@
 import { useState, useEffect, useRef } from "react";
+import type { FilterState } from "../lib/use-catalog-filters";
 
-export interface FilterState {
-  tier: Set<1 | 2 | 3>;
-  moc: Set<string>;
-  watch: Set<"close" | "standard" | "passive">;
-  status: Set<"ga" | "preview" | "deprecated" | "eos">;
-}
+export type { FilterState };
 
 interface Props {
   allMocs: string[];

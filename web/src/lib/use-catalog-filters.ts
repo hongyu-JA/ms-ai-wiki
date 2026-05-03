@@ -1,5 +1,11 @@
 import { useState, useMemo } from "react";
-import type { FilterState } from "../components/FilterBar";
+
+export interface FilterState {
+  tier: Set<1 | 2 | 3>;
+  moc: Set<string>;
+  watch: Set<"close" | "standard" | "passive">;
+  status: Set<"ga" | "preview" | "deprecated" | "eos">;
+}
 
 export interface ProductData {
   slug: string;
@@ -7,8 +13,8 @@ export interface ProductData {
   displayName: string;
   tier: 1 | 2 | 3;
   tagline: string;
-  watch: string;
-  status: string;
+  watch: "close" | "standard" | "passive";
+  status: "ga" | "preview" | "deprecated" | "eos";
   primaryHomeMoc: string | null;
   isDeprecated: boolean;
   aliases: string[];
@@ -59,8 +65,8 @@ export function useCatalogFilters(products: ProductData[]): CatalogFilters {
     return products.filter((p) => {
       if (filterState.tier.size && !filterState.tier.has(p.tier)) return false;
       if (filterState.moc.size && !(p.primaryHomeMoc && filterState.moc.has(p.primaryHomeMoc))) return false;
-      if (filterState.watch.size && !filterState.watch.has(p.watch as any)) return false;
-      if (filterState.status.size && !filterState.status.has(p.status as any)) return false;
+      if (filterState.watch.size && !filterState.watch.has(p.watch)) return false;
+      if (filterState.status.size && !filterState.status.has(p.status)) return false;
       if (q) {
         const hay = `${p.displayName} ${p.tagline} ${p.aliases.join(" ")}`.toLowerCase();
         if (!hay.includes(q)) return false;
