@@ -1,7 +1,7 @@
 ---
 type: moc
 tags: [moc, microsoft, security, identity, compliance]
-last_verified: 2026-05-02
+last_verified: 2026-05-03
 ---
 
 # Security & Identity MOC
