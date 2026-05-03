@@ -54,6 +54,12 @@ try {
 #                           wird vom OneDrive-Client gepflegt — /MIR darf sie
 #                           nicht loeschen, sonst verliert OneDrive die Sync-
 #                           Verbindung des Ordners).
+#             *.md.txt    = Sidecar-Dateien fuer SharePoint-Indexer (siehe
+#                           Schritt 3). Werden nur am Ziel erzeugt, nicht in der
+#                           Quelle — /MIR darf sie nicht als "Extras" loeschen.
+#             *.base      = Obsidian-Bases-Default-Files (z.B. "未命名.base").
+#                           Werden von Obsidian bei jedem Vault-Open neu
+#                           erstellt — Spam, gehoeren nicht zu SharePoint.
 # /R:3 /W:5 = 3 Retries, 5 Sek Wait (fuer Files, die Obsidian gerade schreibt)
 # /LOG+     = Log appenden (nicht ueberschreiben)
 # /NP       = kein Progress-Spam
@@ -63,7 +69,7 @@ try {
 robocopy $VaultSrc $OneDriveDst `
     /S /MIR `
     /XD .obsidian .smart-env `
-    /XF .849* `
+    /XF .849* *.md.txt *.base `
     /R:3 /W:5 `
     /LOG+:$LogFile /NP /TEE
 
@@ -77,5 +83,47 @@ if ($rc -ge 8) {
     exit 1
 }
 
-"=== Sync fertig ($rc) ===" | Out-File -Append -FilePath $LogFile -Encoding utf8
+# === 3. .md -> .md.txt Sidecars fuer SharePoint-Indexierung ================
+# SharePoint Default-Search-Schema indexiert .txt aber NICHT .md.
+# Loesung: pro .md eine `.md.txt`-Sidecar-Kopie am Ziel erzeugen, die wird
+# indexiert. Die .md selbst bleibt erhalten (für menschliches Lesen).
+#
+# Sidecars werden idempotent generiert: nur kopiert wenn .md neuer als .md.txt
+# ist. Verhindert dauernde OneDrive-Uploads bei jedem Sync.
+"[md->txt] Generiere .md.txt Sidecars fuer SharePoint-Indexer..." | Out-File -Append -FilePath $LogFile -Encoding utf8
+
+$mdFiles  = Get-ChildItem -Path $OneDriveDst -Recurse -Filter '*.md' -File -ErrorAction SilentlyContinue
+$created  = 0
+$skipped  = 0
+$staleTxt = 0
+
+# Erst: stale .md.txt loeschen (zugehoerige .md ist weg)
+$txtFiles = Get-ChildItem -Path $OneDriveDst -Recurse -Filter '*.md.txt' -File -ErrorAction SilentlyContinue
+foreach ($txt in $txtFiles) {
+    $mdPath = $txt.FullName -replace '\.md\.txt$', '.md'
+    if (-not (Test-Path $mdPath)) {
+        Remove-Item $txt.FullName -Force -ErrorAction SilentlyContinue
+        $staleTxt++
+    }
+}
+
+# Dann: pro .md eine .md.txt erzeugen oder aktualisieren
+foreach ($md in $mdFiles) {
+    $txtPath = "$($md.FullName).txt"  # ergibt foo.md -> foo.md.txt
+    $needsUpdate = $true
+    if (Test-Path $txtPath) {
+        $txtMod = (Get-Item $txtPath).LastWriteTime
+        if ($txtMod -ge $md.LastWriteTime) { $needsUpdate = $false }
+    }
+    if ($needsUpdate) {
+        Copy-Item $md.FullName $txtPath -Force -ErrorAction SilentlyContinue
+        $created++
+    } else {
+        $skipped++
+    }
+}
+
+"[md->txt] $created neu/aktualisiert, $skipped unveraendert, $staleTxt verwaiste geloescht" | Out-File -Append -FilePath $LogFile -Encoding utf8
+
+"=== Sync fertig (rc=$rc) ===" | Out-File -Append -FilePath $LogFile -Encoding utf8
 exit 0
