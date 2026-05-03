@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export interface FilterState {
   tier: Set<1 | 2 | 3>;
@@ -9,37 +9,18 @@ export interface FilterState {
 
 interface Props {
   allMocs: string[];
-  initial?: Partial<{ tier: number[]; moc: string[]; watch: string[]; status: string[] }>;
+  initial: FilterState;
   onChange: (state: FilterState) => void;
 }
 
-export default function FilterBar({ allMocs, initial, onChange }: Props) {
-  const [tier, setTier] = useState(new Set<1 | 2 | 3>(
-    (initial?.tier ?? []) as (1 | 2 | 3)[]
-  ));
-  const [moc, setMoc] = useState(new Set<string>(initial?.moc ?? []));
-  const [watch, setWatch] = useState(new Set<string>(initial?.watch ?? []));
-  const [status, setStatus] = useState(new Set<string>(initial?.status ?? []));
+interface ChipProps {
+  active: boolean;
+  label: string;
+  onClick: () => void;
+}
 
-  useEffect(() => {
-    onChange({ tier, moc, watch, status } as FilterState);
-    // URL-State updaten
-    const params = new URLSearchParams();
-    if (tier.size) params.set("tier", [...tier].join(","));
-    if (moc.size) params.set("moc", [...moc].join(","));
-    if (watch.size) params.set("watch", [...watch].join(","));
-    if (status.size) params.set("status", [...status].join(","));
-    const url = params.toString() ? `?${params}` : window.location.pathname;
-    window.history.replaceState({}, "", url);
-  }, [tier, moc, watch, status]);
-
-  const toggle = <T,>(set: Set<T>, value: T, setter: (s: Set<T>) => void) => {
-    const next = new Set(set);
-    next.has(value) ? next.delete(value) : next.add(value);
-    setter(next);
-  };
-
-  const Chip = ({ active, label, onClick }: { active: boolean; label: string; onClick: () => void }) => (
+function Chip({ active, label, onClick }: ChipProps) {
+  return (
     <button
       onClick={onClick}
       className={`px-3 py-1 text-xs rounded-full border transition ${
@@ -51,6 +32,37 @@ export default function FilterBar({ allMocs, initial, onChange }: Props) {
       {label}
     </button>
   );
+}
+
+export default function FilterBar({ allMocs, initial, onChange }: Props) {
+  const [tier, setTier] = useState<Set<1 | 2 | 3>>(initial.tier);
+  const [moc, setMoc] = useState<Set<string>>(initial.moc);
+  const [watch, setWatch] = useState<Set<"close" | "standard" | "passive">>(initial.watch);
+  const [status, setStatus] = useState<Set<"ga" | "preview" | "deprecated" | "eos">>(initial.status);
+  const isMount = useRef(true);
+
+  useEffect(() => {
+    if (isMount.current) {
+      isMount.current = false;
+      return;
+    }
+    const next: FilterState = { tier, moc, watch, status };
+    onChange(next);
+    // URL: preserve unknown params (e.g., ?q= from Task 6 SearchBox)
+    const params = new URLSearchParams(window.location.search);
+    if (tier.size) params.set("tier", [...tier].join(",")); else params.delete("tier");
+    if (moc.size) params.set("moc", [...moc].join(",")); else params.delete("moc");
+    if (watch.size) params.set("watch", [...watch].join(",")); else params.delete("watch");
+    if (status.size) params.set("status", [...status].join(",")); else params.delete("status");
+    const url = params.toString() ? `?${params}` : window.location.pathname;
+    window.history.replaceState({}, "", url);
+  }, [tier, moc, watch, status]);
+
+  const toggle = <T,>(set: Set<T>, value: T, setter: (s: Set<T>) => void) => {
+    const next = new Set(set);
+    next.has(value) ? next.delete(value) : next.add(value);
+    setter(next);
+  };
 
   return (
     <div className="flex flex-wrap gap-2 items-center">

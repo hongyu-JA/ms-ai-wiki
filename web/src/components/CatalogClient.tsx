@@ -4,7 +4,7 @@ import FilterBar, { type FilterState } from "./FilterBar";
 interface ProductData {
   slug: string;
   id: string;
-  displayName: string;     // human-readable, aus YAML note Dateiname
+  displayName: string;
   tier: 1 | 2 | 3;
   tagline: string;
   watch: string;
@@ -18,20 +18,31 @@ interface Props {
   allMocs: string[];
 }
 
-export default function CatalogClient({ products, allMocs }: Props) {
-  const url = new URLSearchParams(typeof window !== "undefined" ? window.location.search : "");
-  const initial = {
-    tier: (url.get("tier")?.split(",").map(Number) ?? []) as number[],
-    moc: url.get("moc")?.split(",") ?? [],
-    watch: url.get("watch")?.split(",") ?? [],
-    status: url.get("status")?.split(",") ?? [],
+const TIER_VALUES = [1, 2, 3] as const;
+const WATCH_VALUES = ["close", "standard", "passive"] as const;
+const STATUS_VALUES = ["ga", "preview", "deprecated", "eos"] as const;
+
+function emptyFilter(): FilterState {
+  return { tier: new Set(), moc: new Set(), watch: new Set(), status: new Set() };
+}
+
+function parseFilterFromUrl(): FilterState {
+  if (typeof window === "undefined") return emptyFilter();
+  const url = new URLSearchParams(window.location.search);
+  const tierRaw = (url.get("tier")?.split(",").map(Number) ?? []) as number[];
+  const mocRaw = url.get("moc")?.split(",") ?? [];
+  const watchRaw = url.get("watch")?.split(",") ?? [];
+  const statusRaw = url.get("status")?.split(",") ?? [];
+  return {
+    tier: new Set(tierRaw.filter((t): t is 1 | 2 | 3 => (TIER_VALUES as readonly number[]).includes(t))),
+    moc: new Set(mocRaw),
+    watch: new Set(watchRaw.filter((w): w is "close" | "standard" | "passive" => (WATCH_VALUES as readonly string[]).includes(w))),
+    status: new Set(statusRaw.filter((s): s is "ga" | "preview" | "deprecated" | "eos" => (STATUS_VALUES as readonly string[]).includes(s))),
   };
-  const [filterState, setFilterState] = useState<FilterState>({
-    tier: new Set(initial.tier as (1 | 2 | 3)[]),
-    moc: new Set(initial.moc),
-    watch: new Set(initial.watch as any),
-    status: new Set(initial.status as any),
-  });
+}
+
+export default function CatalogClient({ products, allMocs }: Props) {
+  const [filterState, setFilterState] = useState<FilterState>(parseFilterFromUrl);
 
   const filtered = useMemo(() => {
     return products.filter((p) => {
@@ -45,14 +56,14 @@ export default function CatalogClient({ products, allMocs }: Props) {
 
   return (
     <>
-      <FilterBar allMocs={allMocs} initial={initial} onChange={setFilterState} />
+      <FilterBar initial={filterState} onChange={setFilterState} allMocs={allMocs} />
       <div className="text-sm text-gray-500 mt-2">{filtered.length} von {products.length} Produkten</div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
         {filtered.map((p) => (
           <a
             key={p.slug}
             href={`/products/${p.slug}`}
-            className="block bg-white border border-gray-200 rounded-lg p-4 hover:shadow-lg hover:border-blue-300 hover:no-underline transition no-underline"
+            className="block bg-white border border-gray-200 rounded-lg p-4 hover:shadow-lg hover:border-blue-300 transition no-underline"
           >
             <div className="flex items-center gap-2 mb-2">
               <span className={`badge badge-tier-${p.tier}`}>T{p.tier}</span>
