@@ -293,3 +293,4 @@ Wenn das Team adoptiert und Christoph bereit ist, IT zu fragen:
 ## Changelog
 
 - 2026-05-03: Initial-Spec aus Brainstorming-Session.
+- 2026-05-03: Implementation komplett — siehe Tasks 1-13. Lokale Acceptance §7 grün (automatische Checks). Cloudflare-Deployment (Task 11-12) vom User durchgeführt.
