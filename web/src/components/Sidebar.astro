@@ -6,9 +6,9 @@ interface Props {
   related: Product[];
 }
 const { product, related } = Astro.props;
-const { data, tier, displayName } = product;
+const { data, tier } = product;
 ---
-<aside class="w-72 flex-shrink-0 p-4 bg-white border-l border-gray-200">
+<aside class="w-full md:w-72 flex-shrink-0 p-4 bg-white border-t md:border-t-0 md:border-l border-gray-200">
   <h3 class="text-base font-semibold mt-0">Metadaten</h3>
   <dl class="text-sm space-y-2">
     <div>
