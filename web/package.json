@@ -15,6 +15,10 @@
     "@astrojs/react": "^4",
     "@astrojs/tailwind": "^6",
     "astro": "^5",
+    "d3": "^7.9.0",
+    "d3-drag": "^3.0.0",
+    "d3-force": "^3.0.0",
+    "d3-selection": "^3.0.0",
     "js-yaml": "^4.1.1",
     "react": "^19",
     "react-dom": "^19",
@@ -23,6 +27,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.19",
+    "@types/d3": "^7.4.3",
     "@types/js-yaml": "^4.0.9",
     "@types/mdast": "^4.0.4",
     "@types/react": "^19.2.14",
