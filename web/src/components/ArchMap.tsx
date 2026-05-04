@@ -8,6 +8,7 @@ import type {
 
 interface Props {
   graph: ArchitectureGraph;
+  visibleSlugs: Set<string>;
 }
 
 const SVG_WIDTH = 1400;
@@ -43,7 +44,7 @@ interface HoveredEdge {
   y: number;
 }
 
-export default function ArchMap({ graph }: Props) {
+export default function ArchMap({ graph, visibleSlugs }: Props) {
   const svgRef = useRef<SVGSVGElement>(null);
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
   const [hoveredEdge, setHoveredEdge] = useState<HoveredEdge | null>(null);
@@ -161,7 +162,11 @@ export default function ArchMap({ graph }: Props) {
       .attr("data-slug", (d) => d.slug)
       .attr("cursor", "pointer")
       .on("mouseenter", (_event, d) => setHoveredNode(d.slug))
-      .on("mouseleave", () => setHoveredNode(null));
+      .on("mouseleave", () => setHoveredNode(null))
+      .on("click", (_event, d) => {
+        // CRITICAL: use urlSlug (not slug) — matches Sub-Project A's /products/<slug> routes
+        window.location.href = `/products/${d.urlSlug}`;
+      });
 
     nodeSel.append("circle")
       .attr("r", (d) => nodeRadius(d.tier))
@@ -251,16 +256,34 @@ export default function ArchMap({ graph }: Props) {
       .attr("stroke-width", 4);
   }, [hoveredNode]);
 
+  // === Effect 3: React to visibleSlugs (filter) changes ===
+  useEffect(() => {
+    if (!svgRef.current) return;
+    const svg = d3.select(svgRef.current);
+
+    svg.selectAll<SVGGElement, SimNode>(".node")
+      .classed("filtered-out", (d) => !visibleSlugs.has(d.slug));
+
+    svg.selectAll<SVGLineElement, SimLink>(".links line")
+      .classed("filtered-out", (d) => {
+        const s = (d.source as SimNode).slug;
+        const t = (d.target as SimNode).slug;
+        return !visibleSlugs.has(s) || !visibleSlugs.has(t);
+      });
+  }, [visibleSlugs]);
+
   return (
     <div className="w-full overflow-x-auto relative">
+      <style>{`
+        .filtered-out { opacity: 0.05 !important; pointer-events: none; }
+      `}</style>
       <svg
         ref={svgRef}
         viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}
         className="w-full"
         style={{ minHeight: "calc(100vh - 120px)", background: "#fafafa" }}
       />
-
-      {/* Edge Tooltip */}
+      {/* tooltip block (existing, unchanged) */}
       {hoveredEdge && (
         <div
           className="absolute pointer-events-none bg-gray-900 text-white p-3 rounded-md shadow-2xl"
