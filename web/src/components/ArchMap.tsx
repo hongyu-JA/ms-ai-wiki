@@ -20,13 +20,17 @@ const EDGE_STYLES: Record<EdgeType, { color: string; dash: string; markerId: str
   "grounds-on":     { color: "#065f46", dash: "0",     markerId: "arr-ground" },
   "secured-by":     { color: "#991b1b", dash: "4,2",   markerId: "arr-sec" },
   "calls":          { color: "#7c2d12", dash: "0",     markerId: "arr-call" },
-  "integrated-via": { color: "#0891b2", dash: "1,4",   markerId: "arr-mcp" },
+  "integrated-via": { color: "#0891b2", dash: "1,3",   markerId: "arr-mcp" },
 };
 
 function nodeRadius(tier: 1 | 2 | 3): number {
   return tier === 1 ? 14 : tier === 2 ? 11 : 9;
 }
 
+// SimNode extends ArchNode with D3 simulation fields (x, y, vx, vy, fx, fy).
+// Important: ArchNode has TWO slug fields:
+//   - slug: YAML key — used for edge source/target matching (forceLink id)
+//   - urlSlug: URL path — used for /products/<urlSlug> navigation in Task 7
 interface SimNode extends d3.SimulationNodeDatum, ArchNode {}
 interface SimLink extends d3.SimulationLinkDatum<SimNode> {
   type: EdgeType;
