@@ -125,14 +125,26 @@ export default function ArchMap({ graph }: Props) {
       .attr("marker-end", (d) => `url(#${EDGE_STYLES[d.type].markerId})`)
       .attr("opacity", 0.7)
       .style("cursor", "pointer")
-      .on("mouseenter", function (event, d) {
-        const [mx, my] = d3.pointer(event, svgRef.current);
-        setHoveredEdge({ edge: d, x: mx, y: my });
+      .on("mouseenter", function (event: MouseEvent, d) {
+        const container = svgRef.current?.parentElement;
+        if (!container) return;
+        const rect = container.getBoundingClientRect();
+        setHoveredEdge({
+          edge: d,
+          x: event.clientX - rect.left,
+          y: event.clientY - rect.top,
+        });
         d3.select(this).attr("stroke-width", 3);
       })
-      .on("mousemove", function (event, d) {
-        const [mx, my] = d3.pointer(event, svgRef.current);
-        setHoveredEdge({ edge: d, x: mx, y: my });
+      .on("mousemove", function (event: MouseEvent, d) {
+        const container = svgRef.current?.parentElement;
+        if (!container) return;
+        const rect = container.getBoundingClientRect();
+        setHoveredEdge({
+          edge: d,
+          x: event.clientX - rect.left,
+          y: event.clientY - rect.top,
+        });
       })
       .on("mouseleave", function () {
         setHoveredEdge(null);
@@ -253,8 +265,8 @@ export default function ArchMap({ graph }: Props) {
         <div
           className="absolute pointer-events-none bg-gray-900 text-white p-3 rounded-md shadow-2xl"
           style={{
-            left: `${(hoveredEdge.x / SVG_WIDTH) * 100}%`,
-            top: `${(hoveredEdge.y / SVG_HEIGHT) * 100}%`,
+            left: `${hoveredEdge.x}px`,
+            top: `${hoveredEdge.y}px`,
             transform: "translate(-50%, -110%)",
             maxWidth: "280px",
             zIndex: 50,
