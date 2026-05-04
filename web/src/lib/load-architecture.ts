@@ -84,7 +84,9 @@ export async function loadArchitecture(): Promise<ArchitectureGraph> {
     }
   }
 
-  const productBySlug = new Map(products.map((p) => [p.slug, p]));
+  // Primär per yamlSlug (kanonisch aus .automation/products.yaml) indexieren,
+  // damit architecture-layers.yaml Slugs direkt matchen.
+  const productBySlug = new Map(products.map((p) => [p.yamlSlug, p]));
 
   const nodes: ArchNode[] = [];
   for (const layer of layers) {
@@ -95,7 +97,8 @@ export async function loadArchitecture(): Promise<ArchitectureGraph> {
         continue;
       }
       nodes.push({
-        slug: product.slug,
+        // `slug` hier = YAML-Slug (aus layer.members / yamlSlug), damit Edges matchen.
+        slug: product.yamlSlug,
         displayName: product.displayName,
         layer: layer.id,
         layerOrder: layer.order,
