@@ -29,27 +29,21 @@ function nodeRadius(tier: 1 | 2 | 3): number {
 }
 
 // SimNode extends ArchNode with D3 simulation fields (x, y, vx, vy, fx, fy).
-// Important: ArchNode has TWO slug fields:
+// ArchNode has TWO slug fields:
 //   - slug: YAML key — used for edge source/target matching (forceLink id)
-//   - urlSlug: URL path — used for /products/<urlSlug> navigation in Task 7
+//   - urlSlug: URL path — used for /products/<urlSlug> navigation
 interface SimNode extends d3.SimulationNodeDatum, ArchNode {}
 interface SimLink extends d3.SimulationLinkDatum<SimNode> {
   type: EdgeType;
   description: string;
 }
 
-interface HoveredEdge {
-  edge: SimLink;
-  x: number;
-  y: number;
-}
-
 export default function ArchMap({ graph, visibleSlugs }: Props) {
   const svgRef = useRef<SVGSVGElement>(null);
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
-  const [hoveredEdge, setHoveredEdge] = useState<HoveredEdge | null>(null);
+  const [hoveredEdge, setHoveredEdge] = useState<SimLink | null>(null);
 
-  // === Effect 1: Build the visualization (runs once on mount, re-builds on graph change) ===
+  // === Effect 1: Build the visualization ===
   useEffect(() => {
     if (!svgRef.current) return;
     const svg = d3.select(svgRef.current);
@@ -58,7 +52,7 @@ export default function ArchMap({ graph, visibleSlugs }: Props) {
     const { layers, nodes: rawNodes, edges } = graph;
     const layerById = new Map(layers.map((l) => [l.id, l]));
 
-    // === Defs: arrow markers ===
+    // Arrow markers
     const defs = svg.append("defs");
     Object.values(EDGE_STYLES).forEach((s) => {
       defs.append("marker")
@@ -74,7 +68,7 @@ export default function ArchMap({ graph, visibleSlugs }: Props) {
         .attr("fill", s.color);
     });
 
-    // === Layer bands ===
+    // Layer bands
     const layerG = svg.append("g").attr("class", "layers");
     layers.forEach((layer) => {
       layerG.append("rect")
@@ -100,7 +94,7 @@ export default function ArchMap({ graph, visibleSlugs }: Props) {
         .text(layer.description);
     });
 
-    // === Sim data ===
+    // Sim data
     const simNodes: SimNode[] = rawNodes.map((n) => ({
       ...n,
       x: SVG_WIDTH / 2,
@@ -114,7 +108,7 @@ export default function ArchMap({ graph, visibleSlugs }: Props) {
       description: e.description,
     }));
 
-    // === Edges ===
+    // Edges
     const linkG = svg.append("g").attr("class", "links");
     const linkSel = linkG.selectAll<SVGLineElement, SimLink>("line")
       .data(simLinks)
@@ -126,33 +120,16 @@ export default function ArchMap({ graph, visibleSlugs }: Props) {
       .attr("marker-end", (d) => `url(#${EDGE_STYLES[d.type].markerId})`)
       .attr("opacity", 0.7)
       .style("cursor", "pointer")
-      .on("mouseenter", function (event: MouseEvent, d) {
-        const container = svgRef.current?.parentElement;
-        if (!container) return;
-        const rect = container.getBoundingClientRect();
-        setHoveredEdge({
-          edge: d,
-          x: event.clientX - rect.left,
-          y: event.clientY - rect.top,
-        });
+      .on("mouseenter", function (_event, d) {
+        setHoveredEdge(d);
         d3.select(this).attr("stroke-width", 3);
-      })
-      .on("mousemove", function (event: MouseEvent, d) {
-        const container = svgRef.current?.parentElement;
-        if (!container) return;
-        const rect = container.getBoundingClientRect();
-        setHoveredEdge({
-          edge: d,
-          x: event.clientX - rect.left,
-          y: event.clientY - rect.top,
-        });
       })
       .on("mouseleave", function () {
         setHoveredEdge(null);
         d3.select(this).attr("stroke-width", 1.5);
       });
 
-    // === Nodes ===
+    // Nodes
     const nodeG = svg.append("g").attr("class", "nodes");
     const nodeSel = nodeG.selectAll<SVGGElement, SimNode>("g")
       .data(simNodes)
@@ -164,7 +141,7 @@ export default function ArchMap({ graph, visibleSlugs }: Props) {
       .on("mouseenter", (_event, d) => setHoveredNode(d.slug))
       .on("mouseleave", () => setHoveredNode(null))
       .on("click", (_event, d) => {
-        // CRITICAL: use urlSlug (not slug) — matches Sub-Project A's /products/<slug> routes
+        // Use urlSlug (NOT slug) — Sub-Project A's /products/<slug> routes
         window.location.href = `/products/${d.urlSlug}`;
       });
 
@@ -183,20 +160,20 @@ export default function ArchMap({ graph, visibleSlugs }: Props) {
       .attr("font-weight", "500")
       .text((d) => d.displayName);
 
-    // === Force simulation ===
+    // Force simulation — wider spacing
     const simulation = d3.forceSimulation<SimNode>(simNodes)
       .force("y", d3.forceY<SimNode>((d) => (d.layerOrder - 0.5) * LAYER_HEIGHT).strength(1))
       .force("x", d3.forceX<SimNode>(SVG_WIDTH / 2).strength(0.05))
-      .force("collide", d3.forceCollide<SimNode>((d) => nodeRadius(d.tier) + 6))
+      // Wider collision radius — was nodeRadius+6, now nodeRadius+14 for visual breathing room
+      .force("collide", d3.forceCollide<SimNode>((d) => nodeRadius(d.tier) + 14))
+      // Link distance — was 120, now 180 for clearer edge paths
       .force("link", d3.forceLink<SimNode, SimLink>(simLinks)
         .id((d) => d.slug)
-        .distance(120)
+        .distance(180)
         .strength(0.3))
       .alpha(1)
       .alphaDecay(0.05)
       .on("tick", () => {
-        // After simulation, source/target are guaranteed SimNode objects
-        // (simLinks was constructed with direct SimNode references, not strings).
         linkSel
           .attr("x1", (d) => (d.source as SimNode).x!)
           .attr("y1", (d) => (d.source as SimNode).y!)
@@ -213,20 +190,18 @@ export default function ArchMap({ graph, visibleSlugs }: Props) {
     };
   }, [graph]);
 
-  // === Effect 2: React to hoveredNode changes — highlight connected, dim others ===
+  // === Effect 2: Node hover highlight ===
   useEffect(() => {
     if (!svgRef.current) return;
     const svg = d3.select(svgRef.current);
 
     if (!hoveredNode) {
-      // Reset to default state
       svg.selectAll<SVGGElement, SimNode>(".node").attr("opacity", 1);
       svg.selectAll<SVGLineElement, SimLink>(".links line").attr("opacity", 0.7).attr("stroke-width", 1.5);
       svg.selectAll<SVGCircleElement, SimNode>(".node circle").attr("stroke", "white").attr("stroke-width", 2);
       return;
     }
 
-    // Find connected nodes + edges
     const connectedNodeSlugs = new Set<string>([hoveredNode]);
     const connectedEdges = new Set<SimLink>();
 
@@ -240,7 +215,6 @@ export default function ArchMap({ graph, visibleSlugs }: Props) {
       }
     });
 
-    // Apply dimming
     svg.selectAll<SVGGElement, SimNode>(".node")
       .attr("opacity", (d) => (connectedNodeSlugs.has(d.slug) ? 1 : 0.15));
 
@@ -248,7 +222,6 @@ export default function ArchMap({ graph, visibleSlugs }: Props) {
       .attr("opacity", (d) => (connectedEdges.has(d) ? 1 : 0.05))
       .attr("stroke-width", (d) => (connectedEdges.has(d) ? 2.5 : 1.5));
 
-    // Yellow halo on hovered node
     svg.selectAll<SVGGElement, SimNode>(".node")
       .filter((d) => d.slug === hoveredNode)
       .select("circle")
@@ -256,10 +229,8 @@ export default function ArchMap({ graph, visibleSlugs }: Props) {
       .attr("stroke-width", 4);
   }, [hoveredNode]);
 
-  // === Effect 3: React to visibleSlugs (filter) changes ===
+  // === Effect 3: Filter dimming ===
   useEffect(() => {
-    // Clear any stale hover state — if user hovered a node and then filtered
-    // it out, the highlight from Effect 2 would persist incorrectly.
     setHoveredNode(null);
     if (!svgRef.current) return;
     const svg = d3.select(svgRef.current);
@@ -275,40 +246,117 @@ export default function ArchMap({ graph, visibleSlugs }: Props) {
       });
   }, [visibleSlugs]);
 
+  // === Derive panel content from hover state ===
+  const hoveredNodeData = hoveredNode
+    ? graph.nodes.find((n) => n.slug === hoveredNode)
+    : null;
+  const hoveredNodeLayer = hoveredNodeData
+    ? graph.layers.find((l) => l.id === hoveredNodeData.layer)
+    : null;
+
   return (
-    <div className="w-full overflow-x-auto relative">
+    <div className="flex flex-col lg:flex-row gap-4">
       <style>{`
         .filtered-out { opacity: 0.05 !important; pointer-events: none; }
       `}</style>
-      <svg
-        ref={svgRef}
-        viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}
-        className="w-full"
-        style={{ minHeight: "calc(100vh - 120px)", background: "#fafafa" }}
-      />
-      {/* tooltip block (existing, unchanged) */}
-      {hoveredEdge && (
-        <div
-          className="absolute pointer-events-none bg-gray-900 text-white p-3 rounded-md shadow-2xl"
-          style={{
-            left: `${hoveredEdge.x}px`,
-            top: `${hoveredEdge.y}px`,
-            transform: "translate(-50%, -110%)",
-            maxWidth: "280px",
-            zIndex: 50,
-          }}
-        >
-          <div
-            className="text-xs uppercase font-bold tracking-wide"
-            style={{ color: EDGE_STYLES[hoveredEdge.edge.type].color }}
-          >
-            {EDGE_STYLES[hoveredEdge.edge.type].label}
-          </div>
-          <div className="text-sm mt-1 leading-relaxed whitespace-pre-line">
-            {hoveredEdge.edge.description.trim()}
-          </div>
+
+      {/* SVG area — 70% width on desktop */}
+      <div className="flex-[7] overflow-x-auto bg-gray-50 rounded-lg">
+        <svg
+          ref={svgRef}
+          viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}
+          className="w-full"
+          style={{ minHeight: "calc(100vh - 220px)" }}
+        />
+      </div>
+
+      {/* Right Panel — 30% width on desktop, sticky-top so it stays in view */}
+      <aside className="flex-[3] lg:max-w-md">
+        <div className="sticky top-24 bg-white border border-gray-200 rounded-lg shadow-sm p-5">
+          {hoveredEdge ? (
+            <EdgePanel edge={hoveredEdge} />
+          ) : hoveredNodeData && hoveredNodeLayer ? (
+            <NodePanel node={hoveredNodeData} layerColor={hoveredNodeLayer.color_fg} layerName={hoveredNodeLayer.name} />
+          ) : (
+            <IdlePanel />
+          )}
         </div>
-      )}
+      </aside>
+    </div>
+  );
+}
+
+// === Panel sub-components ===
+
+function IdlePanel() {
+  return (
+    <div className="text-center py-8">
+      <div className="text-4xl mb-3">🖱️</div>
+      <p className="text-gray-700 font-medium">Hover über einen Knoten oder eine Kante</p>
+      <p className="text-gray-500 text-sm mt-2 leading-relaxed">
+        Details werden hier angezeigt. Klick auf einen Knoten öffnet die vollständige Note.
+      </p>
+    </div>
+  );
+}
+
+function NodePanel({
+  node,
+  layerColor,
+  layerName,
+}: {
+  node: ArchNode;
+  layerColor: string;
+  layerName: string;
+}) {
+  const tierBadgeClass = `badge-tier-${node.tier}`;
+  const watchBadgeClass = `badge-watch-${node.watch}`;
+  return (
+    <div>
+      <h3 className="text-lg font-semibold text-gray-900 mt-0 mb-1">{node.displayName}</h3>
+      <p className="text-xs uppercase tracking-wide font-bold mb-4" style={{ color: layerColor }}>
+        {layerName}
+      </p>
+      <dl className="space-y-3 text-sm">
+        <div className="flex gap-2 items-center">
+          <span className={`badge ${tierBadgeClass}`}>T{node.tier}</span>
+          <span className={`badge ${watchBadgeClass}`}>{node.watch}</span>
+          {node.status === "deprecated" && <span className="badge badge-status-deprecated">deprecated</span>}
+          {node.status === "eos" && <span className="badge badge-status-eos">EOS</span>}
+        </div>
+        <div>
+          <dt className="text-xs uppercase text-gray-500 mb-0.5">Status</dt>
+          <dd className="text-gray-900">{node.status}</dd>
+        </div>
+      </dl>
+      <button
+        onClick={() => (window.location.href = `/products/${node.urlSlug}`)}
+        className="mt-5 w-full px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition"
+      >
+        → Detail-Page öffnen
+      </button>
+    </div>
+  );
+}
+
+function EdgePanel({ edge }: { edge: SimLink }) {
+  const style = EDGE_STYLES[edge.type];
+  const sourceName = (edge.source as SimNode).displayName;
+  const targetName = (edge.target as SimNode).displayName;
+  return (
+    <div>
+      <div
+        className="inline-block text-xs uppercase font-bold tracking-wide px-2 py-1 rounded mb-3"
+        style={{ background: style.color, color: "white" }}
+      >
+        {style.label}
+      </div>
+      <p className="text-sm text-gray-900 font-semibold mt-0 mb-1">
+        {sourceName} <span className="text-gray-400">→</span> {targetName}
+      </p>
+      <div className="text-sm text-gray-700 mt-3 leading-relaxed whitespace-pre-line">
+        {edge.description.trim()}
+      </div>
     </div>
   );
 }
