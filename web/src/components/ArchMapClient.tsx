@@ -25,7 +25,7 @@ export default function ArchMapClient({ graph, products, allMocs }: Props) {
       }
     }
     return result;
-  }, [filtered, graph.nodes]);
+  }, [filtered, graph]);
 
   return (
     <>

@@ -258,6 +258,9 @@ export default function ArchMap({ graph, visibleSlugs }: Props) {
 
   // === Effect 3: React to visibleSlugs (filter) changes ===
   useEffect(() => {
+    // Clear any stale hover state — if user hovered a node and then filtered
+    // it out, the highlight from Effect 2 would persist incorrectly.
+    setHoveredNode(null);
     if (!svgRef.current) return;
     const svg = d3.select(svgRef.current);
 
