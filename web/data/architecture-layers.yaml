@@ -1,0 +1,100 @@
+# Architecture Layer Taxonomy für die /architecture Map.
+# 7 horizontal gestapelte Layer (Surface oben → Foundation unten).
+# Tools werden im jeweiligen Layer-Band visualisiert.
+# Slugs müssen exakt mit `slug` aus .automation/products.yaml übereinstimmen.
+
+layers:
+  - id: surface
+    name: SURFACE
+    description: User-Touchpoint
+    order: 1
+    color_bg: "#fef3c7"
+    color_fg: "#0066cc"
+    members:
+      - microsoft-365-copilot
+
+  - id: agent-building
+    name: AGENT BUILDING
+    description: Logic Frameworks
+    order: 2
+    color_bg: "#dbeafe"
+    color_fg: "#2563eb"
+    members:
+      - microsoft-agent-framework
+      - copilot-studio
+      - m365-agents-sdk
+      - teams-sdk
+      - power-automate
+      - bot-framework
+      - semantic-kernel
+      - autogen
+
+  - id: hosting
+    name: HOSTING
+    description: Runtime / Compute / Gateway
+    order: 3
+    color_bg: "#f3e8ff"
+    color_fg: "#7c3aed"
+    members:
+      - foundry-agent-service
+      - azure-functions
+      - azure-container-apps
+      - apim-ai-gateway
+      - logic-apps
+
+  - id: knowledge
+    name: KNOWLEDGE
+    description: Grounding-Datenquellen
+    order: 4
+    color_bg: "#d1fae5"
+    color_fg: "#059669"
+    members:
+      - azure-ai-search
+      - foundry-iq
+      - microsoft-graph
+      - copilot-connectors
+      - dataverse
+      - dataverse-mcp-server
+      - fabric-data-agents
+      - cosmos-db-for-ai
+
+  - id: content-processing
+    name: CONTENT PROCESSING
+    description: Spezialisierte AI-Services
+    order: 5
+    color_bg: "#cffafe"
+    color_fg: "#0891b2"
+    members:
+      - azure-ai-document-intelligence
+      - azure-ai-content-understanding
+
+  - id: governance
+    name: GOVERNANCE & IDENTITY
+    description: Trust / Compliance / Sec
+    order: 6
+    color_bg: "#fee2e2"
+    color_fg: "#dc2626"
+    members:
+      - entra-agent-id
+      - agent-365
+      - microsoft-entra-suite
+      - microsoft-purview
+      - purview-dspm
+      - purview-data-map
+      - defender-for-ai
+      - azure-ai-content-safety
+
+  - id: foundation
+    name: FOUNDATION
+    description: Modelle + Protokolle + Plattform-Infra
+    order: 7
+    color_bg: "#fed7aa"
+    color_fg: "#9a3412"
+    members:
+      - microsoft-foundry
+      - foundry-models
+      - foundry-control-plane
+      - foundry-sdks
+      - foundry-local
+      - model-context-protocol
+      - azure-openai-responses-api

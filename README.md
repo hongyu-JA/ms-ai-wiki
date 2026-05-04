@@ -195,6 +195,23 @@ Static-Site Browse/Filter-UI für die KB. 45 Produkt-Notes als Karten + Tabelle,
 
 ---
 
+## Architecture Map (Sub-Project B)
+
+Interaktive Architektur-Karte mit 7 Layern, ~39 Tools und ~30 typisierten
+Kollaborations-Edges. Hover für Upstream/Downstream-Highlight + Edge-Tooltips
+mit Beschreibung. Klick auf Knoten → Detail-Page (Sub-Project A).
+
+- **Code:** [`web/src/components/ArchMap.tsx`](web/src/components/ArchMap.tsx) + [`web/data/`](web/data/)
+- **Live:** `/architecture` route (3rd tab im Header)
+- **Spec:** [docs/superpowers/specs/2026-05-04-architecture-map-design.md](docs/superpowers/specs/2026-05-04-architecture-map-design.md)
+- **Plan:** [docs/superpowers/plans/2026-05-04-architecture-map.md](docs/superpowers/plans/2026-05-04-architecture-map.md)
+
+Sub-Project B baut auf A's Filter-Hook (`useCatalogFilters`) und Header-
+Komponente auf — Filter-State wird zwischen den 3 Views (Grid/Table/Architecture)
+preserved.
+
+---
+
 ## Mapping auf die Deliverables aus `Arbeitsauftrag Microsoft AI Research.md`
 
 | Deliverable                                     | Status im Skeleton                                                                           |

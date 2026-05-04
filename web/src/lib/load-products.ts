@@ -15,6 +15,9 @@ interface ProductYaml {
 
 export type Product = CollectionEntry<"products"> & {
   slug: string;
+  /** Kanonische YAML-Slug aus .automation/products.yaml — dient als Lookup-Key
+   *  für architecture-layers.yaml und collaborations.yaml. */
+  yamlSlug: string;
   isDeprecated: boolean;
   primaryHomeMoc: string | null;
   tier: 1 | 2 | 3;
@@ -61,6 +64,7 @@ export async function loadProducts(): Promise<Product[]> {
       ? yamlEntry.note.replace(/\.md$/i, "").replace(/^deprecated\//, "")
       : slugRaw.replace(/^deprecated\//, "");
 
-    return { ...entry, slug, isDeprecated, primaryHomeMoc, tier, tagline, displayName };
+    const yamlSlug = yamlEntry?.slug ?? slug;
+    return { ...entry, slug, yamlSlug, isDeprecated, primaryHomeMoc, tier, tagline, displayName };
   });
 }

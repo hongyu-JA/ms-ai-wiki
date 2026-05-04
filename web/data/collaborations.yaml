@@ -1,0 +1,247 @@
+# Typisierte Kollaborations-Edges für die Architecture Map.
+# Hand-kuratiert von Hongyu basierend auf KB-Wissen.
+# Edge-Typ wird via Linien-Farbe + Marker visualisiert (siehe ArchMap.tsx).
+#
+# Slugs müssen in architecture-layers.yaml als member existieren.
+# Edges deren source oder target nicht in der Map ist werden mit WARN
+# übersprungen (siehe load-architecture.ts).
+
+collaborations:
+  # === MAF (microsoft-agent-framework) als Hub ===
+  - source: microsoft-agent-framework
+    target: foundry-models
+    type: calls
+    description: |
+      MAF-Agent ruft Foundry Models für LLM-Inference auf. Modell-Wahl je
+      Workload (GPT-4o für reasoning, Phi-4 für cost). PAYG vs PTU pricing
+      depending on volume. Multi-Model-Fallback via APIM.
+
+  - source: microsoft-agent-framework
+    target: azure-openai-responses-api
+    type: calls
+    description: |
+      Direkt-Zugriff auf Azure OpenAI's neue Responses API als Alternative
+      zur älteren Chat Completions. Stateful conversation handling auf
+      der API-Side, nicht im Agent-Code.
+
+  - source: microsoft-agent-framework
+    target: azure-ai-search
+    type: grounds-on
+    description: |
+      MAF-Agent nutzt das Azure AI Search SDK für Vector-/Hybrid-Retrieval.
+      CH-North verfügbar. Doc-level security via Entra. Agentic Retrieval
+      (GA 2025) gibt +40% relevance vs traditional vector search.
+
+  - source: microsoft-agent-framework
+    target: foundry-iq
+    type: grounds-on
+    description: |
+      Foundry IQ als verwalteter Knowledge-Wrapper auf Azure AI Search —
+      convenience layer für MAF agents. Weniger Konfig als direct Search,
+      automatische Re-Indexierung.
+
+  - source: microsoft-agent-framework
+    target: foundry-agent-service
+    type: hosted-on
+    description: |
+      Managed Hosting für MAF-Agents in Azure. Aktuell nur North Central US
+      verfügbar — DSGVO-Implication für EU-Kunden klären. Alternative für
+      EU: self-host on Azure Functions oder Container Apps.
+
+  - source: microsoft-agent-framework
+    target: azure-functions
+    type: hosted-on
+    description: |
+      Self-Hosting für MAF-Agents als Functions. Flex Consumption für
+      scale-to-zero. MCP Binding (GA Jan 2026) ermöglicht das pattern,
+      eine Function als MCP-Tool für andere Agents zu exposen.
+
+  - source: microsoft-agent-framework
+    target: azure-container-apps
+    type: hosted-on
+    description: |
+      Container-basiertes Hosting für MAF agents — bevorzugt für
+      lang-laufende Agents (>10 min). Dapr-Integration für state
+      management und service-to-service calls.
+
+  - source: microsoft-agent-framework
+    target: entra-agent-id
+    type: secured-by
+    description: |
+      Jeder MAF-Agent bekommt eine eigene Entra Agent ID. Voraussetzung
+      für Conditional Access auf Agents. Sponsor-Konzept als
+      DSGVO-Workaround für nicht-personenbezogene Identitäten.
+
+  - source: microsoft-agent-framework
+    target: dataverse-mcp-server
+    type: integrated-via
+    description: |
+      MAF agent zugreift auf Dataverse-Tabellen via MCP-Wrapper.
+      Dataverse-Tabellen werden als MCP-Tools exposed. Kein direkter
+      Dataverse-API-Call nötig — Standard-MCP-Client reicht.
+
+  # === Copilot Studio ===
+  - source: copilot-studio
+    target: microsoft-agent-framework
+    type: uses
+    description: |
+      Copilot Studio's "Custom Engine Agent" Pfad delegiert an MAF
+      für Code-first-Logik. Hybrid: Studio für Conversational UI +
+      MAF für Tool-Use und Multi-Agent-Orchestrierung.
+
+  - source: copilot-studio
+    target: microsoft-graph
+    type: grounds-on
+    description: |
+      Standard-Datenquelle für M365-zentrische Agents — emails, Teams
+      chats, SharePoint docs, OneDrive files. Built-in, kein Connector nötig.
+
+  - source: copilot-studio
+    target: copilot-connectors
+    type: grounds-on
+    description: |
+      Custom-Datenquellen via Graph Connectors integrieren. >100 OOB
+      Connectors verfügbar (ServiceNow, Jira, Confluence, etc.).
+      Custom-Schema-Snippet möglich.
+
+  - source: copilot-studio
+    target: dataverse
+    type: grounds-on
+    description: |
+      Strukturierte Knowledge in Dataverse-Tabellen. Limit: 15 Tables
+      pro Source, 500 Knowledge Objects insgesamt. Power-Platform-native.
+
+  - source: copilot-studio
+    target: foundry-models
+    type: calls
+    description: |
+      Copilot Studio nutzt Foundry Models als Backend. Inkludiert
+      neue Anthropic-Integration (Claude in EU/EFTA default-OFF
+      seit 2026-04-17 — DPIA aktualisieren vor Enable).
+
+  - source: copilot-studio
+    target: entra-agent-id
+    type: secured-by
+    description: |
+      Copilot Studio Agents bekommen Entra Agent IDs für Governance.
+      Conditional Access kann auf einzelne Agents angewendet werden.
+
+  # === M365 Copilot (Surface) ===
+  - source: microsoft-365-copilot
+    target: copilot-studio
+    type: uses
+    description: |
+      User trifft AI über M365 Copilot Chat. Custom Agents (in Studio
+      gebaut) erscheinen im selben UI als zusätzliche Personas.
+
+  - source: microsoft-365-copilot
+    target: microsoft-agent-framework
+    type: uses
+    description: |
+      Declarative + Custom Engine Agents in Copilot Chat. MAF stellt
+      die Logic-Schicht bei Code-first-Pfaden.
+
+  - source: microsoft-365-copilot
+    target: microsoft-graph
+    type: grounds-on
+    description: |
+      Built-in M365 Daten-Grounding — kein zusätzlicher Connector nötig.
+      Zugriff auf user-eigene M365-Daten via delegated permissions.
+
+  - source: microsoft-365-copilot
+    target: copilot-connectors
+    type: grounds-on
+    description: |
+      External-Daten-Grounding via Connectors. Quota: 50 Mio Items
+      pro Tenant. ACL-basierte Security Trimming auf Item-Level.
+
+  # === M365 Agents SDK ===
+  - source: m365-agents-sdk
+    target: azure-functions
+    type: hosted-on
+    description: |
+      Standard-Hosting für M365 Agents SDK Apps. Flex Consumption
+      empfohlen für scale-to-zero. Activity-Protocol bleibt kompatibel
+      mit Bot Framework Legacy-Code.
+
+  - source: m365-agents-sdk
+    target: azure-container-apps
+    type: hosted-on
+    description: |
+      Alternative für stateful agents oder hohe Anforderungen an
+      lang-laufende Sessions.
+
+  - source: m365-agents-sdk
+    target: entra-agent-id
+    type: secured-by
+    description: |
+      Pflicht für Agents im M365-Ökosystem. Entra Agent ID identifiziert
+      den Agent gegenüber Graph und anderen M365-Services.
+
+  # === Foundry IQ + Search Symbiose ===
+  - source: foundry-iq
+    target: azure-ai-search
+    type: calls
+    description: |
+      Foundry IQ ist ein Wrapper auf Azure AI Search — IQ orchestriert
+      (Index-Management, automatische Re-Indexierung), Search liefert
+      die eigentliche Vector/Hybrid Retrieval.
+
+  # === Embeddings ===
+  - source: azure-ai-search
+    target: foundry-models
+    type: calls
+    description: |
+      Search verwendet Foundry Models für Embeddings (typisch
+      text-embedding-3-large für hohe Qualität, oder -small für Cost).
+
+  # === APIM AI Gateway ===
+  - source: apim-ai-gateway
+    target: foundry-models
+    type: calls
+    description: |
+      APIM proxied Foundry Models — Routing zwischen Modellen,
+      Rate-Limiting (azure-openai-token-limit Policy), Token-Cost-Tracking,
+      Fallback-Pattern bei Model-Outages.
+
+  # === MCP-Host Pattern ===
+  - source: foundry-agent-service
+    target: model-context-protocol
+    type: integrated-via
+    description: |
+      Foundry Agent Service ist MCP-Host — externe MCP-Tools werden
+      hier als Agent-Capabilities verfügbar. Standard-MCP-Wrapper-Pattern,
+      keine Custom-Integration pro Tool nötig.
+
+  # === Deprecation Migrations ===
+  - source: bot-framework
+    target: m365-agents-sdk
+    type: uses
+    description: |
+      MIGRATION (EOS 2025-12-31). Activity-Protocol bleibt kompatibel,
+      TeamsFx → Agents Toolkit umstellen. Channel-Mapping behalten.
+      Keine Custom-Adapter mehr nötig.
+
+  - source: semantic-kernel
+    target: microsoft-agent-framework
+    type: uses
+    description: |
+      KONSOLIDIERUNG. SK + AutoGen → MAF (GA 2026-04-07). API
+      weitgehend kompatibel. Kernel→Agent+Thread-Pattern. Planner
+      entfällt — durch Workflow-API ersetzt.
+
+  - source: autogen
+    target: microsoft-agent-framework
+    type: uses
+    description: |
+      KONSOLIDIERUNG. GroupChat-Pattern bleibt als RoundRobin/Sequential
+      preserved. AutoGen Studio (UI) ohne 1:1-Ersatz — nur Code-Migration.
+
+  # === Agent 365 Governance ===
+  - source: agent-365
+    target: microsoft-agent-framework
+    type: uses
+    description: |
+      Agent 365 ist die Control-Plane für Agent Governance — RBAC,
+      Audit-Logs, Sponsor-Konzept. Wraps MAF + Copilot Studio Agents
+      gleichermassen. GA 2026-05-01.

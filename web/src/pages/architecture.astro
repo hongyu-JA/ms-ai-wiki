@@ -1,0 +1,38 @@
+---
+import "../styles/global.css";
+import { loadArchitecture } from "../lib/load-architecture";
+import { loadProducts } from "../lib/load-products";
+import Header from "../components/Header.astro";
+import ArchMapClient from "../components/ArchMapClient";
+
+const graph = await loadArchitecture();
+const products = await loadProducts();
+const sorted = [...products].sort((a, b) => a.tier - b.tier || a.id.localeCompare(b.id));
+const allMocs = [...new Set(sorted.map((p) => p.primaryHomeMoc).filter(Boolean) as string[])].sort();
+const productData = sorted.map((p) => ({
+  slug: p.slug,
+  id: p.id,
+  displayName: p.displayName,
+  tier: p.tier,
+  tagline: p.tagline,
+  watch: (p.data.watch ?? "standard") as "close" | "standard" | "passive",
+  status: (p.data.status ?? "ga") as "ga" | "preview" | "deprecated" | "eos",
+  primaryHomeMoc: p.primaryHomeMoc,
+  isDeprecated: p.isDeprecated,
+  aliases: p.data.aliases ?? [],
+}));
+---
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MS AI Wiki — Architecture Map</title>
+  </head>
+  <body>
+    <Header current="architecture" subtitle="Architektur-Karte · Tool-Kollaboration" />
+    <main class="p-4">
+      <ArchMapClient client:load graph={graph} products={productData} allMocs={allMocs} />
+    </main>
+  </body>
+</html>
