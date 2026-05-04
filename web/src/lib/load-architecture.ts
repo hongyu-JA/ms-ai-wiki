@@ -1,0 +1,127 @@
+import yaml from "js-yaml";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+import { loadProducts } from "./load-products";
+
+export interface Layer {
+  id: string;
+  name: string;
+  description: string;
+  order: number;
+  color_bg: string;
+  color_fg: string;
+  members: string[];
+}
+
+export interface ArchNode {
+  slug: string;
+  displayName: string;
+  layer: string;
+  layerOrder: number;
+  tier: 1 | 2 | 3;
+  watch: "close" | "standard" | "passive";
+  status: "ga" | "preview" | "deprecated" | "eos";
+  isDeprecated: boolean;
+}
+
+export type EdgeType =
+  | "uses"
+  | "hosted-on"
+  | "grounds-on"
+  | "secured-by"
+  | "calls"
+  | "integrated-via";
+
+export interface ArchEdge {
+  source: string;
+  target: string;
+  type: EdgeType;
+  description: string;
+}
+
+export interface ArchitectureGraph {
+  layers: Layer[];
+  nodes: ArchNode[];
+  edges: ArchEdge[];
+}
+
+interface LayersFile {
+  layers: Layer[];
+}
+
+interface CollabsFile {
+  collaborations: ArchEdge[];
+}
+
+function readYaml<T>(relativePath: string): T {
+  const p = resolve(process.cwd(), relativePath);
+  return yaml.load(readFileSync(p, "utf8")) as T;
+}
+
+/**
+ * Liest architecture-layers.yaml + collaborations.yaml + merged mit
+ * loadProducts(). Liefert kompletten Graph für die /architecture Page.
+ *
+ * Validation:
+ * - Edges deren source/target nicht in der Layer-Map sind werden mit
+ *   WARN übersprungen (Side-band-Tools, deprecated, etc.)
+ * - Layer-Members deren Slug nicht in products.yaml ist werden mit
+ *   WARN protokolliert aber als Node trotzdem erzeugt (mit displayName=slug)
+ */
+export async function loadArchitecture(): Promise<ArchitectureGraph> {
+  const [products, layersFile, collabsFile] = await Promise.all([
+    loadProducts(),
+    Promise.resolve(readYaml<LayersFile>("data/architecture-layers.yaml")),
+    Promise.resolve(readYaml<CollabsFile>("data/collaborations.yaml")),
+  ]);
+
+  const layers = layersFile.layers.sort((a, b) => a.order - b.order);
+  const layerBySlug = new Map<string, Layer>();
+  for (const layer of layers) {
+    for (const m of layer.members) {
+      if (layerBySlug.has(m)) {
+        console.warn(`[arch] Slug ${m} appears in multiple layers — second win.`);
+      }
+      layerBySlug.set(m, layer);
+    }
+  }
+
+  const productBySlug = new Map(products.map((p) => [p.slug, p]));
+
+  const nodes: ArchNode[] = [];
+  for (const layer of layers) {
+    for (const slug of layer.members) {
+      const product = productBySlug.get(slug);
+      if (!product) {
+        console.warn(`[arch] Layer-member ${slug} nicht in products.yaml — skipped.`);
+        continue;
+      }
+      nodes.push({
+        slug: product.slug,
+        displayName: product.displayName,
+        layer: layer.id,
+        layerOrder: layer.order,
+        tier: product.tier,
+        watch: product.data.watch ?? "standard",
+        status: product.data.status ?? "ga",
+        isDeprecated: product.isDeprecated,
+      });
+    }
+  }
+
+  const slugSet = new Set(nodes.map((n) => n.slug));
+  const edges: ArchEdge[] = [];
+  for (const e of collabsFile.collaborations) {
+    if (!slugSet.has(e.source)) {
+      console.warn(`[arch] Edge skipped — unknown source: ${e.source}`);
+      continue;
+    }
+    if (!slugSet.has(e.target)) {
+      console.warn(`[arch] Edge skipped — unknown target: ${e.target}`);
+      continue;
+    }
+    edges.push(e);
+  }
+
+  return { layers, nodes, edges };
+}
