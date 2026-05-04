@@ -69,11 +69,9 @@ function readYaml<T>(relativePath: string): T {
  *   WARN protokolliert aber als Node trotzdem erzeugt (mit displayName=slug)
  */
 export async function loadArchitecture(): Promise<ArchitectureGraph> {
-  const [products, layersFile, collabsFile] = await Promise.all([
-    loadProducts(),
-    Promise.resolve(readYaml<LayersFile>("data/architecture-layers.yaml")),
-    Promise.resolve(readYaml<CollabsFile>("data/collaborations.yaml")),
-  ]);
+  const products = await loadProducts();
+  const layersFile = readYaml<LayersFile>("data/architecture-layers.yaml");
+  const collabsFile = readYaml<CollabsFile>("data/collaborations.yaml");
 
   const layers = layersFile.layers.sort((a, b) => a.order - b.order);
   const layerBySlug = new Map<string, Layer>();
@@ -103,7 +101,9 @@ export async function loadArchitecture(): Promise<ArchitectureGraph> {
         layerOrder: layer.order,
         tier: product.tier,
         watch: product.data.watch ?? "standard",
-        status: product.data.status ?? "ga",
+        // status is rarely set in product frontmatter; "ga" is a safe rendering default.
+      // Use isDeprecated for ground truth on deprecated tools (path-based, more reliable).
+      status: product.data.status ?? "ga",
         isDeprecated: product.isDeprecated,
       });
     }
