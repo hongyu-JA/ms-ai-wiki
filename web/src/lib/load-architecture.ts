@@ -14,7 +14,8 @@ export interface Layer {
 }
 
 export interface ArchNode {
-  slug: string;
+  slug: string;       // YAML slug — used for edge matching (source/target in ArchEdge)
+  urlSlug: string;    // URL slug — used for /products/<urlSlug> navigation in Sub-Project A
   displayName: string;
   layer: string;
   layerOrder: number;
@@ -45,10 +46,10 @@ export interface ArchitectureGraph {
   edges: ArchEdge[];
 }
 
+// File-private interfaces matching the YAML file structure for type-cast targets in readYaml.
 interface LayersFile {
   layers: Layer[];
 }
-
 interface CollabsFile {
   collaborations: ArchEdge[];
 }
@@ -97,16 +98,16 @@ export async function loadArchitecture(): Promise<ArchitectureGraph> {
         continue;
       }
       nodes.push({
-        // `slug` hier = YAML-Slug (aus layer.members / yamlSlug), damit Edges matchen.
         slug: product.yamlSlug,
+        urlSlug: product.slug,
         displayName: product.displayName,
         layer: layer.id,
         layerOrder: layer.order,
         tier: product.tier,
         watch: product.data.watch ?? "standard",
         // status is rarely set in product frontmatter; "ga" is a safe rendering default.
-      // Use isDeprecated for ground truth on deprecated tools (path-based, more reliable).
-      status: product.data.status ?? "ga",
+        // Use isDeprecated for ground truth on deprecated tools (path-based, more reliable).
+        status: product.data.status ?? "ga",
         isDeprecated: product.isDeprecated,
       });
     }
