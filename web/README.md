@@ -98,6 +98,19 @@ Die saubere Endlösung — braucht **einmalige IT-Hilfe** für Entra App-Registr
 
 → Dann gleiche M365-Anmeldedaten für Wiki + Outlook + Teams. Kein Code-Change im `web/` nötig.
 
+## Pages
+
+- `/` — Grid view (45 product cards, sortable, filterable)
+- `/table` — Table view (sortable columns, same filter as Grid)
+- `/architecture` — Interactive Architecture Map (D3.js force-simulation, 7 layers, ~30 typed collaboration edges, hover for upstream/downstream highlight + edge tooltips)
+- `/products/<slug>` — Detail view per product (rendered Markdown content + Sidebar metadata)
+
+The `/architecture` page reads from `web/data/architecture-layers.yaml` and
+`web/data/collaborations.yaml` plus `loadProducts()`. To add new tools to the map:
+1. Add slug under the appropriate layer's `members` in `architecture-layers.yaml`
+2. Optionally add edges in `collaborations.yaml` referencing the new slug
+3. The slug must match a `slug:` value in `.automation/products.yaml`
+
 ## Source of Truth
 
 Der Inhalt kommt aus `../MS_AI_Wiki/Microsoft/{Products,MOCs}/*.md`.

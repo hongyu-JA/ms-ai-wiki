@@ -613,3 +613,7 @@ ArchMap subscribes to existing `useCatalogFilters` hook. Filter-Bar in Header ze
 ## Changelog
 
 - 2026-05-04: Initial-Spec aus Brainstorming-Session.
+- 2026-05-04: Implementation komplett (Task 1–8). Subagent-driven mit Code-Reviews
+  pro Task. Bekannte Anpassungen vom Plan: foundry-tools aus content-processing
+  entfernt (Parent/Child-Konflikt) → 39 statt 41 Tools. urlSlug-Feld auf ArchNode
+  hinzugefügt damit Click-Navigation für deprecated Tools funktioniert.
