@@ -12,7 +12,7 @@ collaborations:
     target: foundry-models
     type: calls
     description: |
-      MAF agent calls Foundry Models für LLM inference. Modell-Wahl je
+      MAF-Agent ruft Foundry Models für LLM-Inference auf. Modell-Wahl je
       Workload (GPT-4o für reasoning, Phi-4 für cost). PAYG vs PTU pricing
       depending on volume. Multi-Model-Fallback via APIM.
 
@@ -28,7 +28,7 @@ collaborations:
     target: azure-ai-search
     type: grounds-on
     description: |
-      MAF agent uses Azure AI Search SDK für vector/hybrid retrieval.
+      MAF-Agent nutzt das Azure AI Search SDK für Vector-/Hybrid-Retrieval.
       CH-North verfügbar. Doc-level security via Entra. Agentic Retrieval
       (GA 2025) gibt +40% relevance vs traditional vector search.
 
@@ -200,7 +200,7 @@ collaborations:
     target: foundry-models
     type: calls
     description: |
-      APIM proxies Foundry Models — Routing zwischen Modellen,
+      APIM proxied Foundry Models — Routing zwischen Modellen,
       Rate-Limiting (azure-openai-token-limit Policy), Token-Cost-Tracking,
       Fallback-Pattern bei Model-Outages.
 
@@ -240,7 +240,7 @@ collaborations:
   # === Agent 365 Governance ===
   - source: agent-365
     target: microsoft-agent-framework
-    type: secured-by
+    type: uses
     description: |
       Agent 365 ist die Control-Plane für Agent Governance — RBAC,
       Audit-Logs, Sponsor-Konzept. Wraps MAF + Copilot Studio Agents
