@@ -1,7 +1,7 @@
 ---
 type: moc
 tags: [moc, microsoft, commercial, licensing]
-last_verified: 2026-05-04
+last_verified: 2026-05-05
 ---
 
 # Licensing & SKUs MOC
