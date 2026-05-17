@@ -4,7 +4,7 @@ tags:
   - moc
   - microsoft
   - copilot
-last_verified: 2026-05-11
+last_verified: 2026-05-17
 ---
 
 # Copilot MOC
