@@ -1,7 +1,7 @@
 ---
 type: moc
 tags: [moc, microsoft, security, identity, compliance]
-last_verified: 2026-05-11
+last_verified: 2026-05-22
 ---
 
 # Security & Identity MOC
@@ -77,7 +77,6 @@ _Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert 
 | 2026-04-22 | [[Purview Data Map]] | Initial Stub (wartet auf Deep-Research) | Hongyu |
 | 2026-04-22 | [[Purview DSPM]] | Deep-Dive DSPM + DSPM for AI: Risk-Signale, Coverage-Matrix, Pricing, Copilot-spezifische Detections | Hongyu / Deep-Research |
 | 2026-04-22 | [[Purview DSPM]] | Initial Stub | Hongyu |
-| 2026-04-21 | [[Entra Agent ID]] | Initial Stub | Hongyu |
 
 <!-- AUTO-INDEX-END: activity -->
 

@@ -1,7 +1,7 @@
 ---
 type: moc
 tags: [moc, microsoft, integration, compute]
-last_verified: 2026-05-11
+last_verified: 2026-05-22
 ---
 
 # Integration & Compute MOC
@@ -80,8 +80,6 @@ _Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert 
 | 2026-04-22 | [[Microsoft AI Developer Tooling]] | Initial Stub (Tier 3 Awareness — Dev-Tooling-Bündel) | Hongyu |
 | 2026-04-22 | [[Power Automate]] | Deep-Dive Power Automate: Cloud/Desktop/Agent Flows, Lizenz-Matrix, Abgrenzung zu Logic Apps, Copilot-Credit-Modell | Hongyu / Deep-Research |
 | 2026-04-22 | [[Power Automate]] | Initial Stub | Hongyu |
-| 2026-04-21 | [[APIM AI Gateway]] | Initial Stub | Hongyu |
-| 2026-04-21 | [[Azure Functions]] | Initial Stub | Hongyu |
 
 <!-- AUTO-INDEX-END: activity -->
 
