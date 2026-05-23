@@ -1,7 +1,7 @@
 ---
 type: moc
 tags: [moc, microsoft, security, identity, compliance]
-last_verified: 2026-05-11
+last_verified: 2026-05-23
 ---
 
 # Security & Identity MOC
@@ -62,22 +62,7 @@ _Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert 
 
 <!-- AUTO-INDEX-START: activity -->
 
-| Datum | Produkt | Änderung | Autor |
-| ----- | ------- | -------- | ----- |
-| 2026-04-22 | [[Azure AI Content Safety]] | Deep-Dive Content Safety: Prompt Shields (User+Document Attacks), Content-Filter-Categories (0–7-Severity), Groundedness Detection (Reaso… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Azure AI Content Safety]] | Initial Stub | Hongyu |
-| 2026-04-22 | [[Defender for AI]] | Deep-Dive Defender for AI: Coverage (Defender for Cloud AI Services GA + Defender XDR Security for AI Agents Preview), Detection-Methoden… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Defender for AI]] | Initial Stub | Hongyu |
-| 2026-04-22 | [[Entra Agent ID]] | Kompletter Ausbau von Stub → Deep-Research-Note (watch: close). Abgrenzung zu [[Agent 365]] (Entra Agent ID = Identity-Plane darunter, ni… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Microsoft Entra Suite]] | Deep-Dive Entra Suite: Korrektur auf **5 Komponenten** (Permissions Management retired 2025-11-01), Internet Access als AI-Gateway mit Sh… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Microsoft Entra Suite]] | Initial Stub | Hongyu |
-| 2026-04-22 | [[Microsoft Purview]] | Deep-Dive Purview: 3-Säulen-Portfolio, Sensitivity Labels für Copilot, Agent-Governance-Hooks, Lizenz-Matrix | Hongyu / Deep-Research |
-| 2026-04-22 | [[Microsoft Purview]] | Initial Stub | Hongyu |
-| 2026-04-22 | [[Purview Data Map]] | Deep-Dive Data Map: Data-Governance-Säule, Abgrenzung zu DSPM, SMB-Relevanz (meist irrelevant für AI-Kunden ohne Data-Engineering-Team) | Hongyu / Deep-Research |
-| 2026-04-22 | [[Purview Data Map]] | Initial Stub (wartet auf Deep-Research) | Hongyu |
-| 2026-04-22 | [[Purview DSPM]] | Deep-Dive DSPM + DSPM for AI: Risk-Signale, Coverage-Matrix, Pricing, Copilot-spezifische Detections | Hongyu / Deep-Research |
-| 2026-04-22 | [[Purview DSPM]] | Initial Stub | Hongyu |
-| 2026-04-21 | [[Entra Agent ID]] | Initial Stub | Hongyu |
+_Keine Changelog-Einträge in den letzten 30 Tagen._
 
 <!-- AUTO-INDEX-END: activity -->
 

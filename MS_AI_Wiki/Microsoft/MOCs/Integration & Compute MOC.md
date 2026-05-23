@@ -1,7 +1,7 @@
 ---
 type: moc
 tags: [moc, microsoft, integration, compute]
-last_verified: 2026-05-11
+last_verified: 2026-05-23
 ---
 
 # Integration & Compute MOC
@@ -68,20 +68,7 @@ _Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert 
 
 <!-- AUTO-INDEX-START: activity -->
 
-| Datum | Produkt | Änderung | Autor |
-| ----- | ------- | -------- | ----- |
-| 2026-04-22 | [[APIM AI Gateway]] | 5 GA-AI-Policies dokumentiert, MCP-Proxy GA (mit Einschränkungen: kein Workspace, keine Prompts), Tier-Matrix, CH-Region-Verfügbarkeit (k… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Azure Container Apps]] | Pricing + Regionen (CH North = Consumption + Dedicated, Flex fehlt), Scale-to-Zero-Regeln (nur event-basiert), Dapr Building Blocks + KED… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Azure Container Apps]] | Initial Stub | Hongyu |
-| 2026-04-22 | [[Azure Functions]] | Drei Agent-Personas (Host / MCP-Tool / Durable-Workflow) als zentrale Struktur, **MCP Binding GA Jan 2026** mit Code-Beispielen (C# + Pyt… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Logic Apps]] | Deep-Dive Logic Apps: Consumption vs. Standard vs. Hybrid (Hybrid GA Juni 2025), 1400+ Enterprise-Konnektoren, **Agent Workflows** (auton… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Logic Apps]] | Initial Stub | Hongyu |
-| 2026-04-22 | [[Microsoft AI Developer Tooling]] | Deep-Dive 4 Dev-Tools: VS 2026 AI-native, VS Code AI Toolkit (= Foundry Toolkit Rebrand Mär 2026), GitHub Copilot Cloud Agents (Rename + … | Hongyu / Deep-Research |
-| 2026-04-22 | [[Microsoft AI Developer Tooling]] | Initial Stub (Tier 3 Awareness — Dev-Tooling-Bündel) | Hongyu |
-| 2026-04-22 | [[Power Automate]] | Deep-Dive Power Automate: Cloud/Desktop/Agent Flows, Lizenz-Matrix, Abgrenzung zu Logic Apps, Copilot-Credit-Modell | Hongyu / Deep-Research |
-| 2026-04-22 | [[Power Automate]] | Initial Stub | Hongyu |
-| 2026-04-21 | [[APIM AI Gateway]] | Initial Stub | Hongyu |
-| 2026-04-21 | [[Azure Functions]] | Initial Stub | Hongyu |
+_Keine Changelog-Einträge in den letzten 30 Tagen._
 
 <!-- AUTO-INDEX-END: activity -->
 
