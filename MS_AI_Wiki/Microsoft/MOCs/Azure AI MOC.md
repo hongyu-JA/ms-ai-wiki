@@ -1,7 +1,7 @@
 ---
 type: moc
 tags: [moc, microsoft, azure-ai, foundry]
-last_verified: 2026-05-11
+last_verified: 2026-05-30
 ---
 
 # Azure AI MOC
@@ -93,23 +93,7 @@ _Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert 
 
 <!-- AUTO-INDEX-START: activity -->
 
-| Datum | Produkt | Änderung | Autor |
-| ----- | ------- | -------- | ----- |
-| 2026-04-22 | [[Azure AI Content Understanding]] | Deep-Dive Content Understanding: multimodales Schema-Driven Extraction, Abgrenzung zu Document Intelligence, SMB-Use-Cases, Pricing-Matri… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Azure AI Content Understanding]] | Initial Stub | Hongyu |
-| 2026-04-22 | [[Azure AI Document Intelligence]] | Deep-Dive Document Intelligence: Prebuilt-Models-Inventar (Financial, ID, Tax, Mortgage, Generic), Custom Neural/Template/Classification/… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Azure AI Document Intelligence]] | Initial Stub | Hongyu |
-| 2026-04-22 | [[Azure AI Search]] | **Agentic Retrieval** als First-Class-Feature (MCP-exposed, +40% relevance), **Entra Doc-Level Security GA 2025**, Hybrid-Search-Flow-Dia… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Azure AI Search]] | Initial Stub | Hongyu |
-| 2026-04-22 | [[Azure Machine Learning]] | v1-vs-v2-Status (SDK v1 EOS 30.06.2026!), 4 legitime Agent-Zeitalter-Use-Cases, Azure ML vs. Foundry Linie, Pricing-Struktur, Journai-Tie… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Azure Machine Learning]] | Initial Stub | Hongyu |
-| 2026-04-22 | [[Azure OpenAI Service Pricing]] | Deep-Dive: PAYG/PTU/Batch-Matrix, Break-Even-Rechnung, Region-Deltas, SMB-Beratungs-Szenarien, Hidden-Costs-Tabelle, PTU-modell-unabhängi… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Azure OpenAI Service Pricing]] | Initial Stub (Tier 3 Awareness) | Hongyu |
-| 2026-04-22 | [[Azure OpenAI Responses API]] | Deep-Dive Responses API: Azure-Implementierung, Migration von Chat Completions + Assistants, MAF-Abgrenzung | Hongyu / Deep-Research |
-| 2026-04-22 | [[Azure OpenAI Responses API]] | Initial Stub (wartet auf Deep-Research) | Hongyu |
-| 2026-04-22 | [[Foundry Agent Service]] | **Major correction**: DSGVO-Flag aus Arbeitsauftrag §2.6 überholt — **Switzerland North ist GA-Region**. 10 EU/EFTA-Regionen. Preview-Lim… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Foundry Agent Service]] | Initial Stub | Hongyu |
-| 2026-04-22 | [[Foundry Control Plane]] | Tracing-Architektur-Diagramm (Foundry+AppInsights = ein Storage), 35+ OOB-Evaluators in 6 Kategorien, RBAC-Rollen-Matrix + Journai-Enterp… | Hongyu / Deep-Research |
+_Keine Changelog-Einträge in den letzten 30 Tagen._
 
 <!-- AUTO-INDEX-END: activity -->
 
