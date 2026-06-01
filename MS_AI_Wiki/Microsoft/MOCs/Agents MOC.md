@@ -4,7 +4,7 @@ tags:
   - moc
   - microsoft
   - agents
-last_verified: 2026-05-11
+last_verified: 2026-06-01
 ---
 
 # Agents MOC
@@ -84,23 +84,7 @@ _Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert 
 
 <!-- AUTO-INDEX-START: activity -->
 
-| Datum | Produkt | Änderung | Autor |
-| ----- | ------- | -------- | ----- |
-| 2026-04-24 | [[Microsoft Agent Framework]] | Python SDK 1.2.0: Funktionale Workflow-API (agent-framework-core), OpenTelemetry-Integration für GitHubCopilotAgent, Agent-Framework-to-A… | auto-sync |
-| 2026-04-22 | [[Agent 365]] | Kompletter Ausbau: GA-Scope-Diagramm (was GA, was bleibt Preview), Identity-Modell (4 neue Entra-Objekttypen), Sponsor-Konzept als DSGVO-… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Agent 365]] | Initial Stub | Hongyu |
-| 2026-04-22 | [[deprecated/AutoGen]] | Deep-Dive AutoGen-Deprecation + Migration zu MAF: v0.2 vs v0.4 Unterscheidung, API-Äquivalenzen, Code-Beispiele (RoundRobin→Sequential, C… | Hongyu / Deep-Research |
-| 2026-04-22 | [[deprecated/AutoGen]] | Initial Stub — Migration-Pfad zu MAF | Hongyu |
-| 2026-04-22 | [[Copilot Studio]] | 4-Ebenen-Eskalationsleiter-Diagramm, Cowork Deep-Dive mit EU-Data-Boundary-Warnung (Anthropic default-OFF), vollständige Pricing-Matrix m… | Hongyu / Deep-Research |
-| 2026-04-22 | [[M365 Agents SDK]] | Kompletter Deep-Dive nach MAF-Template, Bot-Framework-Migration-Path, Code-Beispiele, Hosting-Varianten | Hongyu / Deep-Research |
-| 2026-04-22 | [[M365 Agents SDK]] | Initial Stub (watch: standard → upgrade auf close nach Deep-Research) | Hongyu |
-| 2026-04-22 | [[Microsoft Agent Framework]] | Migration auf neues Product Note Template (v2) — Struktur umgezogen, Inhalt erhalten und erweitert (Einsatz-Szenarien, Stack-Tabelle, Dec… | Hongyu |
-| 2026-04-22 | [[Model Context Protocol]] | Spec-Status 2025-11-25, 12+ MS-Integrations-Matrix, Three-Hop-Auth-Diagramm, Enterprise-Patterns (APIM-Proxy, Zero Trust, OTel), Ecosyste… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Model Context Protocol]] | Initial Stub | Hongyu |
-| 2026-04-22 | [[deprecated/Semantic Kernel]] | Deep-Dive SK-Deprecation + Migration-Pfad zu MAF: API-Äquivalenzen, Code-Beispiele (.NET + Python), Support-Timeline (≥ 1 Jahr nach MAF-G… | Hongyu / Deep-Research |
-| 2026-04-22 | [[deprecated/Semantic Kernel]] | Initial Stub — Migration-Pfad zu MAF | Hongyu |
-| 2026-04-22 | [[Teams SDK]] | Deep-Dive inkl. SDK-Sandwich-Positionierung, Teams-Primitiven, Adaptive Cards, Meeting-Hooks, Manifest-Workflow | Hongyu / Deep-Research |
-| 2026-04-22 | [[Teams SDK]] | Initial Stub | Hongyu |
+_Keine Changelog-Einträge in den letzten 30 Tagen._
 
 <!-- AUTO-INDEX-END: activity -->
 
