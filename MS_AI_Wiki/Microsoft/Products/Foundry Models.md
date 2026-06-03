@@ -1,7 +1,7 @@
 ---
 watch: close
 status: ga
-last_verified: 2026-04-22
+last_verified: 2026-06-03
 aliases: [Model Catalog, Foundry Model Catalog]
 moc:
   - "[[Microsoft MOC]]"
@@ -13,6 +13,24 @@ moc:
 *Der **Model Catalog** in [[Microsoft Foundry]]. 11.000+ Modelle, 11+ Publishers. Drei Deployment-Modi: **PAYG Serverless / MaaS / PTU**. Switzerland North: 92 Modelle verfügbar. **Claude (Anthropic) nur in Sweden Central + East US2** — out-of-EU-Data-Boundary. April-2026-News: neue MAI-Familie (Transcribe-1, Voice-1, Image-2), Llama 4 Scout mit 10M-Token-Kontext, o4-mini mit RFT.*
 
 > **Analogie:** Wie Hugging Face Hub für Enterprise — kuratiertes Modell-Verzeichnis mit einheitlichem Billing, Azure-Integration und vorverhandelten Anbieter-Verträgen (MS-DPA).
+
+---
+
+## Build 2026 Update (2. Juni 2026)
+
+**Massive Erweiterung der Modell-Familien:**
+
+- **[[MAI Models]] Familie** vollständig integriert — 7 neue Modelle:
+  - MAI-Thinking-1 (Reasoning, 35B aktive Parameter)
+  - MAI-Code-1 / Flash (Coding, in VS Code + GitHub Copilot integriert)
+  - MAI-Image-2.5, MAI-Voice-2, MAI-Transcribe-1.5 (GA)
+  - MAI-Small (13B) / MAI-Large (170B) (Allzweck)
+  - MAI-Embed (380M)
+- **Claude 4** und **Code Llama 4** ab sofort selectierbar in GitHub Copilot Multi-Model-Backend
+- Katalog wächst auf 12'000+ Modelle (von 11'000+)
+- Anbindung an [[Foundry Control Plane]] mit dynamischem Multi-Provider-Routing
+
+**Beratungs-Konsequenz:** Standard-Empfehlung für Modell-Auswahl ändert sich. Vorher: "GPT-4o als Default, Phi-4 für Cost." Nachher: "MAI-Thinking-1 als Default, MAI-Code-1 für Coding-Use-Cases, MAI-Embed für Search. OpenAI/Claude bewusst wählen, nicht automatisch."
 
 ---
 

@@ -1,7 +1,7 @@
 ---
 watch: close
-status: preview
-last_verified: 2026-04-22
+status: ga
+last_verified: 2026-06-03
 aliases: [Microsoft Agent 365]
 moc:
   - "[[Microsoft MOC]]"
@@ -15,6 +15,19 @@ moc:
 *Microsoft's **Governance-Control-Plane für Agents** — Identity (via [[Entra Agent ID]]), RBAC, Audit, Lifecycle, Conditional Access. **GA am 2026-05-01** (in 9 Tagen). Eigenständig $15/user/month oder Teil von [[Microsoft 365 E7]] ($99). Kritisch: **„AI Teammate"-Szenario (Agent mit Mailbox/OneDrive) bleibt Preview**, nur OBO-Flow + Registry + Lifecycle werden GA.*
 
 > **Analogie:** Was Active Directory für User-Identities war, ist Agent 365 für Agent-Identities — mit Sponsor-Konzept, Lifecycle-Workflows und Zero-Trust-Policies speziell auf Agents zugeschnitten.
+
+---
+
+## Build 2026 Update (2. Juni 2026)
+
+**GA bestätigt + Governance-Vertiefung:**
+
+- **Agent Attestation:** kryptografische Signatur jeder Agent-Aktion via Azure Confidential Computing — Compliance-Teams können Agent-Verhalten retrospektiv gegen Policy verifizieren
+- **Agent Confidence Scores:** Reliabilität-Rating pro Aktion; Agenten unter 95% routen automatisch zu Human-Review bevor Ausführung
+- **Cross-Cloud-Spannweite ausgebaut:** Microsoft Entra Permissions jetzt auch für Agenten auf AWS / GCP / Windows
+- **Implementiert [[Agent Control Specification]]** — Microsoft's portable Standard für Agent-Runtime-Governance
+
+**Beratungs-Konsequenz:** Agent 365 wird jetzt zur "Single-Source-of-Truth" für Agent-Compliance. Für regulierte Schweizer Kunden (FINMA, Versicherung) erste Wahl statt Stückwerk aus Custom-Lösungen.
 
 ---
 
