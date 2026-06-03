@@ -245,3 +245,152 @@ collaborations:
       Agent 365 ist die Control-Plane für Agent Governance — RBAC,
       Audit-Logs, Sponsor-Konzept. Wraps MAF + Copilot Studio Agents
       gleichermassen. GA 2026-05-01.
+
+  # === Agent Building Layer Erweiterung ===
+  - source: copilot-studio
+    target: power-automate
+    type: calls
+    description: |
+      Copilot Studio ruft Power Automate Flows als Actions auf. Tausende
+      OOB-Connectors verfügbar, Custom-Flows als Tools für Agents exposable.
+      Low-Code-Pfad — keine Custom-Code-Tools nötig für Standard-Integrationen.
+
+  - source: teams-sdk
+    target: m365-agents-sdk
+    type: uses
+    description: |
+      MIGRATION. Teams AI Library wird in M365 Agents SDK konsolidiert.
+      Bestehender Teams-Bot-Code bleibt kompatibel — Activity-Protocol
+      unverändert, nur Toolkit + Manifest-Format ändert sich.
+
+  # === Hosting / Foundation Integration ===
+  - source: logic-apps
+    target: foundry-models
+    type: calls
+    description: |
+      Logic Apps integriert Foundry Models über Azure OpenAI Connector.
+      Low-Code-Pfad für AI-Workflows ohne eigenes Hosting — Trigger-basierte
+      Inferenz (z.B. bei neuer SharePoint-Datei oder Form-Submission).
+
+  - source: microsoft-agent-framework
+    target: foundry-sdks
+    type: uses
+    description: |
+      MAF nutzt Foundry SDKs für Modell-Aufrufe, Auth und Telemetrie.
+      Einheitliches Client-Layer gegenüber Foundry Models — automatisches
+      retry/backoff, OTel-Instrumentation und Token-Tracking eingebaut.
+
+  - source: foundry-local
+    target: foundry-models
+    type: uses
+    description: |
+      Foundry Local führt Foundry Models on-device aus (CPU/GPU).
+      Offline-Pfad für sensitive Workloads ohne Cloud-Roundtrip — Phi-4,
+      Llama, Mistral lokal verfügbar. Gleiche API-Surface wie Cloud.
+
+  - source: foundry-control-plane
+    target: microsoft-foundry
+    type: hosted-on
+    description: |
+      Control Plane ist die Management-Schicht der Microsoft Foundry —
+      Project-Verwaltung, Quota, Deployment-Slots, Region-Failover. Eine
+      Foundry-Subscription = ein Control-Plane-Endpunkt pro Region.
+
+  - source: foundry-models
+    target: microsoft-foundry
+    type: hosted-on
+    description: |
+      Foundry Models laufen innerhalb Microsoft Foundry. Foundry stellt
+      Multi-Tenancy, Region-Abstraktion und Cost-Tracking — Modelle
+      erscheinen als deployable Resources im Foundry Project.
+
+  # === Knowledge Layer Erweiterung ===
+  - source: microsoft-agent-framework
+    target: cosmos-db-for-ai
+    type: grounds-on
+    description: |
+      Cosmos DB for AI als Vector Store für Agent-Memory und Long-Context-
+      Retrieval. Native vector search (DiskANN-Index), Change Feed für
+      inkrementelle Indexierung, Multi-Region-Replikation für Latenz.
+
+  - source: fabric-data-agents
+    target: microsoft-agent-framework
+    type: uses
+    description: |
+      Fabric Data Agents werden auf MAF aufgebaut — Lakehouse-/Warehouse-
+      Tabellen via OneLake als Knowledge-Quelle. Agent versteht Schema
+      und führt SQL/Spark-Queries autonom aus. Preview seit 2026-Q1.
+
+  # === Content Processing Hooks ===
+  - source: microsoft-agent-framework
+    target: azure-ai-document-intelligence
+    type: uses
+    description: |
+      MAF-Agent ruft Document Intelligence für strukturierte Extraktion
+      (Tabellen, Formulare, Verträge) vor dem Grounding. Custom Models
+      trainierbar — z.B. für Schweizer Lohnausweise oder QR-Rechnungen.
+
+  - source: microsoft-agent-framework
+    target: azure-ai-content-understanding
+    type: uses
+    description: |
+      Multimodale Vorverarbeitung (Audio, Video, Bild) bevor Daten in den
+      Knowledge-Pfad gehen. Schema-driven Extraction — Agent definiert
+      deklarativ, welche Felder aus dem Content extrahiert werden sollen.
+
+  # === Governance Vollausbau ===
+  - source: microsoft-agent-framework
+    target: microsoft-purview
+    type: secured-by
+    description: |
+      Purview governt MAF-Agent-Zugriff auf M365-Daten. Sensitivity Labels
+      werden respektiert, Audit-Logs landen in Purview Compliance Manager,
+      DLP-Policies blockieren Daten-Exfiltration auf Tool-Aufruf-Ebene.
+
+  - source: microsoft-agent-framework
+    target: defender-for-ai
+    type: secured-by
+    description: |
+      Defender for AI Workloads erkennt Prompt-Injection, Jailbreak-Versuche
+      und Anomalien in Agent-Traffic. Integration mit Defender XDR für
+      SecOps-Alerts — Agent-Identity wird als eigene Entity geführt.
+
+  - source: microsoft-agent-framework
+    target: azure-ai-content-safety
+    type: secured-by
+    description: |
+      Content Safety filtert Agent-Outputs (Hate, Sexual, Violence,
+      Self-Harm) sowie Inputs auf Prompt-Injection. Konfigurierbare
+      Thresholds pro Workload — strenger für externe vs interne Agents.
+
+  - source: copilot-studio
+    target: azure-ai-content-safety
+    type: secured-by
+    description: |
+      Standard-Filter für Copilot Studio Agent-Antworten. Built-in
+      Pre-/Post-Generation-Checks aktiv per Default. Blocked List +
+      Banned Phrases tenant-weit konfigurierbar im Admin-Center.
+
+  - source: entra-agent-id
+    target: microsoft-entra-suite
+    type: uses
+    description: |
+      Entra Agent ID ist Teil der erweiterten Entra Suite. Conditional
+      Access, Identity Protection und Privileged Identity Management
+      gelten gleich für menschliche User wie für Agent-Identitäten.
+
+  - source: purview-dspm
+    target: microsoft-purview
+    type: uses
+    description: |
+      Data Security Posture Management ist Modul innerhalb Purview.
+      Risk-Score über alle Datenquellen — sensitive Daten ohne Label,
+      Über-Sharing-Risiken, AI-spezifische Posture-Insights.
+
+  - source: purview-data-map
+    target: microsoft-purview
+    type: uses
+    description: |
+      Data Map ist das Katalog-Backbone von Purview. Auto-Discovery +
+      Klassifikation über alle Sources — Voraussetzung für DSPM, DLP
+      und Sensitivity-Label-Vererbung.
