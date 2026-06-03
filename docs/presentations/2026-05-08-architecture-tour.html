@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Microsoft AI Stack — Architektur-Tour</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" />
+
+  <style>
+    /* ===== Layout ===== */
+    html, body { height: 100%; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #ffffff;
+      color: #111827;
+    }
+
+    /* Persistent architecture graph background — left 65% */
+    #arch-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 65vw;
+      height: 100vh;
+      padding: 1.5vh 1vw;
+      box-sizing: border-box;
+      z-index: 0;
+      background: #f9fafb;
+      border-right: 1px solid #e5e7eb;
+      overflow: hidden;
+    }
+    #arch-bg svg { width: 100%; height: 100%; }
+
+    /* Hide arch background on certain modes */
+    body[data-mode="title"] #arch-bg,
+    body[data-mode="layer-overview"] #arch-bg,
+    body[data-mode="end"] #arch-bg { display: none; }
+    body[data-mode="title"] .reveal .slides,
+    body[data-mode="layer-overview"] .reveal .slides,
+    body[data-mode="end"] .reveal .slides {
+      width: 100vw !important;
+      margin-left: 0 !important;
+    }
+
+    /* Reveal.js slides — right 35% */
+    .reveal { z-index: 10; }
+    .reveal .slides {
+      width: 35vw !important;
+      margin-left: 65vw !important;
+      text-align: left !important;
+    }
+    .reveal .slides section {
+      padding: 2rem 2.5rem !important;
+      box-sizing: border-box;
+      height: 100vh;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+    }
+    .reveal h1 { font-size: 2.4rem; margin-bottom: 1rem; }
+    .reveal h2 { font-size: 1.8rem; margin-bottom: 0.6rem; color: #1e3a8a; line-height: 1.2; }
+    .reveal h3 { font-size: 1.2rem; color: #6b7280; font-weight: 500; margin-bottom: 1.2rem; }
+    .reveal ul { font-size: 1rem; line-height: 1.6; }
+    .reveal li { margin-bottom: 0.4rem; }
+    .reveal p { font-size: 1rem; line-height: 1.5; }
+    .reveal strong { color: #111827; }
+    .reveal em { color: #1e3a8a; font-style: normal; font-weight: 600; }
+
+    .slide-meta {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-top: 1.2rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .layer-pill {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .key-sentence {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 0.6rem 0.8rem;
+      margin-top: 1rem;
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    /* ===== Architecture graph styling ===== */
+    .arch-node rect {
+      stroke-width: 1.5;
+      transition: opacity 0.4s, filter 0.4s;
+    }
+    .arch-node text {
+      font-size: 11px;
+      font-weight: 500;
+      pointer-events: none;
+      transition: opacity 0.4s;
+    }
+    .arch-edge {
+      fill: none;
+      stroke-width: 1.5;
+      transition: opacity 0.4s, filter 0.4s, stroke-width 0.4s;
+    }
+
+    /* Layer base colors (matches architecture-layers.yaml) */
+    .arch-node.layer-surface rect           { fill: #fef3c7; stroke: #0066cc; }
+    .arch-node.layer-surface text           { fill: #0066cc; }
+    .arch-node.layer-agent-building rect    { fill: #dbeafe; stroke: #2563eb; }
+    .arch-node.layer-agent-building text    { fill: #1e3a8a; }
+    .arch-node.layer-hosting rect           { fill: #f3e8ff; stroke: #7c3aed; }
+    .arch-node.layer-hosting text           { fill: #581c87; }
+    .arch-node.layer-knowledge rect         { fill: #d1fae5; stroke: #059669; }
+    .arch-node.layer-knowledge text         { fill: #065f46; }
+    .arch-node.layer-content-processing rect{ fill: #cffafe; stroke: #0891b2; }
+    .arch-node.layer-content-processing text{ fill: #155e75; }
+    .arch-node.layer-governance rect        { fill: #fee2e2; stroke: #dc2626; }
+    .arch-node.layer-governance text        { fill: #991b1b; }
+    .arch-node.layer-foundation rect        { fill: #fed7aa; stroke: #9a3412; }
+    .arch-node.layer-foundation text        { fill: #9a3412; }
+
+    .arch-node.deprecated rect { stroke-dasharray: 4 3; opacity: 0.85; }
+
+    /* Edge type colors */
+    .arch-edge.edge-uses           { stroke: #1e3a8a; }
+    .arch-edge.edge-hosted-on      { stroke: #581c87; }
+    .arch-edge.edge-grounds-on     { stroke: #065f46; }
+    .arch-edge.edge-secured-by     { stroke: #991b1b; stroke-dasharray: 4 2; }
+    .arch-edge.edge-calls          { stroke: #7c2d12; }
+    .arch-edge.edge-integrated-via { stroke: #0891b2; stroke-dasharray: 1 3; }
+
+    /* Layer band — always visible at fixed opacity */
+    .layer-band {
+      fill-opacity: 0.30;
+      pointer-events: none;
+    }
+
+    /* Layer label — ALWAYS visible on top, never dimmed */
+    .layer-label-bg {
+      pointer-events: none;
+    }
+    .layer-label {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      pointer-events: none;
+      paint-order: stroke;
+      stroke: #ffffff;
+      stroke-width: 3px;
+      stroke-linejoin: round;
+    }
+    .layer-label.label-surface            { fill: #0066cc; }
+    .layer-label.label-agent-building     { fill: #1e3a8a; }
+    .layer-label.label-hosting            { fill: #581c87; }
+    .layer-label.label-knowledge          { fill: #065f46; }
+    .layer-label.label-content-processing { fill: #155e75; }
+    .layer-label.label-governance         { fill: #991b1b; }
+    .layer-label.label-foundation         { fill: #9a3412; }
+
+    /* ============================================
+       HIGHLIGHT MODES — only nodes/edges dim, not bands or labels
+       ============================================ */
+
+    body[data-mode="surface"] .arch-node:not(.layer-surface),
+    body[data-mode="surface"] .arch-edge:not(.touches-surface) { filter: grayscale(1); opacity: 0.18; }
+
+    body[data-mode="agent-active"] .arch-node:not(.layer-agent-building),
+    body[data-mode="agent-active"] .arch-node.deprecated,
+    body[data-mode="agent-active"] .arch-edge:not(.touches-agent-building) { filter: grayscale(1); opacity: 0.18; }
+
+    body[data-mode="agent-deprecated"] .arch-node:not(.deprecated):not(.node-microsoft-agent-framework):not(.node-m365-agents-sdk),
+    body[data-mode="agent-deprecated"] .arch-edge:not(.from-bot-framework):not(.from-semantic-kernel):not(.from-autogen) { filter: grayscale(1); opacity: 0.18; }
+
+    body[data-mode="hosting"] .arch-node:not(.layer-hosting),
+    body[data-mode="hosting"] .arch-edge:not(.touches-hosting) { filter: grayscale(1); opacity: 0.18; }
+
+    body[data-mode="knowledge"] .arch-node:not(.layer-knowledge),
+    body[data-mode="knowledge"] .arch-edge:not(.touches-knowledge) { filter: grayscale(1); opacity: 0.18; }
+
+    body[data-mode="content-processing"] .arch-node:not(.layer-content-processing),
+    body[data-mode="content-processing"] .arch-edge:not(.touches-content-processing) { filter: grayscale(1); opacity: 0.18; }
+
+    body[data-mode="governance"] .arch-node:not(.layer-governance),
+    body[data-mode="governance"] .arch-edge:not(.touches-governance) { filter: grayscale(1); opacity: 0.18; }
+
+    body[data-mode="foundation"] .arch-node:not(.layer-foundation),
+    body[data-mode="foundation"] .arch-edge:not(.touches-foundation) { filter: grayscale(1); opacity: 0.18; }
+
+    /* MAF Hub — emphasize MAF + all its connections */
+    body[data-mode="maf-hub"] .arch-node:not(.node-microsoft-agent-framework):not(.maf-neighbor),
+    body[data-mode="maf-hub"] .arch-edge:not(.from-microsoft-agent-framework):not(.to-microsoft-agent-framework) { filter: grayscale(1); opacity: 0.18; }
+    body[data-mode="maf-hub"] .arch-node.node-microsoft-agent-framework rect {
+      stroke-width: 4; stroke: #1e3a8a;
+    }
+
+    /* Compliance Stack — secured-by edges + Governance layer + Agents */
+    body[data-mode="compliance-stack"] .arch-edge:not(.edge-secured-by),
+    body[data-mode="compliance-stack"] .arch-node:not(.layer-governance):not(.node-microsoft-agent-framework):not(.node-copilot-studio):not(.node-m365-agents-sdk) { filter: grayscale(1); opacity: 0.18; }
+
+    /* Migration mode — deprecation paths */
+    body[data-mode="migration"] .arch-edge:not(.migration-path),
+    body[data-mode="migration"] .arch-node:not(.deprecated):not(.node-microsoft-agent-framework):not(.node-m365-agents-sdk) { filter: grayscale(1); opacity: 0.18; }
+    body[data-mode="migration"] .arch-edge.migration-path { stroke-width: 3; }
+
+    /* Build path 1 — Standard MAF / Code-First */
+    body[data-mode="build-path"] .arch-node:not(.path-build),
+    body[data-mode="build-path"] .arch-edge:not(.path-build) { filter: grayscale(1); opacity: 0.18; }
+    body[data-mode="build-path"] .arch-edge.path-build { stroke-width: 3.5; }
+
+    /* Build path 2 — Low-Code via Copilot Studio */
+    body[data-mode="build-path-2"] .arch-node:not(.path-build-2),
+    body[data-mode="build-path-2"] .arch-edge:not(.path-build-2) { filter: grayscale(1); opacity: 0.18; }
+    body[data-mode="build-path-2"] .arch-edge.path-build-2 { stroke-width: 3.5; }
+
+    /* Build path 3 — Document Processing */
+    body[data-mode="build-path-3"] .arch-node:not(.path-build-3),
+    body[data-mode="build-path-3"] .arch-edge:not(.path-build-3) { filter: grayscale(1); opacity: 0.18; }
+    body[data-mode="build-path-3"] .arch-edge.path-build-3 { stroke-width: 3.5; }
+
+    /* ===== Layer Overview Slide (Folie 2) ===== */
+    .layer-overview-grid {
+      max-width: 1400px;
+      width: 90vw;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 2rem 0 1rem 0;
+    }
+    .layer-overview-row {
+      display: grid;
+      grid-template-columns: 220px 1fr 1.3fr;
+      align-items: center;
+      padding: 0.85rem 1.5rem;
+      border-radius: 6px;
+      border-left: 6px solid;
+      gap: 1.5rem;
+    }
+    .layer-overview-row .layer-name {
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+    }
+    .layer-overview-row .layer-desc {
+      font-size: 0.95rem;
+    }
+    .layer-overview-row .layer-example {
+      font-size: 0.85rem;
+      color: #4b5563;
+      font-style: italic;
+    }
+    .row-surface            { background: #fef3c7; border-color: #0066cc; }
+    .row-surface .layer-name           { color: #0066cc; }
+    .row-agent-building     { background: #dbeafe; border-color: #2563eb; }
+    .row-agent-building .layer-name    { color: #1e3a8a; }
+    .row-hosting            { background: #f3e8ff; border-color: #7c3aed; }
+    .row-hosting .layer-name           { color: #581c87; }
+    .row-knowledge          { background: #d1fae5; border-color: #059669; }
+    .row-knowledge .layer-name         { color: #065f46; }
+    .row-content-processing { background: #cffafe; border-color: #0891b2; }
+    .row-content-processing .layer-name{ color: #155e75; }
+    .row-governance         { background: #fee2e2; border-color: #dc2626; }
+    .row-governance .layer-name        { color: #991b1b; }
+    .row-foundation         { background: #fed7aa; border-color: #9a3412; }
+    .row-foundation .layer-name        { color: #9a3412; }
+
+    /* Slide counter */
+    .slide-number {
+      position: fixed;
+      bottom: 1rem; right: 1rem;
+      font-size: 0.8rem;
+      color: #6b7280;
+      z-index: 100;
+      background: rgba(255,255,255,0.9);
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    /* Edge type legend — bottom-right of arch-bg, only on big-picture mode */
+    .legend {
+      position: absolute;
+      bottom: 2vh;
+      left: 1vw;
+      background: rgba(255,255,255,0.95);
+      border: 1px solid #e5e7eb;
+      padding: 0.5rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      pointer-events: none;
+      transition: opacity 0.4s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    body:not([data-mode="all"]) .legend { opacity: 0; }
+    .legend-row { display: flex; align-items: center; margin: 0.18rem 0; gap: 0.5rem; }
+    .legend-line { width: 28px; height: 2px; flex-shrink: 0; }
+    .legend-line.uses           { background: #1e3a8a; }
+    .legend-line.hosted-on      { background: #581c87; }
+    .legend-line.grounds-on     { background: #065f46; }
+    .legend-line.secured-by     { background: transparent; height: 0; border-top: 2px dashed #991b1b; }
+    .legend-line.calls          { background: #7c2d12; }
+    .legend-line.integrated-via { background: transparent; height: 0; border-top: 2px dotted #0891b2; }
+  </style>
+</head>
+<body data-mode="title">
+
+  <!-- Persistent Architecture Graph -->
+  <div id="arch-bg">
+    <svg id="arch-svg" viewBox="0 0 1200 920" preserveAspectRatio="xMidYMid meet"></svg>
+    <div class="legend">
+      <div class="legend-row"><div class="legend-line uses"></div>uses · benutzt</div>
+      <div class="legend-row"><div class="legend-line hosted-on"></div>hosted-on · läuft auf</div>
+      <div class="legend-row"><div class="legend-line grounds-on"></div>grounds-on · Wissen aus</div>
+      <div class="legend-row"><div class="legend-line secured-by"></div>secured-by · gesichert durch</div>
+      <div class="legend-row"><div class="legend-line calls"></div>calls · ruft auf</div>
+      <div class="legend-row"><div class="legend-line integrated-via"></div>integrated-via · via Vermittler</div>
+    </div>
+  </div>
+
+  <!-- Reveal.js Slides -->
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ============= SLIDE 1: TITLE ============= -->
+      <section data-mode="title">
+        <div style="text-align: center; max-width: 70vw; margin: 0 auto;">
+          <h1>Microsoft AI Stack</h1>
+          <h2 style="color: #6b7280; font-weight: 400; margin-top: 0;">Eine Tour durch die Produkt-Architektur</h2>
+          <p style="margin-top: 3rem; color: #6b7280;">Hongyu Zhou · Journai · 8. Mai 2026</p>
+          <p style="font-size: 0.85rem; color: #9ca3af; margin-top: 4rem;">→ Pfeiltaste rechts: nächste Folie · Taste S: Speaker-Notes</p>
+        </div>
+        <aside class="notes">
+Hoi Christoph, danke dass du dir die Zeit nimmst.
+
+Was du gleich siehst, ist eine geführte Tour durch das Microsoft AI Ökosystem. In ungefähr zwanzig Minuten gehen wir gemeinsam durch alle Tools, die für unsere Beratung wichtig sind, und vor allem durch die Verbindungen zwischen ihnen.
+
+Bevor wir ins Diagramm reingehen, erkläre ich dir kurz, wie ich die Tools sortiert habe. Das ist der Schlüssel, damit das Diagramm danach Sinn macht.
+        </aside>
+      </section>
+
+      <!-- ============= SLIDE 2: LAYER CLASSIFICATION (NEW) ============= -->
+      <section data-mode="layer-overview">
+        <div style="width: 100vw; padding: 1rem 4vw; box-sizing: border-box;">
+          <h3 style="margin-bottom: 0.3rem;">Folie 2 · Bevor wir die Karte öffnen</h3>
+          <h2 style="margin-bottom: 0.5rem;">Die 7 Schichten — was sie bedeuten</h2>
+
+          <div class="layer-overview-grid">
+            <div class="layer-overview-row row-surface">
+              <div class="layer-name">SURFACE</div>
+              <div class="layer-desc">Wo der Mitarbeiter die AI sieht</div>
+              <div class="layer-example">z.B. das Chat-Fenster in Outlook</div>
+            </div>
+            <div class="layer-overview-row row-agent-building">
+              <div class="layer-name">AGENT BUILDING</div>
+              <div class="layer-desc">Womit man den AI-Agent baut</div>
+              <div class="layer-example">z.B. der Werkzeugkasten zum Programmieren</div>
+            </div>
+            <div class="layer-overview-row row-hosting">
+              <div class="layer-name">HOSTING</div>
+              <div class="layer-desc">Wo der Agent läuft, wenn er fertig ist</div>
+              <div class="layer-example">z.B. ein Server, der den Bot rund um die Uhr bereitstellt</div>
+            </div>
+            <div class="layer-overview-row row-knowledge">
+              <div class="layer-name">KNOWLEDGE</div>
+              <div class="layer-desc">Aus welchen Quellen der Agent Antworten zieht</div>
+              <div class="layer-example">z.B. euer SharePoint mit Verträgen</div>
+            </div>
+            <div class="layer-overview-row row-content-processing">
+              <div class="layer-name">CONTENT PROCESSING</div>
+              <div class="layer-desc">Spezial-Werkzeuge für Vor-Verarbeitung</div>
+              <div class="layer-example">z.B. ein Tool, das Tabellen aus PDFs extrahiert</div>
+            </div>
+            <div class="layer-overview-row row-governance">
+              <div class="layer-name">GOVERNANCE</div>
+              <div class="layer-desc">Sicherheit, Identity, Compliance</div>
+              <div class="layer-example">z.B. wer darf was, wer wird gewarnt, wer protokolliert</div>
+            </div>
+            <div class="layer-overview-row row-foundation">
+              <div class="layer-name">FOUNDATION</div>
+              <div class="layer-desc">Die AI-Modelle und die Plattform darunter</div>
+              <div class="layer-example">z.B. GPT-4o — das "Gehirn" des Agents</div>
+            </div>
+          </div>
+
+          <p style="margin-top: 0.8rem; font-size: 0.85rem; color: #6b7280; max-width: 1400px; margin-left: auto; margin-right: auto;">
+            <strong>Wichtig:</strong> Diese Reihenfolge ist <em>meine Beratungs-Logik</em> — Microsoft sortiert nach Marken (Azure, Foundry, Copilot). Wir sortieren nach <em>Funktion</em>. Das macht die Karte für Kunden-Gespräche brauchbar.
+          </p>
+        </div>
+        <aside class="notes">
+Bevor wir reinzoomen, kurz die sieben Schichten erklärt.
+
+Stell dir den Microsoft AI Stack vor wie ein Mehrfamilienhaus. Sieben Stockwerke, jedes mit eigener Funktion.
+
+Ganz oben — das Penthouse — ist SURFACE. Hier sieht der Mitarbeiter die AI. Konkret: das Chat-Fenster in Outlook, in Word, in Teams.
+
+Eine Etage tiefer ist AGENT BUILDING. Hier sitzen die Werkzeuge, mit denen man den Bot baut. Wie ein Architekten-Büro plus die Schreinerei zusammen.
+
+Die HOSTING-Etage darunter ist die Infrastruktur — Server, auf denen der fertige Bot läuft. Ohne Strom kein Betrieb.
+
+KNOWLEDGE ist die Bibliothek. Aus welchen Quellen zieht der Bot die Antworten? Der SharePoint mit den Verträgen, das CRM mit den Kunden-Daten, das interne Wiki.
+
+CONTENT PROCESSING ist eine Spezial-Werkstatt. Hier werden rohe Inhalte vorbereitet — etwa PDFs in strukturierte Tabellen umwandeln, bevor der Bot darauf zugreift.
+
+GOVERNANCE ist die Sicherheits-Etage. Wer darf was. Wer schaut zu. Wer alarmiert bei Angriffen. Wie ein Pförtner-System plus Alarmanlage in einem.
+
+Ganz unten — im Keller, wenn man so will — ist FOUNDATION. Die Modelle selbst. GPT-4o, Phi-4, Llama. Das eigentliche AI-Gehirn.
+
+Und das ist der wichtigste Punkt zum Mitnehmen: diese Sortierung ist meine. Microsoft selbst sortiert nicht so — Microsoft sortiert nach Marken. Azure-Familie, Foundry-Familie, Copilot-Familie. Wir sortieren nach Funktion. Das ist genau, was unsere Beratungs-Sicht ausmacht.
+
+Jetzt zur Karte.
+        </aside>
+      </section>
+
+      <!-- ============= SLIDE 3: BIG PICTURE ============= -->
+      <section data-mode="all">
+        <h3>Folie 3 · Die ganze Karte</h3>
+        <h2>39 Tools · 7 Schichten · 48 Verbindungen</h2>
+        <p>Jedes Tool sitzt in einer Schicht. Jede Linie ist eine bestimmte Beziehung — keine Linie ist zufällig.</p>
+        <div class="key-sentence">
+          Was farbig wird, ist gerade Thema. Layer-Namen bleiben immer sichtbar.
+        </div>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">Linien-Typen unten links — wir kommen zu ihnen, wenn sie auftauchen.</p>
+        <p class="slide-meta">Wir gehen jetzt Schicht für Schicht durch — von oben nach unten</p>
+        <aside class="notes">
+Das ist die ganze Karte. 39 Microsoft-Tools, 48 Verbindungen.
+
+Ich gehe nicht alle gleichzeitig durch — das wäre Überforderung. Ich gehe Schicht für Schicht. Was farbig ist, ist gerade Thema. Was grau ist, kommt entweder noch oder ist gerade nicht relevant.
+
+Wichtig: die Layer-Namen — SURFACE, AGENT BUILDING, HOSTING und so weiter — bleiben immer sichtbar. Das ist die Orientierung, damit du nicht verlorengehst.
+
+Die sechs Linien-Typen unten links erklären sich selbst, wenn wir sie unterwegs antreffen.
+
+Wir starten ganz oben.
+        </aside>
+      </section>
+
+      <!-- ============= SLIDE 4: SURFACE ============= -->
+      <section data-mode="surface">
+        <span class="layer-pill" style="background:#fef3c7; color:#0066cc;">Schicht 1 · SURFACE</span>
+        <h3>Folie 4 · Wo der Mitarbeiter die AI sieht</h3>
+        <h2>Microsoft 365 Copilot</h2>
+        <p>Das einzige Tool dieser Schicht. Sitzt in Outlook, Word, Excel, Teams.</p>
+        <ul>
+          <li>Endnutzer-Erlebnis — kein Code, kein Setup für den User</li>
+          <li>Custom Agents (in Studio oder MAF gebaut) erscheinen hier oben</li>
+          <li>Datenquellen: Microsoft Graph für M365-Daten, Connectors für externe</li>
+        </ul>
+        <div class="key-sentence">
+          Kernsatz: Hier oben ist das Erlebnis. Die ganze Architektur-Arbeit steckt darunter.
+        </div>
+        <aside class="notes">
+Schicht 1: SURFACE. Nur ein Bewohner — Microsoft 365 Copilot.
+
+Das ist das Chat-Fenster, das deine Mitarbeiter heute schon kennen — in Outlook, in Teams, in Word. Hier oben sieht der End-User die AI.
+
+Vier Linien gehen von ihm weg. Zwei zu den Bauwerkzeugen unten — Copilot Studio und Microsoft Agent Framework — weil Custom-Bots, die wir bauen, hier oben erscheinen. Zwei zur Bibliothek — Microsoft Graph für M365-Daten, Connectors für externe Systeme wie Salesforce.
+
+Was du dir merken sollst: hier oben ist das Endnutzer-Erlebnis — sehr sichtbar. Aber die ganze Architektur-Arbeit, das was unsere Beratung wert ist, liegt darunter. Da gehen wir jetzt rein.
+        </aside>
+      </section>
+
+      <!-- ============= SLIDE 5: AGENT BUILDING (ACTIVE) ============= -->
+      <section data-mode="agent-active">
+        <span class="layer-pill" style="background:#dbeafe; color:#2563eb;">Schicht 2 · AGENT BUILDING</span>
+        <h3>Folie 5 · Womit baut man den Bot?</h3>
+        <h2>Drei Hauptpfade</h2>
+        <ul>
+          <li><strong>MAF</strong> — der Profi-Werkzeugkasten. Code, Multi-Agent, max. Flexibilität</li>
+          <li><strong>Copilot Studio</strong> — der Lego-Baukasten. Kein Code nötig</li>
+          <li><strong>M365 Agents SDK</strong> — Spezial für Bots, die nur in Teams leben</li>
+        </ul>
+        <p style="font-size: 0.9rem; color: #6b7280;">Plus: <em>Teams SDK</em> (wandert in M365 SDK), <em>Power Automate</em> (Workflow-Klebstoff zwischen Tools).</p>
+        <div class="key-sentence">
+          Kernsatz: Drei Werkzeuge für drei Kunden-Profile — wir wählen je nach Tech-Skill und Use-Case.
+        </div>
+        <aside class="notes">
+Schicht 2: AGENT BUILDING. Hier baust du den AI-Agent.
+
+Drei Werkzeuge sind die wichtigen — und sie passen zu drei verschiedenen Kunden-Profilen.
+
+Erstens: Microsoft Agent Framework, kurz MAF. Das ist der Profi-Werkzeugkasten. Wenn der Kunde ein Dev-Team hat und Multi-Agent-Anforderungen — also wenn mehrere Bots zusammenarbeiten sollen wie ein Team — dann MAF. GA seit April. Du wirst gleich sehen: das ist der Hub, der alles zusammenhält.
+
+Zweitens: Copilot Studio. Das ist der Lego-Baukasten. Kein Code nötig. Wenn der Kunde keine Entwickler hat, aber Power-Apps-Erfahrung — dann Studio. Tausende vorgefertigte Bausteine.
+
+Drittens: M365 Agents SDK. Spezial-Werkzeug für Bots, die nur in Teams-Chats leben sollen. Wenn der Use-Case Teams-zentrisch ist, ist das der Pfad.
+
+Daneben gibt es zwei Hilfs-Werkzeuge: Teams SDK wandert offiziell in M365 Agents SDK rein — also nicht mehr separat lernen. Und Power Automate ist wie Klebstoff zwischen Tools — Studio benutzt es, wenn der Bot zum Beispiel eine Email schicken oder ein SAP-System aufrufen soll.
+
+Eine Sache merkst du dir: Studio kann unter der Haube MAF benutzen. Das heisst, ein Studio-Bot ist nicht eine Sackgasse — wenn er irgendwann komplexer wird, wandert er ins MAF-Land, ohne neu geschrieben zu werden.
+
+Drei Werkzeuge auf der Karte sind grau ausgegraut. Das sind die abgekündigten — kommt jetzt.
+        </aside>
+      </section>
+
+      <!-- ============= SLIDE 6: AGENT BUILDING (DEPRECATED + MIGRATION) ============= -->
+      <section data-mode="agent-deprecated">
+        <span class="layer-pill" style="background:#fee2e2; color:#991b1b;">Schicht 2 · Migration</span>
+        <h3>Folie 6 · Drei Werkzeuge im Auslauf</h3>
+        <h2>Migrations-Pfade</h2>
+        <ul>
+          <li><strong>Bot Framework</strong> → M365 Agents SDK <em>(Ende: 31.12.2025)</em></li>
+          <li><strong>Semantic Kernel</strong> → MAF <em>(konsolidiert)</em></li>
+          <li><strong>AutoGen</strong> → MAF <em>(konsolidiert)</em></li>
+        </ul>
+        <p style="font-size: 0.9rem; margin-top: 0.8rem;">Code muss meist <strong>nicht</strong> neu geschrieben werden — das Toolkit wechselt, der Code bleibt.</p>
+        <p style="font-size: 0.85rem; color: #991b1b;">⚠ AutoGen Studio (UI-Tool) hat keinen 1-zu-1-Ersatz</p>
+        <div class="key-sentence">
+          Kernsatz: Bestandskunden mit altem Microsoft-Bot-Code — das ist unsere Migrations-Beratung.
+        </div>
+        <aside class="notes">
+Drei Werkzeuge, die noch im Markt sind, aber abgekündigt — und das ist für uns Beratungs-Goldgrube.
+
+Bot Framework war jahrelang Microsofts Standard für Chatbots. Ende der Unterstützung am 31. Dezember 2025 — das ist hart. Migration: zum M365 Agents SDK. Wichtig: der bestehende Bot-Code läuft weiter, nur das Toolkit wechselt. Halber Tag bis zwei Tage Aufwand pro Bot, je nach Komplexität.
+
+Semantic Kernel und AutoGen werden beide in MAF konsolidiert. Semantic Kernel war das Code-First-Framework. AutoGen war das Multi-Agent-Forschungs-Framework. Jetzt eines, MAF.
+
+Eine Warnung: AutoGen Studio — das war ein UI-Werkzeug, mit dem man visuell Multi-Agent-Setups bauen konnte — hat keinen 1-zu-1-Ersatz. Da bleibt nur Code-Migration.
+
+Was du im Diagramm siehst: drei farbige Pfeile von den deprecated Knoten zu ihren neuen Zielen. Das sind die drei Migrations-Pfade, die wir bei jedem Microsoft-Bestandskunden im Erstgespräch durchgehen.
+
+Strategischer Punkt: andere Boutique-Beratungen wissen das auch — aber bei uns ist die Antwort sofort sichtbar in der Karte. Wir sparen den Kunden die Recherche.
+        </aside>
+      </section>
+
+      <!-- ============= SLIDE 7: HOSTING ============= -->
+      <section data-mode="hosting">
+        <span class="layer-pill" style="background:#f3e8ff; color:#7c3aed;">Schicht 3 · HOSTING</span>
+        <h3>Folie 7 · Wo läuft der Agent?</h3>
+        <h2>Fünf Optionen</h2>
+        <ul>
+          <li><strong>Foundry Agent Service</strong> — Microsoft-managed, aber <em>nur in den USA</em></li>
+          <li><strong>Azure Functions</strong> — selbst gehostet, EU-konform, scale-to-zero</li>
+          <li><strong>Container Apps</strong> — wenn der Bot &gt; 10 Min läuft</li>
+          <li><strong>APIM AI Gateway</strong> — Türsteher mit Verbrauchs-Tracking</li>
+          <li><strong>Logic Apps</strong> — Low-Code-Workflows ohne Programmieren</li>
+        </ul>
+        <div class="key-sentence">
+          Kernsatz für Schweizer Kunden: <em>Functions in Switzerland North</em> ist der Standard-Pfad. Foundry Service ist DSGVO-Vorsicht.
+        </div>
+        <aside class="notes">
+Schicht 3: HOSTING. Wo läuft dein Agent eigentlich, wenn er fertig ist?
+
+Fünf Optionen — und das ist eine der wichtigsten Architektur-Entscheidungen für Schweizer Kunden.
+
+Erstens: Foundry Agent Service. Microsofts vorgefertigtes Hosting für Agents. Aber: aktuell nur in Nord-USA verfügbar. Für unsere Schweizer Kunden mit DSGVO heisst das — kann nicht ohne Datenschutz-Folgenabschätzung verwendet werden. Eventuell mit einem Sponsor-Konzept lösbar, aber nicht der Standard-Pfad.
+
+Zweitens: Azure Functions. Das ist der EU-konforme Pfad. Selbst gehostet in Switzerland North. Scale-to-zero — wenn der Bot nicht läuft, kostet er nichts. Erst bei Anfragen entstehen Kosten. Das ist der Standard für Schweizer Production-Workloads.
+
+Drittens: Container Apps. Wenn dein Bot länger als zehn Minuten arbeitet — etwa für eine umfangreiche Recherche — dann reichen Functions nicht, weil die haben Timeouts. Container Apps ist dann der Pfad.
+
+Viertens: APIM AI Gateway. Das ist nicht direkt Hosting für Agents, sondern ein Türsteher davor. Macht Verbrauchs-Tracking — also wer wie viele Tokens verbraucht hat — plus Rate-Limits, plus Fallback wenn ein Modell ausfällt. Praktisch unverzichtbar für jeden Production-Bot.
+
+Fünftens: Logic Apps. Das ist der Low-Code-Pfad. Wenn der Use-Case einfach ist — Beispiel: 'neue Datei kommt in SharePoint an, klassifiziere automatisch und lege sie ab' — dann brauchst du keinen Code. Logic Apps mit AI-Connector reicht.
+
+Im Diagramm: drei violette Linien gehen von MAF nach unten zu drei Hosting-Optionen. Das sagt dir: MAF kann auf drei Arten deployed werden, je nach Anforderung.
+        </aside>
+      </section>
+
+      <!-- ============= SLIDE 8: KNOWLEDGE ============= -->
+      <section data-mode="knowledge">
+        <span class="layer-pill" style="background:#d1fae5; color:#059669;">Schicht 4 · KNOWLEDGE</span>
+        <h3>Folie 8 · Wo kommen die Antworten her?</h3>
+        <h2>Acht Quellen</h2>
+        <ul>
+          <li><strong>Azure AI Search</strong> — Goldstandard für Texte mit "Bedeutungs-Suche"</li>
+          <li><strong>Microsoft Graph</strong> — eingebauter Zugang zu allen M365-Daten</li>
+          <li><strong>Copilot Connectors</strong> — über 100 Brücken zu externen Systemen</li>
+          <li><strong>Dataverse</strong> + <strong>MCP Server</strong> — strukturierte Power-Platform-Daten</li>
+          <li><strong>Foundry IQ</strong> · <strong>Fabric Data Agents</strong> · <strong>Cosmos DB AI</strong> — Spezialisten</li>
+        </ul>
+        <div class="key-sentence">
+          Kernsatz: Jedes Bauwerkzeug hat seine bevorzugten Knowledge-Quellen — die grünen Linien zeigen welche.
+        </div>
+        <aside class="notes">
+Schicht 4: KNOWLEDGE. Aus welchen Quellen zieht der Agent seine Antworten?
+
+Acht Quellen — die grösste Auswahl in der Karte. Drei sind in der Praxis am wichtigsten.
+
+Erstens: Azure AI Search. Der Goldstandard für Text-Inhalte. Lass mich kurz erklären, wie das funktioniert, weil das ist ein wichtiges Konzept für Kunden-Gespräche.
+
+Stell dir vor: jeder Text wird in einen 'Bedeutungs-Fingerabdruck' umgewandelt — eine Art Zahlen-Reihe, die die Bedeutung des Textes repräsentiert. Bei der Suche vergleicht das System diese Fingerabdrücke statt der Wörter selbst. Konkretes Beispiel: ein User fragt 'wie kündige ich?' — die klassische Stichwortsuche findet vielleicht nichts, weil im Vertrag steht 'Vertragsauflösung'. Die Bedeutungs-Suche hingegen findet beides, weil 'kündigen' und 'Vertragsauflösung' ähnliche Fingerabdrücke haben. Plus Document-Level-Security via Entra — heisst, der Mitarbeiter sieht nur, was er sehen darf.
+
+Zweitens: Microsoft Graph. Der eingebaute Pfad zu allen M365-Daten. Mails, Teams-Chats, SharePoint-Dokumente, OneDrive-Files. Kein Connector nötig, kein Setup. Built-in.
+
+Drittens: Copilot Connectors. Über hundert vorgefertigte Brücken zu externen Systemen — ServiceNow, Jira, Confluence, Salesforce. Berechtigungen werden respektiert.
+
+Plus fünf Spezialisten: Foundry IQ ist 'AI Search für Faule' — vorgefertigt, weniger Konfiguration. Dataverse plus Dataverse MCP für strukturierte Power-Platform-Daten. Fabric Data Agents für Big-Data — der Bot kann eigenständig SQL-Anfragen stellen. Cosmos DB for AI als Vector-Speicher für Agent-Erinnerung — also damit der Bot Gespräche behält.
+
+Im Diagramm: grüne Linien sind 'grounds-on' — das heisst Knowledge-Anbindung. Du siehst — MAF groundet auf Search, IQ und Cosmos. Studio auf Graph, Connectors und Dataverse. Jedes Bauwerkzeug hat seine bevorzugten Quellen.
+        </aside>
+      </section>
+
+      <!-- ============= SLIDE 9: CONTENT PROCESSING ============= -->
+      <section data-mode="content-processing">
+        <span class="layer-pill" style="background:#cffafe; color:#0891b2;">Schicht 5 · CONTENT PROCESSING</span>
+        <h3>Folie 9 · Vor-Verarbeitung von Roh-Inhalten</h3>
+        <h2>Zwei Spezial-Werkzeuge</h2>
+        <ul>
+          <li><strong>Document Intelligence</strong> — extrahiert Tabellen, Felder, Klauseln aus PDFs</li>
+          <li><strong>Content Understanding</strong> — dasselbe für Audio, Video, Bilder</li>
+          <li>Custom Models trainierbar — z.B. für Schweizer Lohnausweise, QR-Rechnungen</li>
+        </ul>
+        <div class="key-sentence">
+          Kernsatz: Diese Schicht sitzt <em>vor</em> der Knowledge-Schicht. Erst extrahieren, dann durchsuchen.
+        </div>
+        <aside class="notes">
+Schicht 5: CONTENT PROCESSING. Eine kleine, aber sehr nützliche Schicht — zwei Werkzeuge.
+
+Erstens: Document Intelligence. Das ist nicht ein Sprach-Modell, sondern ein Spezial-Werkzeug für strukturierte Extraktion aus Dokumenten. Tabellen aus PDFs, Felder aus Formularen, Klauseln aus Verträgen. Das Wichtige: man kann eigene Modelle trainieren. Für Schweizer Kunden besonders relevant — etwa für Lohnausweise mit unserem Layout, oder für QR-Rechnungen mit dem Schweizer Zahlungs-Format.
+
+Zweitens: Content Understanding. Das ist Document Intelligence plus Multi-Modal — also auch Audio, Video, Bilder. Beispiel: Kunde hat 1000 aufgezeichnete Sales-Calls in MP3 und will sie durchsuchbar machen. Content Understanding extrahiert Sprecher, Themen, wichtige Stellen.
+
+Wo passt das in den Architektur-Fluss? Diese Schicht sitzt vor der Knowledge-Schicht. Stell dir den Use-Case vor: Kunde hat zehntausend Verträge in PDF. Workflow: PDF kommt rein, Document Intelligence extrahiert Tabellen und Felder strukturiert, das Ergebnis geht in Azure AI Search, dann groundet der Agent auf Search.
+
+Praxis-Hinweis für die Beratung: viele Kunden überschätzen, was ein LLM aus einem PDF rausholen kann. Die Antwort ist fast immer: kombiniere Document Intelligence plus AI Search plus LLM. Drei Schritte, drei Werkzeuge, jedes in seiner Spezialität.
+        </aside>
+      </section>
+
+      <!-- ============= SLIDE 10: GOVERNANCE ============= -->
+      <section data-mode="governance">
+        <span class="layer-pill" style="background:#fee2e2; color:#dc2626;">Schicht 6 · GOVERNANCE</span>
+        <h3>Folie 10 · Sicherheit & Compliance</h3>
+        <h2>Sechs Bausteine — alle Pflicht für Production</h2>
+        <ul>
+          <li><strong>Entra Agent ID</strong> — Personalausweis für jeden Bot</li>
+          <li><strong>Agent 365</strong> — HR-System für alle Bots zusammen</li>
+          <li><strong>Microsoft Purview</strong> — Daten-Wächter (was darf der Bot sehen)</li>
+          <li><strong>Defender for AI</strong> — Antivirus für AI-Angriffe</li>
+          <li><strong>Content Safety</strong> — Filter für problematische Antworten</li>
+          <li><strong>Entra Suite</strong> — Zugangs-Regeln (z.B. nur aus CH-Netzwerk)</li>
+        </ul>
+        <div class="key-sentence">
+          Kernsatz: <em>"Was kostet die Compliance?"</em> ist nicht ein Tool — es sind sechs Bausteine. Macht im Angebot transparent.
+        </div>
+        <aside class="notes">
+Schicht 6: GOVERNANCE und IDENTITY. Sechs Werkzeuge — und das ist die Schicht, die in Beratungs-Gesprächen gerne unterschätzt wird.
+
+Lass mich zwei Geschichten erzählen, weil hier die strategische Botschaft liegt.
+
+Geschichte eins: Identity. Bisher hatten in Microsoft-Systemen nur Menschen eine Identität. Entra Agent ID ändert das fundamental — jetzt hat jeder Bot eine eigene Identität. Stell dir das vor wie einen digitalen Personalausweis für den Bot. Damit kann ich Zugangs-Regeln auf den Bot anwenden. Beispiele: 'dieser Bot darf nur aus dem Schweizer Netzwerk kommen', oder 'dieser Bot darf nur mit einem Mitarbeiter reden, der sich mit Multi-Faktor authentifiziert hat'.
+
+Daneben Agent 365 — das ist sozusagen das HR-System für Bots. Alle Bots auf einer Tafel: wer hat welche Rechte, wer hat was wann gemacht, wer ist der menschliche Verantwortliche.
+
+Microsoft Entra Suite ist der Umbrella, in dem alles Identity-Bezogene lebt. Conditional Access, Identity Protection, Privileged Identity Management — alles, was für menschliche User gilt, gilt jetzt auch für Bot-Identitäten.
+
+Geschichte zwei: Daten-Sicherheit. Microsoft Purview ist der Hub. Stell dir Purview vor wie einen Daten-Wächter, der jeden Bot-Zugriff auf eure Daten beobachtet. Wenn ein Bot versucht, eine sensible Datei an einen externen Endpoint zu senden, schlägt Purview Alarm und blockiert. Sensitivity Labels werden respektiert, Audit-Logs werden protokolliert.
+
+Daneben Defender for AI — das ist sozusagen ein Antivirus für AI. Erkennt sogenannte Prompt-Injection-Versuche — wenn jemand versucht, den Bot mit manipulativen Eingaben zu hacken — und Anomalien im Traffic.
+
+Und Azure AI Content Safety ist der Filter auf das, was der Bot ausgibt. Hate, Sexual, Violence, Self-Harm — werden gefiltert. Plus auch Prompt-Injection-Detection auf Inputs.
+
+Zentraler Beratungs-Punkt: wenn ein Kunde fragt 'was muss ich für Compliance bauen?', dann ist die ehrliche Antwort nicht ein Tool. Es sind sechs Bausteine. Das sind echte Implementierungs-Kosten, die wir im Angebot transparent machen müssen — sonst gibt es Überraschungen im Projekt.
+        </aside>
+      </section>
+
+      <!-- ============= SLIDE 11: FOUNDATION ============= -->
+      <section data-mode="foundation">
+        <span class="layer-pill" style="background:#fed7aa; color:#9a3412;">Schicht 7 · FOUNDATION</span>
+        <h3>Folie 11 · Die Modelle und die Plattform</h3>
+        <h2>Hier kommen die Tokens her</h2>
+        <ul>
+          <li><strong>Foundry Models</strong> — GPT-4o, Phi-4, Mistral, Anthropic Claude</li>
+          <li><strong>Microsoft Foundry</strong> — die Plattform, in der alles wohnt</li>
+          <li><strong>Foundry SDKs / Control Plane / Local</strong> — Bibliotheken, Verwaltung, Edge</li>
+          <li><strong>Model Context Protocol (MCP)</strong> — der "USB-C-Stecker" für AI-Tools</li>
+          <li><strong>Azure OpenAI Responses API</strong> — neue Gespräch-mit-Erinnerung-API</li>
+        </ul>
+        <p style="font-size: 0.85rem; color: #991b1b; margin-top: 0.6rem;">⚠ Anthropic in EU/EFTA seit 17.04. default-OFF — DPIA-Update vor Aktivierung</p>
+        <div class="key-sentence">
+          Kernsatz: MCP ist Microsofts Bekenntnis zu Offenheit — es reduziert Vendor-Lock-in.
+        </div>
+        <aside class="notes">
+Schicht 7: FOUNDATION. Die unterste Schicht — hier kommen die eigentlichen Tokens her, hier liegen die Modelle.
+
+Sieben Knoten in zwei Gruppen.
+
+Gruppe eins: die Foundry-Plattform. Microsoft Foundry ist der Container-Begriff — die Multi-Tenant-Plattform, in der alles AI-Bezogene lebt. Foundry Models sind die eigentlichen Sprach-Modelle — GPT-4o, Phi-4, Llama, Mistral, neuerdings auch Anthropic Claude.
+
+Wichtige Compliance-Information: in EU und EFTA ist Anthropic-Integration default-OFF, seit dem 17. April. Vor Aktivierung muss die Datenschutz-Folgenabschätzung aktualisiert werden — das ist ein Punkt, den wir in jedem Schweizer Kunden-Projekt abfragen müssen.
+
+Daneben Foundry Control Plane — die Management-Schicht. Foundry SDKs — Bibliotheken, mit denen man Modelle aus dem eigenen Code aufruft. Foundry Local — der Edge-Pfad, wo Modelle direkt auf dem Laptop oder Server des Kunden laufen. Kein Cloud-Roundtrip. Sehr relevant für Kunden mit Daten-Lokalitäts-Anforderungen.
+
+Gruppe zwei: Protokoll-Standards. Model Context Protocol, kurz MCP. Erkläre ich kurz mit einer Analogie: stell dir vor, jedes AI-Werkzeug hat seinen eigenen Stecker. Bot von Microsoft, Bot von Anthropic, Bot von Google — jeder mit eigenem Anschluss. Das ist Chaos. MCP ist wie USB-C für AI — ein einheitlicher Stecker, in den alle passen. Anthropic hat MCP erfunden, Microsoft hat es adoptiert.
+
+Praktischer Vorteil: ein Tool einmal als MCP-Server bauen, dann kann es jeder MCP-fähige Bot nutzen. Das reduziert Vendor-Lock-in. Im Diagramm siehst du eine cyan-gepunktete Linie von Foundry Agent Service zu MCP — das ist der Pfad, der Microsofts Stack auch in Multi-Vendor-Umgebungen brauchbar macht.
+
+Daneben Azure OpenAI Responses API — die neuere API, die Gespräche-mit-Erinnerung auf Server-Seite verwaltet, sodass der Bot-Code das nicht selber tracken muss.
+
+Jetzt hast du alle sieben Schichten gesehen. Was kommt als nächstes — ich zeige dir drei Cross-Layer-Geschichten. Wie diese Schichten in der Praxis zusammenspielen.
+        </aside>
+      </section>
+
+      <!-- ============= SLIDE 12: CROSS — MAF HUB ============= -->
+      <section data-mode="maf-hub">
+        <span class="layer-pill" style="background:#1e3a8a; color:#fff;">Cross-Layer 1</span>
+        <h3>Folie 12 · Der zentrale Knoten</h3>
+        <h2>MAF als Hub</h2>
+        <ul>
+          <li><strong>13 Linien gehen weg, 6 kommen rein</strong> — total 19 von 48 Edges</li>
+          <li>= <strong>40% aller Verbindungen</strong> berühren MAF</li>
+          <li>3 Hosting-Optionen, 4 Knowledge-Quellen, 4 Compliance-Bausteine</li>
+        </ul>
+        <div class="key-sentence">
+          Kernsatz: Wenn der Kunde MAF lernt, schliesst er den ganzen Stack auf — ohne weitere Frameworks zu lernen.
+        </div>
+        <aside class="notes">
+Cross-Layer-Geschichte Eins: Microsoft Agent Framework als zentraler Knoten.
+
+Schau dir das Diagramm an. Was du jetzt siehst, ist MAF im Mittelpunkt mit allen seinen Verbindungen — der Rest ist grau.
+
+Zähl die Linien: dreizehn ausgehende Verbindungen, sechs eingehende. Das sind neunzehn von achtundvierzig Edges in der ganzen Karte — vierzig Prozent aller Verbindungen berühren MAF. Kein anderer Knoten kommt da auch nur in die Nähe.
+
+Was bedeutet das strategisch? MAF ist nicht nur ein Werkzeug unter vielen — MAF ist der Hub des modernen Microsoft-Agent-Stacks. Wenn ein Kunde MAF lernt, kann er damit auf drei Hosting-Optionen deployen, vier verschiedene Knowledge-Quellen anbinden, vier Compliance-Bausteine integrieren — ohne weitere Frameworks zu lernen.
+
+Lass mich den Pfad in einem Sekunden-Tour durchgehen. Nach unten zu Foundry Models und der Responses API: das ist der Modell-Aufruf-Pfad. Nach unten zu Search, IQ, Cosmos: Knowledge-Anbindungen. Quer zu Document Intelligence und Content Understanding: Vor-Verarbeitung. Nach oben zu Hosting: drei Optionen je nach Anforderung. Quer zu Governance: Identity, Daten-Schutz, Bedrohungs-Erkennung, Output-Filter. Cyan-gepunktet zu Dataverse MCP: der Pfad zu strukturierten Daten.
+
+Das ist die gesamte Architektur einer modernen Bot-Lösung — von Modell über Knowledge bis Compliance — und sie sitzt in einem einzigen Framework.
+
+Beratungs-Punkt: wenn wir einen Kunden auf die Microsoft-AI-Reise schicken, ist die einzige Investition mit hohem Hebel: das Team lernt MAF zuerst. Alles andere baut darauf auf.
+        </aside>
+      </section>
+
+      <!-- ============= SLIDE 13: COMPLIANCE STACK ============= -->
+      <section data-mode="compliance-stack">
+        <span class="layer-pill" style="background:#991b1b; color:#fff;">Cross-Layer 2</span>
+        <h3>Folie 13 · Das rote Geflecht</h3>
+        <h2>Compliance-Stack</h2>
+        <ul>
+          <li>Alle <em>secured-by</em>-Edges — rot, gestrichelt</li>
+          <li>MAF + Studio + M365 SDK = abgesichert über 4 Bausteine</li>
+          <li><strong>Identity</strong> · <strong>Daten</strong> · <strong>Threats</strong> · <strong>Outputs</strong></li>
+        </ul>
+        <div class="key-sentence">
+          Kernsatz: Kein Schweizer Production-Bot ohne diese vier Linien — DSGVO, FINMA, ISO-Audits fragen alle danach.
+        </div>
+        <aside class="notes">
+Cross-Layer-Geschichte Zwei: das rote Geflecht.
+
+Was du im Diagramm siehst — alle gestrichelten roten Linien sind 'secured-by'-Edges. Das ist die Compliance-Schicht, die quer durch die Architektur geht.
+
+Schau dir die Frameworks oben an: MAF, Copilot Studio, M365 Agents SDK. Sie sind alle drei mit der Governance-Schicht unten verbunden. Die roten Linien führen zu vier wichtigen Zielen.
+
+Erstens: Entra Agent ID. Identity. Jeder Bot hat seine eigene Identität, gegen die wir Zugangs-Regeln fahren können.
+
+Zweitens: Microsoft Purview. Daten-Schutz. Sensitivity Labels werden respektiert, Audit-Logs werden geführt, Datenschutz-Regeln blockieren Daten-Exfiltration. Wenn ein Bot versucht, eine sensible Datei an einen externen Endpoint zu senden, schlägt Purview Alarm.
+
+Drittens: Defender for AI. Bedrohungs-Erkennung. Prompt-Injection-Versuche, Jailbreak-Versuche, Anomalien im Traffic werden hier erkannt.
+
+Viertens: Azure AI Content Safety. Output und Input Filter. Erkennt schädliche Inhalte in beiden Richtungen.
+
+Ein wichtiger Beratungs-Punkt: für Schweizer Production-Workloads sind alle vier Bausteine de-facto Pflicht. Nicht weil das Gesetz es buchstäblich verlangt, sondern weil ohne diese vier Bausteine kein vernünftiges Sicherheits-Audit besteht. DSGVO-Verantwortung, FINMA-Anforderungen, ISO-Audits — die fragen alle nach genau diesem Stack.
+
+Wenn ein Kunde sagt 'lass uns die Compliance-Bausteine später bauen, ich will erst günstig in Produktion gehen' — das ist eine klassische Falle. Diese Bausteine sind nicht später, sie sind Teil von Phase eins. Die Karte macht das visuell offensichtlich.
+        </aside>
+      </section>
+
+      <!-- ============= SLIDE 14: BUILD PATH 1 — STANDARD MAF ============= -->
+      <section data-mode="build-path">
+        <span class="layer-pill" style="background:#065f46; color:#fff;">Cross-Layer 3 · Pfad 1 von 3</span>
+        <h3>Folie 14 · Wie sieht eine echte Lösung aus?</h3>
+        <h2>Pfad 1 — Code-First mit MAF</h2>
+        <p style="font-size: 0.92rem; color: #4b5563;"><strong>Use-Case:</strong> Mittelständischer Kunde mit Dev-Team. Mitarbeiter fragt im Copilot Fragen zu internen Verträgen.</p>
+        <ul>
+          <li><strong>1.</strong> User chattet im <em>M365 Copilot</em></li>
+          <li><strong>2.</strong> Copilot ruft <em>MAF-Agent</em> auf <span style="color: #6b7280;">(uses)</span></li>
+          <li><strong>3.</strong> MAF läuft auf <em>Azure Functions</em> in CH-North <span style="color: #6b7280;">(hosted-on)</span></li>
+          <li><strong>4.</strong> MAF holt Wissen aus <em>Azure AI Search</em> <span style="color: #6b7280;">(grounds-on)</span></li>
+          <li><strong>5.</strong> Search nutzt <em>Foundry Models</em> für Embeddings <span style="color: #6b7280;">(calls)</span></li>
+        </ul>
+        <div class="key-sentence">
+          Standard-Pfad für anspruchsvolle Schweizer Kunden — EU-konform, skalierbar, max. Flexibilität.
+        </div>
+        <aside class="notes">
+Cross-Layer-Geschichte Drei: drei konkrete Pfade — wie Lösungen tatsächlich quer durch die Schichten laufen. Ich zeige dir die drei häufigsten Konstellationen aus unserer Beratung.
+
+Pfad eins: Code-First mit MAF. Der Standard-Pfad für anspruchsvolle Schweizer Kunden mit Dev-Team. Use-Case: Mittelständischer Kunde, Mitarbeiter fragt im Copilot Fragen zu internen Verträgen.
+
+Schritt eins, ganz oben: User chattet im M365 Copilot. Schicht Surface.
+
+Schritt zwei: Copilot ruft den Custom-Engine-Agent auf, der mit MAF gebaut wurde. Eine 'uses'-Verbindung von Surface zu Agent Building.
+
+Schritt drei: MAF läuft auf Azure Functions. Das ist eine 'hosted-on'-Verbindung. EU-konform in Switzerland North, scale-to-zero — der Standard-Pfad für Schweizer Kunden.
+
+Schritt vier: Wenn der Bot eine Wissens-Frage kriegt, holt er die Antwort aus Azure AI Search. Eine 'grounds-on'-Verbindung zu Knowledge.
+
+Schritt fünf: Search selbst braucht die Bedeutungs-Fingerabdrücke, von denen ich vorher gesprochen habe — die kommen von Foundry Models. Eine 'calls'-Verbindung von Knowledge nach Foundation.
+
+Fünf Schritte, vier Schichten überquert, ein durchgehender Pfad. Was hier nicht hervorgehoben ist, aber implizit dabei: jeder dieser Knoten ist abgesichert über die Compliance-Schicht.
+
+Aufwand für Setup: typisch zwei bis vier Wochen für POC, weitere zwei bis vier Wochen für Production-Hardening.
+
+Das ist nur eine von drei sinnvollen Konstellationen. Lass mich dir zwei weitere zeigen.
+        </aside>
+      </section>
+
+      <!-- ============= SLIDE 15: BUILD PATH 2 — LOW-CODE ============= -->
+      <section data-mode="build-path-2">
+        <span class="layer-pill" style="background:#065f46; color:#fff;">Cross-Layer 3 · Pfad 2 von 3</span>
+        <h3>Folie 15 · Wenn der Kunde keine Entwickler hat</h3>
+        <h2>Pfad 2 — Low-Code mit Copilot Studio</h2>
+        <p style="font-size: 0.92rem; color: #4b5563;"><strong>Use-Case:</strong> Sales-Team ohne Dev-Ressourcen. Bot soll Termine planen und CRM-Daten holen.</p>
+        <ul>
+          <li><strong>1.</strong> User fragt im <em>M365 Copilot</em>: "Wer ist mein nächster Termin?"</li>
+          <li><strong>2.</strong> Copilot ruft <em>Copilot Studio</em>-Agent auf <span style="color: #6b7280;">(uses)</span></li>
+          <li><strong>3.</strong> Studio ruft <em>Power Automate</em>-Flow für CRM-Aktionen <span style="color: #6b7280;">(calls)</span></li>
+          <li><strong>4.</strong> Studio holt M365-Daten via <em>Microsoft Graph</em> <span style="color: #6b7280;">(grounds-on)</span></li>
+          <li><strong>5.</strong> Studio ruft <em>Foundry Models</em> für die Antwort <span style="color: #6b7280;">(calls)</span></li>
+        </ul>
+        <div class="key-sentence">
+          Kein Code geschrieben. POC in einem Tag. Limit: keine Multi-Agent-Komplexität.
+        </div>
+        <aside class="notes">
+Pfad zwei: Low-Code mit Copilot Studio. Das ist der Pfad für Kunden ohne Dev-Team — denk an typische Mittelstands-Sales-Teams oder HR-Abteilungen, die Power-Apps-Erfahrung haben aber keinen Code schreiben können.
+
+Use-Case-Beispiel: Sales-Team will einen Bot, der Fragen wie 'wer ist mein nächster Termin?' oder 'was war der letzte Kontakt mit Kunde X?' beantwortet.
+
+Schritt eins: User fragt im M365 Copilot. Gleiche Surface wie bei Pfad eins.
+
+Schritt zwei: Copilot ruft den Studio-Agent auf. 'uses'-Verbindung. Aber jetzt nicht zu MAF — sondern zu Copilot Studio.
+
+Schritt drei: Studio ruft einen Power Automate Flow auf, um zum Beispiel CRM-Daten aus Salesforce oder Dynamics zu holen. Das ist eine 'calls'-Verbindung. Das ist der Trick — Studio kann tausende fertige Connectoren über Power Automate nutzen.
+
+Schritt vier: Studio greift auf Microsoft Graph zu, um Mitarbeiter-Daten und Outlook-Termine zu holen. 'grounds-on'-Verbindung.
+
+Schritt fünf: Studio ruft Foundry Models für die Antwort-Generierung. 'calls'.
+
+Schau auf das Diagramm: kein einziger Knoten in der Hosting-Schicht ist hervorgehoben. Das ist der grosse Unterschied — Studio ist managed, Microsoft kümmert sich um die Infrastruktur. Kein Functions-Setup, keine Container Apps, kein APIM. Wir empfehlen das nur für Kunden, die nicht in regulierten Branchen sind, weil Studio-Hosting standardmässig Microsoft-managed ist.
+
+Setup-Aufwand: ein bis drei Tage POC. Production-tauglich nach einer Woche, wenn der Use-Case klar ist.
+
+Limits: keine Multi-Agent-Orchestrierung, kein Custom-Tool ausserhalb Power-Automate-Ökosystem. Wenn der Kunde später wachsen will, muss er auf MAF migrieren — wie schon erwähnt, Studio kann unter der Haube zu MAF wandern.
+
+Beratungs-Punkt: für mittelständische Schweizer Kunden ohne Dev-Team ist das oft der Einstiegs-Pfad. Wir zeigen ihnen schnellen Wert, dann gehen wir später in komplexere MAF-Architektur.
+        </aside>
+      </section>
+
+      <!-- ============= SLIDE 16: BUILD PATH 3 — DOCUMENT PROCESSING ============= -->
+      <section data-mode="build-path-3">
+        <span class="layer-pill" style="background:#065f46; color:#fff;">Cross-Layer 3 · Pfad 3 von 3</span>
+        <h3>Folie 16 · Wenn die Daten in PDFs stecken</h3>
+        <h2>Pfad 3 — Dokumenten-Verarbeitung</h2>
+        <p style="font-size: 0.92rem; color: #4b5563;"><strong>Use-Case:</strong> Anwaltskanzlei, 10'000 Verträge in PDF. User soll Klauseln durchsuchen und vergleichen.</p>
+        <ul>
+          <li><strong>1.</strong> User chattet im <em>M365 Copilot</em></li>
+          <li><strong>2.</strong> Copilot ruft <em>MAF-Agent</em> auf <span style="color: #6b7280;">(uses)</span></li>
+          <li><strong>3.</strong> MAF nutzt <em>Document Intelligence</em> zur PDF-Extraktion <span style="color: #6b7280;">(uses)</span></li>
+          <li><strong>4.</strong> MAF holt Wissen aus <em>AI Search</em> (extrahierte Daten) <span style="color: #6b7280;">(grounds-on)</span></li>
+          <li><strong>5.</strong> Search nutzt <em>Foundry Models</em> für Embeddings <span style="color: #6b7280;">(calls)</span></li>
+        </ul>
+        <div class="key-sentence">
+          Drei-Schritt-Pattern: <em>Extract</em> → <em>Index</em> → <em>Generate</em>. Custom-Models für Schweizer Vertrags-Layouts trainierbar.
+        </div>
+        <aside class="notes">
+Pfad drei: Dokumenten-Verarbeitung. Das ist der Pfad für Kunden, deren Daten primär in PDFs stecken — Anwaltskanzleien, Versicherungen, Treuhänder, Banken-Backoffice. Sehr typisch für die Schweiz.
+
+Use-Case-Beispiel: Anwaltskanzlei mit zehntausend Verträgen in PDF. Mitarbeiter sollen Klauseln durchsuchen — 'finde alle Verträge mit nicht-Standard-Konkurrenz-Klausel'. Sollten Vergleiche zwischen Verträgen ziehen können.
+
+Hier sieht man, warum Content Processing eine eigene Schicht ist. Schau auf die Karte — die fünfte Schicht von oben, türkis, ist hervorgehoben.
+
+Schritt eins und zwei: gleich wie Pfad eins. User in Copilot, MAF-Agent.
+
+Schritt drei: das ist der entscheidende Schritt. MAF ruft Document Intelligence auf. Document Intelligence ist nicht ein Sprach-Modell — es ist ein Spezial-Werkzeug, das aus PDFs strukturierte Daten extrahiert. Tabellen, Felder, Klauseln. Und das ist wichtig: man kann eigene Modelle trainieren. Für unsere Anwaltskanzlei können wir ein Custom-Model für deren spezifisches Vertrags-Layout trainieren.
+
+Schritt vier: das extrahierte Material — also die strukturierten Klauseln, nicht der Roh-PDF — wird in Azure AI Search indexiert. MAF groundet auf Search.
+
+Schritt fünf: Search nutzt Foundry Models für die Bedeutungs-Fingerabdrücke. Wie in Pfad eins.
+
+Wichtigste Erkenntnis hier: das ist ein Drei-Schritt-Pattern. Extract — mit Document Intelligence. Index — in AI Search. Generate — durch das Sprach-Modell. Viele Kunden glauben, dass ein LLM allein PDFs lesen kann. Die Antwort ist: technisch ja, qualitativ nein. Mit dieser Drei-Schritt-Architektur kommt man auf qualitativ deutlich bessere Resultate.
+
+Setup-Aufwand: drei Tage POC mit Standard-Document-Intelligence-Modell. Custom-Model-Training für Schweizer Vertrags-Layouts: weitere zwei Wochen plus Sample-Annotationen vom Kunden.
+
+Beratungs-Punkt: das ist auch unser Pitch an Kunden mit komplexen Schweizer Dokumenten — Lohnausweise, QR-Rechnungen, Versicherungs-Policen. Wir zeigen ihnen, dass Microsoft hier ein Werkzeug hat, das sie spezifisch für ihre Dokumenten-Welt anpassen können.
+
+Das waren die drei Pfade. Jetzt zur Zusammenfassung.
+        </aside>
+      </section>
+
+      <!-- ============= SLIDE 17: SCHLUSS ============= -->
+      <section data-mode="end">
+        <div style="text-align: center; max-width: 70vw; margin: 0 auto;">
+          <h2 style="color: #1e3a8a; font-size: 2.5rem;">Zusammenfassung</h2>
+          <div style="margin-top: 2rem; font-size: 1.1rem; line-height: 1.8;">
+            <p><strong>7 Schichten</strong> — Surface · Building · Hosting · Knowledge · Content · Governance · Foundation</p>
+            <p><strong>39 Tools</strong> — kuratiert nach Beratungs-Logik, nicht nach Microsoft-Marken</p>
+            <p><strong>48 Verbindungen</strong> — sechs typisierte Beziehungen, jede mit Bedeutung</p>
+            <p><strong>1 zentraler Hub</strong> — MAF, mit 19 von 48 Verbindungen</p>
+            <p><strong>3 Standard-Pfade</strong> — Code-First · Low-Code · Dokumenten-Verarbeitung</p>
+            <p><strong>4 Compliance-Bausteine</strong> — Identity, Daten, Threats, Outputs</p>
+          </div>
+          <p style="margin-top: 3rem; font-size: 1.4rem; color: #1e3a8a;">Fragen?</p>
+        </div>
+        <aside class="notes">
+Zusammengefasst: was du heute gesehen hast, ist Microsofts AI-Stack neu geordnet — nicht nach Marken-Familien, sondern nach unserer Beratungs-Logik.
+
+Sieben Schichten, neununddreissig Tools, achtundvierzig Verbindungen. Mit einem zentralen Hub — MAF — der vierzig Prozent aller Verbindungen ausmacht. Mit vier Compliance-Bausteinen, die in jedem Production-Setup Pflicht sind.
+
+Diese Karte ist kein abstraktes Übersichts-Diagramm. Es ist ein Beratungs-Werkzeug — gemacht, um in Kunden-Erstgesprächen die Architektur-Entscheidungen sichtbar zu machen, die wir in zehn Minuten erklären können müssen.
+
+Fragen?
+        </aside>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="slide-number" id="slide-num">Folie 1 / 17</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+
+  <script>
+    /* =====================================================
+       NODE / EDGE DATA — derived from web/data/*.yaml
+       ===================================================== */
+    const LAYER_Y = {
+      'surface': 60,
+      'agent-building': 185,
+      'hosting': 320,
+      'knowledge': 460,
+      'content-processing': 605,
+      'governance': 745,
+      'foundation': 880,
+    };
+
+    const NODES = [
+      // SURFACE
+      { slug: 'microsoft-365-copilot', label: 'M365 Copilot', layer: 'surface', x: 600 },
+
+      // AGENT BUILDING
+      { slug: 'microsoft-agent-framework', label: 'MAF', layer: 'agent-building', x: 100 },
+      { slug: 'copilot-studio',            label: 'Copilot Studio', layer: 'agent-building', x: 245 },
+      { slug: 'm365-agents-sdk',           label: 'M365 Agents SDK', layer: 'agent-building', x: 390 },
+      { slug: 'teams-sdk',                 label: 'Teams SDK', layer: 'agent-building', x: 535 },
+      { slug: 'power-automate',            label: 'Power Automate', layer: 'agent-building', x: 680 },
+      { slug: 'bot-framework',             label: 'Bot Framework', layer: 'agent-building', x: 825, deprecated: true },
+      { slug: 'semantic-kernel',           label: 'Semantic Kernel', layer: 'agent-building', x: 970, deprecated: true },
+      { slug: 'autogen',                   label: 'AutoGen', layer: 'agent-building', x: 1115, deprecated: true },
+
+      // HOSTING
+      { slug: 'foundry-agent-service',  label: 'Foundry Agent Svc', layer: 'hosting', x: 200 },
+      { slug: 'azure-functions',        label: 'Azure Functions',   layer: 'hosting', x: 410 },
+      { slug: 'azure-container-apps',   label: 'Container Apps',    layer: 'hosting', x: 610 },
+      { slug: 'apim-ai-gateway',        label: 'APIM Gateway',      layer: 'hosting', x: 810 },
+      { slug: 'logic-apps',             label: 'Logic Apps',        layer: 'hosting', x: 1010 },
+
+      // KNOWLEDGE
+      { slug: 'azure-ai-search',        label: 'AI Search',       layer: 'knowledge', x: 90 },
+      { slug: 'foundry-iq',             label: 'Foundry IQ',      layer: 'knowledge', x: 240 },
+      { slug: 'microsoft-graph',        label: 'MS Graph',        layer: 'knowledge', x: 390 },
+      { slug: 'copilot-connectors',     label: 'Connectors',      layer: 'knowledge', x: 540 },
+      { slug: 'dataverse',              label: 'Dataverse',       layer: 'knowledge', x: 690 },
+      { slug: 'dataverse-mcp-server',   label: 'Dataverse MCP',   layer: 'knowledge', x: 840 },
+      { slug: 'fabric-data-agents',     label: 'Fabric Agents',   layer: 'knowledge', x: 990 },
+      { slug: 'cosmos-db-for-ai',       label: 'Cosmos DB AI',    layer: 'knowledge', x: 1115 },
+
+      // CONTENT PROCESSING
+      { slug: 'azure-ai-document-intelligence',  label: 'Doc Intelligence',     layer: 'content-processing', x: 460 },
+      { slug: 'azure-ai-content-understanding',  label: 'Content Understand.', layer: 'content-processing', x: 760 },
+
+      // GOVERNANCE
+      { slug: 'entra-agent-id',         label: 'Entra Agent ID', layer: 'governance', x: 90 },
+      { slug: 'agent-365',              label: 'Agent 365',      layer: 'governance', x: 240 },
+      { slug: 'microsoft-entra-suite',  label: 'Entra Suite',    layer: 'governance', x: 390 },
+      { slug: 'microsoft-purview',      label: 'Purview',        layer: 'governance', x: 540 },
+      { slug: 'purview-dspm',           label: 'Purview DSPM',   layer: 'governance', x: 690 },
+      { slug: 'purview-data-map',       label: 'Data Map',       layer: 'governance', x: 840 },
+      { slug: 'defender-for-ai',        label: 'Defender AI',    layer: 'governance', x: 990 },
+      { slug: 'azure-ai-content-safety',label: 'Content Safety', layer: 'governance', x: 1115 },
+
+      // FOUNDATION
+      { slug: 'microsoft-foundry',          label: 'MS Foundry',     layer: 'foundation', x: 110 },
+      { slug: 'foundry-models',             label: 'Foundry Models', layer: 'foundation', x: 260 },
+      { slug: 'foundry-control-plane',      label: 'Control Plane',  layer: 'foundation', x: 410 },
+      { slug: 'foundry-sdks',               label: 'Foundry SDKs',   layer: 'foundation', x: 560 },
+      { slug: 'foundry-local',              label: 'Foundry Local',  layer: 'foundation', x: 710 },
+      { slug: 'model-context-protocol',     label: 'MCP',            layer: 'foundation', x: 860 },
+      { slug: 'azure-openai-responses-api', label: 'Responses API',  layer: 'foundation', x: 1010 },
+    ];
+
+    const EDGES = [
+      // MAF outgoing
+      ['microsoft-agent-framework', 'foundry-models', 'calls'],
+      ['microsoft-agent-framework', 'azure-openai-responses-api', 'calls'],
+      ['microsoft-agent-framework', 'azure-ai-search', 'grounds-on'],
+      ['microsoft-agent-framework', 'foundry-iq', 'grounds-on'],
+      ['microsoft-agent-framework', 'foundry-agent-service', 'hosted-on'],
+      ['microsoft-agent-framework', 'azure-functions', 'hosted-on'],
+      ['microsoft-agent-framework', 'azure-container-apps', 'hosted-on'],
+      ['microsoft-agent-framework', 'entra-agent-id', 'secured-by'],
+      ['microsoft-agent-framework', 'dataverse-mcp-server', 'integrated-via'],
+      // Copilot Studio
+      ['copilot-studio', 'microsoft-agent-framework', 'uses'],
+      ['copilot-studio', 'microsoft-graph', 'grounds-on'],
+      ['copilot-studio', 'copilot-connectors', 'grounds-on'],
+      ['copilot-studio', 'dataverse', 'grounds-on'],
+      ['copilot-studio', 'foundry-models', 'calls'],
+      ['copilot-studio', 'entra-agent-id', 'secured-by'],
+      // M365 Copilot
+      ['microsoft-365-copilot', 'copilot-studio', 'uses'],
+      ['microsoft-365-copilot', 'microsoft-agent-framework', 'uses'],
+      ['microsoft-365-copilot', 'microsoft-graph', 'grounds-on'],
+      ['microsoft-365-copilot', 'copilot-connectors', 'grounds-on'],
+      // M365 Agents SDK
+      ['m365-agents-sdk', 'azure-functions', 'hosted-on'],
+      ['m365-agents-sdk', 'azure-container-apps', 'hosted-on'],
+      ['m365-agents-sdk', 'entra-agent-id', 'secured-by'],
+      // Foundry IQ + Search
+      ['foundry-iq', 'azure-ai-search', 'calls'],
+      // Search embeddings
+      ['azure-ai-search', 'foundry-models', 'calls'],
+      // APIM
+      ['apim-ai-gateway', 'foundry-models', 'calls'],
+      // MCP Host
+      ['foundry-agent-service', 'model-context-protocol', 'integrated-via'],
+      // Deprecation migrations
+      ['bot-framework', 'm365-agents-sdk', 'uses', 'migration-path'],
+      ['semantic-kernel', 'microsoft-agent-framework', 'uses', 'migration-path'],
+      ['autogen', 'microsoft-agent-framework', 'uses', 'migration-path'],
+      // Agent 365
+      ['agent-365', 'microsoft-agent-framework', 'uses'],
+      // Round 2: 18 added edges
+      ['copilot-studio', 'power-automate', 'calls'],
+      ['teams-sdk', 'm365-agents-sdk', 'uses'],
+      ['logic-apps', 'foundry-models', 'calls'],
+      ['microsoft-agent-framework', 'foundry-sdks', 'uses'],
+      ['foundry-local', 'foundry-models', 'uses'],
+      ['foundry-control-plane', 'microsoft-foundry', 'hosted-on'],
+      ['foundry-models', 'microsoft-foundry', 'hosted-on'],
+      ['microsoft-agent-framework', 'cosmos-db-for-ai', 'grounds-on'],
+      ['fabric-data-agents', 'microsoft-agent-framework', 'uses'],
+      ['microsoft-agent-framework', 'azure-ai-document-intelligence', 'uses'],
+      ['microsoft-agent-framework', 'azure-ai-content-understanding', 'uses'],
+      ['microsoft-agent-framework', 'microsoft-purview', 'secured-by'],
+      ['microsoft-agent-framework', 'defender-for-ai', 'secured-by'],
+      ['microsoft-agent-framework', 'azure-ai-content-safety', 'secured-by'],
+      ['copilot-studio', 'azure-ai-content-safety', 'secured-by'],
+      ['entra-agent-id', 'microsoft-entra-suite', 'uses'],
+      ['purview-dspm', 'microsoft-purview', 'uses'],
+      ['purview-data-map', 'microsoft-purview', 'uses'],
+    ];
+
+    const BUILD_PATH_NODES = new Set([
+      'microsoft-365-copilot',
+      'microsoft-agent-framework',
+      'azure-functions',
+      'azure-ai-search',
+      'foundry-models',
+    ]);
+    const BUILD_PATH_EDGES = new Set([
+      'microsoft-365-copilot|microsoft-agent-framework',
+      'microsoft-agent-framework|azure-functions',
+      'microsoft-agent-framework|azure-ai-search',
+      'azure-ai-search|foundry-models',
+    ]);
+
+    const BUILD_PATH_2_NODES = new Set([
+      'microsoft-365-copilot',
+      'copilot-studio',
+      'power-automate',
+      'microsoft-graph',
+      'foundry-models',
+    ]);
+    const BUILD_PATH_2_EDGES = new Set([
+      'microsoft-365-copilot|copilot-studio',
+      'copilot-studio|power-automate',
+      'copilot-studio|microsoft-graph',
+      'copilot-studio|foundry-models',
+    ]);
+
+    const BUILD_PATH_3_NODES = new Set([
+      'microsoft-365-copilot',
+      'microsoft-agent-framework',
+      'azure-ai-document-intelligence',
+      'azure-ai-search',
+      'foundry-models',
+    ]);
+    const BUILD_PATH_3_EDGES = new Set([
+      'microsoft-365-copilot|microsoft-agent-framework',
+      'microsoft-agent-framework|azure-ai-document-intelligence',
+      'microsoft-agent-framework|azure-ai-search',
+      'azure-ai-search|foundry-models',
+    ]);
+
+    const MAF_NEIGHBORS = new Set();
+    EDGES.forEach(([s, t]) => {
+      if (s === 'microsoft-agent-framework') MAF_NEIGHBORS.add(t);
+      if (t === 'microsoft-agent-framework') MAF_NEIGHBORS.add(s);
+    });
+
+    /* =====================================================
+       RENDER ARCHITECTURE GRAPH
+       ===================================================== */
+    function renderGraph() {
+      const svg = document.getElementById('arch-svg');
+      const NS = 'http://www.w3.org/2000/svg';
+      const NODE_W = 122, NODE_H = 34;
+
+      // Layer bands (background tint)
+      const LAYERS = [
+        { id: 'surface',            label: 'SURFACE',            y: 35,  fill: '#fef3c7' },
+        { id: 'agent-building',     label: 'AGENT BUILDING',     y: 160, fill: '#dbeafe' },
+        { id: 'hosting',            label: 'HOSTING',            y: 295, fill: '#f3e8ff' },
+        { id: 'knowledge',          label: 'KNOWLEDGE',          y: 435, fill: '#d1fae5' },
+        { id: 'content-processing', label: 'CONTENT PROCESSING', y: 580, fill: '#cffafe' },
+        { id: 'governance',         label: 'GOVERNANCE',         y: 720, fill: '#fee2e2' },
+        { id: 'foundation',         label: 'FOUNDATION',         y: 855, fill: '#fed7aa' },
+      ];
+
+      LAYERS.forEach((L) => {
+        const band = document.createElementNS(NS, 'rect');
+        band.setAttribute('x', 0);
+        band.setAttribute('y', L.y);
+        band.setAttribute('width', 1200);
+        band.setAttribute('height', 55);
+        band.setAttribute('fill', L.fill);
+        band.setAttribute('class', `layer-band band-${L.id}`);
+        svg.appendChild(band);
+      });
+
+      // Build node lookup
+      const nodeMap = {};
+      NODES.forEach(n => {
+        n.cx = n.x;
+        n.cy = LAYER_Y[n.layer];
+        nodeMap[n.slug] = n;
+      });
+
+      // Edges first (so they appear under nodes)
+      const edgesGroup = document.createElementNS(NS, 'g');
+      edgesGroup.setAttribute('id', 'edges');
+      svg.appendChild(edgesGroup);
+
+      EDGES.forEach(([src, tgt, type, extra]) => {
+        const sNode = nodeMap[src];
+        const tNode = nodeMap[tgt];
+        if (!sNode || !tNode) return;
+
+        const x1 = sNode.cx, y1 = sNode.cy + (tNode.cy > sNode.cy ? NODE_H/2 : -NODE_H/2);
+        const x2 = tNode.cx, y2 = tNode.cy + (tNode.cy > sNode.cy ? -NODE_H/2 : NODE_H/2);
+        const mx = (x1 + x2) / 2;
+        const my = (y1 + y2) / 2;
+        const dx = (x2 - x1) * 0.15;
+
+        const path = document.createElementNS(NS, 'path');
+        path.setAttribute('d', `M${x1},${y1} Q${mx + dx},${my} ${x2},${y2}`);
+        const classes = [
+          'arch-edge',
+          `edge-${type}`,
+          `from-${src}`,
+          `to-${tgt}`,
+          `touches-${sNode.layer}`,
+          `touches-${tNode.layer}`,
+        ];
+        if (extra) classes.push(extra);
+        if (BUILD_PATH_EDGES.has(`${src}|${tgt}`) || BUILD_PATH_EDGES.has(`${tgt}|${src}`)) {
+          classes.push('path-build');
+        }
+        if (BUILD_PATH_2_EDGES.has(`${src}|${tgt}`) || BUILD_PATH_2_EDGES.has(`${tgt}|${src}`)) {
+          classes.push('path-build-2');
+        }
+        if (BUILD_PATH_3_EDGES.has(`${src}|${tgt}`) || BUILD_PATH_3_EDGES.has(`${tgt}|${src}`)) {
+          classes.push('path-build-3');
+        }
+        path.setAttribute('class', classes.join(' '));
+        edgesGroup.appendChild(path);
+      });
+
+      // Nodes on top
+      const nodesGroup = document.createElementNS(NS, 'g');
+      nodesGroup.setAttribute('id', 'nodes');
+      svg.appendChild(nodesGroup);
+
+      NODES.forEach(n => {
+        const g = document.createElementNS(NS, 'g');
+        const classes = [
+          'arch-node',
+          `layer-${n.layer}`,
+          `node-${n.slug}`,
+        ];
+        if (n.deprecated) classes.push('deprecated');
+        if (BUILD_PATH_NODES.has(n.slug)) classes.push('path-build');
+        if (BUILD_PATH_2_NODES.has(n.slug)) classes.push('path-build-2');
+        if (BUILD_PATH_3_NODES.has(n.slug)) classes.push('path-build-3');
+        if (MAF_NEIGHBORS.has(n.slug)) classes.push('maf-neighbor');
+        g.setAttribute('class', classes.join(' '));
+        g.setAttribute('transform', `translate(${n.cx - NODE_W/2}, ${n.cy - NODE_H/2})`);
+
+        const rect = document.createElementNS(NS, 'rect');
+        rect.setAttribute('width', NODE_W);
+        rect.setAttribute('height', NODE_H);
+        rect.setAttribute('rx', 5);
+        g.appendChild(rect);
+
+        const text = document.createElementNS(NS, 'text');
+        text.setAttribute('x', NODE_W / 2);
+        text.setAttribute('y', NODE_H / 2 + 4);
+        text.setAttribute('text-anchor', 'middle');
+        text.textContent = n.label;
+        g.appendChild(text);
+
+        nodesGroup.appendChild(g);
+      });
+
+      // Layer labels — rendered LAST so they sit on top of everything
+      const labelsGroup = document.createElementNS(NS, 'g');
+      labelsGroup.setAttribute('id', 'layer-labels');
+      svg.appendChild(labelsGroup);
+
+      LAYERS.forEach((L) => {
+        const labelEl = document.createElementNS(NS, 'text');
+        labelEl.setAttribute('x', 12);
+        labelEl.setAttribute('y', L.y + 18);
+        labelEl.setAttribute('class', `layer-label label-${L.id}`);
+        labelEl.textContent = L.label;
+        labelsGroup.appendChild(labelEl);
+      });
+    }
+
+    renderGraph();
+
+    /* =====================================================
+       REVEAL.JS INIT + MODE BINDING
+       ===================================================== */
+    Reveal.initialize({
+      hash: true,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      transition: 'fade',
+      width: '100%',
+      height: '100%',
+      margin: 0,
+      minScale: 1,
+      maxScale: 1,
+      plugins: [RevealNotes],
+    });
+
+    Reveal.on('slidechanged', (event) => {
+      const mode = event.currentSlide.dataset.mode || 'all';
+      document.body.dataset.mode = mode;
+      const totalSlides = Reveal.getTotalSlides();
+      const idx = Reveal.getIndices().h + 1;
+      document.getElementById('slide-num').textContent = `Folie ${idx} / ${totalSlides}`;
+    });
+
+    document.body.dataset.mode = Reveal.getCurrentSlide().dataset.mode || 'title';
+    document.getElementById('slide-num').textContent = `Folie 1 / ${Reveal.getTotalSlides()}`;
+  </script>
+</body>
+</html>
