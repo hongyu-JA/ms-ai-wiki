@@ -1,7 +1,7 @@
 ---
 watch: close
 status: ga
-last_verified: 2026-04-22
+last_verified: 2026-06-03
 aliases: []
 moc:
   - "[[Microsoft MOC]]"
@@ -13,6 +13,20 @@ moc:
 *Die **Steuerungs- und Observability-Schicht** über [[Microsoft Foundry]]. Bündelt Deployment, RBAC (via Entra), Private Networking, Content Safety Policies, **Tracing + Evaluation + Observability + Responsible AI**. Kernerkenntnis: Foundry Tracing ist **kein separates Backend**, sondern OTel-Producer → Application Insights. **35+ OOB-Evaluators** in 6 Kategorien. **Medium-Threshold auf allen Risikokategorien** als Default, Jailbreak/Protected-Material nicht abschaltbar.*
 
 > **Analogie:** Wie Kubernetes Control Plane für Container — die Komponente, die „die Regeln durchsetzt" und „überwacht, was läuft".
+
+---
+
+## Build 2026 Update (2. Juni 2026)
+
+**Massiver Funktions-Ausbau** auf Build 2026:
+
+- **Model-agnostic Routing:** dynamische Provider-Wahl zwischen [[MAI Models]], [[Foundry Models]] (OpenAI/Anthropic) und Custom-Modellen — basierend auf YAML-Policy für Latency, Cost, Accuracy
+- **A/B-Testing-Framework:** automatisierte Rollbacks wenn Modell-Qualität unter Schwelle fällt
+- **Unified Billing:** ein Dashboard über alle Provider hinweg
+- **Content Shield:** nutzt MAI-Thinking-1, um Corporate-AI-Policies in Echtzeit durchzusetzen (DSGVO/HIPAA-Boundary-Block bevor das Modell erreicht wird)
+- **Microsoft Purview + Sentinel Integration:** Data-Lineage von Fine-Tuning bis Inferenz nachverfolgbar
+
+**Beratungs-Konsequenz:** Foundry Control Plane war bisher "nice to have" — ab Q3/2026 ist es de-facto Pflicht für jedes Multi-Modell-Setup. In neuen Architektur-Empfehlungen explizit einplanen.
 
 ---
 

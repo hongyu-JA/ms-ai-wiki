@@ -1,7 +1,7 @@
 ---
 watch: close
-status: preview
-last_verified: 2026-04-22
+status: ga
+last_verified: 2026-06-03
 aliases: []
 moc:
   - "[[Microsoft MOC]]"
@@ -13,6 +13,19 @@ moc:
 *Foundry's **Custom Knowledge Base** für Agents — Convenience-Layer über [[Azure AI Search]] **Agentic Retrieval**. Portal-Wrapper ohne eigene Billing-Dimension. Exponiert als **MCP-Server** via Tool `knowledge_base_retrieve`. **Switzerland North voll supported** — ideal für Journai-CH-Kunden.*
 
 > **Analogie:** Wie eine vorbereitete Datenbank-Verbindung in einer App — kein Index-Setup nötig, aber wenn du Spezialwünsche hast (Custom Scoring, Synonym Maps), musst du auf [[Azure AI Search]] direkt.
+
+---
+
+## Build 2026 Update (2. Juni 2026)
+
+- **Status: jetzt vollständig GA** (vorher Preview)
+- **Teil der neuen [[Microsoft IQ]]-Familie** — zusammen mit [[Work IQ]], [[Web IQ]] und [[Fabric IQ]]
+- Empfehlungs-Pattern für Knowledge-Quellen vereinfacht sich:
+  - **Work IQ** → M365-Kontext
+  - **Fabric IQ** → Business-Daten in Lakehouse
+  - **Web IQ** → Internet-Recherche
+  - **Foundry IQ** → enterprise-eigene Dokumente, die nicht in M365 stehen
+- Serverless Setup vereinfacht; tiefere Security-Governance-Integration
 
 ---
 

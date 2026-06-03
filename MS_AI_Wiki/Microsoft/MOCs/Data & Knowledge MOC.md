@@ -1,7 +1,7 @@
 ---
 type: moc
 tags: [moc, microsoft, data, knowledge]
-last_verified: 2026-05-11
+last_verified: 2026-06-03
 ---
 
 # Data & Knowledge MOC
@@ -59,24 +59,25 @@ Einstieg für die Frage: **„Wie kommen Daten in den Agent?"** Drei Achsen ents
 
 <!-- AUTO-INDEX-END: produkte -->
 
+## Build 2026 Erweiterung (2. Juni 2026)
+
+Microsoft hat die IQ-Marke ausgebaut — siehe [[2026-06-03-microsoft-build-recap]]:
+
+- **[[Microsoft IQ]]** — umbrella für vier Knowledge-Reasoning-Services
+- **[[Work IQ]]** — M365-Arbeitsumfeld-Kontext (GA)
+- **[[Web IQ]]** — Internet-Grounding, MCP-nativ (GA)
+- **[[Fabric IQ]]** — Business-Daten-Reasoning aus Fabric (GA)
+- **[[Foundry IQ]]** — jetzt vollständig GA (vorher Preview)
+
+Diese vier zusammen bilden den neuen Default-Pfad für Agent-Grounding. Direkter Zugriff (Search / Graph / Connectors) bleibt für Custom-Anforderungen.
+
 ## Letzte Aktivität
 
 _Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert — konsistent mit [[Microsoft MOC#Letzte Aktivität]]._
 
 <!-- AUTO-INDEX-START: activity -->
 
-| Datum | Produkt | Änderung | Autor |
-| ----- | ------- | -------- | ----- |
-| 2026-04-22 | [[Azure Cosmos DB for AI]] | Deep-Dive Cosmos DB for AI: DiskANN-Index, Pricing-Modell, Abgrenzung zu Azure AI Search, SMB-Use-Cases | Hongyu / Deep-Research |
-| 2026-04-22 | [[Azure Cosmos DB for AI]] | Initial Stub (Tier 3 Awareness) | Hongyu |
-| 2026-04-22 | [[Dataverse]] | Deep-Dive Dataverse: Knowledge-Objects-Limits, Security-Model, Agent-Integration, Pricing-Modell | Hongyu / Deep-Research |
-| 2026-04-22 | [[Dataverse]] | Initial Stub | Hongyu |
-| 2026-04-22 | [[Dataverse MCP Server]] | Deep-Dive Dataverse MCP Server: Endpoint, Auth-Flows, Copilot-Credit-Modell, MAF-Integration | Hongyu / Deep-Research |
-| 2026-04-22 | [[Dataverse MCP Server]] | Initial Stub | Hongyu |
-| 2026-04-22 | [[Microsoft Fabric]] | Deep-Dive Fabric: OneLake + Data Agents bundled, 8 Workloads, F-SKU-Pricing, SMB-Ehrlichkeit (nur BI-Kunden) | Hongyu / Deep-Research |
-| 2026-04-22 | [[Microsoft Fabric]] | Initial Stub (Tier 3 Awareness — bündelt OneLake + Fabric Data Agents) | Hongyu |
-| 2026-04-22 | [[Microsoft Graph]] | Kompletter Deep-Dive: Auth-Flows inkl. Entra Agent ID OBO, Kern-Endpunkte SMB, Throttling-Patterns, DSGVO-Einordnung | Hongyu / Deep-Research |
-| 2026-04-22 | [[Microsoft Graph]] | Initial Stub, watch: standard, Status GA | Hongyu |
+_Keine Changelog-Einträge in den letzten 30 Tagen._
 
 <!-- AUTO-INDEX-END: activity -->
 

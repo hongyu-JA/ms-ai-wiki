@@ -4,7 +4,7 @@ tags:
   - moc
   - microsoft
   - copilot
-last_verified: 2026-05-11
+last_verified: 2026-06-03
 ---
 
 # Copilot MOC
@@ -58,21 +58,20 @@ Einstieg für alle Kundengespräche, bei denen es um **Copilot-basierte Produkti
 
 <!-- AUTO-INDEX-END: produkte -->
 
+## Build 2026 Erweiterung (2. Juni 2026)
+
+Neue Surface-Erweiterungen — siehe [[2026-06-03-microsoft-build-recap]]:
+
+- **[[GitHub Copilot App]]** — native Desktop-IDE mit Multi-Modell-Auswahl (GA)
+- **[[Microsoft Scout]]** — always-on Personal Agent über Teams, Outlook, OneDrive, SharePoint
+
 ## Letzte Aktivität
 
 _Jüngste Changelog-Einträge (30 Tage) der Produkte dieser MOC. Auto-generiert — konsistent mit [[Microsoft MOC#Letzte Aktivität]]._
 
 <!-- AUTO-INDEX-START: activity -->
 
-| Datum | Produkt | Änderung | Autor |
-| ----- | ------- | -------- | ----- |
-| 2026-04-22 | [[Microsoft 365 Copilot]] | Copilot Cowork (Long-Running, Multi-Step-Work) ist jetzt via Frontier-Programm verfügbar. Nutzer können über das Frontier-Programm Early … | auto-sync |
-| 2026-04-22 | [[Microsoft 365 Copilot Connectors]] | Deep-Dive Copilot Connectors: OOB-Inventar (>100 Connectors), Custom-Schema-Snippet, Security Trimming via ACLs, 50M-Quota-Details, Abgre… | Hongyu / Deep-Research |
-| 2026-04-22 | [[Microsoft 365 Copilot Connectors]] | Initial Stub, watch: standard, status: GA | Hongyu |
-| 2026-04-22 | [[Dynamics 365 Agents]] | Deep-Dive D365 Agents: Sales/Customer Service/Finance/Business Central; SMB-Relevanz; Copilot-Studio-Basis; Pricing | Hongyu / Deep-Research |
-| 2026-04-22 | [[Dynamics 365 Agents]] | Initial Stub (wartet auf Deep-Research) | Hongyu |
-| 2026-04-22 | [[Microsoft 365 Copilot]] | **Vollständige Deep-Research-Integration** via claude-researcher agent: Wave-3-Features mit EU-Details, Flex-Routing-Warnung (DSGVO-kriti… | Hongyu / Deep-Research |
-| 2026-04-21 | [[Microsoft 365 Copilot]] | Initial Stub, watch: close, Status: GA Wave 3 | Hongyu |
+_Keine Changelog-Einträge in den letzten 30 Tagen._
 
 <!-- AUTO-INDEX-END: activity -->
 
