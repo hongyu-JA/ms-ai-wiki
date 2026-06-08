@@ -7,8 +7,8 @@ const products = defineCollection({
     base: "../MS_AI_Wiki/Microsoft/Products",
   }),
   schema: z.object({
-    watch: z.enum(["close", "standard", "passive"]).optional(),
-    status: z.enum(["ga", "preview", "deprecated", "eos"]).optional(),
+    watch: z.enum(["close", "standard", "passive", "open"]).optional(),
+    status: z.enum(["ga", "preview", "deprecated", "eos", "stub_build_2026"]).optional(),
     last_verified: z.preprocess(
       (v) => (v instanceof Date ? v.toISOString().slice(0, 10) : v),
       z.string()

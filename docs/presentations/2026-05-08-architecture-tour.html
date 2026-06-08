@@ -884,7 +884,64 @@ Das waren die drei Pfade. Jetzt zur Zusammenfassung.
         </aside>
       </section>
 
-      <!-- ============= SLIDE 17: SCHLUSS ============= -->
+      <!-- ============= SLIDE 17a: BUILD 2026 ADDENDUM ============= -->
+      <section data-mode="end">
+        <div style="max-width: 75vw; margin: 0 auto; padding: 1rem 2rem;">
+          <div style="text-align: center; margin-bottom: 1.5rem;">
+            <span style="background:#be185d; color:#fff; padding:0.3rem 0.8rem; border-radius:4px; font-size:0.75rem; font-weight:600; letter-spacing:0.05em;">ADDENDUM · Microsoft Build 2026</span>
+            <h2 style="color: #1e3a8a; font-size: 1.8rem; margin-top: 0.8rem;">Was sich seit Mai geändert hat</h2>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; font-size: 0.85rem;">
+            <div style="border-left: 4px solid #be185d; padding-left: 0.8rem;">
+              <h4 style="margin: 0 0 0.4rem 0; color: #be185d;">+11 neue Produkte</h4>
+              <ul style="margin: 0; padding-left: 1.2rem; line-height: 1.5;">
+                <li><strong>MAI Models</strong> (7-Familie) — Microsoft-First-Party-LLMs</li>
+                <li><strong>Aion Models</strong> — On-Device auf Windows 12</li>
+                <li><strong>Microsoft IQ</strong> Familie (Work / Web / Fabric) — Knowledge-Konsolidierung</li>
+                <li><strong>Agent Orchestrator</strong> — heterogene Agent-Teams</li>
+                <li><strong>Microsoft Scout</strong> + <strong>GitHub Copilot App</strong> — neue Surfaces</li>
+                <li><strong>MXC</strong> + <strong>Agent Control Spec</strong> — Governance vertieft</li>
+              </ul>
+            </div>
+            <div style="border-left: 4px solid #1e3a8a; padding-left: 0.8rem;">
+              <h4 style="margin: 0 0 0.4rem 0; color: #1e3a8a;">Architektur-Map jetzt</h4>
+              <ul style="margin: 0; padding-left: 1.2rem; line-height: 1.5;">
+                <li><strong>39 → 50 Tools</strong></li>
+                <li><strong>7 → 8 Schichten</strong> (+ ORCHESTRATION)</li>
+                <li><strong>48 → 78 Verbindungen</strong></li>
+                <li>MAF immer noch Hub, aber Orchestrator als Multi-Agent-Layer</li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="background: #f3f4f6; border-radius: 6px; padding: 1rem; margin-top: 1.2rem;">
+            <h4 style="margin: 0 0 0.5rem 0; color: #991b1b; font-size: 0.95rem;">3 Beratungs-Updates für Schweizer Kunden</h4>
+            <div style="font-size: 0.82rem; line-height: 1.5;">
+              <p style="margin: 0 0 0.3rem 0;"><strong>1.</strong> Banken / Versicherer: <strong>MAI-First statt Anthropic</strong> — Single-Vendor-DPIA, vereinfacht Compliance dramatisch.</p>
+              <p style="margin: 0 0 0.3rem 0;"><strong>2.</strong> Bestandskunden mit SK / AutoGen: <strong>Orchestrator-Koexistenz</strong> statt zwingender Migration — sanfter Pfad.</p>
+              <p style="margin: 0;"><strong>3.</strong> Production-Setups: <strong>Foundry Control Plane jetzt Pflicht</strong> (vorher nice-to-have) — Multi-Modell-Routing, A/B-Testing, automatischer Rollback.</p>
+            </div>
+          </div>
+
+          <p style="margin-top: 1rem; font-size: 0.75rem; color: #6b7280; text-align: center;">Vollständiger Recap: <code>docs/team-updates/2026-06-03-microsoft-build-recap.md</code> · Architektur-Map v2 deployed</p>
+        </div>
+        <aside class="notes">
+Kurzer Addendum zur Demo vom achten Mai. Microsoft Build fand vom ersten bis dritten Juni in San Francisco statt — Satya hat in der Keynote die Position klar gemacht: "Agenten sind nicht ein Feature, sondern das neue Betriebssystem für Arbeit".
+
+Konkret für uns elf neue Produkte, von denen drei strategisch wichtig sind:
+
+Erstens MAI Models — Microsoft hat eine eigene LLM-Familie, sieben Modelle, GPT-4o-Niveau. Für unsere Beratung bedeutet das: Schweizer Banken und Versicherer können jetzt vollständig Microsoft-First-Party fahren, ohne Anthropic-DPIA. Das ist Compliance-Vereinfachung, die wir sofort einsetzen.
+
+Zweitens Agent Orchestrator — der koordiniert heterogene Agent-Teams. Konkret heisst das: Bestandskunden mit SK- oder AutoGen-Code müssen nicht mehr migrieren, sie können koexistieren. Eintrittshürde gesunken — wir kriegen Aufträge, die wir vorher mit "Re-Write nötig" verloren hätten.
+
+Drittens Microsoft IQ Familie — Work IQ, Web IQ, Fabric IQ konsolidieren die Knowledge-Schicht. Web IQ ist MCP-native — Microsoft adoptiert offenen Standard. Empfehlung für Greenfield-Projekte ab Q3.
+
+Architektur-Map ist bereits aktualisiert: 50 Tools, 8 Schichten, 78 Verbindungen, neue ORCHESTRATION-Schicht. Diese Folie ist nur die Zusammenfassung — Details im Recap-Dokument und im aktuellen Q&A-Bank-Update.
+        </aside>
+      </section>
+
+      <!-- ============= SLIDE 18: SCHLUSS ============= -->
       <section data-mode="end">
         <div style="text-align: center; max-width: 70vw; margin: 0 auto;">
           <h2 style="color: #1e3a8a; font-size: 2.5rem;">Zusammenfassung</h2>
@@ -912,7 +969,7 @@ Fragen?
     </div>
   </div>
 
-  <div class="slide-number" id="slide-num">Folie 1 / 17</div>
+  <div class="slide-number" id="slide-num">Folie 1 / 18</div>
 
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>

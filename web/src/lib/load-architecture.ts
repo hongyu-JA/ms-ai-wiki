@@ -94,7 +94,27 @@ export async function loadArchitecture(): Promise<ArchitectureGraph> {
     for (const slug of layer.members) {
       const product = productBySlug.get(slug);
       if (!product) {
-        console.warn(`[arch] Layer-member ${slug} nicht in products.yaml — skipped.`);
+        // Fallback: render layer-member als minimalen Node, auch wenn (noch) nicht
+        // in products.yaml registriert. Wichtig für Build-2026-Stubs (mai-models,
+        // microsoft-iq, ...) die in architecture-layers.yaml gelistet sind, aber
+        // im products.yaml-Eintrag fehlen. Slug wird als displayName-Heuristik
+        // verwendet (Title-Case der Slug-Segmente).
+        console.warn(`[arch] Layer-member ${slug} nicht in products.yaml — fallback render.`);
+        const fallbackName = slug
+          .split("-")
+          .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+          .join(" ");
+        nodes.push({
+          slug,
+          urlSlug: slug,
+          displayName: fallbackName,
+          layer: layer.id,
+          layerOrder: layer.order,
+          tier: 2,
+          watch: "standard",
+          status: "ga",
+          isDeprecated: false,
+        });
         continue;
       }
       nodes.push({

@@ -1,7 +1,10 @@
 # Architecture Layer Taxonomy für die /architecture Map.
-# 7 horizontal gestapelte Layer (Surface oben → Foundation unten).
+# 8 horizontal gestapelte Layer (Surface oben → Foundation unten).
 # Tools werden im jeweiligen Layer-Band visualisiert.
 # Slugs müssen exakt mit `slug` aus .automation/products.yaml übereinstimmen.
+#
+# Iteration 2 (2026-06-07): +11 Build-2026-Produkte, +1 Layer (ORCHESTRATION).
+# Siehe docs/team-updates/2026-06-03-microsoft-build-recap.md für Recap.
 
 layers:
   - id: surface
@@ -12,6 +15,8 @@ layers:
     color_fg: "#0066cc"
     members:
       - microsoft-365-copilot
+      - github-copilot-app
+      - microsoft-scout
 
   - id: agent-building
     name: AGENT BUILDING
@@ -29,10 +34,19 @@ layers:
       - semantic-kernel
       - autogen
 
+  - id: orchestration
+    name: ORCHESTRATION
+    description: Multi-Agent-Koordination
+    order: 3
+    color_bg: "#fce7f3"
+    color_fg: "#be185d"
+    members:
+      - agent-orchestrator
+
   - id: hosting
     name: HOSTING
     description: Runtime / Compute / Gateway
-    order: 3
+    order: 4
     color_bg: "#f3e8ff"
     color_fg: "#7c3aed"
     members:
@@ -45,10 +59,14 @@ layers:
   - id: knowledge
     name: KNOWLEDGE
     description: Grounding-Datenquellen
-    order: 4
+    order: 5
     color_bg: "#d1fae5"
     color_fg: "#059669"
     members:
+      - microsoft-iq
+      - work-iq
+      - web-iq
+      - fabric-iq
       - azure-ai-search
       - foundry-iq
       - microsoft-graph
@@ -61,7 +79,7 @@ layers:
   - id: content-processing
     name: CONTENT PROCESSING
     description: Spezialisierte AI-Services
-    order: 5
+    order: 6
     color_bg: "#cffafe"
     color_fg: "#0891b2"
     members:
@@ -71,7 +89,7 @@ layers:
   - id: governance
     name: GOVERNANCE & IDENTITY
     description: Trust / Compliance / Sec
-    order: 6
+    order: 7
     color_bg: "#fee2e2"
     color_fg: "#dc2626"
     members:
@@ -83,16 +101,20 @@ layers:
       - purview-data-map
       - defender-for-ai
       - azure-ai-content-safety
+      - microsoft-execution-containers
+      - agent-control-specification
 
   - id: foundation
     name: FOUNDATION
     description: Modelle + Protokolle + Plattform-Infra
-    order: 7
+    order: 8
     color_bg: "#fed7aa"
     color_fg: "#9a3412"
     members:
       - microsoft-foundry
       - foundry-models
+      - mai-models
+      - aion-models
       - foundry-control-plane
       - foundry-sdks
       - foundry-local
