@@ -1,7 +1,8 @@
 ---
 watch: open
 status: stub_build_2026
-last_verified: 2026-06-03
+last_verified: 2026-06-08
+azure_verified: 2026-06-08
 source: build-2026-keynote
 aliases:
   - Aion Instruct
@@ -10,8 +11,8 @@ aliases:
 moc:
   - '[[Microsoft MOC]]'
   - '[[Foundry MOC]]'
-zuletzt_gesichtet: 2026-06-03
-updated: 2026-06-03
+zuletzt_gesichtet: 2026-06-08
+updated: 2026-06-08
 ---
 
 # Aion Models
@@ -19,6 +20,16 @@ updated: 2026-06-03
 *Eingebaute On-Device-Modelle in Windows AI APIs — vorgestellt auf Build 2026. Zwei Modelle: Aion Instruct (Summarization / Light-Tasks) und Aion Plan (14B, 32K Context, Tool-Calling Reasoning).*
 
 > **Analogie:** Was [[Foundry Local]] für selbst-gehostete Foundry-Modelle ist, sind Aion Models für die Windows-OS-Ebene — bereits installiert, sofort nutzbar, kein Setup.
+
+---
+
+## ⚠ POC-Verifikation gegen echtes Azure (2026-06-08)
+
+**Read-only geprüft auf Journai-Core (Reader-Rolle).** Aion Instruct / Aion Plan sind **nicht im Azure-Model-Catalog** (Switzerland North) — was korrekt ist, da Aion eine **Windows-12-On-Device-Komponente** ist (Windows AI APIs), kein Azure-Cloud-Modell. Eine echte Verifikation braucht daher ein **Copilot+ PC mit Windows 12**, nicht Azure.
+
+**Stand der Dinge:** Die Aion-Modellnamen stammen aus Keynote-Berichten und sind weder über Azure noch (mangels Hardware) on-device verifiziert. Real verfügbare On-Device-/Edge-First-Party-Modelle, die wir HEUTE über Foundry Local nutzen könnten, sind die **Phi-4-Familie** (Phi-4-mini-instruct, Phi-4-multimodal-instruct) — Azure-Catalog-bestätigt.
+
+> **Status bleibt `stub_build_2026`** — verifizierbar erst mit Windows-12-Hardware.
 
 ---
 

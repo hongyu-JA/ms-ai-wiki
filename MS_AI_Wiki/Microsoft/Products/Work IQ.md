@@ -1,7 +1,8 @@
 ---
 watch: open
 status: stub_build_2026
-last_verified: 2026-06-03
+last_verified: 2026-06-08
+azure_verified: 2026-06-08
 source: build-2026-keynote
 aliases:
   - Work IQ APIs
@@ -10,8 +11,8 @@ moc:
   - '[[Microsoft MOC]]'
   - '[[Data & Knowledge MOC]]'
   - '[[Microsoft IQ]]'
-zuletzt_gesichtet: 2026-06-03
-updated: 2026-06-03
+zuletzt_gesichtet: 2026-06-08
+updated: 2026-06-08
 ---
 
 # Work IQ
@@ -19,6 +20,16 @@ updated: 2026-06-03
 *Teil der [[Microsoft IQ]]-Familie. Wirft den Agenten produktions-reifen Kontext über das M365-Arbeitsumfeld zu — Personen, Meetings, Files, Chats, Workflows.*
 
 > **Analogie:** Was Microsoft Graph als Datenquelle ist, ist Work IQ als verstehende Schicht obendrauf — nicht "hol mir Mails", sondern "was ist relevant für die aktuelle Frage des Users in seinem Arbeitskontext".
+
+---
+
+## ⚠ POC-Verifikation gegen echtes Azure (2026-06-08)
+
+**Read-only geprüft auf Journai-Core (Reader-Rolle).** Work IQ hat **kein eigenes Azure-Resource** — es ist ein **M365-Copilot-Feature** (semantische Schicht über Microsoft Graph), nicht über `az` provisionierbar. Verifikation braucht **M365-Admin-Center-Zugang** bzw. direktes Testen in Copilot Chat, nicht Azure-CLI.
+
+**Beratungs-Konsequenz:** Als M365-Copilot-Capability kommunizieren. Ob Work IQ im Journai-Tenant aktiv ist, prüfen wir über Copilot Chat (siehe Test-Karte im POC-Plan).
+
+> **Status bleibt `stub_build_2026`** — M365-Feature, Azure-CLI-Verifikation nicht anwendbar.
 
 ---
 

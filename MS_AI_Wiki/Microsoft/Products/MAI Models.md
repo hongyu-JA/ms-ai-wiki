@@ -1,7 +1,8 @@
 ---
 watch: open
 status: stub_build_2026
-last_verified: 2026-06-03
+last_verified: 2026-06-08
+azure_verified: 2026-06-08
 source: build-2026-keynote
 aliases:
   - MAI Model Family
@@ -14,8 +15,8 @@ aliases:
 moc:
   - '[[Microsoft MOC]]'
   - '[[Foundry MOC]]'
-zuletzt_gesichtet: 2026-06-03
-updated: 2026-06-03
+zuletzt_gesichtet: 2026-06-08
+updated: 2026-06-08
 ---
 
 # MAI Models
@@ -26,17 +27,48 @@ updated: 2026-06-03
 
 ---
 
-## Modell-Familie (Stand 2026-06-03)
+## ⚠ POC-Verifikation gegen echtes Azure-Catalog (2026-06-08)
 
-| Modell | Kategorie | Status | Parameter / Eckdaten |
+**Hands-on geprüft auf Journai-Core Subscription (Azure AI Foundry, Switzerland North + West Europe).** Ergebnis: **erhebliche Diskrepanz zwischen Keynote-Berichten und realem Modell-Catalog.**
+
+| Behauptung in Keynote-Recap | Reale Azure-Catalog-Situation (2026-06-08) |
+|---|---|
+| 7 MAI-Modelle (Thinking-1, Code-1, Large, Small, Embed, Voice-2, Transcribe-1.5) | **Keines dieser Modelle existiert im Catalog.** Einziges MAI-Modell: `MAI-DS-R1` |
+| MAI als aktive First-Party-Familie | `MAI-DS-R1` ist **`lifecycleStatus: Deprecated`** — Inference-EOL war **2026-02-27** (vor 3 Monaten) |
+| MAI-Large als GPT-4o-Drop-in (Preview) | nicht vorhanden — stattdessen sind **GPT-5.1 / GPT-5.4 / GPT-5-nano** real deployt |
+| Microsoft-First-Party-Reasoning via MAI | reale First-Party-Modelle sind die **Phi-Familie** (Phi-3 / Phi-3.5 / Phi-4 / Phi-4-reasoning) |
+
+**Schlussfolgerung:** Die 7 MAI-Modellnamen im Recap stammen aus Drittquellen-Berichten (theneuron.ai, windowsnews.ai) und sind **nicht durch Azure verifiziert**. Mögliche Erklärungen: (1) Marketing-Namen ≠ Catalog-Namen, (2) Rollout-Verzögerung Keynote → GA, (3) Berichte ungenau.
+
+**Beratungs-Konsequenz — WICHTIG:** Bis zur Verifikation **keinem Kunden „MAI-Large" oder „MAI-Thinking-1" als verfügbares Modell empfehlen.** Real verfügbare Microsoft-First-Party-Optionen sind heute: **Phi-4 / Phi-4-reasoning** (klein, on-device-tauglich) und als Drop-in-Alternativen zu OpenAI die real deployten **GPT-5.x**. Die „MAI-First für regulierte Kunden"-Empfehlung muss umformuliert werden zu **„Phi-4 + GPT-5.x in CH-North-Foundry"**.
+
+> **Status bleibt bewusst `stub_build_2026`** — diese Note ist erst `ga`, wenn entweder die MAI-Modelle real im Catalog erscheinen oder wir den Recap auf Phi/GPT-5 umgeschrieben haben.
+
+---
+
+## Modell-Familie (laut Keynote-Recap — ⚠ NICHT Azure-verifiziert, siehe oben)
+
+| Modell | Kategorie | Status laut Recap | Azure-Catalog 2026-06-08 |
 |---|---|---|---|
-| **MAI-Thinking-1** | Reasoning | Preview | 35B aktive Parameter, Chain-of-Thought, GPQA Diamond 87.2 |
-| **MAI-Code-1** | Coding | Rolling Out | 5B (Flash) / 34B (full), integriert in VS Code + GitHub Copilot |
-| **MAI-Image-2.5** | Image | GA | Bildgenerierung in PowerPoint, OneDrive |
-| **MAI-Transcribe-1.5** | Speech-to-Text | GA | 43+ Sprachen, 5x schneller als Wettbewerb |
-| **MAI-Voice-2** | TTS | GA | 15 Sprachen, Low-Latency-Variant verfügbar |
-| **MAI-Small / MAI-Large** | Allzweck | Preview | 13B / 170B, Drop-in für GPT-4o / GPT-5 Mini |
-| **MAI-Embed** | Embeddings | Preview | 380M, MTEB-Score 68.9 |
+| **MAI-Thinking-1** | Reasoning | Preview | ❌ nicht vorhanden |
+| **MAI-Code-1** | Coding | Rolling Out | ❌ nicht vorhanden |
+| **MAI-Image-2.5** | Image | GA | ❌ nicht vorhanden |
+| **MAI-Transcribe-1.5** | Speech-to-Text | GA | ❌ nicht vorhanden |
+| **MAI-Voice-2** | TTS | GA | ❌ nicht vorhanden |
+| **MAI-Small / MAI-Large** | Allzweck | Preview | ❌ nicht vorhanden |
+| **MAI-Embed** | Embeddings | Preview | ❌ nicht vorhanden |
+| **MAI-DS-R1** | Reasoning (DeepSeek-basiert) | — (nicht im Recap) | ⚠ vorhanden, aber **Deprecated** (EOL 2026-02-27) |
+
+### Real verfügbare Microsoft-First-Party-Modelle (Azure-verifiziert)
+
+| Modell | Format | Region (geprüft) | Status |
+|---|---|---|---|
+| **Phi-4** | Microsoft | Switzerland North | aktiv |
+| **Phi-4-reasoning** | Microsoft | Switzerland North | aktiv |
+| **Phi-4-mini-instruct** | Microsoft | Switzerland North | aktiv |
+| **Phi-4-multimodal-instruct** | Microsoft | Switzerland North | aktiv |
+| **Phi-3.5-MoE / mini / vision** | Microsoft | Switzerland North | aktiv |
+| **GPT-5.4 / 5.1 / 5-nano** | OpenAI | West Europe (dev deployt) | aktiv |
 
 ## Strategische Einordnung
 
@@ -65,7 +97,7 @@ Für Schweizer Kunden mit Compliance-Anforderungen ist das relevant:
 
 **Hoch.** MAI verändert die Default-Empfehlung für Modell-Auswahl:
 - **Vorher:** "GPT-4o für Reasoning, Phi-4 für Cost, Claude bei DPIA-Aktualisierung"
-- **Nachher:** "MAI-Thinking-1 für Reasoning, MAI-Code-1 für Coding, MAI-Embed für Search. OpenAI/Claude nur wenn spezifischer Use-Case dafür spricht."
+- **Nachher (⚠ siehe POC-Verifikation oben — MAI-Modelle NICHT Azure-verifiziert):** Real heute empfehlbar: "Phi-4 / Phi-4-reasoning für First-Party-Reasoning, GPT-5.x als Allzweck-Modell, Claude bei DPIA-Aktualisierung. MAI-Modelle erst empfehlen, wenn sie real im Catalog erscheinen."
 
 ## Pricing & Lizensierung (Stand 2026-06-07, vorläufig)
 

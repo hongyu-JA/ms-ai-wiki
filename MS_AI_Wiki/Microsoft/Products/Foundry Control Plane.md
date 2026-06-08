@@ -1,7 +1,8 @@
 ---
 watch: close
 status: ga
-last_verified: 2026-06-03
+last_verified: 2026-06-08
+azure_verified: 2026-06-08
 aliases: []
 moc:
   - "[[Microsoft MOC]]"
@@ -13,6 +14,14 @@ moc:
 *Die **Steuerungs- und Observability-Schicht** über [[Microsoft Foundry]]. Bündelt Deployment, RBAC (via Entra), Private Networking, Content Safety Policies, **Tracing + Evaluation + Observability + Responsible AI**. Kernerkenntnis: Foundry Tracing ist **kein separates Backend**, sondern OTel-Producer → Application Insights. **35+ OOB-Evaluators** in 6 Kategorien. **Medium-Threshold auf allen Risikokategorien** als Default, Jailbreak/Protected-Material nicht abschaltbar.*
 
 > **Analogie:** Wie Kubernetes Control Plane für Container — die Komponente, die „die Regeln durchsetzt" und „überwacht, was läuft".
+
+---
+
+## ⚠ POC-Verifikation gegen echtes Azure (2026-06-08)
+
+**Read-only geprüft auf Journai-Core (Reader-Rolle) — ✅ bestätigt.** Die Control-Plane-Grundlage ist real: unter `Microsoft.CognitiveServices` (Provider `Registered`) existieren `accounts/projects`, `accounts/capabilityhosts`, `accounts/connections`, `accounts/encryptionScopes`, `accounts/managedNetworks` — genau die Deployment-/RBAC-/Networking-Bausteine, die diese Note beschreibt.
+
+> **Status: `ga`** bestätigt — reale Azure-Resource-Types vorhanden.
 
 ---
 

@@ -1,7 +1,8 @@
 ---
 watch: open
 status: stub_build_2026
-last_verified: 2026-06-03
+last_verified: 2026-06-08
+azure_verified: 2026-06-08
 source: build-2026-keynote
 aliases:
   - Microsoft IQ Suite
@@ -10,8 +11,8 @@ aliases:
 moc:
   - '[[Microsoft MOC]]'
   - '[[Data & Knowledge MOC]]'
-zuletzt_gesichtet: 2026-06-03
-updated: 2026-06-03
+zuletzt_gesichtet: 2026-06-08
+updated: 2026-06-08
 ---
 
 # Microsoft IQ
@@ -19,6 +20,20 @@ updated: 2026-06-03
 *Auf Build 2026 zur Marken-Familie ausgebaut — IQ-Services bieten kuratiertes, regelkonformes Kontextwissen für Agenten. Vier Hauptbestandteile: Foundry IQ, Work IQ, Fabric IQ, Web IQ.*
 
 > **Analogie:** Wenn Foundry Models das "Gehirn" und Foundry Agent Service der "Körper" eines Agenten sind, dann ist Microsoft IQ die "Bibliothek mit Sicherheits-Aufseher" — der Zugriff auf richtige, autorisierte, aktuelle Daten.
+
+---
+
+## ⚠ POC-Verifikation gegen echtes Azure (2026-06-08)
+
+**Read-only geprüft auf Journai-Core (Reader-Rolle).** Die IQ-Familie hat **keine eigenen ARM-Resource-Types oder CognitiveServices-Account-Kinds** — d.h. „Microsoft IQ", „Work IQ", „Web IQ" sind **Foundry-Portal- bzw. M365-Features**, keine eigenständig per `az` provisionierbaren Azure-Ressourcen. Verifizierbar sind nur die Bausteine, die auf realer Infra aufsetzen:
+
+- **Foundry IQ** → setzt auf Azure AI Search auf (real, aber kein eigenes Resource — Wrapper)
+- **Fabric IQ** → braucht `Microsoft.Fabric` (in dieser Subscription **NotRegistered**, siehe [[Fabric IQ]])
+- **Work IQ / Web IQ** → M365-/Foundry-Portal-Features, nur über Foundry-Portal oder M365-Admin verifizierbar, nicht über Azure-CLI
+
+**Beratungs-Konsequenz:** Die IQ-Familie als **Konzept/Branding** kommunizieren, nicht als „4 buchbare Azure-Ressourcen". Echte Verifikation der einzelnen IQs braucht Foundry-Portal-Zugang (über Reader-CLI hinaus).
+
+> **Status bleibt `stub_build_2026`** — nur teilweise (Foundry IQ) über Azure greifbar.
 
 ---
 

@@ -1,7 +1,8 @@
 ---
 watch: open
 status: stub_build_2026
-last_verified: 2026-06-03
+last_verified: 2026-06-08
+azure_verified: 2026-06-08
 source: build-2026-keynote
 aliases:
   - Microsoft Web IQ
@@ -9,8 +10,8 @@ moc:
   - '[[Microsoft MOC]]'
   - '[[Data & Knowledge MOC]]'
   - '[[Microsoft IQ]]'
-zuletzt_gesichtet: 2026-06-03
-updated: 2026-06-03
+zuletzt_gesichtet: 2026-06-08
+updated: 2026-06-08
 ---
 
 # Web IQ
@@ -18,6 +19,16 @@ updated: 2026-06-03
 *Teil der [[Microsoft IQ]]-Familie. Gibt Agenten Echtzeit-Zugriff auf das offene Web — modell-agnostisch und MCP-nativ. Praktisch: was ChatGPT Search ist, in Microsoft-First-Party-Form.*
 
 > **Analogie:** Wenn Microsoft Graph der Bibliotheks-Katalog für interne Firmen-Daten ist, ist Web IQ der globale Such-Katalog für externe Web-Inhalte — mit Frische-Tracking und Quellen-Verifikation.
+
+---
+
+## ⚠ POC-Verifikation gegen echtes Azure (2026-06-08)
+
+**Read-only geprüft auf Journai-Core (Reader-Rolle).** Web IQ erscheint **nicht als eigenes Azure-Resource oder CognitiveServices-Kind** — es ist ein **Foundry-Portal-/MCP-Feature**, nicht per `az` provisionierbar. Die MCP-native Anbindung wäre über einen Foundry Agent Service (MCP-Host) testbar — das braucht aber Deploy-Rechte (aktuell nur Reader).
+
+**Beratungs-Konsequenz:** Als MCP-natives Grounding-Feature kommunizieren, nicht als buchbare Azure-Ressource. Echter POC (Whitelist-Test) braucht Contributor + Foundry-Projekt.
+
+> **Status bleibt `stub_build_2026`** — Foundry-Portal-Feature, braucht Deploy-Rechte zum Testen.
 
 ---
 

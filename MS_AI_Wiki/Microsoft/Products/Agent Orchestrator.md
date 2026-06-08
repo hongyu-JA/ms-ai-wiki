@@ -1,7 +1,8 @@
 ---
 watch: open
 status: stub_build_2026
-last_verified: 2026-06-03
+last_verified: 2026-06-08
+azure_verified: 2026-06-08
 source: build-2026-keynote
 aliases:
   - Foundry Agent Orchestrator
@@ -9,8 +10,8 @@ aliases:
 moc:
   - '[[Microsoft MOC]]'
   - '[[Agents MOC]]'
-zuletzt_gesichtet: 2026-06-03
-updated: 2026-06-03
+zuletzt_gesichtet: 2026-06-08
+updated: 2026-06-08
 ---
 
 # Agent Orchestrator
@@ -18,6 +19,16 @@ updated: 2026-06-03
 *Neuer Foundry-Service, vorgestellt auf Build 2026 — orchestriert heterogene Agenten-Teams (MAF, Semantic Kernel, LangChain, REST API) unter einer Steuerschicht. Load-Balancing, Logic-Apps-Trigger, einheitliches Billing.*
 
 > **Analogie:** Was Kubernetes für Container war, ist Agent Orchestrator für Agenten — eine Plattform, die nicht fragt, womit du gebaut hast, sondern wie deine Agenten zusammenspielen.
+
+---
+
+## ⚠ POC-Verifikation gegen echtes Azure (2026-06-08)
+
+**Read-only geprüft auf Journai-Core (Reader-Rolle).** Es existiert **kein eigener ARM-Resource-Type** für einen „Agent Orchestrator" unter `Microsoft.CognitiveServices` (real vorhanden: `accounts/projects`, `accounts/capabilityhosts` — die Foundry-Agent-Grundlage, aber kein dediziertes Orchestrator-Resource). Das ist **konsistent mit dem Recap**: Agent Orchestrator ist als **Preview ab 08/2026** angekündigt, also zum Prüfzeitpunkt (06/2026) noch nicht ausgerollt.
+
+**Beratungs-Konsequenz:** Korrekt als „kommend" kommunizieren, **nicht als verfügbar**. Preview-Anmeldung für August 2026 vormerken.
+
+> **Status bleibt `stub_build_2026`** — Produkt noch nicht veröffentlicht.
 
 ---
 

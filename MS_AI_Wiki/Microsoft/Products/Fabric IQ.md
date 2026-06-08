@@ -1,7 +1,8 @@
 ---
 watch: open
 status: stub_build_2026
-last_verified: 2026-06-03
+last_verified: 2026-06-08
+azure_verified: 2026-06-08
 source: build-2026-keynote
 aliases:
   - Microsoft Fabric IQ
@@ -9,8 +10,8 @@ moc:
   - '[[Microsoft MOC]]'
   - '[[Data & Knowledge MOC]]'
   - '[[Microsoft IQ]]'
-zuletzt_gesichtet: 2026-06-03
-updated: 2026-06-03
+zuletzt_gesichtet: 2026-06-08
+updated: 2026-06-08
 ---
 
 # Fabric IQ
@@ -18,6 +19,16 @@ updated: 2026-06-03
 *Teil der [[Microsoft IQ]]-Familie. Agenten erhalten Reasoning-fähigen Zugriff auf Business-Daten und Ontologien in Microsoft Fabric — Lakehouse-Inhalte werden semantisch nutzbar.*
 
 > **Analogie:** Wenn [[Fabric Data Agents]] der Praktikant ist, der eigenständig SQL schreibt, ist Fabric IQ der erfahrene Business-Analyst, der das Schema kennt und die richtigen Geschäftsfragen stellt.
+
+---
+
+## ⚠ POC-Verifikation gegen echtes Azure (2026-06-08)
+
+**Read-only geprüft auf Journai-Core (Reader-Rolle).** Harter Befund: der Basis-Provider **`Microsoft.Fabric` ist in dieser Subscription `NotRegistered`** — Fabric IQ ist auf Journai-Core **aktuell überhaupt nicht nutzbar**, unabhängig vom Produkt-Reifegrad. Ohne registrierte Fabric-Capacity gibt es keinen Lakehouse, auf dem Fabric IQ aufsetzen könnte.
+
+**Beratungs-Konsequenz:** Fabric IQ nur bei Kunden relevant, die Microsoft Fabric bereits produktiv nutzen (in der Schweiz heute selten). Für Journai-interne POCs müsste erst eine Fabric-Trial registriert werden (`az provider register --namespace Microsoft.Fabric`, braucht Contributor).
+
+> **Status bleibt `stub_build_2026`** — kein Fabric-Zugang zum Testen.
 
 ---
 

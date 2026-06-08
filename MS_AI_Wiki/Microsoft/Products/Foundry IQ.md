@@ -1,7 +1,8 @@
 ---
 watch: close
 status: ga
-last_verified: 2026-06-03
+last_verified: 2026-06-08
+azure_verified: 2026-06-08
 aliases: []
 moc:
   - "[[Microsoft MOC]]"
@@ -13,6 +14,14 @@ moc:
 *Foundry's **Custom Knowledge Base** für Agents — Convenience-Layer über [[Azure AI Search]] **Agentic Retrieval**. Portal-Wrapper ohne eigene Billing-Dimension. Exponiert als **MCP-Server** via Tool `knowledge_base_retrieve`. **Switzerland North voll supported** — ideal für Journai-CH-Kunden.*
 
 > **Analogie:** Wie eine vorbereitete Datenbank-Verbindung in einer App — kein Index-Setup nötig, aber wenn du Spezialwünsche hast (Custom Scoring, Synonym Maps), musst du auf [[Azure AI Search]] direkt.
+
+---
+
+## ⚠ POC-Verifikation gegen echtes Azure (2026-06-08)
+
+**Read-only geprüft auf Journai-Core (Reader-Rolle) — ✅ plausibel bestätigt.** Foundry IQ ist ein Wrapper auf Azure AI Search ohne eigene Resource (wie die Note korrekt sagt: „Portal-Wrapper ohne eigene Billing-Dimension"). Die Search-Grundlage ist real in CH-North verfügbar. Volle Verifikation des MCP-Tools `knowledge_base_retrieve` braucht ein deploytes Foundry-Projekt (Contributor — aktuell nur Reader).
+
+> **Status: `ga`** bleibt — Grundlage (AI Search) real, Wrapper-Detail braucht Deploy-Test.
 
 ---
 
