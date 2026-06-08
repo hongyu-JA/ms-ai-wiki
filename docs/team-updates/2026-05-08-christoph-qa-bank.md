@@ -1,10 +1,36 @@
 # Q&A Bank — Demo Christoph 2026-05-08
+**Aktualisiert 2026-06-07 nach Microsoft Build 2026** — siehe `2026-06-03-microsoft-build-recap.md`. Geänderte/neue Fragen mit ⚡ markiert.
 
-**Geschätzte Wahrscheinlichkeit:** ⭐ = sehr wahrscheinlich + sollte proaktiv im Skript landen · 🔴 = kontrovers/heikel · 🟡 = vorbereiten · 🟢 = leicht
+**Geschätzte Wahrscheinlichkeit:** ⭐ = sehr wahrscheinlich + sollte proaktiv landen · 🔴 = kontrovers/heikel · 🟡 = vorbereiten · 🟢 = leicht · ⚡ = nach Build 2026 geändert oder neu
 
 **Format:** Frage (Christoph-Perspektive) → Antwort (Hongyus Stimme)
 
-**Lese-Strategie für Donnerstag:** alle ⭐ und 🔴 zweimal lesen. 🟡 einmal überfliegen. 🟢 ist Reaktions-Material.
+**Lese-Strategie:** alle ⭐ und 🔴 zweimal lesen. 🟡 einmal überfliegen. 🟢 ist Reaktions-Material. **⚡ ist Update-Pflicht für die nächste Demo.**
+
+---
+
+## ⚡ Build-2026-Update-Pack (lesen, bevor Demo wiederholt wird)
+
+Folgende Antworten sind seit der ursprünglichen Demo am 2026-05-08 **outdated** — siehe Sektion 10 für die aktualisierten Antworten:
+
+| Q | Was hat sich geändert |
+|---|---|
+| **Q2.1** (MAF/Studio/SDK) | + **Agent Orchestrator** als 4. Pfad für Multi-Framework-Koexistenz |
+| **Q2.2** (Foundry Models vs OpenAI) | + **MAI Models** als Microsoft-First-Party-Alternative |
+| **Q2.3** (Foundry Naming-Chaos) | + IQ-Familie (Microsoft IQ, Work IQ, Web IQ, Fabric IQ) |
+| **Q3.3** (Anthropic in EU/EFTA) | **Empfehlung gewendet:** MAI-First für regulierte Schweizer Kunden |
+| **Q7.4** (Microsoft Build) | Past-tense: war zwischen 1.-3. Juni, hier ist was wir mitgenommen haben |
+| **Q9.1** (Praxis-Erfahrung) | Nenner 39 → 50 Tools; eigene Erfahrung jetzt 15/50 = 30% |
+
+**Neue Fragen** seit Build 2026 in **Sektion 10** unten:
+- Q10.1 MAI Models — sollen wir das jetzt empfehlen?
+- Q10.2 Agent Orchestrator — ist MAF-First-Empfehlung tot?
+- Q10.3 Microsoft IQ Familie — was ist eigentlich neu?
+- Q10.4 Aion Models — sollten wir On-Device pitchen?
+- Q10.5 Foundry Control Plane — jetzt Pflicht statt nice-to-have?
+- Q10.6 Microsoft Scout — kommt automatisch auf jedem Windows 12 — Risiko oder Chance?
+- Q10.7 GitHub Copilot App — sollen wir VSCode-Kunden umschwenken?
+- Q10.8 Wie hat Build 2026 unsere Wettbewerbsposition geändert?
 
 ---
 
@@ -462,3 +488,101 @@ Realistisch: **drei Demo-Iterationen plus zwei Kunden-Calls als Beobachter**. Er
 - Christophs nicht beantwortete Fragen notieren
 - In nächstes Q&A-Bank-Update einfliessen lassen
 - Pflege diese Datei nach jeder Demo
+
+---
+
+## Sektion 10 — Build-2026-Update-Fragen (NEU 2026-06-07)
+
+### Q10.1 ⭐⚡🟡 "MAI Models — sollen wir das jetzt unseren Kunden empfehlen?"
+
+**Kurz: ja, vor allem für regulierte Schweizer Kunden.**
+
+Microsoft hat mit der MAI-Familie eine eigene LLM-Reihe als Microsoft-First-Party-Alternative zu OpenAI gelaunched — sieben Modelle quer durch die Use-Cases (Reasoning, Code, Voice, Image, Embeddings). Qualität laut Microsoft auf GPT-4o-Niveau, müssen wir aber selbst benchmarken — POC in Planung.
+
+**Konkrete Empfehlung pro Kunden-Typ:**
+- **Banken, Versicherer, öffentlicher Sektor:** MAI-First — vereinfacht DPIA dramatisch (Single-Vendor-Stack)
+- **Tech-affine KMU ohne Compliance-Druck:** weiter Foundry Models / OpenAI, da bekannte Qualität
+- **Anthropic-Kunden:** parallel halten — MAI ist Alternative, kein Ersatz
+
+Strategischer Punkt für Pitch: _"wir haben jetzt Microsoft-only Optionen für eure Compliance-Anforderungen — vorher musstest du Anthropic-DPIA machen, jetzt nicht mehr."_
+
+### Q10.2 ⭐⚡🔴 "Agent Orchestrator — ist deine harte 'lernt nur MAF'-Empfehlung jetzt tot?"
+
+**Differenziert: für Greenfield ja noch MAF-First, für Bestand neue Option.**
+
+Mit Agent Orchestrator hat Microsoft anerkannt, dass Multi-Framework-Realität ein Fakt ist. Orchestrator kann SK-Agents, AutoGen-Agents und MAF-Agents in einem Team koordinieren — keine harte Migration mehr nötig.
+
+**Wann was empfehlen:**
+- **Neukunde mit Greenfield:** weiter MAF-First — einfacher, weniger Stack-Komplexität
+- **Bestandskunde mit AutoGen-/SK-Code:** Orchestrator-Koexistenz ist Pfad **ohne Re-Write**
+- **Bestandskunde mit Bot Framework:** weiter Migration zu M365 Agents SDK (EOS bleibt 31.12.2025)
+
+**Beratungs-Mehrwert:** wir haben jetzt einen sanften Pfad für Kunden, die wir vorher mit "zwei Wochen Re-Write" verschreckt haben. Geringere Eintrittshürde.
+
+### Q10.3 ⭐⚡🟡 "Microsoft IQ Familie — was ist das eigentlich?"
+
+Vier Knowledge-Services unter einem Marken-Schirm:
+- **Microsoft IQ** — Umbrella-Begriff
+- **Work IQ** — M365-Produktivitäts-Wissen (Mails, Meetings, Docs) als API
+- **Web IQ** — externe Web-Inhalte, **MCP-native** (= offener Standard, nicht Lock-in)
+- **Fabric IQ** — OneLake/Lakehouse-Wissen, deklarative API über Fabric Data Agents
+
+**Entscheidungsregel:** statt einzelner Knowledge-Quellen (Graph, Connectors, AI Search separat) bekommen Kunden eine einheitliche IQ-Familie mit zentraler Policy. **Empfohlen für Greenfield-Projekte ab Q3/2026.**
+
+**Verwechslungsgefahr:** Foundry IQ (existiert seit 2025) ist jetzt Teil dieser Familie — preview → GA, neuer Branding-Container. Nicht ein neues Produkt, sondern Re-Branding plus Erweiterung.
+
+### Q10.4 🟡⚡ "Aion Models — sollten wir das Schweizer Kunden pitchen?"
+
+**Ja, für drei Use-Cases:**
+- **Anwaltskanzleien, Treuhand, Health-Care:** Vertrags-Inhalt darf das Gebäude nicht verlassen
+- **Field-Service ohne stabiles Internet:** Bot soll offline funktionieren
+- **High-Volume-Inferenz:** keine Token-Kosten bei lokaler Ausführung
+
+Aion kommt automatisch mit Windows 12 (Endgeräte ab Q3/2026 ausgeliefert). Foundry Local stellt die API-Surface — gleich wie Cloud, nur lokal ausgeführt.
+
+**Trade-off im Pitch erwähnen:** Latenz besser, Daten lokal, aber Modell-Qualität ist Edge-optimiert (= kleiner als Cloud-Modelle). Realistisch: für Recherche und Q&A super, für komplexes Reasoning Cloud-Fallback.
+
+### Q10.5 ⭐⚡🔴 "Foundry Control Plane — du hast neulich gesagt 'nice to have'. Ist das jetzt anders?"
+
+**Ja, mit Build 2026 wurde es Pflicht-Layer.**
+
+Vor Build 2026: Control Plane war ein Verwaltungs-Tool — Quota-Management, Projects, Deployments. Optional, viele Production-Setups liefen ohne.
+
+Nach Build 2026: Control Plane macht **Model-agnostic Routing** zwischen MAI, Foundry Models und Anthropic. A/B-Testing, automatische Rollbacks bei Qualitätsabweichung, Purview- und Sentinel-Integration. **Production-Empfehlung jetzt: jedes Setup mit > 1 Modell-Anbieter braucht Control Plane.**
+
+Konkret im Angebot: bisher CHF 0 für Control Plane (kein Eintrag), jetzt CHF 100-300/Monat je nach Volumen — muss separat ausgewiesen werden.
+
+### Q10.6 🟡⚡ "Microsoft Scout kommt automatisch auf jedem Windows 12 — Risiko oder Chance?"
+
+**Chance für uns, Risiko für Kunden ohne Governance.**
+
+Scout ist Microsofts always-on Personal-Agent — jeder Windows-12-Mitarbeiter hat den ab Q3/2026 verfügbar. Vorteil: massive Verbreitung von AI-Workflow auf Endbenutzer-Ebene ohne dass wir oder die IT etwas tun muss.
+
+**Risiko-Argument für Kunden:** Scout greift via Microsoft Graph auf alle User-Daten zu (Mails, Files, Kalender) und schickt Aufgaben an Cloud-Modelle. Ohne Tenant-Policy heisst das: **jeder Mitarbeiter wird unbewusst Daten an Microsoft schicken**. Bei Banken und Health-Care ist das Compliance-Sprengstoff.
+
+**Beratungs-Pitch:** _"vor Q3/2026 müsst ihr Scout-Policies in Entra setzen — sonst macht es jeder Mitarbeiter sowieso, nur ohne Kontrolle."_ Das ist konkreter Beratungs-Auftrag, 1-2 Tage Aufwand pro Tenant.
+
+### Q10.7 🟡⚡ "GitHub Copilot App — sollten wir Bestandskunden auf VSCode-Plugin umschwenken?"
+
+**Nein, ergänzend nicht ersetzend.**
+
+GitHub Copilot App ist die neue native Desktop-IDE — Cross-Model, Cross-Agent, optimiert für Coding-Workflows mit mehreren Agents (denk: ein Agent recherchiert, einer codet, einer reviewt parallel). VSCode-Plugin bleibt aber weiter aktiv.
+
+**Pitch-Setup:**
+- VSCode + Copilot Plugin: für klassisches Dev-Setup
+- GitHub Copilot App: für AI-zentrische Workflows, wo der Dev primär mit Agents arbeitet
+
+Für Schweizer Banking-Kunden: App kann auf Aion Local Models wechseln → sensitive Code-Bases bleiben on-device. Das ist ein konkretes Argument für hochregulierte Kunden.
+
+### Q10.8 ⭐⚡🔴 "Wie hat Build 2026 unsere Wettbewerbsposition geändert?"
+
+**Gestärkt — wenn wir schnell sind. Geschwächt — wenn wir sechs Monate brauchen.**
+
+Drei Effekte:
+1. **MAI als Compliance-Vorteil:** wir können jetzt etwas, was reine Anthropic-Boutiquen nicht können — durchgängiger Microsoft-First-Party-Stack für regulierte Schweizer Kunden
+2. **Agent Orchestrator als Eintrittshürden-Senker:** weniger Migration-Pflicht heisst wir kriegen Aufträge, die wir vorher mit "Re-Write nötig" verloren hätten
+3. **Microsoft IQ als Schweiz-Pitch:** kommt mit Schweiz-Lokalisierung der Daten zu Q4/2026 — eigene Plattform-Komponente, die unsere Kunden konfigurieren müssen
+
+**Risiko:** andere Microsoft-Partner werden in 6-8 Wochen mit gleichen Pitches kommen. Unser Vorsprung sind die **gemerkten Beratungs-Pfade** (was raten wir wann) plus die **interaktive Architektur-Map**, die diese Pfade zeigt.
+
+**Action:** Architektur-Map muss bis Q3/2026 die neuen Tools komplett integriert haben — heute ist es 50 Tools 8 Layer 78 Edges, fertig. Q3 muss die ORCHESTRATION-Story stehen.

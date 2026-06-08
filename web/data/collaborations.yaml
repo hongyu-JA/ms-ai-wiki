@@ -394,3 +394,260 @@ collaborations:
       Data Map ist das Katalog-Backbone von Purview. Auto-Discovery +
       Klassifikation über alle Sources — Voraussetzung für DSPM, DLP
       und Sensitivity-Label-Vererbung.
+
+  # =====================================================================
+  # ITERATION 2 — Microsoft Build 2026 Recap (2026-06-07)
+  # Siehe docs/team-updates/2026-06-03-microsoft-build-recap.md
+  # =====================================================================
+
+  # --- MAI Models (Foundation): Microsoft's First-Party-LLM-Familie ---
+  - source: mai-models
+    target: microsoft-foundry
+    type: hosted-on
+    description: |
+      MAI Models laufen innerhalb Microsoft Foundry — gleiche Plattform-
+      Infrastruktur wie OpenAI- und Drittanbieter-Modelle, aber als
+      Microsoft-First-Party. Strategisch: AI-Optionality, Reduktion der
+      Single-Vendor-Abhängigkeit (OpenAI).
+
+  - source: microsoft-agent-framework
+    target: mai-models
+    type: calls
+    description: |
+      MAF kann MAI Models als gleichwertige Alternative zu Foundry Models
+      (OpenAI) aufrufen. Für Schweizer Banken/Versicherer — Microsoft-
+      First-Party-Stack, einheitliche DPIA. MAI-Thinking-1 für Reasoning,
+      MAI-Code für Code-Generation.
+
+  - source: copilot-studio
+    target: mai-models
+    type: calls
+    description: |
+      Copilot Studio bekommt MAI Models als Default-Option für neue
+      Custom Engine Agents (Wahl pro Agent). Migration bestehender
+      OpenAI-basierter Studio-Bots optional, kein Breaking Change.
+
+  - source: foundry-control-plane
+    target: mai-models
+    type: calls
+    description: |
+      Control Plane routet zwischen MAI-, Foundry- und Anthropic-Modellen
+      basierend auf Policy (Cost, Latency, Region, Compliance). A/B-Testing
+      möglich — automatischer Rollback bei Qualitätsabweichung.
+
+  - source: foundry-control-plane
+    target: foundry-models
+    type: calls
+    description: |
+      Control Plane als zentrale Routing-Schicht über Foundry Models.
+      Build-2026-Update: Model-agnostic Routing — eine API, mehrere
+      Backends. Production-Empfehlung ab Q3/2026: nicht optional.
+
+  # --- Aion Models (Foundation/Edge): Windows-12-side On-Device ---
+  - source: aion-models
+    target: foundry-local
+    type: uses
+    description: |
+      Aion Instruct + Plan sind die On-Device-Familie für Windows 12 —
+      laufen via Foundry Local API. Apple-Intelligence-Analogon, vorbei am
+      Cloud-Roundtrip. Relevant für Schweizer Kunden mit harten Daten-
+      Lokalitäts-Anforderungen (Anwälte, Treuhand, Gesundheit).
+
+  # --- Microsoft IQ Familie (Knowledge): umbrella ---
+  - source: work-iq
+    target: microsoft-iq
+    type: uses
+    description: |
+      Work IQ ist Teil der Microsoft-IQ-Familie. M365-Produktivitäts-
+      Wissen (Mails, Meetings, Dokumente) als programmatische APIs.
+      Ergänzung zu Microsoft Graph — höhere Semantik-Schicht.
+
+  - source: web-iq
+    target: microsoft-iq
+    type: uses
+    description: |
+      Web IQ Teil der Familie — externe Web-Inhalte als Knowledge-Quelle.
+      Kuratiert, indexiert, MCP-native. Microsofts Antwort auf Anthropics
+      Web-Search-Tools — strategisch wichtig für ChatGPT-Konkurrenz.
+
+  - source: fabric-iq
+    target: microsoft-iq
+    type: uses
+    description: |
+      Fabric IQ Teil der Familie — OneLake-/Lakehouse-Wissen als Knowledge-
+      API. Ergänzt Fabric Data Agents um deklarativen Schema-Layer.
+
+  - source: foundry-iq
+    target: microsoft-iq
+    type: uses
+    description: |
+      Foundry IQ wurde nach Build-2026 Teil der konsolidierten IQ-Familie.
+      Status preview → GA. Beratungs-Empfehlung: bei IQ-Familien-Auswahl
+      Sub-Variante nach Datenquelle wählen, nicht parallel mehrere nutzen.
+
+  - source: microsoft-agent-framework
+    target: microsoft-iq
+    type: grounds-on
+    description: |
+      MAF groundet auf Microsoft IQ als Convenience-Layer über die
+      einzelnen IQ-Sub-Produkte. Einheitliche API, Policy-Management
+      zentral. Empfohlen für neue Greenfield-Projekte ab Q3/2026.
+
+  - source: copilot-studio
+    target: microsoft-iq
+    type: grounds-on
+    description: |
+      Studio kann Microsoft IQ als Knowledge-Source einbinden — ergänzt
+      die bestehenden Optionen (Graph, Connectors, Dataverse). Default
+      ab Q3/2026 für neue Studio-Bots in Enterprise-SKU.
+
+  - source: microsoft-365-copilot
+    target: work-iq
+    type: grounds-on
+    description: |
+      M365 Copilot Chat groundet direkt auf Work IQ — semantische
+      Aggregation über alle M365-Produktivitäts-Daten der User.
+      Power-User-Feature: cross-app context (Mail + Teams + Docs).
+
+  - source: web-iq
+    target: model-context-protocol
+    type: integrated-via
+    description: |
+      Web IQ ist MCP-native exposed — beliebige MCP-fähige Agents
+      (auch nicht-Microsoft) können Web IQ als Tool nutzen. Microsofts
+      starkes Bekenntnis zu MCP als offenem Standard.
+
+  - source: fabric-iq
+    target: fabric-data-agents
+    type: uses
+    description: |
+      Fabric IQ baut auf Fabric Data Agents auf — IQ ist die deklarative
+      API-Schicht, Data Agents sind die Execution-Schicht für SQL/Spark-
+      Queries auf OneLake.
+
+  # --- GitHub Copilot App (Surface): native cross-model IDE ---
+  - source: github-copilot-app
+    target: microsoft-agent-framework
+    type: uses
+    description: |
+      GitHub Copilot App ist die neue native Desktop-IDE — ersetzt
+      Long-Term den VSCode-Plugin-Ansatz. Multi-Model, Multi-Agent
+      orchestriert via MAF. Build-2026 Headline-Demo: Coding-Agent
+      Squad mit Aufgaben-Aufteilung.
+
+  - source: github-copilot-app
+    target: foundry-models
+    type: calls
+    description: |
+      GitHub Copilot App ruft Foundry Models für Code-Generation auf —
+      inkl. der neuen Code-Llama-4 und MAI-Code Modelle. Multi-Provider
+      via Foundry Control Plane.
+
+  - source: github-copilot-app
+    target: aion-models
+    type: calls
+    description: |
+      Für Local-Inference (kein Token-Verbrauch, kein Netzwerk) kann
+      Copilot App auf Aion-Modelle wechseln. Relevant für sensible
+      Code-Bases ohne Cloud-Roundtrip.
+
+  # --- Microsoft Scout (Surface): always-on personal Agent ---
+  - source: microsoft-scout
+    target: microsoft-agent-framework
+    type: uses
+    description: |
+      Microsoft Scout ist Microsofts always-on Personal-Agent (jedes
+      Windows-12-Gerät). Architektur auf MAF — Multi-Agent intern für
+      verschiedene Domänen (Kalender, Mail, Recherche, Tasks).
+
+  - source: microsoft-scout
+    target: microsoft-graph
+    type: grounds-on
+    description: |
+      Scout groundet primär auf Microsoft Graph für User-eigenen Kontext.
+      Memory bleibt geräte-/user-bound (nicht Tenant-share), Privacy-by-
+      Design.
+
+  - source: microsoft-scout
+    target: aion-models
+    type: calls
+    description: |
+      Scout läuft primär on-device via Aion Models (Latency, Privacy,
+      Offline-Tauglichkeit). Cloud-Fallback nur für Aufgaben über
+      lokaler Kapazität (komplexes Reasoning).
+
+  - source: microsoft-scout
+    target: entra-agent-id
+    type: secured-by
+    description: |
+      Scout hat eigene Entra Agent ID pro User. Conditional Access
+      gilt — etwa "Scout darf keine externen Endpoints aufrufen wenn
+      User in Banking-Network".
+
+  # --- Agent Orchestrator (ORCHESTRATION layer): heterogene Teams ---
+  - source: agent-orchestrator
+    target: microsoft-agent-framework
+    type: uses
+    description: |
+      Agent Orchestrator koordiniert Multi-Agent-Teams — wo MAF einzelne
+      Agents baut, koordiniert Orchestrator Teams aus mehreren MAF-Agents.
+      State, Routing, Konfliktauflösung zwischen Agents.
+
+  - source: agent-orchestrator
+    target: foundry-agent-service
+    type: hosted-on
+    description: |
+      Orchestrator selbst läuft als managed Service in Foundry Agent
+      Service — Preview ab 08/2026. Self-Hosting auf Container Apps
+      möglich für DSGVO-Schweizer-Kunden.
+
+  - source: semantic-kernel
+    target: agent-orchestrator
+    type: uses
+    description: |
+      KOEXISTENZ-PFAD (Build 2026 Neu): Orchestrator kann heterogene
+      Agent-Teams managen — SK-Agents + MAF-Agents nebeneinander.
+      Ablöst harte "alles zu MAF migrieren"-Empfehlung. Bestandskunden-
+      Mehrwert.
+
+  - source: autogen
+    target: agent-orchestrator
+    type: uses
+    description: |
+      KOEXISTENZ-PFAD (Build 2026 Neu): AutoGen-Agents können in
+      Orchestrator-Teams eingebunden werden — keine Re-Write nötig
+      für Migration. Spart Migrations-Aufwand für AutoGen-Bestand.
+
+  # --- Microsoft Execution Containers (Governance): OS-level Sandbox ---
+  - source: microsoft-agent-framework
+    target: microsoft-execution-containers
+    type: secured-by
+    description: |
+      MXC sandboxt MAF-Agent-Tool-Aufrufe auf OS-Level. Capability-basierte
+      Isolation — Agent definiert deklarativ benötigte Capabilities
+      (Filesystem, Network, Subprocess), MXC erzwingt sie.
+
+  - source: foundry-agent-service
+    target: microsoft-execution-containers
+    type: secured-by
+    description: |
+      Foundry Agent Service nutzt MXC für Tool-Execution-Sandboxing.
+      Per-Agent-Capabilities, audit-trail aller System-Calls. Voraussetzung
+      für regulierte Workloads (Banken, Healthcare).
+
+  # --- Agent Control Specification (Governance): portable Standard ---
+  - source: microsoft-agent-framework
+    target: agent-control-specification
+    type: uses
+    description: |
+      MAF implementiert Agent Control Specification — portable Runtime-
+      Governance-Standard. Erlaubt Agents zwischen MAF und nicht-Microsoft-
+      Frameworks zu wandern ohne Re-Implementierung von Policies.
+
+  - source: agent-orchestrator
+    target: agent-control-specification
+    type: uses
+    description: |
+      Orchestrator-eigene Policies (Routing, Retry, Escalation) folgen
+      Agent Control Specification. Cross-Framework-Portabilität ist
+      strategisch wichtig für Multi-Vendor-Kunden.

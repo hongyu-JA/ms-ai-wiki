@@ -12,8 +12,9 @@ interface Props {
 }
 
 const SVG_WIDTH = 1400;
-const SVG_HEIGHT = 900;
-const LAYER_HEIGHT = SVG_HEIGHT / 7;
+const SVG_HEIGHT = 1000;
+// LAYER_HEIGHT is computed at render time from graph.layers.length —
+// supports dynamic layer counts (Build 2026 added ORCHESTRATION = 8 layers).
 
 const EDGE_STYLES: Record<EdgeType, { color: string; dash: string; markerId: string; label: string }> = {
   "uses":           { color: "#1e3a8a", dash: "0",     markerId: "arr-uses",   label: "uses" },
@@ -51,6 +52,9 @@ export default function ArchMap({ graph, visibleSlugs }: Props) {
 
     const { layers, nodes: rawNodes, edges } = graph;
     const layerById = new Map(layers.map((l) => [l.id, l]));
+
+    // Dynamic layer height — adapts when layers are added/removed in YAML.
+    const LAYER_HEIGHT = SVG_HEIGHT / layers.length;
 
     // Arrow markers
     const defs = svg.append("defs");
