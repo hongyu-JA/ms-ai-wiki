@@ -1,7 +1,8 @@
 ---
 watch: open
 status: stub_build_2026
-last_verified: 2026-06-03
+last_verified: 2026-06-08
+azure_verified: 2026-06-08
 source: build-2026-keynote
 aliases:
   - Agent Control Spec
@@ -10,8 +11,8 @@ aliases:
 moc:
   - '[[Microsoft MOC]]'
   - '[[Security & Identity MOC]]'
-zuletzt_gesichtet: 2026-06-03
-updated: 2026-06-03
+zuletzt_gesichtet: 2026-06-08
+updated: 2026-06-08
 ---
 
 # Agent Control Specification
@@ -19,6 +20,16 @@ updated: 2026-06-03
 *Auf Build 2026 angekündigt — eine portable Runtime-Governance-Spezifikation für Agenten. Soll plattformübergreifend funktionieren (nicht nur Microsoft) und definiert, wie Agenten-Verhalten dokumentiert, beschränkt und auditierbar gemacht wird.*
 
 > **Analogie:** Was OpenTelemetry für Observability ist, soll Agent Control Specification für Agent-Governance werden — ein offener Standard, gegen den Hersteller ihre Lösungen ausrichten können.
+
+---
+
+## ⚠ POC-Verifikation gegen echtes Azure (2026-06-08)
+
+**Nicht über Azure verifizierbar — und das ist erwartbar.** Agent Control Specification ist eine **Spezifikation, kein Produkt** — es gibt nichts zu deployen. Interessanter Teilbefund: unter `Microsoft.CognitiveServices` existieren reale Resource-Types **`attestations` + `attestationDefinitions`** — das könnte die technische Grundlage für die im Recap erwähnte „Agent Attestation" (kryptografische Signaturen) sein. Damit ist zumindest ein Baustein der Spec real in Azure verankert.
+
+**Beratungs-Konsequenz:** Als kommenden offenen Standard kommunizieren (Spec-Release Q3/2026). Der konkrete Beratungs-Wert ist das **„Agent Governance Audit"-Angebot** — unabhängig vom Spec-Reifegrad verkaufbar.
+
+> **Status bleibt `stub_build_2026`** — Spezifikation, kein deploybares Produkt.
 
 ---
 

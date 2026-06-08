@@ -1,7 +1,8 @@
 ---
 watch: open
 status: stub_build_2026
-last_verified: 2026-06-03
+last_verified: 2026-06-08
+azure_verified: 2026-06-08
 source: build-2026-keynote
 aliases:
   - GitHub Copilot Desktop
@@ -9,8 +10,8 @@ aliases:
 moc:
   - '[[Microsoft MOC]]'
   - '[[Copilot MOC]]'
-zuletzt_gesichtet: 2026-06-03
-updated: 2026-06-03
+zuletzt_gesichtet: 2026-06-08
+updated: 2026-06-08
 ---
 
 # GitHub Copilot App
@@ -18,6 +19,16 @@ updated: 2026-06-03
 *Eine native Desktop-Anwendung für agentic Coding-Workflows, vorgestellt auf Build 2026. Multi-Modell-Hintergrund: MAI-Code, GPT-5, Claude 4, Code Llama 4 — Auswahl im UI.*
 
 > **Analogie:** Was VS Code Copilot Chat im Editor war, ist die Copilot App auf der Desktop-Ebene. Eine eigene Schwerstgewichts-IDE für Agent-orchestriertes Coding, ähnlich Cursor oder Replit Desktop.
+
+---
+
+## ⚠ POC-Verifikation gegen echtes Azure (2026-06-08)
+
+**Nicht über Azure verifizierbar** — GitHub Copilot App ist eine **Desktop-Anwendung** (GitHub-/M365-Welt), keine Azure-Ressource. Verifikation braucht ein **GitHub-Copilot-Abo** (Status unklar — über github.com/settings/copilot prüfen) plus Download der Desktop-App.
+
+**Hinweis zum Modell-Switch:** Der im Recap genannte „MAI-Code" ist mit Vorsicht zu sehen — MAI-Modelle sind nicht Azure-verifiziert (siehe [[MAI Models]]). Real wählbar dürften **GPT-5.x-codex-Varianten + Claude** sein (im Azure-Catalog real bestätigt: `gpt-5-codex`, `gpt-5.1-codex`, `gpt-5.2-codex`, `gpt-5.3-codex`).
+
+> **Status bleibt `stub_build_2026`** — braucht GitHub-Copilot-Abo + Hands-on.
 
 ---
 

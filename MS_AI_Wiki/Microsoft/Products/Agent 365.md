@@ -1,7 +1,8 @@
 ---
 watch: close
 status: ga
-last_verified: 2026-06-03
+last_verified: 2026-06-08
+azure_verified: 2026-06-08
 aliases: [Microsoft Agent 365]
 moc:
   - "[[Microsoft MOC]]"
@@ -15,6 +16,14 @@ moc:
 *Microsoft's **Governance-Control-Plane für Agents** — Identity (via [[Entra Agent ID]]), RBAC, Audit, Lifecycle, Conditional Access. **GA am 2026-05-01** (in 9 Tagen). Eigenständig $15/user/month oder Teil von [[Microsoft 365 E7]] ($99). Kritisch: **„AI Teammate"-Szenario (Agent mit Mailbox/OneDrive) bleibt Preview**, nur OBO-Flow + Registry + Lifecycle werden GA.*
 
 > **Analogie:** Was Active Directory für User-Identities war, ist Agent 365 für Agent-Identities — mit Sponsor-Konzept, Lifecycle-Workflows und Zero-Trust-Policies speziell auf Agents zugeschnitten.
+
+---
+
+## ⚠ POC-Verifikation gegen echtes Azure (2026-06-08)
+
+**Read-only geprüft auf Journai-Core (Reader-Rolle) — ✅ teilbestätigt.** Technische Grundlage real: `Microsoft.CognitiveServices` exponiert `attestations` + `attestationDefinitions` Resource-Types — passend zur „Agent-Attestation" (kryptografische Signaturen) der Note. Agent 365 selbst ist primär ein **M365-/Entra-Feature** (Identity, RBAC, Lifecycle), dessen volle Verifikation M365-Admin-Center-Zugang braucht, nicht nur Azure-CLI.
+
+> **Status: `ga`** bleibt — Attestation-Grundlage real in Azure, Rest M365-seitig.
 
 ---
 

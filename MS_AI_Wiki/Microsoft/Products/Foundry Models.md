@@ -1,7 +1,8 @@
 ---
 watch: close
 status: ga
-last_verified: 2026-06-03
+last_verified: 2026-06-08
+azure_verified: 2026-06-08
 aliases: [Model Catalog, Foundry Model Catalog]
 moc:
   - "[[Microsoft MOC]]"
@@ -13,6 +14,19 @@ moc:
 *Der **Model Catalog** in [[Microsoft Foundry]]. 11.000+ Modelle, 11+ Publishers. Drei Deployment-Modi: **PAYG Serverless / MaaS / PTU**. Switzerland North: 92 Modelle verfügbar. **Claude (Anthropic) nur in Sweden Central + East US2** — out-of-EU-Data-Boundary. April-2026-News: neue MAI-Familie (Transcribe-1, Voice-1, Image-2), Llama 4 Scout mit 10M-Token-Kontext, o4-mini mit RFT.*
 
 > **Analogie:** Wie Hugging Face Hub für Enterprise — kuratiertes Modell-Verzeichnis mit einheitlichem Billing, Azure-Integration und vorverhandelten Anbieter-Verträgen (MS-DPA).
+
+---
+
+## ⚠ POC-Verifikation gegen echtes Azure (2026-06-08)
+
+**Read-only geprüft auf Journai-Core (Reader-Rolle) — Note grösstenteils bestätigt, mit Korrekturen:**
+
+- ✅ **Claude-EU-Boundary stimmt exakt:** East US2 hat real `claude-opus-4-5/4-6/4-7/4-8`, `claude-sonnet-4-5`, `claude-haiku-4-5`. Switzerland North: **kein Claude**. Die EU-Data-Boundary-Warnung der Note ist Azure-bestätigt.
+- ⚠ **Modellzahl korrigieren:** `az cognitiveservices model list` zeigt **Switzerland North 364**, East US2 454 *direkt deploybare* Modelle (nicht „92"). Die „11.000+/12.000+"-Zahl meint den erweiterten Catalog inkl. HuggingFace — anderer Maßstab, präzisieren.
+- ⚠ **MAI-Referenzen sind Spekulation:** „MAI-Thinking-1", „MAI-Transcribe-1" etc. NICHT im Catalog (siehe [[MAI Models]]). Real First-Party = **Phi-4-Familie**.
+- ✅ **Llama-4 bestätigt:** `Llama-4-Scout-17B-16E`, `Llama-4-Maverick-17B-128E` real. „Code Llama 4" ungenau — real ist `Codestral-2501` + Llama-4.
+
+> **Status: `ga`** bleibt — Produkt real & bestätigt, nur Detail-Zahlen + MAI-Referenzen korrigieren.
 
 ---
 

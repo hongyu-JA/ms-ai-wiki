@@ -1,7 +1,8 @@
 ---
 watch: open
 status: stub_build_2026
-last_verified: 2026-06-03
+last_verified: 2026-06-08
+azure_verified: 2026-06-08
 source: build-2026-keynote
 aliases:
   - MXC
@@ -10,8 +11,8 @@ aliases:
 moc:
   - '[[Microsoft MOC]]'
   - '[[Security & Identity MOC]]'
-zuletzt_gesichtet: 2026-06-03
-updated: 2026-06-03
+zuletzt_gesichtet: 2026-06-08
+updated: 2026-06-08
 ---
 
 # Microsoft Execution Containers (MXC)
@@ -19,6 +20,16 @@ updated: 2026-06-03
 *OS-Level Sicherheits-Container für AI-Agenten — vorgestellt auf Build 2026. Vier Isolations-Stufen vom Prozess bis zur dedizierten Cloud-PC, damit Agenten kontrolliert ausgeführt werden ohne dass sie das System gefährden.*
 
 > **Analogie:** Was Docker für Code-Container war, ist MXC für Agent-Container — mit dem Unterschied, dass MXC OS-Level-Isolation auf Windows-Native-Basis bietet, nicht auf Hypervisor-Ebene.
+
+---
+
+## ⚠ POC-Verifikation gegen echtes Azure (2026-06-08)
+
+**Read-only geprüft auf Journai-Core (Reader-Rolle).** Kein eigener ARM-Resource-Type für „Execution Containers" gefunden — MXC ist ein **Windows-12-/Azure-Foundry-Feature** (OS-Level-Isolation), das auf bestehender Compute-Infra aufsetzt (`Microsoft.App` für Container Apps ist registriert ✓). Eine echte Capability-Sandbox-Verifikation braucht Deploy-Rechte + einen laufenden Agent (aktuell nur Reader).
+
+**Beratungs-Konsequenz:** Das Konzept (capability-basierte Agent-Sandbox) ist solide und für FINMA/regulierte Kunden wertvoll. Aber als „verfügbar testbar" erst kommunizieren, wenn wir mit Contributor-Rechten einen Agent in Machine-Isolation laufen lassen können.
+
+> **Status bleibt `stub_build_2026`** — braucht Deploy-Rechte + Windows 12 / Cloud-PC zum Testen.
 
 ---
 

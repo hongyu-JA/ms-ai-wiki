@@ -1,7 +1,8 @@
 ---
 watch: open
 status: stub_build_2026
-last_verified: 2026-06-03
+last_verified: 2026-06-08
+azure_verified: 2026-06-08
 source: build-2026-keynote
 aliases:
   - MS Scout
@@ -9,8 +10,8 @@ aliases:
 moc:
   - '[[Microsoft MOC]]'
   - '[[Copilot MOC]]'
-zuletzt_gesichtet: 2026-06-03
-updated: 2026-06-03
+zuletzt_gesichtet: 2026-06-08
+updated: 2026-06-08
 ---
 
 # Microsoft Scout
@@ -18,6 +19,18 @@ updated: 2026-06-03
 *"Always-on personal agent" — vorgestellt auf Build 2026. Eine immer-aktive AI-Schicht, die Teams, Outlook, OneDrive, SharePoint und Geräte-Aktionen autonom orchestrieren kann.*
 
 > **Analogie:** Wenn M365 Copilot der Assistent ist, der antwortet wenn man fragt, ist Microsoft Scout der proaktive Mitarbeiter, der von sich aus Aufgaben anstösst — Meetings zusammenfasst, Folgemails entwirft, Termine vereinbart, ohne dass man ihn beauftragt.
+
+---
+
+## ⚠ POC-Verifikation gegen echtes Azure (2026-06-08)
+
+**Nicht über Azure verifizierbar** — Microsoft Scout ist ein **M365-/Windows-Feature** (always-on Personal-Agent), keine Azure-Ressource. Verifikation braucht **M365 Copilot Frontier-Tier** + idealerweise Windows 12 (beides Status unklar).
+
+**⚠ Namens-Verwechslungsgefahr:** Im Azure-Model-Catalog existiert `Llama-4-Scout-17B-16E-Instruct` — das ist **Metas Llama-4-Scout-Modell, NICHT Microsoft Scout**. Nicht verwechseln im Kundengespräch.
+
+**Beratungs-Konsequenz:** Als M365-Frontier-Feature kommunizieren. Der wichtigste Beratungs-Wert bleibt der **Scout-Governance-Workshop** (Tenant-Policies vor Rollout) — unabhängig davon testbar/verkaufbar.
+
+> **Status bleibt `stub_build_2026`** — braucht Frontier-Lizenz + Windows 12.
 
 ---
 
