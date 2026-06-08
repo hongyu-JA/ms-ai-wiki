@@ -59,11 +59,87 @@ Banken, Versicherer, öffentlicher Sektor haben oft strikte Anforderungen an San
 Empfehlung für Sicherheits-sensitive Kunden:
 > "Production-Agents in MXC ausführen, mindestens Session-Isolation, bei kritischen Workflows Machine- oder Cloud-PC-Isolation."
 
+## Performance-Overhead (laut Build-Keynote)
+
+| Modus | Startup-Zeit | Memory-Overhead | Empfohlen für Agent-Volumen |
+|---|---|---|---|
+| Process | <100ms | ~50 MB | Hochvolumen (>1000 Agents/h) |
+| Session | 200-500ms | ~200 MB | Mittel (100-1000/h) |
+| Machine | 2-10 Sek | ~1-2 GB | Sensible Workloads (<100/h) |
+| Cloud PC | 10-60 Sek | dedizierte VM | Kritische / regulierte Workloads (<10/h) |
+
+**Trade-off klar:** mehr Isolation = mehr Overhead + Latenz. Für Real-Time-Chat ist nur Process-Modus brauchbar; für Batch-Analyse Machine oder Cloud-PC.
+
+## Konkrete Konfiguration
+
+```yaml
+# Agent-Manifest mit MXC-Capabilities
+agent:
+  name: contract-analyzer
+  framework: maf
+  execution:
+    container: machine  # Isolation-Modus
+    capabilities:
+      - filesystem: read_only:/data/contracts/
+      - network: outbound:foundry.azure.com only
+      - subprocess: deny
+      - registry: deny
+    audit: full
+    timeout: 300s
+```
+
+Deklarative Capability-Definition → MXC erzwingt zur Laufzeit. Verstösse werden in Defender for AI alarmiert.
+
+## Pricing-Auswirkung
+
+| Modus | Zusatz-Kosten |
+|---|---|
+| Process | inkludiert in Windows-Lizenz |
+| Session | inkludiert |
+| Machine | Container-Compute (Container Apps oder VM) — ca. CHF 50-200/Monat pro Agent |
+| Cloud PC | Windows 365 for Agents — ca. CHF 30-50/Monat pro Cloud-PC |
+
+Schätzung für mittleren Schweizer Kunden mit 10 Production-Agents in Machine-Isolation: **CHF 1'500-2'500/Monat** zusätzlich für MXC-Hosting.
+
+## Use-Cases (Schweizer Profile)
+
+1. **Bank — Vertrags-Analyse-Agent:** Machine-Isolation, Tool-Capabilities streng beschränkt
+2. **Versicherung — Schaden-Recherche-Agent:** Cloud-PC-Isolation für tiefste Risiko-Stufe
+3. **Government — Verschlussache-Bearbeitungs-Agent:** Cloud-PC mit Air-Gap-ähnlicher Konfiguration
+4. **Anwaltskanzlei — Recherche-Agent:** Session-Isolation reicht (kein Tool-Use, nur Lesen)
+5. **Health-Care — KIS-Integration-Agent:** Machine-Isolation + Defender-AI-Monitoring
+
+## Integration mit Defender for AI
+
+MXC + Defender for AI bilden eine **Tiefen-Verteidigungs-Schicht**:
+
+- **MXC** verhindert proaktiv: capability-basierte Sandbox, kein Filesystem-Zugriff ohne Deklaration
+- **Defender** erkennt reaktiv: Anomalien im Verhalten, Prompt-Injection-Versuche, ungewöhnliche Tool-Aufrufe
+
+Zusammen sind sie eine vollständige Agent-Sicherheits-Story. Für Audit-relevante Kunden beide aktivieren — eines allein reicht nicht.
+
+## Häufige Stolpersteine
+
+1. **Capability-Definitions sind upfront.** Wer eine Agent-Capability vergisst, kriegt Runtime-Fehler. Best Practice: capability-narrow starten, dann erweitern.
+2. **Cloud-PC-Modus ist teuer.** Für viele Agents wird das schnell unwirtschaftlich — Use-Case-Selektion wichtig.
+3. **Process-Modus gibt schwächste Garantien.** Nur für nicht-sensitive Workloads — manche Kunden verstehen den Unterschied nicht, Berater muss aufklären.
+4. **Cross-OS funktioniert nicht.** MXC ist Windows-only. Linux-Agenten brauchen andere Isolation-Lösung (k8s + gVisor).
+
+## Schweizer Compliance-Implikationen
+
+- **FINMA-Rundschreiben 2023/01:** Cloud-PC-Modus erfüllt höchste Anforderungen an operationelle Risiken
+- **FADP Art. 32 / DSGVO Art. 32:** MXC ist konkretes TOM-Beispiel (Technisch-Organisatorische Massnahme)
+- **ISO 27001:** A.9 (Access Control) + A.12 (Operations Security) — MXC adressiert beide
+- **NIST AI Risk Management Framework:** "Sandbox + Capability" entspricht NIST-Risiko-Manage-Empfehlung
+
+**Beratungs-Pitch:** _"MXC ist die Antwort auf 'Wie kontrolliert man autonome Agents?' — das ist die Frage, die jeder Compliance-Officer im Q3/2026 stellen wird."_
+
 ## Vertiefungsbedarf (1-Tag-Aufwand)
 
-- [ ] Performance-Overhead pro Isolation-Modus
-- [ ] Pricing-Auswirkung (besonders Cloud-PC)
-- [ ] Integration mit Defender für AI
+- [ ] POC: MAF-Agent in Machine-Isolation testen, Capabilities-Konfiguration durchspielen
+- [ ] Cost-Modell mit Cloud-PC für 1 Banken-Use-Case
+- [ ] Defender-AI-Integration im Detail dokumentieren
+- [ ] FINMA-Compliance-Argumentation als Beratungs-Dokument aufbereiten
 
 ## Quellen
 

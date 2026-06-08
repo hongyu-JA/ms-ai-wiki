@@ -56,12 +56,104 @@ Strategische Bedeutung: dies ist Microsofts Versuch, Standards für AI-Agent-Gov
 
 > "Wenn ihr eine Multi-Vendor-Agent-Strategie habt, achtet auf Agent Control Specification als kommenden Standard. Vermeidet Vendor-spezifische Governance-Tools, wenn ihr darauf bauen wollt."
 
+## Konkretes Policy-YAML-Beispiel (Build-Keynote-Demo)
+
+```yaml
+# agent-policy.yaml
+apiVersion: agent-control/v1
+kind: AgentPolicy
+metadata:
+  name: contract-analyzer-policy
+  agent_id: contract-analyzer
+spec:
+  # Capability-Grenzen
+  capabilities:
+    read:
+      - filesystem: /data/contracts/**
+      - source: foundry-iq
+    write:
+      - filesystem: /data/output/**
+    deny:
+      - network: outbound
+      - subprocess: any
+
+  # Konfidenz-Schwellen
+  confidence:
+    minimum: 0.75
+    human_review_threshold: 0.95
+    fallback_on_below: human
+
+  # Attestation-Pflichten
+  attestation:
+    sign_each_action: true
+    key_source: azure-confidential-compute
+    audit_storage: purview
+
+  # Compliance-Tags
+  compliance:
+    - finma-2023-01
+    - fadp-art-25
+    - iso-27001-a9
+```
+
+Diese Policy wird der Agent-Runtime mitgegeben — egal ob MAF, Studio, oder externes Framework, das die Spec implementiert.
+
+## Vergleich: Agent Control Spec vs andere Frameworks
+
+| Framework | Scope | Status | Microsoft-Relation |
+|---|---|---|---|
+| **Agent Control Spec** | Agent-Runtime-Governance | angekündigt, Spec Q3/2026 | Microsoft-led |
+| **NIST AI Risk Management Framework** | Organisations-AI-Risiko | publiziert seit 2023 | nicht runtime-spezifisch |
+| **EU AI Act** | Regulatorisch (gesetzlich) | in Kraft, Compliance-Pflicht ab 2025 | nicht Runtime-spezifisch |
+| **MCP** | Tool-Communication | publiziert, breite Adoption | Microsoft adoptiert |
+| **OpenAI Agents Spec** | OpenAI-spezifisch | Vendor-only | konkurrierend |
+
+**Verhältnis untereinander:** EU AI Act = "was muss erreicht werden", NIST = "wie sollte man strukturieren", Agent Control Spec = "wie technisch implementieren". Komplementär, nicht konkurrierend.
+
+## Verhältnis zum EU AI Act
+
+EU AI Act fordert (Art. 14) "Human-Oversight" für High-Risk-AI-Systeme. Agent Control Spec bietet konkrete technische Mechanismen:
+
+- **Confidence-Schwelle für Human-Review** → erfüllt Art. 14 "Risk-based Intervention"
+- **Attestation jeder Aktion** → erfüllt Art. 12 "Audit-Logging"
+- **Capability-Deklaration** → erfüllt Art. 15 "Accuracy & Robustness"
+
+**Beratungs-Argument:** _"Agent Control Spec ist die technische Antwort auf die regulatorischen Fragen, die EU AI Act stellt."_ Wir können das in Banken-/Versicherer-Pitches positionieren.
+
+## Strategische Bedeutung für Microsoft (und uns)
+
+Mit der Veröffentlichung als offener Standard verfolgt Microsoft zwei Ziele:
+
+1. **De-facto-Standard werden** bevor EU/USA/China eigene Standards setzen
+2. **Vendor-Lock-in reduzieren-Argument:** "wir sind nicht vendor-lock-in, wir bieten offenen Standard"
+
+Für uns als Berater:
+- **Frühzeitig die Spec verstehen** → wir können beim Kunden die "Standards-Diskussion" anführen
+- **Multi-Vendor-Mandate gewinnen** → Spec ermöglicht uns, Microsoft-Beratung in Multi-Cloud-Setups zu bringen
+- **Demo-Material:** Agent-Policy-Demo macht Compliance-Officer happy
+
+## Häufige Stolpersteine
+
+1. **Spec ist noch nicht final.** Empfehlungen können sich ändern bis Q3/2026 Release.
+2. **Microsoft-Implementation ungleich Spec.** Microsoft baut Agent 365 als Implementation — andere Vendors könnten anders implementieren. Kompatibilität nicht garantiert.
+3. **Adoption ist Wunsch, nicht Realität.** AWS, Google, Anthropic haben sich noch nicht öffentlich committet. Realistisch erst Q2/2027 echte Cross-Vendor-Adoption.
+4. **Policy-Maintenance-Aufwand:** Policies müssen gepflegt werden — Code drift. Governance-Team beim Kunden nötig.
+
+## Schweizer Compliance-Implikationen
+
+- **FINMA-Rundschreiben 2023/01:** Spec-konforme Implementation = klares Audit-Argument
+- **FADP Art. 25 (Data Protection by Design):** deklarative Policy = "by Design"-Erfüllung
+- **EU AI Act:** wie oben — Spec adressiert mehrere Artikel direkt
+- **NIST AI RMF Compliance:** Spec-Implementation = NIST-konform
+
+**Konkretes Beratungs-Angebot:** _"Agent Governance Audit"_ — wir prüfen Kunden-Agent-Infrastruktur gegen Agent Control Specification, identifizieren Lücken, schreiben Policies. 3-5 Tage pro Kunde, CHF 12-25k.
+
 ## Vertiefungsbedarf (1-Tag-Aufwand)
 
-- [ ] Spec-Veröffentlichungsdatum
-- [ ] Konkrete Policy-YAML-Beispiele
-- [ ] Status anderer Hersteller (AWS, Google, Anthropic) bei Adoption
-- [ ] Vergleich mit existierenden Frameworks (NIST AI RMF, EU AI Act)
+- [ ] Spec-Veröffentlichung verfolgen (Microsoft-Newsletter, GitHub-Repo)
+- [ ] Policy-Beispiele für unsere 3 typischsten Use-Cases (Bank, Versicherer, Treuhand) entwickeln
+- [ ] Cross-Vendor-Adoption-Status quartalsweise prüfen
+- [ ] "Agent Governance Audit"-Beratungs-Produkt formalisieren — Template + Pricing
 
 ## Quellen
 

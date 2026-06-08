@@ -67,12 +67,72 @@ Für Schweizer Kunden mit Compliance-Anforderungen ist das relevant:
 - **Vorher:** "GPT-4o für Reasoning, Phi-4 für Cost, Claude bei DPIA-Aktualisierung"
 - **Nachher:** "MAI-Thinking-1 für Reasoning, MAI-Code-1 für Coding, MAI-Embed für Search. OpenAI/Claude nur wenn spezifischer Use-Case dafür spricht."
 
+## Pricing & Lizensierung (Stand 2026-06-07, vorläufig)
+
+| Modell | PAYG (Input / Output pro 1M Token) | PTU verfügbar | Region CH-North |
+|---|---|---|---|
+| MAI-Thinking-1 | ~$3.50 / $14 | ja (ab 100 PTU) | ab Q4/2026 angekündigt |
+| MAI-Code-1 (Flash) | ~$0.40 / $1.20 | nein | Q4/2026 |
+| MAI-Code-1 (Full) | ~$2.80 / $8.40 | ja | Q4/2026 |
+| MAI-Large | ~$2.50 / $10 | ja | Q4/2026 |
+| MAI-Small | ~$0.30 / $0.90 | nein | Q4/2026 |
+| MAI-Embed | ~$0.08 / 1M Token | nein | Q4/2026 |
+| MAI-Voice-2 | ~$15 / 1M Zeichen | nein | Q4/2026 |
+| MAI-Transcribe-1.5 | ~$0.005 / Minute Audio | nein | Q4/2026 |
+
+**Vergleich zu OpenAI** (Stand Anfang Juni 2026): MAI-Large ist ca. **30–40 % günstiger** als GPT-4o bei vergleichbarer Qualität in Microsofts internen Benchmarks. PTU-Pricing erst ab 100 PTU/Monat sinnvoll (ca. CHF 7'000-10'000/Monat).
+
+> ⚠ **Vorsicht:** Pricing ist Build-Keynote-Information, kein finales Pricing-Sheet. Vor Kunden-Angeboten muss der Microsoft-Account-Manager bestätigen.
+
+## Konkrete Konfiguration (Beispiel MAF + MAI)
+
+```python
+from agent_framework import ChatAgent
+from agent_framework.azure import AzureOpenAIChatClient
+
+# Statt foundry-models/gpt-4o:
+agent = ChatAgent(
+    chat_client=AzureOpenAIChatClient(
+        deployment_name="mai-thinking-1",  # Foundry-Deployment-Name
+        api_version="2026-06-01",
+    ),
+    instructions="Du bist ein Vertrags-Analyst...",
+)
+```
+
+**Wichtig:** Foundry behandelt MAI-Modelle wie jedes andere Deployment — gleiche SDKs, gleiche API-Surface. Migration von GPT-4o → MAI-Large ist eine **einzige Konfigurations-Zeile**.
+
+## Häufige Stolpersteine
+
+1. **MAI ≠ Drop-in für alle GPT-4o-Prompts.** System-Prompts müssen oft leicht angepasst werden (MAI versteht Microsoft-spezifische Konzepte besser, generische Prompts sind unzuverlässiger).
+2. **MAI-Thinking-1 ist langsam.** Chain-of-Thought-Latenz 3–8 Sekunden pro Antwort — nicht für UI-Echtzeit-Chat geeignet, sondern für Hintergrund-Analyse.
+3. **PTU-Kapazitäts-Pre-Buy in CH-North fehlt** bis Q4/2026. Bei hohem Volumen vor Q4 muss man in West-Europe deployen (DSGVO-Sicht OK, FINMA grenzwertig).
+4. **MAI-Voice-2 hat keinen Schweizerdeutsch-Support** (nur Hochdeutsch). Für Voice-Use-Cases auf SwissGerman bei Anthropic / ElevenLabs bleiben.
+
+## Empfehlungs-Logik (Beratungs-Baum)
+
+```
+Kunde fragt nach Modell-Empfehlung:
+├── regulierte Branche (Bank, Versicherung, Health, öffentlich)?
+│   ├── ja  → MAI-First (Single-Vendor-DPIA)
+│   │        Ausnahme: Anthropic-Aktivierung wenn schon DPIA gemacht
+│   └── nein → wahlweise MAI / OpenAI / Anthropic je Use-Case
+├── Use-Case Reasoning-intensiv (Vertragsanalyse, Recherche)?
+│   ├── ja  → MAI-Thinking-1 oder Claude 4
+│   └── nein → MAI-Large oder GPT-4o
+├── Use-Case Coding?
+│   ├── Standard-Code  → MAI-Code-1 (Flash)
+│   └── komplexes Refactoring → Claude 4 (Anthropic noch besser, 6 Mo Vorsprung)
+└── Voice-Use-Case mit Schweizerdeutsch?
+    └── nicht MAI (kein SwissGerman) → Anthropic + ElevenLabs
+```
+
 ## Vertiefungsbedarf (2-Tage-Aufwand)
 
-- [ ] Konkrete Benchmark-Zahlen vs. GPT-5 + Claude 4 für unsere typischen Use-Cases sammeln
-- [ ] EU-Region-Verfügbarkeit pro Einzelmodell prüfen
-- [ ] Pricing-Tabelle PAYG vs PTU für MAI vs. OpenAI vs. Claude
-- [ ] DPIA-Template-Update für MAI
+- [ ] Konkrete Benchmark-Zahlen vs. GPT-5 + Claude 4 für unsere typischen Use-Cases sammeln (POC: Vertrags-Q&A, Code-Review, Recherche-Synthese)
+- [ ] EU-Region-Verfügbarkeit pro Einzelmodell prüfen — Update bei Microsoft Q3/2026 Region-Roadmap
+- [ ] DPIA-Template-Update für MAI (Single-Vendor-Argument formell ausgearbeitet)
+- [ ] Vergleich PTU-Kapazitäts-Reservierung MAI vs OpenAI — Cost-Modell für 3 unserer Bestandskunden durchrechnen
 
 ## Quellen
 
