@@ -52,11 +52,67 @@ Use-Cases:
 
 Limit: setzt **Frontier-Tier-Lizenz** voraus — das ist teuer und nicht für jeden mittelständischen Schweizer Kunden geeignet. Beratungs-Empfehlung erst, wenn Lizenz-Voraussetzungen geklärt sind.
 
+## Konkrete proaktive Aktionen (Build-Demo)
+
+1. **Meeting endet** → Scout schreibt Zusammenfassung, schickt Email-Entwurf an Manager
+2. **Email mit Termin-Anfrage** → Scout prüft Kalender, schlägt 3 Termine vor
+3. **Datei wird in OneDrive gespeichert** → Scout klassifiziert, schlägt SharePoint-Ablage-Ort vor
+4. **PR wird zugewiesen** → Scout prüft Diff, fasst Änderungen zusammen, schreibt Review-Notiz
+5. **Reisekosten-Beleg in Mail** → Scout erkennt Beleg, erstellt Expensy-Eintrag mit OCR
+
+## Pricing (Build-Keynote-Stand)
+
+| Tier | Zugang zu Scout |
+|---|---|
+| **M365 Copilot Frontier** | Voll (alle Features) |
+| **M365 Copilot Enterprise** | Schrittweiser Rollout Q3-Q4/2026 |
+| **M365 Copilot Business** | Q1/2027 |
+| **M365 Copilot Standard** | nicht im Plan |
+
+Frontier-Tier-Preis: tba (vermutlich +$10-20 über bestehendem Copilot-Preis). Schätzung Schweizer Kunde mit 100 Frontier-Usern: zusätzlich **CHF 1'200-2'400/Monat**.
+
+## Use-Cases (typische Schweizer Profile)
+
+1. **C-Level / Executive-Office:** maximaler Nutzen, akzeptable Kosten
+2. **Senior Sales** (Account Manager Banking-Vertriebs-Direktor): hoher Wert pro User
+3. **Knowledge-Workers in M365-heavy Branchen:** Anwälte, Berater, Wissenschaft
+
+**Nicht empfohlen für:** Front-Line-Mitarbeiter (Bank-Counter, Verkauf, Service) — Tools überdimensioniert für deren Workflows.
+
+## Häufige Stolpersteine
+
+1. **Proaktive Aktionen können nervig sein.** User-Feedback aus Preview: Scout schlägt zu oft "Möchtest du X tun?" vor. Vorsicht bei C-Level-Pitch — "noch ein AI-Notification-Stream" ist negativ.
+2. **Cross-Service-Workflows brauchen alle Lizenzen.** Wenn Scout Outlook + Teams + OneDrive verbindet, müssen alle drei Microsoft-Tools im Tenant aktiv sein.
+3. **Lernkurve:** Erst nach 2-3 Wochen anpasst Scout sich gut an User. Vor Demo den Kunden über diese Anpassungsphase aufklären.
+4. **Custom-Workflows limitiert in Preview.** Personalisierung über Microsoft-Defaults hinaus erst später möglich.
+
+## Compliance-Sprengstoff für Schweizer Kunden
+
+⚠ **Das ist der wichtigste Beratungs-Punkt zu Scout.**
+
+Scout läuft **always-on** — er beobachtet User-Aktivität kontinuierlich. Das hat Implikationen:
+
+### Datenschutz (FADP / DSGVO)
+- Personalisierung-Modell wird tenant-weit trainiert → User-Profile entstehen
+- **Mitarbeiter-Tracking:** Scout kennt Arbeitszeiten, Produktivitäts-Muster, Kommunikations-Frequenz → indirektes Tracking
+- **Betriebsvereinbarung empfohlen** vor Rollout — sonst Arbeitnehmer-Klagen-Risiko
+
+### FINMA (Banken)
+- Scout-Datenfluss über User-Aktivität ist Outsourcing-relevant
+- Pre-Production: Conditional-Access-Policies in Entra setzen (z.B. "Scout nicht aktiv für Mitarbeiter im Trading-Floor")
+
+### Microsoft Tenant-Admin-Steuerung
+- Tenant-Admin **muss** vor Rollout: Scope der Scout-Aktivitäten definieren, sensitive Datenarten ausschliessen, Audit-Logging aktivieren
+- Default-Konfiguration = "alles erlaubt" → das ist für regulierte Branchen zu offen
+
+**Konkretes Beratungs-Angebot:** _"Scout-Governance-Setup-Workshop"_ — 1-2 Tage pro Tenant, ca. CHF 4-8k Beratungs-Honorar. Wird zur Pflicht ab Q3/2026, weil Scout für Enterprise-Kunden default-on kommt.
+
 ## Vertiefungsbedarf (0.5-Tag-Aufwand)
 
-- [ ] Frontier-Tier Pricing
-- [ ] Datenschutz: lernt es User-Gewohnheiten? Wie lange werden diese gespeichert?
-- [ ] Schweiz-Verfügbarkeit (CH-North?)
+- [ ] Hands-on im Frontier-Tier (sobald Zugang verfügbar)
+- [ ] Tenant-Admin-Governance-Optionen vollständig dokumentieren
+- [ ] Schweizer Arbeitsrechts-Anwalt zu Mitarbeiter-Tracking-Implikationen konsultieren
+- [ ] Scout-Governance-Setup-Workshop als Beratungs-Produkt formalisieren
 
 ## Quellen
 
