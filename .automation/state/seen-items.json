@@ -88,7 +88,7 @@
   "azure-updates::559751": "2026-05-02",
   "azure-updates::559761": "2026-05-02",
   "azure-updates::560241": "2026-05-02",
-  "azure-updates::559756": "2026-05-02",
+  "azure-updates::559756": "2026-06-09",
   "azure-updates::559746": "2026-05-02",
   "azure-updates::557828": "2026-05-02",
   "azure-updates::560162": "2026-05-02",
@@ -2547,5 +2547,11 @@
   "devblogs-microsoft365dev::https://devblogs.microsoft.com/microsoft365dev/?p=25724": "2026-06-06",
   "devblogs-microsoft365dev::https://devblogs.microsoft.com/microsoft365dev/?p=25777": "2026-06-06",
   "devblogs-microsoft365dev::https://devblogs.microsoft.com/microsoft365dev/?p=25715": "2026-06-06",
-  "devblogs-microsoft365dev::https://devblogs.microsoft.com/microsoft365dev/?p=25624": "2026-06-06"
+  "devblogs-microsoft365dev::https://devblogs.microsoft.com/microsoft365dev/?p=25624": "2026-06-06",
+  "azure-updates::565271": "2026-06-09",
+  "azure-updates::565359": "2026-06-09",
+  "azure-updates::565171": "2026-06-09",
+  "azure-updates::565103": "2026-06-09",
+  "azure-updates::563756": "2026-06-09",
+  "azure-updates::564873": "2026-06-09"
 }
