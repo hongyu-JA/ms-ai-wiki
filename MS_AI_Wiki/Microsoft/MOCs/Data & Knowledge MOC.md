@@ -1,7 +1,7 @@
 ---
 type: moc
 tags: [moc, microsoft, data, knowledge]
-last_verified: 2026-06-08
+last_verified: 2026-06-11
 ---
 
 # Data & Knowledge MOC
