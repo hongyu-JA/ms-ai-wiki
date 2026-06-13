@@ -53,7 +53,7 @@ Der **DSGVO-Flag "nur North Central US"** aus dem Arbeitsauftrag ist **überholt
 
 ```
 ┌────────────────────────────────────────────────────────────────┐
-│ EU / EFTA (DSGVO-Zone) — inkl. Switzerland                     │
+│ EU/EWR (DSGVO) + EFTA — CH separat: revDSG/FADP               │
 │   France Central · Germany West Central · Italy North          │
 │   Norway East · Poland Central · Spain Central                 │
 │   Sweden Central · Switzerland North · UK South                │
@@ -192,6 +192,8 @@ Agent Service ist das **managed Deployment-Ziel** innerhalb Foundry. Ein Foundry
 ---
 
 ## EU-/DSGVO-Workaround-Optionen
+
+> ⚖️ **Rechtsrahmen-Hinweis:** Für CH-Kunden ist der primäre Rahmen **revDSG/FADP**, nicht die DSGVO (CH ist DSGVO-Drittland). DSGVO gilt nur zusätzlich bei EU-Datenbezug. Compliance entsteht aus Region + DPA + Datensparsamkeit + DSFA, nicht aus Modellherkunft. Vollständige Sprachregelung: [[Datenschutz Schweiz (revDSG-FADP)]].
 
 ### Option A — Schweiz-nativ (empfohlen für CH-Kunden)
 Foundry Project in **Switzerland North** anlegen, Hosted Agents dort deployen. Model-Deployments als **Data Zone (EUR)** konfigurieren (Sweden Central + Germany West Central als Anker-Regionen für DataZone).
