@@ -40,9 +40,19 @@ updated: 2026-06-08
 
 **Schlussfolgerung:** Die 7 MAI-Modellnamen im Recap stammen aus Drittquellen-Berichten (theneuron.ai, windowsnews.ai) und sind **nicht durch Azure verifiziert**. Mögliche Erklärungen: (1) Marketing-Namen ≠ Catalog-Namen, (2) Rollout-Verzögerung Keynote → GA, (3) Berichte ungenau.
 
-**Beratungs-Konsequenz — WICHTIG:** Bis zur Verifikation **keinem Kunden „MAI-Large" oder „MAI-Thinking-1" als verfügbares Modell empfehlen.** Real verfügbare Microsoft-First-Party-Optionen sind heute: **Phi-4 / Phi-4-reasoning** (klein, on-device-tauglich) und als Drop-in-Alternativen zu OpenAI die real deployten **GPT-5.x**. Die „MAI-First für regulierte Kunden"-Empfehlung muss umformuliert werden zu **„Phi-4 + GPT-5.x in CH-North-Foundry"**.
+**Beratungs-Konsequenz — WICHTIG:** Bis zur Verifikation **keinem Kunden „MAI-Large" oder „MAI-Thinking-1" als verfügbares Modell empfehlen.** Real verfügbare Microsoft-First-Party-Optionen sind heute: **Phi-4 / Phi-4-reasoning** und als Drop-in-Alternativen zu OpenAI die real deployten **GPT-5.x**.
 
-> **Status bleibt bewusst `stub_build_2026`** — diese Note ist erst `ga`, wenn entweder die MAI-Modelle real im Catalog erscheinen oder wir den Recap auf Phi/GPT-5 umgeschrieben haben.
+### ⚡ Benchmark-Update (2026-06-08): „First-Party-First" widerlegt
+
+Ein **echter Hands-on-Benchmark** (Deployment auf `rg-poc-build2026`, siehe [[2026-06-08-phi4-vs-gpt54-benchmark-results|POC-Ergebnis]]) hat die real verfügbare Microsoft-First-Party-Option **Phi-4 gegen GPT-5.4** getestet. Ergebnis eindeutig:
+
+- **Qualität:** GPT-5.4 gewinnt 11 von 12 Blind-Judge-Lenses (Schnitt **8.0 vs 3.67**). Phi-4 produzierte veraltete Produktnamen, einen Code-Bug (`query_type="mmlt"`) und CH-Compliance-Fehler.
+- **Latenz:** Phi-4 ~60.8s vs GPT-5.4 ~2.6s — **Faktor 23x langsamer**.
+- **Skalierung:** Phi-4 in CH-North quota-gated auf **capacity=1** — produktiv nicht tragfähig.
+
+**Daraus folgt die korrigierte Empfehlung:** Für CH-North-Deployments ist **GPT-5.4 (Azure OpenAI) der Default**, nicht Microsoft-First-Party. Compliance entsteht aus **Region + DPA + Datensparsamkeit + DSFA** (revDSG/FADP), NICHT aus der Modellherkunft. Das „First-Party = besser/sicherer für reguliert"-Argument ist durch echte Messung widerlegt.
+
+> **Status bleibt bewusst `stub_build_2026`** — die spekulativen MAI-Modellnamen sind weiterhin nicht im Catalog. Die abgeleitete Beratungs-Empfehlung ist jetzt aber benchmark-gestützt statt spekulativ.
 
 ---
 
