@@ -3,6 +3,9 @@
 .env.local
 *.pem
 
+# POC-Temp — Azure-Keys + Benchmark-Skripte, nach POC aufräumen
+.automation/poc-tmp/
+
 # Claude Code lokaler Zustand — pro Entwickler, nicht teilen
 .claude/settings.local.json
 
