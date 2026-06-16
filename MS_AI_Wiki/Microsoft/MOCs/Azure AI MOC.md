@@ -1,7 +1,7 @@
 ---
 type: moc
 tags: [moc, microsoft, azure-ai, foundry]
-last_verified: 2026-06-13
+last_verified: 2026-06-16
 ---
 
 # Azure AI MOC
