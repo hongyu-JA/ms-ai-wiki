@@ -130,8 +130,8 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | Kennzahl | Wert |
 | -------- | ---- |
 | Tier-1 Notes | **19 deep** · 0 stub · total 19 |
-| Tier-2 Notes | **16 deep** · 0 stub · total 16 |
-| Tier-3 Notes | **7 deep** · 0 stub · total 7 |
+| Tier-2 Notes | **16 deep** · 8 stub · total 24 |
+| Tier-3 Notes | **7 deep** · 3 stub · total 10 |
 | Deprecated Notes | **3 deep** · 0 stub · total 3 |
 | MOCs insgesamt | 10 (Root + 6 Primary + 2 Lens + 1 Commercial) |
 | Automation-Pipeline | läuft seit 2026-04-21 (siehe README) |
@@ -183,6 +183,14 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | 🟢 deep | T2 | standard | [[Purview DSPM]] | Security & Identity MOC |
 | 🟢 deep | T2 · 🔻 | passive | [[deprecated/Semantic Kernel]] | Agents MOC |
 | 🟢 deep | T2 | standard | [[Teams SDK]] | Agents MOC |
+| 🟡 stub | T2 | standard | [[Agent Orchestrator]] | Agents MOC |
+| 🟡 stub | T2 | standard | [[GitHub Copilot App]] | Copilot MOC |
+| 🟡 stub | T2 | standard | [[MAI Models]] | Azure AI MOC |
+| 🟡 stub | T2 | standard | [[Microsoft Execution Containers]] | Security & Identity MOC |
+| 🟡 stub | T2 | standard | [[Microsoft IQ]] | Data & Knowledge MOC |
+| 🟡 stub | T2 | standard | [[Microsoft Scout]] | Copilot MOC |
+| 🟡 stub | T2 | standard | [[Web IQ]] | Data & Knowledge MOC |
+| 🟡 stub | T2 | standard | [[Work IQ]] | Data & Knowledge MOC |
 | 🟢 deep | T3 | passive | [[Azure OpenAI Service Pricing]] | Azure AI MOC |
 | 🟢 deep | T3 | passive | [[Azure OpenAI Responses API]] | Azure AI MOC |
 | 🟢 deep | T3 | passive | [[Azure Cosmos DB for AI]] | Data & Knowledge MOC |
@@ -190,6 +198,9 @@ Jede Product-Note im Vault hat diese MOC im Frontmatter. Sie ist die **oberste N
 | 🟢 deep | T3 | passive | [[Microsoft Fabric]] | Data & Knowledge MOC |
 | 🟢 deep | T3 | passive | [[Microsoft AI Developer Tooling]] | Integration & Compute MOC |
 | 🟢 deep | T3 | passive | [[Purview Data Map]] | Security & Identity MOC |
+| 🟡 stub | T3 | passive | [[Agent Control Specification]] | Security & Identity MOC |
+| 🟡 stub | T3 | passive | [[Aion Models]] | Azure AI MOC |
+| 🟡 stub | T3 | passive | [[Fabric IQ]] | Data & Knowledge MOC |
 
 <!-- AUTO-INDEX-END: research-status -->
 

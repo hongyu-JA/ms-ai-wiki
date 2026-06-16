@@ -50,8 +50,10 @@ Einstieg für regulierte Branchen und Compliance-sensitive Projekte. Diese MOC b
 | 🟢 [[Azure AI Content Safety]] | Prompt Shields als Eingangs-Filter, Content-Filter | T2 | standard |
 | 🟢 [[Defender for AI]] | Runtime-Schutz gegen Prompt Injection, Jailbreak | T2 | standard |
 | 🟢 [[Microsoft Entra Suite]] | Identity-Bundle, Voraussetzung für Entra Agent ID, Teil von E7 | T2 | standard |
+| 🟡 [[Microsoft Execution Containers]] | OS-Level Agent-Sandbox (4 Isolations-Stufen) — capability-basiert; FINMA-relevant für Production-Agents | T2 | standard |
 | 🟢 [[Microsoft Purview]] | Compliance-Dach: Governance + Security + Compliance (inkl. DSPM, Data Map, Sensitivity Labels) | T2 | standard |
 | 🟢 [[Purview DSPM]] | Data Security Posture Management — kontinuierliches Risk-Scoring sensitiver Daten | T2 | standard |
+| 🟡 [[Agent Control Specification]] | Portabler Agent-Governance-Standard (offene Spec) — Attestation-Baustein real; Spec-Release Q3/2026 | T3 | passive |
 | 🟢 [[Purview Data Map]] | Data-Governance-Säule von Purview (Data Catalog) — Kontrast zu DSPM | T3 | passive |
 
 <!-- AUTO-INDEX-END: produkte -->

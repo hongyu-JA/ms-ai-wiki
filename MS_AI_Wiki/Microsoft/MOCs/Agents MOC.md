@@ -67,6 +67,7 @@ Das semantische Modell: **drei Schichten × Reifegrad**.
 | 🟢 [[Copilot Studio]] | Low-Code-Agent-Builder im M365-Ökosystem, inkl. Declarative Agents, Agent Builder, Cowork | T1 | close |
 | 🟢 [[Microsoft Agent Framework]] | Pro-Code-Framework (.NET/Python) für Agent-Logik, Multi-Agent, Tool-Use — GA 2026-04-07, Python SDK 1.1.0 | T1 | close |
 | 🟢 [[Model Context Protocol]] | Cross-cutting Tool-Standard, GA in Copilot Studio / Foundry / Functions / Windows | T1 | close |
+| 🟡 [[Agent Orchestrator]] | Multi-Framework-Agent-Orchestrierung (heterogene Teams) — Koexistenz-Pfad statt Migration; Preview 08/2026 | T2 | standard |
 | 🟢 [[M365 Agents SDK]] | Hosting-/Runtime-Layer, ersetzt Bot Framework; Activity-Protocol bleibt | T2 | standard |
 | 🟢 [[Teams SDK]] | Teams-spezifische UI/UX-Schicht (Adaptive Cards, Teams-Events); ergänzt M365 Agents SDK | T2 | standard |
 | 🟢 [[deprecated/AutoGen]] | 🟡 Konsolidiert in MAF — Research-Features teilweise experimental | T2 · 🔻 | passive |

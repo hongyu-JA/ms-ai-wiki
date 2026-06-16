@@ -54,6 +54,8 @@ Einstieg für alle Kundengespräche, bei denen es um **Copilot-basierte Produkti
 | ------- | ------------------- | ---- | ----- |
 | 🟢 [[Microsoft 365 Copilot]] | Dach-Produkt, Kunden-primäre Erfahrung mit MS-AI | T1 | close |
 | 🟢 [[Microsoft 365 Copilot Connectors]] | Graph-Connector-Ökosystem zum Grounden auf Kundendaten | T2 | standard |
+| 🟡 [[GitHub Copilot App]] | Native Cross-Model Coding-IDE (Multi-Agent-Squad) — Desktop-App, ergänzt VS-Code-Plugin | T2 | standard |
+| 🟡 [[Microsoft Scout]] | Always-on Personal-Agent (M365 Frontier) — ⚠ Governance-Workshop nötig vor Rollout (Mitarbeiter-Tracking) | T2 | standard |
 | 🟢 [[Dynamics 365 Agents]] | AI-Agents speziell in Dynamics 365 (Sales, Customer Service, Finance) — nur bei D365-Kunden relevant | T3 | passive |
 
 <!-- AUTO-INDEX-END: produkte -->

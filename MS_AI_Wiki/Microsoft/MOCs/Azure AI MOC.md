@@ -82,6 +82,8 @@ Ergänzend außerhalb Foundry:
 | 🟢 [[Azure Machine Learning]] | Klassische ML-Plattform — v1 ist Deprecation-Kandidat | T1 | passive |
 | 🟢 [[Azure AI Content Understanding]] | Multimodale Content-Analyse (Text/Bild/Video/Audio) mit Schema-gesteuertem Output — Teil von Foundry Tools | T2 | standard |
 | 🟢 [[Azure AI Document Intelligence]] | OCR + Dokumenten-Struktur-Erkennung (Rechnungen, Verträge, Formulare) — SMB-Einstiegs-Use-Case, ex Form Recognizer | T2 | standard |
+| 🟡 [[MAI Models]] | ⚠ Microsoft First-Party-Modelle (Build-2026-Keynote) — 7 Modellnamen NICHT im Azure-Catalog; real First-Party = Phi-4 | T2 | standard |
+| 🟡 [[Aion Models]] | On-Device-Modelle für Windows 12 (Windows AI APIs) — nicht im Azure-Catalog, Edge-Feature; real = Phi-4-Familie | T3 | passive |
 | 🟢 [[Azure OpenAI Service Pricing]] | PAYG vs PTU vs Batch — Kostenoptimierung | T3 | passive |
 | 🟢 [[Azure OpenAI Responses API]] | Neuer Response-API-Standard — Assistants-API-Nachfolger für Azure-OpenAI-Direktzugriff | T3 | passive |
 

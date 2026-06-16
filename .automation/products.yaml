@@ -560,3 +560,129 @@ products:
     sources: [devblogs-semantic-kernel]
     changelog_trigger_sections: ["Status & Pricing", "Migrationspfad zu MAF"]
     enabled: true
+
+  # ==================================================================
+  # Build 2026 — neue Produkte (Stub, 2026-06-03; Azure-verifiziert 2026-06-08)
+  # status: stub_build_2026 — siehe POC-Verifikation in den Notes
+  # ==================================================================
+
+  - slug: mai-models
+    note: "MAI Models.md"
+    primary_home_moc: "Azure AI MOC"
+    tagline: "⚠ Microsoft First-Party-Modelle (Build-2026-Keynote) — 7 Modellnamen NICHT im Azure-Catalog; real First-Party = Phi-4"
+    tier: 2
+    watch: standard
+    keywords: ["MAI Models", "MAI Model Family", "MAI-Thinking", "MAI-Code", "MAI-DS-R1"]
+    sources: [devblogs-foundry, azure-updates]
+    changelog_trigger_sections: ["POC-Verifikation gegen echtes Azure-Catalog", "Beratungs-Relevanz für Journai"]
+    enabled: true
+
+  - slug: aion-models
+    note: "Aion Models.md"
+    primary_home_moc: "Azure AI MOC"
+    tagline: "On-Device-Modelle für Windows 12 (Windows AI APIs) — nicht im Azure-Catalog, Edge-Feature; real = Phi-4-Familie"
+    tier: 3
+    watch: passive
+    keywords: ["Aion Models", "Aion Instruct", "Aion Plan", "Windows AI APIs"]
+    sources: [devblogs-foundry]
+    changelog_trigger_sections: ["POC-Verifikation gegen echtes Azure", "Hardware-Voraussetzungen"]
+    enabled: true
+
+  - slug: microsoft-iq
+    note: "Microsoft IQ.md"
+    primary_home_moc: "Data & Knowledge MOC"
+    tagline: "Umbrella der IQ-Familie (Work/Web/Fabric/Foundry IQ) — kuratiertes, regelkonformes Grounding-Knowledge"
+    tier: 2
+    watch: standard
+    keywords: ["Microsoft IQ", "IQ Familie", "MS IQ", "IQ Suite"]
+    sources: [devblogs-foundry]
+    changelog_trigger_sections: ["POC-Verifikation gegen echtes Azure", "Die vier IQ-Bausteine"]
+    enabled: true
+
+  - slug: work-iq
+    note: "Work IQ.md"
+    primary_home_moc: "Data & Knowledge MOC"
+    tagline: "M365-Produktivitäts-Knowledge als API — semantische Schicht über Microsoft Graph"
+    tier: 2
+    watch: standard
+    keywords: ["Work IQ", "Work IQ APIs", "M365 Work IQ"]
+    sources: [m365-roadmap, devblogs-microsoft365dev]
+    changelog_trigger_sections: ["POC-Verifikation gegen echtes Azure", "Beratungs-Relevanz"]
+    enabled: true
+
+  - slug: web-iq
+    note: "Web IQ.md"
+    primary_home_moc: "Data & Knowledge MOC"
+    tagline: "MCP-natives Web-Grounding mit Quellen-Whitelist (Banking-tauglich) — Microsofts ChatGPT-Search-Antwort"
+    tier: 2
+    watch: standard
+    keywords: ["Web IQ", "Microsoft Web IQ"]
+    sources: [devblogs-foundry]
+    changelog_trigger_sections: ["POC-Verifikation gegen echtes Azure", "Quellen-Whitelist für regulierte Kunden"]
+    enabled: true
+
+  - slug: fabric-iq
+    note: "Fabric IQ.md"
+    primary_home_moc: "Data & Knowledge MOC"
+    tagline: "OneLake/Lakehouse-Knowledge mit Ontologie-Reasoning — ⚠ Microsoft.Fabric auf Journai-Core NotRegistered"
+    tier: 3
+    watch: passive
+    keywords: ["Fabric IQ", "Microsoft Fabric IQ"]
+    sources: [devblogs-foundry, azure-updates]
+    changelog_trigger_sections: ["POC-Verifikation gegen echtes Azure", "Pre-Beratung: Reifegrad-Check"]
+    enabled: true
+
+  - slug: github-copilot-app
+    note: "GitHub Copilot App.md"
+    primary_home_moc: "Copilot MOC"
+    tagline: "Native Cross-Model Coding-IDE (Multi-Agent-Squad) — Desktop-App, ergänzt VS-Code-Plugin"
+    tier: 2
+    watch: standard
+    keywords: ["GitHub Copilot App", "GitHub Copilot Desktop", "Copilot App"]
+    sources: [m365-roadmap, maf-github-releases]
+    changelog_trigger_sections: ["POC-Verifikation gegen echtes Azure", "Pricing"]
+    enabled: true
+
+  - slug: microsoft-scout
+    note: "Microsoft Scout.md"
+    primary_home_moc: "Copilot MOC"
+    tagline: "Always-on Personal-Agent (M365 Frontier) — ⚠ Governance-Workshop nötig vor Rollout (Mitarbeiter-Tracking)"
+    tier: 2
+    watch: standard
+    keywords: ["Microsoft Scout", "MS Scout", "Personal Microsoft Agent"]
+    sources: [m365-roadmap]
+    changelog_trigger_sections: ["POC-Verifikation gegen echtes Azure", "Compliance-Sprengstoff für Schweizer Kunden"]
+    enabled: true
+
+  - slug: agent-orchestrator
+    note: "Agent Orchestrator.md"
+    primary_home_moc: "Agents MOC"
+    tagline: "Multi-Framework-Agent-Orchestrierung (heterogene Teams) — Koexistenz-Pfad statt Migration; Preview 08/2026"
+    tier: 2
+    watch: standard
+    keywords: ["Agent Orchestrator", "Foundry Agent Orchestrator", "Agent Orchestration Service"]
+    sources: [devblogs-foundry, maf-github-releases]
+    changelog_trigger_sections: ["POC-Verifikation gegen echtes Azure", "Migrations-Pfade"]
+    enabled: true
+
+  - slug: microsoft-execution-containers
+    note: "Microsoft Execution Containers.md"
+    primary_home_moc: "Security & Identity MOC"
+    tagline: "OS-Level Agent-Sandbox (4 Isolations-Stufen) — capability-basiert; FINMA-relevant für Production-Agents"
+    tier: 2
+    watch: standard
+    keywords: ["Microsoft Execution Containers", "MXC", "Agent Containers"]
+    sources: [devblogs-foundry, devblogs-identity]
+    changelog_trigger_sections: ["POC-Verifikation gegen echtes Azure", "Performance-Overhead"]
+    enabled: true
+
+  - slug: agent-control-specification
+    note: "Agent Control Specification.md"
+    primary_home_moc: "Security & Identity MOC"
+    tagline: "Portabler Agent-Governance-Standard (offene Spec) — Attestation-Baustein real; Spec-Release Q3/2026"
+    tier: 3
+    watch: passive
+    keywords: ["Agent Control Specification", "Agent Control Spec", "Agent Governance Spec"]
+    sources: [devblogs-foundry, devblogs-identity]
+    changelog_trigger_sections: ["POC-Verifikation gegen echtes Azure", "Verhältnis zum EU AI Act"]
+    enabled: true
