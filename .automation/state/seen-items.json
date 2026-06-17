@@ -1788,7 +1788,7 @@
   "m365-roadmap::481147": "2026-05-02",
   "m365-roadmap::480726": "2026-05-02",
   "m365-roadmap::480725": "2026-05-02",
-  "m365-roadmap::481154": "2026-05-02",
+  "m365-roadmap::481154": "2026-06-17",
   "m365-roadmap::480734": "2026-05-02",
   "m365-roadmap::480730": "2026-05-02",
   "m365-roadmap::477364": "2026-05-02",
@@ -2587,9 +2587,13 @@
   "m365-roadmap::565374": "2026-06-16",
   "m365-roadmap::565372": "2026-06-16",
   "m365-roadmap::565221": "2026-06-16",
-  "m365-roadmap::565218": "2026-06-16",
+  "m365-roadmap::565218": "2026-06-17",
   "m365-roadmap::565215": "2026-06-16",
   "m365-roadmap::565132": "2026-06-16",
   "devblogs-microsoft365dev::https://devblogs.microsoft.com/microsoft365dev/?p=25816": "2026-06-16",
-  "devblogs-microsoft365dev::https://devblogs.microsoft.com/microsoft365dev/?p=25824": "2026-06-16"
+  "devblogs-microsoft365dev::https://devblogs.microsoft.com/microsoft365dev/?p=25824": "2026-06-16",
+  "azure-updates::562497": "2026-06-17",
+  "azure-updates::562027": "2026-06-17",
+  "m365-roadmap::566203": "2026-06-17",
+  "m365-roadmap::565860": "2026-06-17"
 }
