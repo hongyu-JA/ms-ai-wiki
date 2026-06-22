@@ -1,7 +1,7 @@
 ---
 type: moc
 tags: [moc, microsoft, integration, compute]
-last_verified: 2026-06-16
+last_verified: 2026-06-22
 ---
 
 # Integration & Compute MOC
